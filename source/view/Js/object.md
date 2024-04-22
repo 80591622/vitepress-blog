@@ -1,19 +1,7 @@
----
-abbrlink: 8d95f7e0
-title: Object的方法简单整理
-date: 2018-01-16
-sticky: 101
-cover: https://ae01.alicdn.com/kf/Hc0045b384f5545948d32ae26970953cek.jpg
-categories: 
-- JS
-- Object的方法简单整理
----
 
-<strong class='old-blog'>Object的方法简单整理</strong>
 
-[[toc]]
-
-### Object.create()
+# Object的方法简单整理
+## Object.create()
 
 描述：该方法创建一个新对象，将对象继承到__proto__属性上<br/>
 格式：Object.create(proto[, propertiesObject])<br/>
@@ -42,7 +30,7 @@ var o = Object.create(proto);
 ```
 
 
-### Object.defineProperty() 
+## Object.defineProperty() 
 
 Object.defineProperty(obj, prop, descriptor)
 
@@ -63,7 +51,7 @@ Object.defineProperty(obj, 'name', {
 console.log(obj.name)  //张三
 ```
 
-### 对象的数据属性
+## 对象的数据属性
 
 ```javascript
 var person = {}
@@ -106,7 +94,7 @@ Object.getOwnPropertyDescriptor(person,'name') // 返回自身属性
 }
 ```
 
-### Object.defineProperties()
+## Object.defineProperties()
 
 Object.defineProperties(obj, props)
 
@@ -132,7 +120,7 @@ console.log(obj) // 张三, 18
 ```
 
 
-### Object.getPrototypeOf()
+## Object.getPrototypeOf()
 
 描述：用于读取一个对象的原型对象；
 
@@ -145,7 +133,7 @@ Object.getPrototypeOf('foo') === String.prototype === 'foo'.__proto__ // true
 Object.getPrototypeOf(true) === Boolean.prototype === true.__proto__ // true
 ```
 
-### Object.setPrototypeOf(
+## Object.setPrototypeOf(
 
 描述: Object.setPrototypeOf方法的作用与_proto_相同，用来设置一个对象的prototype对象，返回参数对象本身
 
@@ -175,7 +163,7 @@ obj.y // 20
 obj.z // 40
 ```
 
-### keys & values & entries
+## keys & values & entries
 
 - Object.keys   键
 - Object.values  值 
@@ -209,7 +197,7 @@ for (const value in obj) {
 }
 ```
 
-### Object.keys、Object.getOwnPropertyNames区别
+## Object.keys、Object.getOwnPropertyNames区别
 
 ```javascript
 var obj = { "prop1": "v1" };
@@ -230,7 +218,7 @@ console.log(Object.getOwnPropertyNames(obj).length);    //output：2
 
 
 
-### Object 的 set 和 get 用法
+## Object 的 set 和 get 用法
 
 在初始化对象的时候这样使用
 
@@ -275,7 +263,7 @@ obj.c=3  //c被赋值： 3
 obj.c  //c被取出:  3
 ```
 
-### Object.fromEntries()
+## Object.fromEntries()
 
 ES10新增
 
@@ -291,7 +279,7 @@ console.log(obj);
 // expected output: Object { foo: "bar", baz: 42 }
 ```
 
-### lodash/pick
+## lodash/pick
 
 ```javascript
 /**
@@ -326,7 +314,7 @@ pick(data,['a','b'])  // {a: 11, b: 2}
 JSON.parse(JSON.stringify(data,['a','b'])) // {a: 11, b: 2}
 ```
 
-### 浅拷贝/深拷贝
+## 浅拷贝/深拷贝
 
 ```javascript
 //浅克隆 [层级嵌套不能超过2级,包括2级]
@@ -412,7 +400,7 @@ const deepClone = (target, map = new WeakMap()) => {
 
 ```
 
-### 对象转原始类型是根据什么流程运行的？
+## 对象转原始类型是根据什么流程运行的？
 
 对象转原始类型，会优先调用内置的[ToPrimitive]函数，对于该函数而言，其逻辑如下：
 
@@ -438,7 +426,7 @@ const deepClone = (target, map = new WeakMap()) => {
 console.log(obj + 1); // 输出7
 ```
 
-### 如何让if(a == 1 && a == 2)条件成立？
+## 如何让if(a == 1 && a == 2)条件成立？
 
 就是上面例子的应用
 
@@ -454,9 +442,9 @@ console.log(a == 1 && a == 2,a);//true
 ```
 
 
-### 对象比较
+## 对象比较
 
-#### hashcode
+### hashcode
 
 javascript 对象的比较是比较坑爹的一件事，因为javascript对象比较的是引用地址，当两个引用地址相同的对象总是相等的,或者两个完全一样的对象也是不相等的。
 
@@ -510,7 +498,7 @@ var test2=hashCode(JSON.stringify(object2));
 console.log(test1,test2,test1===test2);  //true
 ```
 
-#### 递归
+### 递归
 
 ```javascript
 /*
@@ -551,6 +539,6 @@ const isEqual = (obj1, obj2) => {
 };
 ```
 
-### 参考文档
+## 参考文档
  
 [MDN OBJECT](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)

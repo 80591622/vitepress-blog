@@ -1,17 +1,7 @@
----
-abbrlink: d0f8efd3
-title: CSS使用锦囊
-date: 2017-01-16
-tag: css
-categories: 
-- Project
-- Css
----
 
-<strong class='old-blog'>CSS使用锦囊</strong>
 
-[[toc]]
-
+# CSS使用锦囊
+##
 <div style="margin-left: -6px; margin-right: -6px;">
     <div class="el-col-6" style="padding-left: 6px; padding-right: 6px;">
         <div class="demo-color-box" style="background: #409EFF;">
@@ -53,7 +43,7 @@ categories:
  
  
 
-### calc方法 
+## calc方法 
 ```css
 - html{ font-size: calc(1em + 1vw); }
 ```
@@ -65,7 +55,7 @@ categories:
 -  calc(~"100% - 30px")
 ```
 
-### animate动画-停在动画最后的的那个画面
+## animate动画-停在动画最后的的那个画面
 
 ```css
 animation: downIn 0.5s;
@@ -77,7 +67,7 @@ animation-fill-mode: forwards;
 }
 ```
 
-### nth-child() & nth-of-type()
+## nth-child() & nth-of-type()
 
 **:nth-child(n)** 选择器匹配父元素和属于其父元素的第N个子元素，`不论元素的类型`。
 
@@ -94,7 +84,7 @@ animation-fill-mode: forwards;
 <div style="background-color:khaki;"></div>  // nth-child(6)
 ```
 
-### 超出隐藏
+## 超出隐藏
    
 ```css
 .info:after {
@@ -111,7 +101,7 @@ animation-fill-mode: forwards;
 }
 ```
 
-### 多行超出隐藏 
+## 多行超出隐藏 
 
 ```css
 .info{
@@ -124,7 +114,7 @@ animation-fill-mode: forwards;
 }
 ```
 
-### 三角形 | 旋转三角效果 | 0.5像素的线
+## 三角形 | 旋转三角效果 | 0.5像素的线
 
 ```css
  &:nth-child(1):before {
@@ -175,7 +165,7 @@ transform: skewX(-20deg);
 }
 ```
 
-### loading
+## loading
 
 ```css
 .loading
@@ -213,7 +203,7 @@ transform: skewX(-20deg);
 }
 ```
 
-### 伪类面包屑
+## 伪类面包屑
 ```css
 <ul class="breadcrumb">
     <li><a href="#">Home</a>
@@ -249,7 +239,7 @@ const elm = document.documentElement
 elm.style.setProperty("background-color", "yellow");
 ```
 
-### Css的两种盒模型
+## Css的两种盒模型
 
 **旧博客**
 [ Css的两种盒模型](/workspace/Css/box-sizing/) 
@@ -257,7 +247,7 @@ elm.style.setProperty("background-color", "yellow");
 **新博客**
 [Css的两种盒模型](http://blog.wk.jing999.cn//2019/01/21/workspace/Css/box-sizing/) 
 
-### 清除浮动
+## 清除浮动
 
 **旧博客**
 [清除浮动的几种方法](/workspace/Css/clearfix/)
@@ -265,7 +255,7 @@ elm.style.setProperty("background-color", "yellow");
 **新博客**
 [清除浮动的几种方法](http://blog.wk.jing999.cn/2018/01/20/workspace/Css/clearfix/)
 
-### BFC
+## BFC
 
 **旧博客**
 [bfc详解](/workspace/Css/bfc/)
@@ -273,7 +263,7 @@ elm.style.setProperty("background-color", "yellow");
 **新博客**
 [bfc详解](http://blog.wk.jing999.cn/2018/01/20/workspace/Css/bfc/)
 
-### display:none opacity:0以及visibility:hidden的区别
+## display:none opacity:0以及visibility:hidden的区别
 
 **旧博客**
 [区别](/workspace/Css/hidden/)
@@ -281,7 +271,7 @@ elm.style.setProperty("background-color", "yellow");
 **新博客**
 [区别](http://blog.wk.jing999.cn/2018/01/20/workspace/Css/hidden/)
 
-### CSS九宫格布局实现
+## CSS九宫格布局实现
 
 **旧博客**
 [CSS九宫格布局实现](/workspace/Css/lattice/)
@@ -295,12 +285,12 @@ elm.style.setProperty("background-color", "yellow");
     margin-bottom: 0;
 }
 ```
-### CSS实现正六边形
+## CSS实现正六边形
 
 [github](https://github.com/web-tiki/responsive-grid-of-hexagons)
 
 
-### 美化滚动条
+## 美化滚动条
 
 ```css
 /* 设置滚动条的样式 */
@@ -323,7 +313,7 @@ elm.style.setProperty("background-color", "yellow");
 }
 ```
 
-### 移动端viewport
+## 移动端viewport
 
 ```html
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover">
@@ -339,7 +329,7 @@ user-scalable:是否可对页面进行缩放，no 禁止缩放
 viewport-fit=cover：兼容iPhoneX刘海全屏
 ```
 
-### 移动端1px很粗的问题
+## 移动端1px很粗的问题
 
 在做移动端开发时,设计师提供的视觉稿一般是750px,当你定义 border-width:1px时,在iphone6手机上却发现:边框变粗了。
 这是因为,1px是相对于750px的(物理像素),而我们定义的1px是相对于375px的(css像素)“实际上应该是border-width:0.5px”.
@@ -403,7 +393,7 @@ window.onresize = function () {
 [https://www.cnblogs.com/maqingbo/p/7528861/](https://www.cnblogs.com/maqingbo/p/7528861/)
 
 
-### rem原理
+## rem原理
 
 rem布局的本质是`等比缩放`，一般是基于宽度，假设将屏幕宽度分为100份，每份宽度是1rem，1rem的宽度是屏幕宽度/100,，然后子元素设置rem单位的属性，
 通过改变html元素的字体大小，就可以设置子元素的实际大小。
@@ -418,7 +408,7 @@ vw(1vw是视口宽度的1%，100vw就是视口宽度),vh(100vh就是视口高度
 
 
 
-### scss Mixins
+## scss Mixins
 
 ```scss
 $warning: #ead1a6;
@@ -485,7 +475,7 @@ $dpr: 2 !default;
 
 ```
 
-### less Mixins
+## less Mixins
 
 ```css{1}
 @import '~antd/es/style/themes/default.less';
@@ -558,7 +548,7 @@ $dpr: 2 !default;
 
 ``` 
 
-### cssModules
+## cssModules
 
 **旧博客**
 [cssModules](/workspace/Css/cssModules/)
@@ -567,7 +557,7 @@ $dpr: 2 !default;
 [cssModules](http://blog.wk.jing999.cn/2018/01/20/workspace/Css/cssModules/)
 
 
-### ✄ Flex弹性布局
+## ✄ Flex弹性布局
 
 **旧博客**
 [Flex弹性布局](/workspace/Css/flex/)
@@ -576,7 +566,7 @@ $dpr: 2 !default;
 [Flex弹性布局](http://blog.wk.jing999.cn/2018/01/20/workspace/Css/flex/)
 
 
-### PostCSS
+## PostCSS
 
 **什么是postcss**
 
@@ -635,7 +625,7 @@ module.exports = {
 }
 ```
 
-### 暗黑模式
+## 暗黑模式
 
 ```html
 @media (prefers-color-scheme: dark) { // 黑暗模式 
@@ -661,7 +651,7 @@ module.exports = {
 
 [文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme)
 
-### SVG favicon
+## SVG favicon
 
 favicon 支持实现黑白模式
 
@@ -684,7 +674,7 @@ favicon 支持实现黑白模式
 </svg>
 ```
 
-### 如何设置body背景色，height:100%,不生效？
+## 如何设置body背景色，height:100%,不生效？
 ```css
 //同时设置html，body的高度
 html,body{
@@ -695,14 +685,14 @@ body{
   height: 100vh; // 代表占屏幕100%
 }
 ```
-### 去除ios 手机端input输入框的内阴影
+## 去除ios 手机端input输入框的内阴影
 ```css
 input{ 
     -webkit-appearance: none; 
 }
 ```
 
-### iOS端input输入框光标错位
+## iOS端input输入框光标错位
 
 是由于fixed定位引起的，改成absolute就解决了。
 
@@ -712,7 +702,7 @@ input{
 }
 ```
 
-### 图片显示中间部分
+## 图片显示中间部分
 
 [object-fit](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit)
 
@@ -723,38 +713,38 @@ object-fit: cover;
 object-position: 50% 50%;
 ```
 
-### iOS下取消input在输入的时候英文首字母的默认大写
+## iOS下取消input在输入的时候英文首字母的默认大写
 
 ```css
 
 <input type="text" autocapitalize="none">
 ```
 
-### 禁止 iOS 识别长串数字为电话
+## 禁止 iOS 识别长串数字为电话
 
 ```css
 <meta name="format-detection" content="telephone=no" />
 ```
 
-### 一些情况下对非可点击元素如(label,span)监听click事件，ios下不会触发
+## 一些情况下对非可点击元素如(label,span)监听click事件，ios下不会触发
 
 ```css
 cursor: pointer;
 ```
 
-### 禁止ios和android用户选中文字
+## 禁止ios和android用户选中文字
 
 ```css
 -webkit-user-select: none;
 ```
 
-### 利用灰色滤镜做灰色图
+## 利用灰色滤镜做灰色图
 
 ```css
 -webkit-filter: grayscale(1);
 ```
 
-### 页面自适应最佳实践
+## 页面自适应最佳实践
 
 ```css
 html {

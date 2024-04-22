@@ -1,21 +1,11 @@
----
-abbrlink: b40b02c9
-title: for in和for of区别
-date: 2018-01-16
-categories: 
-- JS
-- for in和for of区别
----
 
-<strong class='old-blog'>for in和for of区别</strong>
-
-[[toc]]
+# for in和for of区别
 
 ### for in
 
 以任意顺序遍历一个对象的[可枚举属性](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties)。遍历数组时，key为数组下标字符串；遍历对象，key为对象字段名。
 
-#### 数组
+## 数组
 
 ``` js
 let arr = [{age: 1}, {age: 5}, {age: 100}, {age: 34}]
@@ -44,7 +34,7 @@ for (let key in arr) {
 }
 ```
 
-#### 对象
+## 对象
 
 ``` js
 let obj = {f1: 'test1', f2: 'test2'}
@@ -58,7 +48,7 @@ for (let key in obj) {
 
 
 
-#### for in 缺点
+## for in 缺点
 
 1. for in 迭代顺序依赖于执行环境，不一定保证顺序
 1. for in 不仅会遍历当前对象，还包括原型链上的可枚举属性
@@ -66,7 +56,7 @@ for (let key in obj) {
 1. for in 不适合遍历数组，主要应用为对象
 
 
-#### Object.keys()和for in的区别
+## Object.keys()和for in的区别
 
 - 遍历结果为由对象自身可枚举属性组成的`数组`，数组中的属性名排列顺序与使用for in循环遍历该对象时返回的顺序一致；
 - 与for in区别在于`不能遍历`出原型链上的属性；
@@ -77,7 +67,7 @@ ES6引入的新语法。在`可迭代对象`（包括 Array，Map，Set，String
 
 `Object对象不是可迭代对象，故for of 不支持。`for of有个很大的特点是支持数组的break中断。
 
-#### 数组
+## 数组
 
 ``` js
 let arr = [{age: 1}, {age: 5}, {age: 100}, {age: 34}]
@@ -92,7 +82,7 @@ for(let {age} of arr) {
 // 5
 ```
 
-#### 三个数组：arr1=[1,2,3,4],arr2=[4,5,6],arr3=[5],将arr1与arr2合并，去重，然后返回不包含arr3中元素的新数组（用es6标准的新特性实现）
+## 三个数组：arr1=[1,2,3,4],arr2=[4,5,6],arr3=[5],将arr1与arr2合并，去重，然后返回不包含arr3中元素的新数组（用es6标准的新特性实现）
 
 ```javascript
 
@@ -110,7 +100,7 @@ function fn(arr1, arr2, arr3) {
 }
 ```
 
-#### for of 优点
+## for of 优点
 
 1. for of 有与for in 一样的简洁语法（这也是两者容易混乱的点），但没有for in的缺点
 1. for of 保证顺序且不会仅遍历当前对象

@@ -1,17 +1,8 @@
----
-abbrlink: 929f57e7
-title: Promise & async
-date: 2018-01-16
-categories: 
-- JS
-- Promise & async
----
 
-<strong class='old-blog'>Promise & async</strong>
 
-[[toc]]
+# Promise & async
 
-### Promise
+## Promise
 
 - 主要用于异步计算
 - 可以将异步操作队列化，按照期望的顺序执行，返回符合预期的结果
@@ -218,7 +209,7 @@ Promise.race = function(values){
 }
 ```
 
-### Generator
+## Generator
 
 - generator也是为了解决地狱回调问题的，和promise一样都是为了实现异步编程，本质还是各种回调；
 - generator为es6中新定义的数据类型，这种数据类型和函数很像，每个函数只能返回一个结果，即只能return一次，
@@ -257,7 +248,7 @@ try{
 done表示generator是否执行结束，只有当执行到return时，这个对象中的done才会变成true，说明执行结束
 
 
-### async/await
+## async/await
 
 原理就是利用 generator（生成器）分割代码片段。然后我们使用一个函数让其自迭代，每一个yield 用 promise 包裹起来。执行下一步的时机由 promise 来控制
 
@@ -363,7 +354,7 @@ asyncFunc().then(res => {
 
 总的来说，async和generator函数主要就是为了解决异步的并发调用使用的 ，直接将参数从then里取出来，相比promise的链式调用，传参更加方便，异步顺序更加清晰
 
-#### 捕获错误
+## 捕获错误
 
 **try catch**
 ```javascript
@@ -392,7 +383,7 @@ const awaitWrap = (promise) => {
 const [err, data] = await awaitWrap(fn())
 ```
 
-#### async函数Generator函数的区别
+## async函数Generator函数的区别
 1.内置执行器。<br/>
 Generator 函数的执行必须靠执行器，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。如果你是从上面顺着看下来的，这里的执行器就是Generator和Iterator的yield和next机制，不用怀疑！
 

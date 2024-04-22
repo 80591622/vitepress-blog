@@ -1,19 +1,8 @@
----
-abbrlink: 19a37b7a
-title: RegExp正则
-date: 2018-01-16
-sticky: 90
-cover: https://ae01.alicdn.com/kf/H72f12806ebc64bf4b13979cf407449d46.jpg
-categories: 
-- JS
-- RegExp正则
----
 
-<strong class='old-blog'>RegExp正则</strong>
 
-[[toc]]
+# RegExp正则
 
-### 正则方法
+## 正则方法
 
 ```javascript
 reg.test(str)  //检验 
@@ -27,7 +16,7 @@ str.replace( reg ,""替换成什么 | callback（替换成什么）)
 
 ### 正则的修饰符、元字符
 
-#### 量词元字符
+## 量词元字符
 
 <span style='display: block;text-align: left;'> 常用指令	</span>|<span style='display: block;text-align: left;'> 描述</span>
 :-------- | :--------  
@@ -41,14 +30,14 @@ str.replace( reg ,""替换成什么 | callback（替换成什么）)
 
 `中文的范围：[ \u4e00 - \u9fa5 ]` （记忆：有事100，有酒罚我）
 
-#### 修饰符有三种
+## 修饰符有三种
 <span style='display: block;text-align: left;'>修饰符</span>|<span style='display: block;text-align: left;'> 说明</span>
 :-------- | :-------- 
 i|忽略大小写匹配
 g|全局匹配，即是匹配一个后继续匹配，直到结束
 m|多行匹配，即是遇到换行后不停止匹配，直到结束
 
-#### 特殊元字符
+## 特殊元字符
 <span style='display: block;text-align: left;'>字符</span>|<span style='display: block;text-align: left;'> 说明</span>|
 :-------- | :-------- 
 \d | 匹配0-9中任意一个数字
@@ -76,7 +65,7 @@ x\|y | 表示x/y中任意一个
 (?!)| 负向预查
 
 
-#### 正向预查、负向预查
+## 正向预查、负向预查
 
 ```javascript
 let reg1 = /x(?=y)/ // 表示匹配x，并且仅当x后紧跟着一个y（匹配紧跟着y的x）

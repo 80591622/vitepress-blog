@@ -1,17 +1,9 @@
----
-abbrlink: caed9240
-title: Event-Loop
-date: 2019-01-11
-categories: 
-- JS
-- Event-Loop
----
 
-<strong class='old-blog'>Event-Loop</strong>
 
-[[toc]]
+# Event-Loop
 
-### 同步 & 异步 & 多线程
+
+## 同步 & 异步 & 多线程
 
 
 **同步与异步的区别**
@@ -29,7 +21,7 @@ categories:
 [运行机制详解](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
 
 
-### JS中的异步操作
+## JS中的异步操作
 
 - 定时函数，如setTimeout setInterval requestAnimationFrame setImmediate(nodeJS) 
 - IO 操作，如readFile readdir
@@ -45,7 +37,7 @@ categories:
 
 
 
-### event-loop（事件轮询）
+## event-loop（事件轮询）
 
 ![](https://ae01.alicdn.com/kf/Hc9dd012443fb4f35bcd41ef829e72834k.jpg)
 
@@ -53,7 +45,7 @@ categories:
 它们在"任务队列"中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取"**任务队列（task queue）**"，依次执行那些事件所对应的回调函数
 
 
-### 宏任务 & 微任务
+## 宏任务 & 微任务
 
 - **浏览器的任务队列:**
    -主任务队列:存储的都是同步任务
@@ -75,7 +67,7 @@ categories:
 
 ### async/await 和 promise 的执行顺序
 
-#### async 
+## async 
 
 **带 async 关键字的函数，它使得你的函数的返回值必定是 promise 对象**,async 函数也没啥了不起的，你就想它无非就是把return值包装了一下，其他就跟普通函数一样,重点是里面的await。
 
@@ -95,7 +87,7 @@ Promise {<resolved>: 123}
 ```
 
 
-#### await
+## await
 
 await等待的是右侧「表达式」的结果
 

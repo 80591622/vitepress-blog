@@ -1,17 +1,8 @@
----
-abbrlink: 86b04971
-title: JS设计模式探索
-date: 2018-01-16
-categories: 
-- JS
-- JS设计模式探索
----
 
-<strong class='old-blog'>JS设计模式探索</strong>
+# JS设计模式探索
 
-[[toc]]
 
-### 单例模式
+## 单例模式
 
 ```javascript
 var singleton = {
@@ -55,13 +46,13 @@ console.log(single.publicVar); // '共有的外面能直接获取'
 ```
 
 
-### 发布订阅模式+观察者模式
+## 发布订阅模式+观察者模式
 
 如下图所示：
 
 <img style="width:50%" src="https://ae01.alicdn.com/kf/Hd0dd34b5adf14ea1a3b9648fa8fa1507b.jpg">
 
-#### 观察者模式
+### 观察者模式
 观察者和被观察者一般是`直接联系`的，相互知道对方的存在。
 
 观察者一般是同步的，被观察者一旦有变化，观察者会立即发生反应
@@ -122,7 +113,7 @@ subject.notify('CTO');
 
 ```
 
-#### 发布订阅模式
+### 发布订阅模式
 
 发布者和订阅者是解耦的，他们是通过一个`介质`（往往是消息队列）执行代码
 
@@ -202,7 +193,7 @@ wk.addEventListener('click', notifyClick);
 loginBtn.removeEventListener('click', notifyClick);
 ```
 
-#### 两种模式的关联和区别
+### 两种模式的关联和区别
 
 发布订阅模式更灵活，是进阶版的观察者模式，`指定`对应分发。
 
@@ -214,7 +205,7 @@ loginBtn.removeEventListener('click', notifyClick);
 
 观察者模式对象间依赖关系较强，发布订阅模式中对象之间实现真正的解耦。
 
-#### 参考文档
+### 参考文档
 
 [观察者模式 vs 发布订阅模式](https://juejin.im/post/5c0a9d9bf265da612909ff1b)
 
@@ -222,7 +213,7 @@ loginBtn.removeEventListener('click', notifyClick);
 
 [观察者模式](https://juejin.im/post/591a4f2a128fe1005cda28df)
 
-### 原型模式
+## 原型模式
 
 
-### 未完待续.......
+## 未完待续.......

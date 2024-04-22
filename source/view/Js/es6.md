@@ -1,29 +1,22 @@
----
-abbrlink: 3e1a3a
-title: ES6-新增特性一览
-date: 2019-01-16
-categories: 
-- JS
-- ES6-新增特性一览
----
 
-<strong class='old-blog'>ES6-新增特性一览</strong>
 
-[[toc]]
+# ES6-新增特性一览
 
-### 1. let/const取代var
 
-### 2. 字符串模板
 
-### 3. 对象解构
+## 1. let/const取代var
 
-### 4. 新数据类型 Symbol
+## 2. 字符串模板
 
-### 5. 新数据结构[Map/Set/WeakMap/WeakSet](https://github.com/lukehoban/es6features#map--set--weakmap--weakset)
+## 3. 对象解构
 
-### 6. [Proxy](https://github.com/lukehoban/es6features#proxies)、[Reflect](https://www.cnblogs.com/zczhangcui/p/6486582.html)
+## 4. 新数据类型 Symbol
 
-### 7. 扩展
+## 5. 新数据结构[Map/Set/WeakMap/WeakSet](https://github.com/lukehoban/es6features#map--set--weakmap--weakset)
+
+## 6. [Proxy](https://github.com/lukehoban/es6features#proxies)、[Reflect](https://www.cnblogs.com/zczhangcui/p/6486582.html)
+
+## 7. 扩展
 
 * 字符串填充（padStart 和 padEnd）
 
@@ -42,7 +35,7 @@ categories:
     * Object.assign()
     * Object. is()
 
-### 8. 异步
+## 8. 异步
 * [Promise](https://github.com/lukehoban/es6features#promises)
     * Promise.prototype.then
     * Promise.prototype.catch
@@ -57,13 +50,13 @@ categories:
 * async/await<sup>`ES8`</sup>
 
 
-### 9. Class类
+## 9. Class类
 
 * class
 * extends
 * decorator<sup>`ES7`</sup>
 
-### 10. Module
+## 10. Module
 
 * import
 * export
@@ -86,7 +79,7 @@ import 'modules';
 
 ```
 
-### 参考文档
+## 参考文档
 
 * [司徒正美](https://zhuanlan.zhihu.com/p/87699079)
 

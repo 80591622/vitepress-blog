@@ -1,24 +1,13 @@
----
-abbrlink: ff7dpppp
-title: 自定义事件
-date: 2020-08-28
-categories: 
-- JS
-- 自定义事件
----
 
-<strong class='old-blog'>自定义事件</strong>
+# 自定义事件
 
-[[toc]]
-
-
-### dispatchEvent
+## dispatchEvent
 
 **已废弃**
 
 [initEvent](https://developer.mozilla.org/zh-CN/docs/Web/API/Event/Event)
 
-#### createEvent()
+## createEvent()
 
 `createEvent()`方法返回新创建的Event对象，支持一个参数，表示事件类型，具体见下表：
 
@@ -30,7 +19,7 @@ categories:
 
 
 
-#### initEvent()
+## initEvent()
 
 `initEvent()`方法用于初始化通过`DocumentEvent`接口创建的Event的值。
 
@@ -43,7 +32,7 @@ categories:
 
 
 
-#### dispatchEvent()
+## dispatchEvent()
 
 `dispatchEvent()`就是触发执行了，`dom.dispatchEvent(eventObject)`
  参数`eventObject`表示事件对象，是`createEvent()`方法返回的创建的`Event`对象。
@@ -62,7 +51,7 @@ document.dispatchEvent(ev);
 ```
 
 
-### Event (单向)
+## Event (单向)
 
 [Event](https://developer.mozilla.org/zh-CN/docs/Web/API/Event/Event)
 
@@ -91,7 +80,7 @@ myDiv.dispatchEvent(ev);
 
 
 
-### CustomEvent（多向）
+## CustomEvent（多向）
 
 [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)
 

@@ -1,17 +1,4 @@
----
-abbrlink: 4c87a00e
-title: Date时间
-sticky: 89
-date: 2018-01-16
-cover: https://ae01.alicdn.com/kf/H5cc77d6687494019a6fa3d3ded50aa00e.jpg
-categories: 
-- JS
-- Date时间
----
-
-<strong class='old-blog'>Date时间</strong>
-
-[[toc]]
+# Date时间
 
 ```javascript
 // 时间戳
@@ -28,7 +15,7 @@ date2 = new Date().toISOString().slice(0,10);   // 2019-06-16
 typeof date2 // 'object'
 ```
 
-#### 时间戳转标准时间
+## 时间戳转标准时间
 
 // 方法一
 
@@ -87,7 +74,7 @@ const dateFormat = (timeStamp) => {
 }
 ```
 
-#### 倒计时时间格式化
+## 倒计时时间格式化
 
 ```javascript
 // timeStamp 是未来时间 减去 当前时间的差值
@@ -107,7 +94,7 @@ function format_time(timeStamp) {
 }
 ```
 
-#### 距离现在多久
+## 距离现在多久
 
 ```javascript
 const SECOND = 1000
@@ -133,7 +120,7 @@ function formatToInterval(timestamp) {
 }
 ```
 
-#### 坑点 
+## 坑点 
 
 
 ```js

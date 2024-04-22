@@ -1,18 +1,8 @@
----
-abbrlink: ec823e87
-title: leetCode
-date: 2019-03-19
-tags: leetcode
-categories: 
-- Project
-- leetCode
----
 
-<strong class='old-blog'>leetCode</strong>
 
-[[toc]]
+# leetCode
 
-### 两数之和
+## 两数之和
 
 **示例：**
 
@@ -52,7 +42,7 @@ var twoSum = function(nums, target) {
 };
 ```
 
-### 1,2,3,5,8...求第一百个数
+## 1,2,3,5,8...求第一百个数
 
 ```javascript
 function findIndexNum(n){
@@ -70,7 +60,7 @@ function findIndexNum(n){
 findIndexNum(100)
 ```
 
-### 求数组中连续数最大个数
+## 求数组中连续数最大个数
 
     给定一个数组, 里面的元素全部由0和1组成, 计算其中最大连续1的个数
     
@@ -97,7 +87,7 @@ function isBiggest(arr) {
 }
 ```
 
-###  [组合总和 III](https://leetcode-cn.com/problems/combination-sum-iii/)
+##  [组合总和 III](https://leetcode-cn.com/problems/combination-sum-iii/)
 
 示例 1:
 

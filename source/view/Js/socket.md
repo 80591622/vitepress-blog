@@ -1,15 +1,7 @@
----
-abbrlink: 20dd34b7
-title: WebSocket & socket.io
-date: 2018-01-16
-categories: 
-- JS
-- WebSocket & socket.io
----
 
-<strong class='old-blog'>WebSocket & socket.io</strong>
 
-[[toc]]
+# WebSocket & socket.io
+
 
 **前言**
 
@@ -17,7 +9,7 @@ categories:
 比如即时通讯、即时报价等，为了解决这个问题，便出现了 WebSocket 协议，实现了客户端和服务端双向通信的能力。
 介绍 WebSocket 之前，还是让我们先了解下轮询实现推送的方式。
 
-### 短轮询（Polling）
+## 短轮询（Polling）
 
 短轮询的实现思路就是浏览器端每隔几秒钟向服务器端发送 HTTP 请求，服务端在收到请求后，
 不论是否有数据更新，都直接进行响应。在服务端响应完成，就会关闭这个 TCP 连接，
@@ -35,7 +27,7 @@ setInterval(function() {
 - 优点：实现简单。
 - 缺点：会造成数据在一小段时间内不同步和大量无效的请求，安全性差、浪费资源。
 
-### 长轮询（Long-Polling）
+## 长轮询（Long-Polling）
 
 当服务器收到客户端发来的请求后,服务器端不会直接进行响应，而是先将这个请求挂起，
 然后判断服务器端数据是否有更新。如果有更新，则进行响应，如果一直没有数据，则到达一定的时间限制(服务器端设置)才返回。
@@ -59,7 +51,7 @@ function queryData(){
 而理想的模型是"在服务器端数据有了变化后，可以主动推送给客户端",这种"主动型"服务器是解决这类问题的很好的方案。Web Sockets就是这样的方案。
 
 
-### WebSocket
+## WebSocket
 
 WebSocket是Html5定义的一个新协议，与传统的http协议不同，该协议可以实现服务器与客户端之间全双工通信。简单来说，首先需要在客户端和服务器端建立起一个连接，这部分需要http。
 连接一旦建立，客户端和服务器端就处于平等的地位，可以相互发送数据，不存在请求和响应的区别。
@@ -116,7 +108,7 @@ export default Index;
 
 ```
 
-#### 心跳检测
+### 心跳检测
 
 在实际使用 WebSocket 中，长时间不通消息可能会出现一些连接不稳定的情况，这些未知情况导致的连接中断会影响客户端与服务端之前的通信，
 
@@ -138,7 +130,7 @@ setInterval(() => {
 其中`绿色`箭头表示`发出`的消息，`红色`箭头表示`收到`的消息。
 
 
-### Socket.IO
+## Socket.IO
 
 - 可靠性，Socker.IO基于engine.io实现，先建立长轮询连接后再升级为基于websocket全双工的长连接
 - 自动重连与断连检查
@@ -148,7 +140,7 @@ setInterval(() => {
 
 Socket.io允许你触发或响应自定义的事件，除了connect，message，disconnect这些事件的名字不能使用之外，你可以触发任何`自定义`的事件名称。
 
-#### 建立连接
+### 建立连接
 
 ```javascript
 const query = {
@@ -166,7 +158,7 @@ this.socket.on('connect', () => {
 });
 ```
 
-#### 消息收发
+### 消息收发
 
 ```javascript
 //发送数据
@@ -178,7 +170,7 @@ this.socket.on(`一般是后端定义的字段`, (data) => {
 });
 ```
 
-#### 断开连接
+### 断开连接
 
 ```javascript
 //断开
@@ -192,7 +184,7 @@ this.socket.on('error', (err: any) => console.log('error', new Error(err)))
 ```
 
 
-### 适用场景
+## 适用场景
 
 只从两个方面分析：
 
@@ -201,7 +193,7 @@ this.socket.on('error', (err: any) => console.log('error', new Error(err)))
 **灵活性:** 个人觉得websocket的灵活性更高一些，不管是前端还是后端，可以做更多的设计与优化，比如连接管理，容错重连，用户认证等，至少在提升技术能力上还是很有帮助。
 
 
-### 参考文章
+## 参考文章
 
 [基于 socket.io 快速实现一个实时通讯应用](https://juejin.im/post/5cbd154be51d456e442ff348)
 

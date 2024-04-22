@@ -1,21 +1,6 @@
----
-abbrlink: 97cf9ba4
-title: 技术清单
-date: 2018-01-16
-top: true
-sticky: 9999
-cover: https://s.pc.qq.com/tousu/img/20200909/1008611_1599623728.jpg
-top_img: https://ae01.alicdn.com/kf/He16d19206513432894162a25ed4c59e5c.jpg
 
-categories: 
-- JS
-- 技术清单
----
 
-<strong class='old-blog'>技术清单</strong>
-
-[[toc]]
-
+# 技术清单
 ## js正则删除行内块之间的空格
 
 ```javascript

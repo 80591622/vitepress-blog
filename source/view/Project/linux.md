@@ -1,19 +1,9 @@
----
-abbrlink: 676ff959
-title: shell & ssh
-date: 2019-03-19
-tags: Linux
-categories: 
-- Project
-- Shell
----
 
 
-<strong class='old-blog'>shell & ssh</strong>
 
-[[toc]]
+# shell & ssh
 
-### 日常用到的Shell命令
+## 日常用到的Shell命令
 
 | 命令名      |  功能描述     |
 | ---        |    ---      |
@@ -55,7 +45,7 @@ sed -i '' "s/666/777/g" config | 修改文字 666换成777
 
 find . "(" -name "*.vue" -or -name "*.jsx" -or -name "*.tsx" -or -name "*.css" -or -name "*.less" -or -name "*.scss" -or -name "*.js" -or -name "*.ts" ")" -print | xargs wc -l
 
-### 添加环境变量
+## 添加环境变量
 
 - 临时有效
   - export PATH=$(pwd)/bin:$PATH
@@ -65,7 +55,7 @@ find . "(" -name "*.vue" -or -name "*.jsx" -or -name "*.tsx" -or -name "*.css" -
   - export PATH=/Users/wk/mongodb/bin:$PATH
     - 执行source ~/.bashrc, 立即生效
 
-### VIM
+## VIM
 
 **批量注释**
 
@@ -101,7 +91,7 @@ find . "(" -name "*.vue" -or -name "*.jsx" -or -name "*.tsx" -or -name "*.css" -
 
 然后按下`d`键就可以全部删掉行首的`#`字符了。
 
-### Shell编程
+## Shell编程
 
 ``` bash
 # run: sh depoly.sh 123 123
@@ -149,7 +139,7 @@ do
 done
 ```
 
-### ssh 不能登录服务器
+## ssh 不能登录服务器
 
 提示警告信息如下：
 
@@ -184,7 +174,7 @@ It is also possible that a host key has just been changed.
 然后后再次建立新的连接，即可获得新的公钥。
 
 
-### 关于sshpass使用举例
+## 关于sshpass使用举例
 
 `使用-p参数指定登录密码`
 
@@ -218,7 +208,7 @@ scp root@192.168.0.10:/home/work/source.txt root@192.168.0.11:/home/work/
 scp -r /home/work/sourcedir root@192.168.0.10:/home/work/ 
 ```
 
-### 脚本
+## 脚本
 
 ```bash
 #!/usr/bin/env bash
@@ -227,7 +217,7 @@ tar -czvf '$1' | sshpass -p password ssh root@host 'cd /home -rf;tar -xzvf -'
 
 `脚本用env启动的原因，是因为脚本解释器在linux中可能被安装于不同的目录，env可以在系统的PATH目录中查找。同时，env还规定一些系统环境变量。 `
 
-### linux-ab压力测试
+## linux-ab压力测试
 
 ```bash
 # 基本用法
@@ -318,7 +308,7 @@ Percentage of the requests served within a certain time (ms)
  100%   1135 (longest request)
 ```
 
-### 针对jenkins总结的
+## 针对jenkins总结的
 
 `启动jenkins`<br/>
 java -jar jenkins.war --httpPort=8081

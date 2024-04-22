@@ -1,19 +1,6 @@
----
-abbrlink: ff7d77b7
-title: Array的方法简单整理
-date: 2018-01-17
-sticky: 103
-cover: https://ae01.alicdn.com/kf/Ha83dcdaf656246089bac66796140895eP.jpg
-categories: 
-- JS
-- Array的方法简单整理
----
 
-<strong class='old-blog'>Array的方法简单整理</strong>
-
-[[toc]]
-
-### 快速生成一个数组
+# Array的方法简单整理
+## 快速生成一个数组
 
 ```javascript
 //快速生成一个数组
@@ -50,7 +37,7 @@ Array(100).join(",").split(",").map((key,index)=> index)
 Array.apply(null,Array(100)).map((key,index)=>index)
 ```
 
-### some() & every()
+## some() & every()
 
 every()与some()方法都是JS中数组的迭代方法。
 
@@ -61,7 +48,7 @@ every()与some()方法都是JS中数组的迭代方法。
 <img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="https://ae01.alicdn.com/kf/H1f23b6d819f24380a396fd15d5ed914dA.png">
 
 
-### reduce()
+## reduce()
 
 - reducer 函数接收4个参数:
 
@@ -102,7 +89,7 @@ var newArr = arr.reduce(function (prev, cur) {
 },[]);
 ```
 
-### isArray() 
+## isArray() 
 
 Array.isArray() 用于确定传递的值是否是一个 Array。
 
@@ -127,7 +114,7 @@ Array.myIsArray = function(o) {
 console.log(Array.myIsArray([])); // true
 
 ```
-### slice()
+## slice()
 
 **请注意:** 该方法并`不会修改数组`，而是返回一个子数组。如果想删除数组中的一段元素，应该使用方法 Array.splice()。
 
@@ -163,7 +150,7 @@ Array.prototype.slice = function(start,end){
 ```
 
 
-### splice()
+## splice()
 
 `splice()` 方法通过删除或替换现有元素或者原地添加新的元素来修改数组,并以数组形式返回被修改的内容。此方法会改变原数组。
 
@@ -197,7 +184,7 @@ myFish.splice(0, 2, 'parrot', 'anemone', 'blue'); //["angel", "clown"]
 myFish  //["parrot", "anemone", "blue", "trumpet", "sturgeon"]
 ```
 
-### filter() 实现
+## filter() 实现
 
 filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
 
@@ -239,7 +226,7 @@ Array.prototype.selfFilter = function(callback, context) {
 
 ```
 
-### Map + Set + WeakMap + WeakSet
+## Map + Set + WeakMap + WeakSet
 
 ```javascript
 // Sets
@@ -267,7 +254,7 @@ wm.size === undefined
 
 <img style="border-radius: 4px;width:49%"  src="https://ae01.alicdn.com/kf/Ha1b8b3b1e2db46e6926de265813c5cd3Z.png">
 
-### 数组去重
+## 数组去重
 
 ```javascript
 // 数组去重
@@ -281,7 +268,7 @@ unique([1,2,3,3,2,1,15,6], function(arr, item) {
 
 ```
 
-### forEach中return有效果吗？如何中断forEach循环？
+## forEach中return有效果吗？如何中断forEach循环？
 
 在forEach中用return不会返回，函数会继续执行。
 
@@ -298,7 +285,7 @@ nums.forEach((item, index) => {
 (2). 官方推荐方法（替换方法）：用every和some替代forEach函数。every在碰到return false的时候，中止循环。some在碰到return true的时候，中止循环
 
 
-### js将多维数组转换为一维数组
+## js将多维数组转换为一维数组
 
 ```javascript
 
@@ -370,7 +357,7 @@ let result = str.replace(/(\[|\])/g, '').split(',');
 console.log( result )
 ```
 
-### 数组快速随机排序
+## 数组快速随机排序
 ```javascript
 let arr =[1,2,3,4];
 //方法一
@@ -387,7 +374,7 @@ arr.sort(()=>{
 })
 
 ```
-### 数组排序
+## 数组排序
 
 ```javascript
 function selectSort(arr) {
@@ -421,7 +408,7 @@ function quickSort(arr) {
 
 ```
 
-### 判断数组中是否有重复元素
+## 判断数组中是否有重复元素
 
 ```javascript
 let arr = [1,2,3,4,4]
@@ -448,7 +435,7 @@ function isRepeat(arr) {
 }
 ```
 
-### 求第一个数组中没有第二个数组中部分的值
+## 求第一个数组中没有第二个数组中部分的值
 
 **差集**
 
@@ -487,6 +474,6 @@ function differenceSecond(m, n) {
 
 ```
 
-### 参考文档
+## 参考文档
 
 [MDN ARRAY](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
