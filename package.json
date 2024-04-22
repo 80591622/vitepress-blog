@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "qnpm": "^1.2.9",
+    "yarn": "^1.22.21"
+  },
+  "devDependencies": {
+    "sass": "^1.75.0",
+    "vitepress": "^1.1.0"
+  },
+  "scripts": {    
+    "dev": "vitepress dev source",
+    "build": "vitepress build source",
+    "preview": "vitepress preview source"
+  }
+}
