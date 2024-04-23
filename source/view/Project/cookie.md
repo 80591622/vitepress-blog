@@ -1,15 +1,5 @@
----
-abbrlink: 7ec17189
-title: 简易封装Cookie
-date: 2018-01-16
-categories: 
-- Project
-- 简易封装Cookie
----
 
-<strong class='old-blog'>简易封装Cookie</strong>
-
-[[toc]]
+# 简易封装Cookie
 
 Cookie不仅仅有名字和值两个属性，还有域（domain）、路径（path）等属性。其中，不同的域、不同的路径下可以存在同样名字的cookie。
 一般我们设置cookie的方法是用一个同样名字、一个值。这时就一定要搞清楚你要设置的cookie的域和路径，否则就会产生问题。

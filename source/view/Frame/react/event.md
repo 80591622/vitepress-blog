@@ -1,27 +1,16 @@
----
-abbrlink: 4a622a59
-title: react事件委托机制
-date: 2019-11-17
-categories: 
-- FE框架 
-- React
-- react事件委托机制
----
 
-<strong class='old-blog'>react事件委托机制</strong>
+# react事件委托机制
 
-[[toc]]
-
-### 为什么要用事件委托
+## 为什么要用事件委托
 
 一般来说，dom需要有事件处理程序，我们都会直接给它设事件处理程序就好了，那如果是很多的dom需要添加事件处理呢？比如我们有100个li，每个li都有相同的click点击事件，可能我们会用for循环的方法，来遍历，这样的话每个函数都是一个对象，是对象就会占用内存，对象越多，内存占用率就越大，如果数量更大的话就gg了。
 
-### 事件委托的作用
+## 事件委托的作用
 
 - 支持为同一个DOM元素注册多个同类型事件
 - 可将事件分成事件捕获和事件冒泡机制
 
-### dom 绑定事件
+## dom 绑定事件
 
 ```html
 <div class="div1"></div>
@@ -54,7 +43,7 @@ div1.addEventListener('click',function(){
 //可以看到两个注册事件都会成功触发
 ```
 
-### 事件捕获和事件冒泡机制
+## 事件捕获和事件冒泡机制
 
 **事件捕获**<br/>
 当一个事件触发后,从Window对象触发,不断经过下级节点,直到目标节点。在事件到达目标节点之前的过程就是捕获阶段。所有经过的节点,都会触发对应的事件
@@ -75,19 +64,19 @@ div1.addEventListener('click',function(){
 })
 // 打印body   打印div1
 ```
-### addEventListener() 和 onclick的区别
+## addEventListener() 和 onclick的区别
 
 - onclick 不能同时执行两个函数，addEventListener()可以执行两个不同的函数
 - 移除事件侦听的方式不同 (onclick直接覆盖就行 ，addEventListener用removeEventListener移除)
 - addEventListener可以在捕获阶段和冒泡阶段触发，而onclick只能冒泡阶段触发
 - onclick支持IE低版本，addEventListener不支持IE8一下，低版本的IE使用 attachEvent 进行事件侦听；使用 detachEvent 移除事件侦听。
 
-### 事件委托的优点
+## 事件委托的优点
 
 **提高性能** 每一个函数都会占用内存空间，只需添加一个事件处理程序代理所有事件,所占用的内存空间更少。
 **动态监听** 使用事件委托可以自动绑定动态添加的元素,即新增的节点不需要主动添加也可以一样具有和其他元素一样的事件。
 
-### react的事件委托机制
+## react的事件委托机制
 
 react事件机制分为两个部分：**1、事件注册 2、事件分发**
 
@@ -188,7 +177,7 @@ document.addEventListener('click', function(e) {
 
 
 
-#### 参考文档
+### 参考文档
 
 [https://www.jianshu.com/p/b249793fd2a7](https://www.jianshu.com/p/b249793fd2a7)<br/>
 [https://www.jianshu.com/p/c01756e520c7](https://www.jianshu.com/p/c01756e520c7)

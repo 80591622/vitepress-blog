@@ -1,19 +1,7 @@
----
-abbrlink: c1ae6dd8
-title: RN基本用法
-date: 2019-11-17
-tags: react-native
-categories: 
-- FE框架 
-- ReactNative
-- ReactNative基本用法
----
 
-<strong class='old-blog'>RN基本用法</strong>
+# RN基本用法
 
-[[toc]]
-
-### React Native区分安卓/iOS平台
+## React Native区分安卓/iOS平台
 
 [特定平台代码](https://reactnative.cn/docs/platform-specific-code/)
 
@@ -25,7 +13,7 @@ JSON.stringify(Platform)
 
 ```
 
-### RN样式
+## RN样式
 ```javascript
 const {height, width} = Dimensions.get('window');
 
@@ -55,7 +43,7 @@ const styles = StyleSheet.create({
 
 ```
 
-### RN带有点击事件的标签
+## RN带有点击事件的标签
 
 ```javascript
 //没有任何视觉反馈,只支持一个子节点（不能没有子节点也不能多于一个),如果你希望包含多个子组件，可以用一个View来包装它们。
@@ -83,7 +71,7 @@ const styles = StyleSheet.create({
 </TouchableHighlight>
 ```
 
-###  输入框
+##  输入框
 
 [textinput](https://reactnative.cn/docs/textinput/)
 ```javascript
@@ -102,7 +90,7 @@ const styles = StyleSheet.create({
 textAlignVertical: 'top'
 ```
 
-### 获取盒子的位置信息
+## 获取盒子的位置信息
 
 ```javascript
  layout = () => {
@@ -132,7 +120,7 @@ textAlignVertical: 'top'
 ```
 
 
-### 页面通信
+## 页面通信
 
 **方法一:callback函数刷新**
 
@@ -214,7 +202,7 @@ const goBack=()=>{
 
 
 
-### RN插件
+## RN插件
 
 ```javascript
 import {TabView} from "react-native-tab-view";    //tab切换组件
@@ -320,7 +308,7 @@ navigation.dispatch(resetAction);
 
 ```
 
-###  屏蔽黄屏
+##  屏蔽黄屏
  
 ```javascript
 import { YellowBox} from 'react-native'
@@ -337,7 +325,7 @@ YellowBox.ignoreWarnings([
 ]);
 ```
 
-### 阻止安卓快速双击退出应用
+## 阻止安卓快速双击退出应用
 
 **需求**
 - 需要监听安卓的返回键，点击安卓返回键的时候可以正常返回
@@ -405,7 +393,7 @@ return
 
 ```
 
-### 禁止IOS返回手势
+## 禁止IOS返回手势
 
 ```javascript
 //禁止所有页面手势返回

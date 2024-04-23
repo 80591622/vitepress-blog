@@ -1,18 +1,5 @@
----
-abbrlink: f68816bd
-title: Vue3.0源码分析
-date: 2020-04-18
-hidden: true
-categories: 
-- FE框架 
-- Vue
-- Vue3.0源码分析
----
 
-
-<strong class='old-blog'>Vue3.0源码分析</strong>
-
-[[toc]]
+# Vue3.0源码分析
 
 
 第一次用vue也是两年前了，今天看了预览版的3.0变化挺大，方法都是基于函数式的，
@@ -37,7 +24,7 @@ categories:
 - Vue 要变成 React 了！
 - 所有 HTML 都要写在一个超长的字符串里！
 
-### 剖析Composition API
+## 剖析Composition API
 
 [文档](https://vue-composition-api-rfc.netlify.com/#basic-example)
 
@@ -94,10 +81,11 @@ categories:
 </script>
 ```
 
-### 源码目录剖析
+## 源码目录剖析
 
+```bash
 packages目录中包含着Vue3.0所有功能
-    
+  
     ├── packages
     │   ├── compiler-core # 所有平台的编译器
     │   ├── compiler-dom # 针对浏览器而写的编译器
@@ -109,8 +97,9 @@ packages目录中包含着Vue3.0所有功能
     │   ├── shared # 帮助方法
     │   ├── template-explorer
     │   └── vue # 构建vue runtime + compiler
+```
 
-### Proxy 与 Object.defineProperty 优劣对比
+## Proxy 与 Object.defineProperty 优劣对比
 
 **Object.defineProperty()**
 
@@ -129,7 +118,7 @@ packages目录中包含着Vue3.0所有功能
 1. Proxy 作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利；
 1. 兼容性差，IE11也不兼容
 
-### vue2.0响应式原理机制
+## vue2.0响应式原理机制
 
 ```javascript
 // utils.js 定义的公共方法
@@ -146,7 +135,7 @@ function  updateView() {
 }
 ```
 
-#### 针对对象进行拦截
+## 针对对象进行拦截
 
 ```javascript
 function observer(target) {
@@ -184,7 +173,7 @@ data.obj.a.b = 121212;
 例如上面的代码，我们用push方法改变ary的话，会改变原数组，但是并没有触发视图更新，所以这里数组劫持来优化触发视图更新
 
 
-#### 数组的劫持
+## 数组的劫持
 
 我们不能直接更改`Array.prototype`，这样会污染其他的代码，代价更大，我们找到所有能改变原数组的方法`push,shift,unshift,pop,splice,reverse,sort`,
 对这些方法重新包装，使其触发视图更新，做到数组劫持。
@@ -253,17 +242,7 @@ data.ary[4].splice(1, 1, 22222);
 console.log(data.ary);
 ```
 
-
-### vue3.0响应式原理机制
-
-
-
-
-
-
-
-
-### 参考文档
+## vue3.0响应式原理机制参考文档
 
 [https://vue-js.com/topic/5e2d023f7a28821363fb6821](https://vue-js.com/topic/5e2d023f7a28821363fb6821)<br/>
 [github](https://github.com/vuejs/vue-next/blob/e6ef52c3f8992cf7bb8f648a791edeea0632459e/packages/reactivity/src/baseHandlers.ts)

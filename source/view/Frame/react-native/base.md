@@ -1,18 +1,8 @@
----
-abbrlink: 2bc132ae
-title: RN IOS环境搭建
-date: 2019-11-17
-categories: 
-- FE框架 
-- ReactNative
-- RN IOS环境搭建
----
 
-<strong class='old-blog'>RN IOS环境搭建</strong>
 
-[[toc]]
+# RN IOS环境搭建
 
-### iOS 安装CocoaPods
+## iOS 安装CocoaPods
 
 1、升级Ruby环境
 
@@ -76,7 +66,7 @@ master
 ```
 
 
-### fatal: unable to access 'https://chromium.googlesource.com/webm/libwebp/'解决方法
+## fatal: unable to access 'https://chromium.googlesource.com/webm/libwebp/'解决方法
 
 ::: danger
 [!] Error installing libwebp

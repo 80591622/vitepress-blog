@@ -1,16 +1,7 @@
----
-abbrlink: 51a6c0df
-title: Dva封装
-date: 2018-01-17
-categories: 
-- FE框架 
-- React
-- Dva封装
----
 
-<strong class='old-blog'>Dva封装</strong>
+# Dva封装
 
-
+## Dva
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -74,7 +65,7 @@ export default function(){
 }
 ```
 
-简单使用
+## 简单使用
 
 ```javascript
 import {adminCharacters, adminCharactersDelete} from 'src/api/admin';

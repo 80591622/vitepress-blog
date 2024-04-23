@@ -1,12 +1,4 @@
----
-abbrlink: fa28b32b
-title: 会用到的插件
-date: 2019-03-19
-categories: 
-- Project
----
-
-<strong class='old-blog'>会用到的插件</strong>
+# 会用到的插件
 
 
 - [animate.css](https://github.com/daneden/animate.css)

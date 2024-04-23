@@ -1,18 +1,7 @@
----
-abbrlink: 675369a3
-title: 错误机制
-date: 2020-01-17
-categories: 
-- FE框架 
-- Vue
-- 错误机制
----
 
-<strong class='old-blog'>错误机制</strong>
+# 错误机制
 
-[[toc]]
-
-### 源码解析
+## 源码解析
 
 文件路径`vue/src/core/util/error.js`
 
@@ -182,7 +171,7 @@ function logError(err, vm, info) {
 * */
 ```
 
-### react的error解析
+## react的error解析
 
 ```js
 // koa2

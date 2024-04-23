@@ -1,15 +1,5 @@
----
-abbrlink: fe474409
-title: 封装树形菜单
-date: 2020-01-17
-categories: 
-- FE框架 
-- Vue
-- 组件封装
-- 封装树形菜单
----
 
-<strong class='old-blog'>封装树形菜单</strong>
+# 封装树形菜单
 
 之前面试有让用react做过一次 ，今天仿造elementUI用Vue在做一个
 

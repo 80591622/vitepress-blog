@@ -1,17 +1,5 @@
----
-abbrlink: 97cd01ae
-title: vue之JSX封装table
-date: 2020-01-17
-categories: 
-- FE框架 
-- Vue
-- 组件封装
-- Vue之JSX封装Table
----
 
-<strong class='old-blog'>vue之JSX封装table</strong>
-
-[[toc]]
+# vue之JSX封装table
 
 [封装之前先看下](https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1)
 
@@ -24,7 +12,7 @@ categories:
 本次封装用的jsx语法，vue模板拓展性不是特别显优势，没有jsx灵活。[想看jsx在vue中怎么使用的请转看下之前的文章](/workspace/Frame/vue/jsx.html)
 
 
-### 组件封装源码
+## 组件封装源码
 
 ```javascript
 //EnhanceTable.jsx
@@ -164,7 +152,7 @@ export default {
 };
 ```
 
-### EnhanceTable 文档
+## EnhanceTable 文档
 
 ### 组件使用
 
@@ -261,7 +249,7 @@ export default {
 </style>
 ```
 
-### 最后在送一个当前使用的mixins
+## 最后在送一个当前使用的mixins
 
 ```javascript
 // table.mixins.js
@@ -336,6 +324,6 @@ const table = {
 export default table;
 ```
 
-### 写在最后
+## 写在最后
 
 当前的table组件是针对自己项目的需求封装，兼容了饿了么table大部分的业务场景，随着后期的业务拓展，当前的组件的拓展性也会增强，封装路漫漫，一点点完善吧。

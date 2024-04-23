@@ -1,21 +1,10 @@
----
-abbrlink: 87b8990e
-title: irdd 组件库
-date: 2021-03-11
-tags: UI组件库
-categories: 
-- FE框架 
 
----
-
-<strong class='old-blog'>irdd 组件库</strong>
-
-[[toc]]
+# irdd 组件库
 
 开发组件库，遇到的问题
 
 
-### 使用插件
+## 使用插件
 
 - popper.js Popper.js是一款功能强大的JS定位引擎。 [https://blog.csdn.net/jhzhahuaiyu/article/details/90213582]()
 - deepmerge/object-assign 实现两个对象的深度合并，类似于Object.assign(),但是是多层的合并  [https://blog.csdn.net/weixin_34198797/article/details/93476329]()
@@ -41,7 +30,7 @@ categories:
 
 
 
-### 去除inline-block元素间间距的N方法
+## 去除inline-block元素间间距的N方法
 
 - webpack 去除空格了
 
@@ -57,7 +46,7 @@ categories:
 
 
 
-### scss用法大全
+## scss用法大全
 
 bem  [gulp-postcss、postcss-salad]  、 saladcss-bem
 
@@ -80,7 +69,7 @@ scss 函数方法 ： [https://www.cnblogs.com/Zting00/p/7497640.html](https://w
 
 
 
-### 组件挂载
+## 组件挂载
 
 Babel直接编译需要先挂载才能用、Vue.extend可以随时挂载
 
@@ -89,7 +78,7 @@ Babel直接编译需要先挂载才能用、Vue.extend可以随时挂载
 
 
 
-### todo 
+## todo 
 
 - 升级babel  ✅
 - 文档侧边栏  ✅
@@ -120,7 +109,7 @@ Babel直接编译需要先挂载才能用、Vue.extend可以随时挂载
   
   
 
-### 手动按需加载
+## 手动按需加载
 
 **js  按需加载**  
 
@@ -128,7 +117,7 @@ Babel直接编译需要先挂载才能用、Vue.extend可以随时挂载
 
 babel-plugin-import（antd)
 
-#### **css 按需加载** 
+## **css 按需加载** 
 
 1. 打包到组件中 
 
@@ -153,7 +142,7 @@ css打包多个的时候，需要多页面打包，或者统一引入到一个js
 
 
 
-#### **组件库微前端优势**
+## **组件库微前端优势**
 
 减少外在因素干扰
 
@@ -177,7 +166,7 @@ vw vh rem响应式拓展不足
 
 
 
-### 一期分享
+## 一期分享
 
 1. 锚点跳转、刷新、回退定位问题
 2. 动态修改主题色（3种）
@@ -193,7 +182,7 @@ vw vh rem响应式拓展不足
 
 
 
-### 外部扩展(Externals)
+## 外部扩展(Externals)
 
 
 
@@ -220,21 +209,21 @@ externals = [Object.assign({
 exports.externals = externals;
 ```
 
-### 区分dependencies和devDependencies
+## 区分dependencies和devDependencies
 
 因为上面使用了Externals 会导致一些插件直接引入不会打包进去，就可能会导致开发依赖的在组件库中使用，到开发者手中就会报错提示找不到该插件或者版本不一致的问题。
 
-### utils 
+## utils 
 
 为了方便使用，建议放到文件的第一级目录下  `import {} from "irdd/utils"`,也可以建立一个入口，直接引入打包后的地址
 
 
 
-### types 的代码提示
+## types 的代码提示
 
 纯手写
 
-### 按需加载
+## 按需加载
 
 将 .babelrc 的 plugins 修改为：
 
@@ -283,7 +272,7 @@ irdd: 样式也可以按需加载, 可以使用cdn全量导入。
 
 
 
-### 补坑  按需加载
+## 补坑  按需加载
 
 **坑位1** 
 
@@ -311,14 +300,14 @@ resolve: {
 }
 ```
 
-###  JSX下  component 失效
+##  JSX下  component 失效
 
 `@vue/babel-helper-vue-jsx-merge-props` 编译 `element-ui` 组件库 `table`的时候，内部编译导致 `dom` 丢失，
 所以使用此组件时需保证项目中有在使用 `el-table` 
 
 
 
-### 外部不具名的坑
+## 外部不具名的坑
 
 发版后 ，yarn、cnpm获取不到最新的npm包   需要手动刷新下 [同步频率目前为 **10分钟**](https://developer.aliyun.com/special/npm/notice)
 
@@ -326,7 +315,7 @@ resolve: {
 
 一期组件库的入口  `...component` ,生产引发的 BUG FIX
 
-### NPM 下载问题
+## NPM 下载问题
 
 发版后 ，yarn、cnpm获取不到最新的npm包   需要手动刷新下 [同步频率目前为 **10分钟**](https://developer.aliyun.com/special/npm/notice)
 
@@ -357,18 +346,18 @@ examples
 }
 ```
 
-#### 优先级问题
+## 优先级问题
 
 如果项目同时存在`.gitignore`,`.npmignore`,并且配置了`files`字段,优先级如下：
 `files`>`.npmignore`>`.gitignore`。
 
 
 
-### markdown-loader  编译小胡子语法
+## markdown-loader  编译小胡子语法
 
 
 
-### rem 未编译 （@import ''）
+## rem 未编译 （@import ''）
 
 https://github.com/cuth/postcss-pxtorem/issues/38
 
@@ -385,11 +374,11 @@ https://github.com/cuth/postcss-pxtorem/issues/38
 ```
 
 
-### pc 下没有滑动事件
+## pc 下没有滑动事件
 
 [桌面适配](http://vant-contrib.gitee.io/vant/v2/#/zh-CN/advanced-usage#zhuo-mian-duan-gua-pei)
 
-### 组件库打包出现 const
+## 组件库打包出现 const
 
 ```js
 // 组件库的 .babelrc

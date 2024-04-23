@@ -1,16 +1,5 @@
----
-abbrlink: 80e58b14
-title: Node生成模板
-date: 2019-07-01
-categories: 
-- FE框架 
-- Taro
----
 
-<strong class='old-blog'>Node生成模板</strong>
-
-[[toc]]
-
+# Node生成模板
 **基于nodejs编写自动生成路由需要的文件**
 
 ```javascript

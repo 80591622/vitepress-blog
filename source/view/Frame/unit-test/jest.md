@@ -1,17 +1,7 @@
----
-abbrlink: b4b9f9d0
-title: 单元测试框架Jest学习总结
-date: 2019-07-01
-categories: 
-- FE框架 
-- Jest
----
 
-<strong class='old-blog'>单元测试框架Jest学习总结</strong>
+# 单元测试框架Jest学习总结
 
-[[toc]]
-
-### 测试框架
+## 测试框架
 
 `Mocha+chai`(断言库)<br/>
 yarn add mocha chai -D
@@ -21,7 +11,7 @@ yarn add jest -D
 
 
 
-### 适合场景
+## 适合场景
 - 业务比较复杂
 - 公司非常注重代码质量，想尽一切办法杜绝线上出bug
 - 需要长期维护的项目。它们需要测试来保障代码可维护性、功能的稳定性
@@ -29,7 +19,7 @@ yarn add jest -D
 - 开源项目
 
 
-### 首先安装需要的包
+## 首先安装需要的包
 
 基于vue
 
@@ -41,7 +31,7 @@ yarn add jest vue-jest babel-jest @vue/test-utils @types/jest -D
 
 
 
-#### 让Jest支持ES6语法
+### 让Jest支持ES6语法
 
 ```javascript
 // .babelrc
@@ -59,7 +49,7 @@ yarn add jest vue-jest babel-jest @vue/test-utils @types/jest -D
 
 
  
-### 测试的步骤
+## 测试的步骤
 
 - 写测试说明，针对你的每条测试说明测试了什么功能，预期结果是什么。
 - 写测试主体，通常是 输入 -> 输出。
@@ -90,7 +80,7 @@ expect(1).not.toBe(2)//判断不等
 `toBeLessThan()`小于<br/>
 `toBeLessThanOrEqual()`小于或等于<br/>
 
-### package里面关于jest的配置
+## package里面关于jest的配置
 
 
 ```javascript
@@ -143,7 +133,7 @@ expect(1).not.toBe(2)//判断不等
  }
 ```
 
-#### Jest.config.js
+### Jest.config.js
 
 ```js
 module.exports = {
@@ -166,7 +156,7 @@ module.exports = {
 };
 ```
 
-### 代码覆盖率
+## 代码覆盖率
 
 可以查看你那些代码没有被覆盖，帮助你发现盲点
 
@@ -188,7 +178,7 @@ module.exports = {
 专业术语里，把describe包含的块叫做suite，把it/test包含的块叫做specification，也简称为spec，在一个suite里面可以包含多个数量的spec，但是也要注意结构化语义化。
 
 
-### 示例
+## 示例
 
 编写测试文件时遵循的命名规范：`测试文件的文件名` = `被测试模块名` + .test.js
 
@@ -274,7 +264,7 @@ function filterByTerm(inputArr, searchTerm) {
 
 ```
 
-#### vue中的测试案例
+### vue中的测试案例
 
 ```js
 // test.vue
@@ -307,7 +297,7 @@ describe("test.vue", () => {
 ### 未完待续...
 
 
-### 参考文档
+## 参考文档
 
 [*ReactTestUtils](https://zh-hans.reactjs.org/docs/test-utils.html)
 

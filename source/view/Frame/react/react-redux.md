@@ -1,18 +1,7 @@
----
-abbrlink: 73de2ee
-title: Redux源码解析
-date: 2019-02-17
-categories: 
-- FE框架 
-- React
-- Redux源码解析
----
 
-<strong class='old-blog'>Redux源码解析</strong>
+# Redux源码解析
 
-[[toc]]
-
-### Redux三大原则
+## Redux三大原则
 
 - **唯一数据源**
    - 整个应用的state都被存储到一个状态树里面，并且这个状态树，只存在于唯一的store中
@@ -24,7 +13,7 @@ categories:
    
 ![](https://ae01.alicdn.com/kf/H70eea0923b414f78a4a4d805e374147aX.gif)
 
-### Action & store.dispatch( )
+## Action & store.dispatch( )
 
 `Action`是把数据从应用传到store的有效载荷。它是store数据的唯一来源。一般来说你会通过 store.dispatch() 将 action 传到 store。
 
@@ -51,7 +40,7 @@ function myBoardList(){
 //页面使用
 this.props.dispatch(myBoardList())
 ```
-### Reducer
+## Reducer
 
 `Reducers`指定了应用状态的变化`如何响应`actions并发送到store的，actions只是描述了有事情发生了这一事实，并没有描述应用如何更新state。
 
@@ -78,7 +67,7 @@ export default reducer = combineReducers({ //合并所有的reducer导出，然�
 });
 
 ```
-### Store
+## Store
 
 `store`就是redux里面的一个容器，store本质上是一个状态树，保存了所有对象的状态。任何UI组件都可以直接从store访问特定对象的状态。
 
@@ -95,7 +84,7 @@ const store = composeWithDevTools(createStore(reducer,applyMiddleware(reduxThunk
 export default store;
 ```
 
-### Redux源码 *
+## Redux源码 *
 
 ```javascript{19,20,21,22,23,24}
 let combineReducers=(renducers)=>{
@@ -153,9 +142,9 @@ store.subscribe(() =>  document.querySelector('#counter').innerHTML = store.getS
 通过`store.subscribe去订阅数据变化然后进行setState`...如果很多地方都这样做一遍，实在是不堪其重，而且，还是没有避免掉全局变量的不优雅。所以就需要**react-redux**了
 
 
-### React-Redux
+## React-Redux
 
-#### Provider
+### Provider
 由于全局变量有诸多的缺点，所有就需要用到Provider优化
 
 `Provider`其实就只是一个外层容器，它的作用就是通过配合`connect`来达到跨层级传递数据。使用时只需将Provider定义为整个项目最外层的组件，并设置好store。
@@ -233,7 +222,7 @@ Provider.propTypes = {
 export default Provider
 
 ```
-#### Connect
+### Connect
 
 `connect`的作用是连接React组件与Store，它包在我们的容器组件的外一层，它接收上面Provider提供的store里面的`state`和`dispatch`，传给一个构造函数，返回一个对象，以属性形式传给我们的容器组件。
 
@@ -314,9 +303,9 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
 }
 ```
 
-### 异步处理
+## 异步处理
 
-#### redux-thunk
+### redux-thunk
 
 **源码**
 
@@ -364,7 +353,7 @@ thunk使得redux可以接受函数作为action,这就会使得异步操作`太�
 
 action的形式不统一
 
-#### redux-saga
+### redux-saga
 
 **流程:**
 
@@ -506,7 +495,7 @@ componentDidMount() {
 异步操作的流程是可以控制的，可以随时取消相应的异步操作。
 
 
-### redux middleware 源码分析
+## redux middleware 源码分析
 
 ```javascript
 // 以 redux-thunk、logger 中间件为例介绍中间件的使用

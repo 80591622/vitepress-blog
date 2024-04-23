@@ -1,20 +1,9 @@
----
-abbrlink: f7f45104
-title: 项目目录
-date: 2019-07-01
-categories: 
-- FE框架 
-- Taro
-- 项目目录
----
 
-<strong class='old-blog'>项目目录</strong>
-
-[[toc]]
+# 项目目录
 
 **以Taro为栗子**
 
-```text
+```bash
 ├─config   -- 配置文件(插件等)  
 │      dev.js  --开发项目配置
 │      index.js  --适用于开发和生产

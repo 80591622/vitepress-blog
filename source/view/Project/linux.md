@@ -194,7 +194,7 @@ $ sshpass -p password scp root@host:remote_file local_file
 
 示例：
 
-```linux{2,5}
+```bash{2,5}
 #把本地的source.txt文件拷贝到192.168.0.10机器上的/home/work目录下
 scp /home/work/source.txt root@192.168.0.10:/home/work/ 
 

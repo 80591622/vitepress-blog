@@ -1,23 +1,11 @@
----
-abbrlink: 64057aea
-title: keep-alive源码分析
-date: 2020-06-02
-categories: 
-- FE框架 
-- Vue
-- 源码分析
-- keep-alive源码分析
----
 
-<strong class='old-blog'>keep-alive源码分析</strong>
+# keep-alive源码分析
 
-[[toc]]
-
-### 如何使用
+## 如何使用
 
 想看具体用法看我上一篇文章 [这大概是最全乎的keep-alive的踩坑指南](/2020/05/25/workspace/Frame/vue/keep-alive/)
 
-### 源码剖析
+## 源码剖析
 
 [源码地址](https://github.com/vuejs/vue/blob/dev/src/core/components/keep-alive.js#L53)
 
@@ -158,9 +146,9 @@ export default {
 4. 将该组件实例的keepAlive属性值设置为true(this.$vnode.data.keepAlive 可以获取到，多的两个声明周期都是通过这个判断) 
 
 
-### 钩子函数
+## 钩子函数
 
-#### 只执行一次的钩子
+### 只执行一次的钩子
 
 `keep-alive`是使用你之前存储的vnode，然后直接转换成真实dom，是发生在diff之后 patch阶段,所以缓存的组件是没有 `created,mounted` 这些生命周期的，具体看下面的代码分析。
 
@@ -225,7 +213,7 @@ destroy (vnode) {
 
 可以看出，当vnode.componentInstance(第一次进来是空的)和keepAlive同时为true时，不再进入$mount过程，那mounted之前的所有钩子函数（beforeCreate、created、mounted）都不再执行。
 
-#### 调用activated
+## 调用activated
 
 在patch的阶段，最后会执行invokeInsertHook函数，而这个函数就是去调用组件实例（VNode）自身的`insert`钩子，就是上面的那段代码。
 
@@ -280,7 +268,7 @@ export function deactivateChildComponent (vm, direct) {
 
 `deactivated`钩子函数也是一样的原理，在组件实例（VNode）的destroy钩子函数中调用`deactivateChildComponent`函数。
 
-### 渲染
+## 渲染
 
 **keep-alive组件的渲染**
 

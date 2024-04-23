@@ -1,15 +1,6 @@
----
-abbrlink: 45c3afghj
-title: Vue预渲染
-date: 2020-08-10
-categories: 
-- FE框架 
-- Vue
-- Vue预渲染
----
 
-<strong class='old-blog'>Vue预渲染</strong>
-
+# Vue预渲染
+## SSR
 
 之前一段时间调研了React的[SSR](https://juejin.im/post/6854573205349367815),今天有时间研究下Vue的预渲染。老套路还是先说说预渲染有什么好处，跟SSR有什么区别？？？？  Let's look down  👓⏬
 
@@ -37,7 +28,7 @@ categories:
 
 
 
-**上干货**
+## 上干货
 
 
 
@@ -45,7 +36,7 @@ categories:
 
 安装：
 
-```
+```bash
 yarn add prerender-spa-plugin vue-meta-info -D
 ```
 
@@ -123,7 +114,7 @@ new Vue({
 
 
 
-**组件内静态使用metaInfo**
+## 组件内静态使用metaInfo
 
 ```vue
 <template>

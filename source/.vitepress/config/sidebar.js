@@ -5,9 +5,7 @@ export default {
   "/": [
     {
       text: "Base",
-      collapsible: true, // 可折叠
-      // collapsed: true, // 初始不折叠
-      sidebarDepth: 0,
+      collapsed: true, // 初始不折叠
       items: [
         { text: "技术清单", link: "/view/Js/home" },
         { text: "Array的方法简单整理", link: "/view/Js/array" },
@@ -36,7 +34,6 @@ export default {
 
     {
       text: "Project",
-      collapsible: true, // 可折叠
       collapsed: true, // 初始不折叠
       items: [
         { text: "用到的方法", link: "/view/Project/method" },
@@ -54,7 +51,6 @@ export default {
 
     {
       text: "FE框架",
-      collapsible: true, // 可折叠
       collapsed: true, // 初始不折叠
       items: [
         {
@@ -71,13 +67,11 @@ export default {
             {
               text: "踩坑记录",
               collapsed: true,
-              sidebarDepth: 0,
               items: [{text: "使用keepAlive遇到的坑",link: "view/Frame/vue/keep-alive"}]
             },
             {
               text: "使用拓展",
               collapsed: true,
-              sidebarDepth: 0,
               items: [
                 {text: "vue之JSX封装table",link: "view/Frame/vue/table-jsx"},
                 {text: "Element-UI ，Table组件实现拖拽效果",link: "view/Frame/vue/sortable"},
@@ -89,7 +83,6 @@ export default {
             {
               text: "源码分析",
               collapsed: true,
-              sidebarDepth: 0,
               items: [
                 {text: "vue3.0源码分析-1",link: "view/Frame/vue/next/reactivity"},
                 {text: "Vue3.0源码分析-2",link: "view/Frame/vue/vue-next"},
@@ -101,8 +94,7 @@ export default {
             {
               text: "UI组件库",
               collapsed: true,
-              sidebarDepth: 0,
-              children: [
+              items: [
                 {text: "irdd 组件库",link: "view/Frame/irdd/irdd"}
               ]
             }
@@ -153,7 +145,7 @@ export default {
           text: '☞ 单元测试',
           collapsed: true,
           items: [
-            {text: "XCODE模拟器报错修复",link: "view/Frame/unit-test/jest"}
+            {text: "单元测试框架Jest学习总结",link: "view/Frame/unit-test/jest"}
           ]
         }
 
@@ -167,7 +159,6 @@ export default {
         {
           text: '☞ NodeJS',
           collapsed: true,
-          sidebarDepth: 0,
           items: [
             { text: "NodeJs的原生方法", link: "view/Server/node/base" },
             { text: "Koa2", link: "view/Server/node/node-1" },
@@ -180,7 +171,6 @@ export default {
         {
           text: '☞ Mongoose',
           collapsed: true,
-          sidebarDepth: 0,
           items: [
             { text: "Mongodb安装", link: "view/Server/sql/mongodb" },
             { text: "Mongoose使用", link: "view/Server/sql/mongoose" }
@@ -190,7 +180,6 @@ export default {
         {
           text: '☞ Nginx',
           collapsed: true,
-          sidebarDepth: 0,
           items: [
             { text: "Mongodb安装", link: "view/Server/nginx/nginx_base" },
             { text: "Mongoose使用", link: "view/Server/nginx/nginx_local" }

@@ -1,16 +1,7 @@
----
-abbrlink: 45c34444a6ba
-title: Element-UI ，Table组件实现拖拽效果
-date: 2020-08-20
-tags: Vue.js
-categories: 
-- FE框架 
-- Vue
-- 组件封装
-- Table组件实现拖拽效果
----
 
-<strong class='old-blog'>Element-UI ，Table组件实现拖拽效果</strong>
+
+# Element-UI
+## Table组件实现拖拽效果
 
 
 最近业务需求要添加table的拖拽，但是element并没有table的拖拽功能，只能自己添加了。
@@ -19,7 +10,7 @@ categories:
 找了两个组价库`sortablejs`和`vuedraggable`,后者是基于前者实现的更加符合vue标准的库，依赖于前者，但是项目中用的element的table, `vuedraggable`在这个基础上就不能使用，看[官方的示例](https://github.com/SortableJS/Vue.Draggable/blob/master/example/components/table-example.vue) , 所以只能使用`sortablejs`了，我直接安装了`vuedraggable`，它依赖`sortablejs`可以直接使用里面的特性，万一后期再有其他拖拽的功能，这个库上手还比较方便。
 
 
-### Sortable使用示例
+## Sortable使用示例
 
 ```javascript
 <template>
@@ -178,7 +169,7 @@ categories:
 
 
 
-### 参考文档 
+## 参考文档 
 
 [draggable](https://sortablejs.github.io/Vue.Draggable/#/table-example)
 

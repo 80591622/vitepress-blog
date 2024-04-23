@@ -1,25 +1,15 @@
----
-abbrlink: '77072370'
-title: Router原理
-date: 2019-01-17
-categories: 
-- FE框架 
-- React
-- Router
----
 
-<strong class='old-blog'>Router原理</strong>
 
-[[toc]]
+# Router原理
 
-### react-router 和 react-router-dom
+## react-router 和 react-router-dom
 
 - react-router是浏览器和原生应用的通用部分。
 - react-router-dom是用于浏览器的。
 - react-router-native是用于原生应用的。
 - react-router-config 是一些配置相关
 
-### react-router的基本原理
+## react-router的基本原理
 
 实现`URL`与`UI`界面的同步。其中在`react-router`中，`URL`对应`Location`对象，而`UI`是由`react components`来决定的，这样就转变成`location与components`之间的同步问题
 
@@ -58,7 +48,7 @@ const App=()=> {
 
 这个其实就是路由的雏形了，每个页面对应着一个组件，然后在不同状态下去切换 。
 
-### 使用 hash 来切换
+## 使用 hash 来切换
 
 当然我们更希望看到的是,`不同 url -> 不同页面 -> 不同组件`
 
@@ -99,7 +89,7 @@ const App=()=> {
 
 这样其实已经满足我们的要求了，如果我在地址栏里输入 `localhost:8080/#login`，就会显示` <Login/>`。但是这个 “#” 符号不太好看，如果输入 `localhost:8080/login` 就完美了。
 
-### 使用 history 切换
+## 使用 history 切换
 
 幸运的是 `H5` 提供了一个好用的 `history API`，使用 `window.history.pushState()` 使得我们即可以修改 `url` 也可以不刷新页面，一举两得。
 
@@ -142,7 +132,7 @@ const App=()=> {
 
 到此，一个 `Router` 就已经被我们实现了。当然这个 `Router` 功能不多，不过这就是 `Vue Router` 和 `React Router` 的思想，他们是基于此来开发更多的功能而已。
 
-### react-router使用
+## react-router使用
 
 - `BrowserRouter` 这是对Router接口的实现。使得页面和浏览器的history保持一致。如：window.location。
 - `HashRouter` 和上面的一样，只是使用的是url的hash部分，比如：window.location.hash。
@@ -192,7 +182,7 @@ export default function({ children }) {
 }
 ```
 
-#### Route
+### Route
 
 - `path`属性，字符串类型，它的值就是用来匹配url的。
 - `component`属性，它的值是一个组件。在path匹配成功之后会绘制这个组件。
@@ -217,7 +207,7 @@ function Route({ component, path }) {
 export default Route;
 ```
 
-#### Redirect
+### Redirect
 
 重定向路由：from 是从哪个组件来，to 表示要定向到哪里。
 
@@ -225,7 +215,7 @@ export default Route;
 <Redirect from={'/'} exact to={'/home/index'}/>;
 <Redirect from={'/*'} exact to={'/404'}/>;
 ```
-####  exact
+###  exact
 
 1.exact是Route下的一个属性，react路由会匹配到所有能匹配到的路由组件，exact能够使得路由的匹配更严格一些。
 ```javascript
@@ -235,7 +225,7 @@ export default Route;
 //既路由path='/page'会匹配路由path='/'和路由path='/page'
 ```
 
-#### Switch
+### Switch
 
 2.Switch 只会渲染第一次匹配的路由，为了防止书写顺序要配合exact一块使用
 
@@ -248,7 +238,7 @@ import { Switch, Route } from 'react-router'
 </Switch>
 ```
 
-#### Link组件后路由系统中到底发生了哪些变化
+### Link组件后路由系统中到底发生了哪些变化
 
 ```javascript
 <Link to={{
@@ -287,7 +277,7 @@ function Link({ children, to }) {
 export default Link;
 ```
 
-### hash模式和history模式的区别
+## hash模式和history模式的区别
 
 - hash虽然出现在URL中，但`不会被包括在HTTP请求中`，对后端完全没有影响，因此改变hash不会重新加载页面;history会
 - pushState设置的新URL可以是与当前URL同源的任意URL；而hash只可修改#后面的部分，故只可设置与当前同文档的URL
@@ -382,7 +372,7 @@ memory 模式
 ```
 
 
-### 参考文档
+## 参考文档
 
 [官方文档](https://reacttraining.com/react-router/web/guides/quick-start)<br/>
 [https://github.com/hankzhuo/Blog/issues/11](https://github.com/hankzhuo/Blog/issues/11)<br/>

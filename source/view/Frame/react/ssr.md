@@ -1,26 +1,12 @@
----
-abbrlink: b106c0b1
-title: React-SSR
-date: 2020-06-13
-categories: 
-- FE框架 
-- React
-- React-SSR
----
 
-<strong class='old-blog'>React-SSR</strong>
-
-[[toc]]
-
-------------
-
+# React-SSR
 
 先附上github地址https://github.com/wkvictory/react-ssr,方便大家更容易理解，不然后面很多地方会一头雾水。
 
 欢迎大家点star,提issue，一起进步！😄 
 
 
-### 客户端渲染与服务端渲染
+## 客户端渲染与服务端渲染
 
 **CSR:**
 
@@ -59,7 +45,7 @@ ssr的出现，就是为了解决这些传统CSR的弊端
 所以，使用 ssr 在解决问题的同时，也会带来非常多的副作用，有的时候，这些副作用的伤害比起 ssr 技术带来的优势要大的多。一般建议ssr，除非你的项目特别依赖搜索引擎流量，或者对首屏时间有特殊的要求，否则不建议使用 ssr,如果只对seo有要求可使用 [prerender预渲染](https://github.com/prerender/prerender)。
 
 
-### SSR的实现本质
+## SSR的实现本质
 
 
 这里介绍的是ssr，是基于React 的SPA项目，不是像 thinkphp、jsp、nodeJs+ejs 这种纯后端直出渲染方式，所以这种大多数只是针对首屏的ssr,因为浏览器的路由跳转方式是用的H5的`history  API`的`window.history.pushState()` ，使得我们即可以修改 `url` 也可以不刷新页面，所以是不会走服务端的【可以通过预加载获取需要的数据】。
@@ -69,7 +55,7 @@ ssr的出现，就是为了解决这些传统CSR的弊端
 ssr 的工程中，React 代码会在客户端和服务器端各执行一次,因为代码在 Node 环境下是没有DOM这个概念的，所以在React 框架中引入了一个概念叫做虚拟 DOM，React 在做页面操作时，实际上不是直接操作 DOM，而是操作虚拟 DOM，也就是操作普通的 JavaScript 对象，这就使得 ssr 成为了可能。在服务器，我可以操作 JavaScript 对象，判断环境是服务器环境，我们把虚拟 DOM 映射成字符串输出；在客户端，我也可以操作 JavaScript 对象，判断环境是客户端环境，我就直接将虚拟 DOM 映射成真实 DOM，完成页面挂载。
 
 
-### 方案筛选
+## 方案筛选
 
 - [next.js]([https://nextjs.frontendx.cn/docs/#%E5%AE%89%E8%A3%85](https://nextjs.frontendx.cn/docs/#安装))/[nuxt.js](https://www.nuxtjs.cn/guide/installation)      成本低,安心的写页面就行了，无需过多关心服务端路由（多页面应用，新框架）
 - [prerender ](https://github.com/wkvictory/prerender)实现spa项目的服务端预渲染
@@ -77,10 +63,10 @@ ssr 的工程中，React 代码会在客户端和服务器端各执行一次,因
 - 秉承学习的态度了解下基本原理，选择了自己去搭，（中间断了一段时间，现在又重新拾起来），之前看到有人用 react + redux + Express 搭ssr的文章，所以基于对dva和koa的熟悉和特别喜好，就直接选择了dva-core + koa 做状态管理搭建。
 
 
-### Koa实现基础版本的SSR
+## Koa实现基础版本的SSR
 
 
-#### 不使用koa-router
+### 不使用koa-router
 
 ```javascript
 const Koa = require('koa');
@@ -108,7 +94,7 @@ const server = app.listen('9999', () => {
 })
 ```
 
-#### 使用koa-router
+### 使用koa-router
 
 ```javascript
 const Koa = require('koa');
@@ -143,7 +129,7 @@ const server = app.listen('9999', () => {
 这样一个简单的服务端渲染就搞定了，服务器端直接返回HTML让浏览器直接渲染，而且网页源代码中是有这些dom信息的对seo非常友好，我们react、vue这些都是通过webpack引入了js,所有的功能页面展示统统由js完成。
 
 
-### 实现React组件的服务端渲染
+## 实现React组件的服务端渲染
 
 
 到这一步已经不能直接用node启动服务了，因为没有`babel`，  React不会转化成`createElement`的形式，而且使用node也不能直接使用import导入方式。
@@ -168,7 +154,7 @@ export default Home
 然后我们把当前组件，使用服务员渲染出来，看下面配置：
 
 
-####  Webpack base
+###  Webpack base
 
 ```javascript
 // config/webpack.base.js
@@ -193,7 +179,7 @@ module.exports = {
 ```
 
 
-#### 服务器端 Webpack 配置
+### 服务器端 Webpack 配置
 
 
 服务端运行的代码如果需要依赖 Node 核心模块或者第三方模块，`就不再需要把客户端的一些模块代码打包到最终代码中了`。因为环境已经安装这些依赖，可以直接引用。这样一来，就需要我们在 webpack 中配置：`target：node`，并借助 webpack-node-externals 插件，解决第三方依赖打包的问题。
@@ -300,13 +286,13 @@ const server = app.listen('9999', () => {
 执行  yarn dev ,打开 [http://localhost:9999/ ]()页面直接在浏览上显示， 到此，就初步实现了一个React组件是服务端渲染,加入你在组件Home里面添加一些方法或者调取接口，你会发现这些都没有执行，所以我们还需要接下来进一步完善。
 
 
-### 同构
+## 同构
 
 
 要解决上面上面的问题，就需要同构了，所谓同构，通俗的讲，就是一套React代码在服务器上运行一遍，到浏览器渲染时在运行一遍，服务端渲染完成页面结构，浏览器端渲染完成事件绑定接口调取（重复加载的js或者css客户端协调阶段时候会进行比对，如果一样则不渲染了）。
 
 
-#### 客户端针对路由打包JS
+### 客户端针对路由打包JS
 
 
 把打包后的js,注入到html中，这样到浏览器就会再次请求，就可以完成事件绑定等行为操作。
@@ -355,7 +341,7 @@ hydrate() 描述的是 ReactDOM 复用 ReactDOMServer 服务端渲染的内容�
 然后配置客户端的webpack将其编译打包成js，在服务端html里面引入。
 
 
-#### 客户端 Webpack 配置
+### 客户端 Webpack 配置
 
 
 客户端和服务端打包后的输出目录
@@ -415,7 +401,7 @@ module.exports = merge(config, clientConfig)
 然后在上面的`package.json`,里面添加`    "dev:build:client": "webpack --config webpack.client.js --watch" `，就能对浏览器用到的一些js完成打包。
 
 
-#### 服务端的路由逻辑
+### 服务端的路由逻辑
 
 服务器端路由代码相对要复杂一点，需要你把 `location`（当前请求路径）传递给 `StaticRouter` 组件，这样 `StaticRouter` 才能根据路径分析出当前所需要的组件是谁。（PS：`StaticRouter` 是 `React-Router`针对服务器端渲染专门提供的一个路由组件。）
 
@@ -483,7 +469,7 @@ export const renderHTML = (content, store) => `
 `
 ```
 
-### CSS样式问题处理
+## CSS样式问题处理
 
 
 正常的服务端渲染只是返回了 HTML 字符串，样式需要浏览器加载完 CSS 后才会加上，这个样式添加的过程就`会造成页面的闪动`，所以在服务端里面直接添加需要引用的CSS。
@@ -640,10 +626,10 @@ const Index = () => {
 
 
 
-### SSR中异步数据的获取 + Dva的使用
+## SSR中异步数据的获取 + Dva的使用
 
 
-#### Dva的使用
+### Dva的使用
 
 
 之前项目一直用的dva，这里直接使用的dva-core代替的redux，不会配置的自行查下文档。
@@ -707,7 +693,7 @@ export default menuTree
 
 
 
-#### 数据获取
+### 数据获取
 
 
 数据获取的解决方案是配置路由 route-router-config，结合 `matchRoutes`，找到页面上相关组件所需的请求接口的方法并执行请求，这就要求开发者通过路由配置信息，显式地告知服务端请求内容。
@@ -780,7 +766,7 @@ await Promise.all(promises).then(() => {
 ```
 
 
-#### 注水和脱水
+### 注水和脱水
 
 
 **涉及到数据的预获取，也是服务端渲染的真正意义。**
@@ -834,7 +820,7 @@ export const getClientStore = () => {
 ```
 
 
-#### 配置代理
+### 配置代理
 
 
 服务端是没有域的存在，所以不会存在跨域的问题，但是在客户端调取接口还存在跨域的问题，所以还需要配置下代理，代码如下：
@@ -893,7 +879,7 @@ app.use(proxy(options));
 源码也没几行，有兴趣可以看下  [koa2-proxy-middleware](https://github.com/sunyongjian/koa2-proxy-middleware/blob/master/lib/index.js)
 
 
-### 引入react-helmet
+## 引入react-helmet
 
 
 做更完整的SEO
@@ -972,7 +958,7 @@ route.get(["/:route?", /\/([\w|\d]+)\/.*/], (ctx) => {
 ```
 
 
-### 请求token处理
+## 请求token处理
 
 客户端登录的时候，把登录的token，放到浏览器的cookie中并且存到redux一份，cookie在服务端可以通过请求的页面直接获取到；所以当用户刷新页面的时候，可以通过页面请求获取到token,然后向redux里面存放一份，这样客户端想要获取token就可以直接在redux里面拿了，loadDate函数可以通过第二个参数传进获取。
 
@@ -980,7 +966,7 @@ route.get(["/:route?", /\/([\w|\d]+)\/.*/], (ctx) => {
 ![](https://ae01.alicdn.com/kf/Hab97bac5556440f787abf0ecde0a0f349.jpg)
 
 
-### 404页面
+## 404页面
 
 
 用`react-router-config`的`matchRoutes`方法，当捕获为空数组的时候，说明没有当前路由，跳转到404 页面，这里面有一个注意的点是，如说有二级或二级以上的路由，这个方法能捕获第一个路由的方法，所以要判断当前获取到的是不是一级路由，而且当前数据还不能为空。
@@ -997,7 +983,7 @@ if (hasRoute || !matchedRoutes.length) {
 ```
 
 
-### 安全问题
+## 安全问题
 
 
 安全问题非常关键，尤其是涉及到服务端渲染，开发者要格外小心。这里提出一个点：我们前面提到了注水和脱水过程，其中的代码：
@@ -1015,7 +1001,7 @@ if (hasRoute || !matchedRoutes.length) {
 **另一个规避这种 XSS 风险的做法是**：将数据传递个页面中一个隐藏的 textarea 的 value 中，textarea 的 value 自然就不怕 XSS 风险了。
 
 
-### 优化
+## 优化
 
 1. 客户端js拆包，压缩代码
 2. 客户端打包的js带有hash后缀
@@ -1027,7 +1013,7 @@ if (hasRoute || !matchedRoutes.length) {
 8. nodeJs/ReactJs的版本升级
 
 
-### 遇到的问题汇总
+## 遇到的问题汇总
 
 
 1. 二级菜单的时候获取到静态资源的路径，带着第一级菜单的路径
@@ -1079,7 +1065,7 @@ if (hasRoute || !matchedRoutes.length) {
 
 
 
-### 参考文档
+## 参考文档
 
 [从零到一搭建React SSR工程架构](http://blog.poetries.top/2018/11/18/react-ssr/?utm_source=tuicool&utm_medium=referral)
 

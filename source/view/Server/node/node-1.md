@@ -618,7 +618,7 @@ app.listen(3000);
 
 打开命令行窗口，运行下面的命令
 
-```linux{1,4}
+```bash{1,4}
 curl -X POST --data "name=Jack" 127.0.0.1:3000
 {"name":"Jack"}
 

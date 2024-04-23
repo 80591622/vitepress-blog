@@ -1,16 +1,6 @@
----
-abbrlink: ff86eea5
-title: JS添加水印功能
-date: 2021-04-25
-categories: 
-- JS
-- JS添加水印功能
----
-<strong class='old-blog'>JS添加水印功能</strong>
+# JS添加水印功能
 
-[[toc]]
-
-### 不使用canvas
+## 不使用canvas
 
 ```javascript
 // watermark.js
@@ -73,7 +63,7 @@ watermark('username');
 
 
 
-### 使用canvas
+## 使用canvas
 
 ```javascript
 // watermark.js
@@ -152,7 +142,7 @@ this.$nextTick(() => {
 
 
 
-### 优化
+## 优化
 
 做到目前为止只能防君子不防小人，那就要防止用户使用开发者工具之类的删除或者修改节点的样式去除水印，这时候可以用到 MutationObserver 构造函数，他可以创建并返回一个新的 MutationObserver 它会在指定的DOM发生变化时被调用
 
@@ -292,7 +282,7 @@ export default function createWaterMark(text) {
 
 
 
-### 扩展题外知识
+## 扩展题外知识
 
 **cssText的使用优势**
 

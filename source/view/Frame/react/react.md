@@ -1,21 +1,8 @@
----
-abbrlink: 68a94f2b
-title: React基本用法
-date: 2018-01-17
-sticky: 99
-cover: https://ae01.alicdn.com/kf/Hf6fe65bdc09c47afb4b61d42d22ea80ae.jpg
-tags: React.js
-categories: 
-- FE框架 
-- React
-- React基本用法
----
 
-<strong class='old-blog'>React基本用法</strong>
 
-[[toc]]
+# React基本用法
 
-### 路由传递参数
+## 路由传递参数
 
 ```javascript
 <Link to={{
@@ -63,7 +50,7 @@ export default utils;
 
 ```
 
-### 发起 AJAX 请求
+## 发起 AJAX 请求
 
 我们应当将AJAX 请求放到 `componentDidMount` 函数中执行，主要原因有下
 
@@ -71,7 +58,7 @@ export default utils;
 - 还有在rn中，用react做服务端的同构，或者更高技术的时候会有一系列的问题【componentWillMount时发生在服务端 componentDidMount在客户端，会冲突】。
 - React16 调和算法`Fiber`会通过开始或停止渲染的方式优化应用性能，其会影响到 `componentWillMount 的触发次数`。对于 componentWillMount 这个生命周期函数的调用次数会变得不确定，React 可能会多次频繁调用 componentWillMount
 
-### PropTypes
+## PropTypes
 `JavaScript 是弱类型语言，所以请尽量声明 propTypes 对 props 进行校验，以减少不必要的问题。`
 
 **`内置的 prop type 有：`**
@@ -106,7 +93,7 @@ static propTypes = {
 ```
 [查看更多](https://zh-hans.reactjs.org/docs/typechecking-with-proptypes.html)
 
-### Hooks为何能使用const 在下面声明的函数
+## Hooks为何能使用const 在下面声明的函数
 
 ```javascript
 //思想
@@ -121,7 +108,7 @@ static propTypes = {
 ```
 
 
-### 组件传递参数
+## 组件传递参数
 ```javascript
 //父
 <List onItem={(item) => this.onItem(item)}/>
@@ -143,7 +130,7 @@ static propTypes = {
    )
 }
 ```
-### PureComponent原理
+## PureComponent原理
 
 ```javascript
 shouldComponentUpdate: (nextProps = {}, nextState = {}) => {
@@ -170,7 +157,7 @@ shouldComponentUpdate: (nextProps = {}, nextState = {}) => {
 ```
 
 
-### 缓存路由
+## 缓存路由
 
 [网址](https://juejin.im/post/5cef73a3e51d4510926a7aeb)
 ```javascript
@@ -224,20 +211,20 @@ class RouteCache extends React.Component {
 
 ```
 
-### 获取实际的DOM
+## 获取实际的DOM
 
 ```javascript
 ReactDOM.findDOMNode(this.sildeWrapper).clientWidth;   //废弃  改用ref
 ```
 
-### 添加DOM
+## 添加DOM
 
 ```javascript
 <div dangerouslySetInnerHTML={{__html: '<p>123</p>'}} />
 ```
 
 
-### React.memo
+## React.memo
 
 ```javascript{2}
 import PowerList from "./components/PowerList"
@@ -249,7 +236,7 @@ const MemoPowerList = memo(PowerList, (prevProps, nextProps) => prevProps.data =
 
 ```
 
-### React.createElement
+## React.createElement
 
 ```javascript
 React.createElement(
@@ -275,7 +262,7 @@ React.createElement(
 
 ```
 
-### React.cloneElement
+## React.cloneElement
 
 新的子元素将取代现有的子元素， `key`和`ref`将被保留
 
@@ -341,7 +328,7 @@ function Index() {
 export default Index;
 ```
 
-### ReactDOM.createPortal
+## ReactDOM.createPortal
 
 react 中所有的组件都会位于#app下，而使用Portals提供了一种脱离#app的组件。
 
@@ -383,7 +370,7 @@ export default f;
 
 ```
 
-### Render Props
+## Render Props
 
 就是给组件添加一个`值为函数`的属性，这个函数可以在`组件渲染`的时候调用
 
@@ -484,7 +471,7 @@ const Index = () => {
 export default Index;
 ```
 
-### Error Boundaries
+## Error Boundaries
 
 `错误边界`是一种React组件，这种组件**可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI**，而不是渲染那些崩溃了的子组件树。
 错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。
@@ -545,7 +532,7 @@ class ErrorBoundary extends React.Component {
 }
 ```
 
-### Code Splitting
+## Code Splitting
 
 **import()**  
 
@@ -599,7 +586,7 @@ const A = lazy(() => import("./middle"));
 ```
 
 
-### React.StrictMode 
+## React.StrictMode 
 
 开发模式会调用多次
 
@@ -645,7 +632,7 @@ class 组件的生命周期方法 getDerivedStateFromProps
 StrictMode 的这个重复调用的特性只使用于开发模式，在生产模式下不会触发多次调用。
 
 
-### ref(非受控)
+## ref(非受控)
 
 React的ref有4种用法：
 
@@ -735,14 +722,14 @@ function CustomTextInput(props) {
 ```
 - `React.forwardRef()`  同样是React 16.3版本后提供的，可以用来创建子组件，以传递ref。
 
-### React生命周期
+## React生命周期
 
 ![](https://ae01.alicdn.com/kf/Hbb3d522c7afa45d894e583388f1615f4p.jpg)
 
 
 
 
-### 极简 React 入门配置
+## 极简 React 入门配置
 
 https://kentcdodds.com/blog/super-simple-start-to-react
 
@@ -772,7 +759,7 @@ https://kentcdodds.com/blog/super-simple-start-to-react
 ```
 
 
-### antd 
+## antd 
 
 ```css
 @import '~antd/es/style/themes/default.less';
@@ -829,7 +816,7 @@ form.validateFieldsAndScroll(
 })(<Input/>)}
 ```
 
-### 定义环境变量
+## 定义环境变量
 
 ```javascript
 cross-env ANALYZE=true // 设置环境变量
@@ -841,7 +828,7 @@ new webpack.DefinePlugin({
 ```
 react 默认测试环境 NODE_ENV为`development`，正式为`production`
 
-### dva & effects
+## dva & effects
 
 ```javascript
 //全局执行model

@@ -1,21 +1,6 @@
----
-abbrlink: 45c3a6ba
-title: vue基本用法
-date: 2020-03-11
-sticky: 98
-cover: https://ae01.alicdn.com/kf/Hae591c5b6f334ed6af80110ecd80fbd3l.jpg
-tags: Vue.js
-categories: 
-- FE框架 
-- Vue
-- Vue基本用法
----
+# vue基本用法
 
-<strong class='old-blog'>vue基本用法</strong>
-
-[[toc]]
-
-### 常用指令
+## 常用指令
 
 <span style='display: block;text-align: left;'> 常用指令	</span>|<span style='display: block;text-align: left;'> 描述</span>
 :-------- | :--------  
@@ -70,7 +55,7 @@ categories:
 **.down** | 下
 **.left** | 左
 
-### class与style如何动态绑定
+## class与style如何动态绑定
 
 ```vue
 <div id="box">
@@ -105,7 +90,7 @@ categories:
 </script>
 ```
 
-### vue中一些小技巧
+## vue中一些小技巧
 
 ```javascript
 // 访问父级组件实例,可以直接通过这个方法，访问到父组件定义的属性，也可直接修改，（不建议修改）
@@ -115,7 +100,7 @@ this.$parent
 this.$options
 ```
 
-### props类型
+## props类型
 
 ```javascript{3}
  props: {
@@ -144,9 +129,9 @@ props: {
 }
 ```
 
-### 组件components
+## 组件components
 
-#### 局部组件
+## 局部组件
 
 在直接import导入在components里面注册下就能用了
 
@@ -166,7 +151,7 @@ props: {
     }
 ```
 
-#### 全局组件
+## 全局组件
 
 在main.js里面注册下，就可以全局直接用了
 
@@ -175,9 +160,9 @@ import CompA from "./components/CompA"
 Vue.component("com-a", CompA);
 ```
 
-### 过滤器filter **
+## 过滤器filter **
 
-#### 局部过滤器
+## 局部过滤器
 
 写在Vue实例中的`filters`内的过滤器是局部过滤器；只能在当前组件可以使用
   - 过滤器可以连续使用，后面的过滤器的参数，是上一个过滤器的处理结果，数据会展示成最后一个过滤器的结果
@@ -208,7 +193,7 @@ filters: { // 写在filters里面的过滤器是局部过滤器
 }
 ```
 
-#### 全局过滤器
+## 全局过滤器
 
 `Vue.filter(过滤器名, callback)` 这种过滤器在任何地方都能使用
 
@@ -221,7 +206,7 @@ Vue.filter('toRMB', function(val) {
 {{item.price | toRMB}}
 ```
 
-### 自定义全局方法
+## 自定义全局方法
 
 ```javascript
 // mian.js
@@ -293,7 +278,7 @@ Vue.component("counter", About);
 Vue.mixin(mixin);
 ```
 
-#### VUE自定义指令
+## VUE自定义指令
 
 ```javascript
 Vue.directive('focus',{
@@ -344,7 +329,7 @@ Vue.directive('focus',{
 - `oldVnode`：上一个虚拟节点，仅在 `update` 和 `componentUpdated` 钩子中可用。
 
 
-### mixins
+## mixins
 
 在开发中有这么一种情况，当你有两个非常相似的组件，它们的功能极其相似，但它们局部稍有不同，现在你的做法是将它们分成两个不同的组件？还是只保留一个组件，局部差异的部分采用`props`控制呢？
 
@@ -354,7 +339,7 @@ Vue.directive('focus',{
 
 组件内部有跟mixins里面一样的方法时，组件内部的优先级高与mixins
 
-#### 局部mixins
+## 局部mixins
 
 ```javascript
 //assets/mixins/mixin.js
@@ -398,7 +383,7 @@ export default {
 </script>
 ```
 
-#### 全局mixins
+## 全局mixins
 
 ```javascript
 // main.js
@@ -418,7 +403,7 @@ console.log(this.formatDate(new Date()),'mixins');
 注意：请谨慎使用全局混入，因为它会影响每个单独创建的 Vue 实例 (包括第三方组件)。大多数情况下，只应当应用于自定义选项
 
 
-#### extends 和 mixins 区别
+## extends 和 mixins 区别
 
 extends 和 mixins 类似，通过暴露一个 extends 对象到组件中使用。
 
@@ -428,9 +413,9 @@ extends 只能暴露一个 extends 对象，暴露多个 extends 不会执行
 
 
 
-### vue 组件间通信有哪几种方式
+## vue 组件间通信有哪几种方式
 
-#### props/$emit
+## props/$emit
 
 适用 父子组件通信
 
@@ -503,7 +488,7 @@ extends 只能暴露一个 extends 对象，暴露多个 extends 不会执行
 </script>
 ```
 
-#### $emit/$on
+## $emit/$on
 
 适用于 父子、隔代、兄弟组件通信
 
@@ -523,9 +508,9 @@ extends 只能暴露一个 extends 对象，暴露多个 extends 不会执行
 
 **总结就是 $emit 要放在 $on监听 之后**
 
-#### vuex 、 $refs 、$parent
+## vuex 、 $refs 、$parent
 
-#### provide/inject
+## provide/inject
 
 provide 和 inject 主要为高阶插件/组件库提供用例。与 React 的上下文特性很相似。
 
@@ -608,7 +593,7 @@ mounted() {
 },
 ```
 
-### defineProperty 的不足
+## defineProperty 的不足
 
 Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 (root-level reactive property)。
 然而它可以使用 Vue.set(object, key, value) 方法将响应属性添加到嵌套的对象上：
@@ -617,7 +602,7 @@ Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 
 - 当你修改数组的长度时，例如：`vm.items.length = newLength`
 - 新增对象节点时候 `vm.obj.a = 1`
 
-#### 解决的办法
+## 解决的办法
 
 ```javascript
 // Vue.set
@@ -632,7 +617,7 @@ this.$set(this.obj,'a',1);
 this.obj= Object.assign({}, this.obj, { a: 1})
 ```
 
-### nextTick()
+## nextTick()
 
 Vue 的特点之一就是响应式，但数据更新时，DOM 并不会立即更新。当我们有一个业务场景，需要在 DOM 更新之后再执行一段代码时，可以借助nextTick实现。
 
@@ -665,7 +650,7 @@ new Vue({
 ```
 
 
-### computed & watch **
+## computed & watch **
 
 **computed 计算属性**
 
@@ -757,7 +742,7 @@ computed: {
 }
 ```
 
-### 使用ref
+## 使用ref
 
 - 首先在要获取的元素添加ref="标识符"的行内属性
 - 获取的时候this.$refs.标识符获取元素
@@ -770,7 +755,7 @@ computed: {
 this.$refs.box.style.color = 'red'
 ```
 
-### this.$once() && 钩子事件hookEvent
+## this.$once() && 钩子事件hookEvent
 
 this.$once('hook:beforeDestroy',callback)
 
@@ -804,7 +789,7 @@ mounted() {
 
 
 
-### vue 如何关掉响应式
+## vue 如何关掉响应式
 
 **使用 Object.freeze()，这会阻止修改现有的 property，也意味着响应系统无法再追踪变化**
 
@@ -841,7 +826,7 @@ new Vue({
 ```
 
 
-### vue样式穿透
+## vue样式穿透
 
 在开发中修改第三方组件样式是很常见，但由于 scoped 属性的样式隔离，可能需要去除 scoped 或是另起一个 style 。这些做法都会带来副作用（组件样式污染、不够优雅），样式穿透在css预处理器中使用才生效。
 
@@ -856,7 +841,7 @@ new Vue({
 ```
 
 
-### 函数式组件
+## 函数式组件
 
 函数式组件是无状态，它无法实例化，没有任何的生命周期和方法。创建函数式组件也很简单，只需要在模板添加 functional 声明即可。一般适合只依赖于外部数据的变化而变化的组件，因其轻量，渲染性能也会有所提高。
 
@@ -871,7 +856,7 @@ new Vue({
 </template>
 ```
 
-### css使用js的变量
+## css使用js的变量
 
 ```javascript
 <template>
@@ -902,7 +887,7 @@ export default {
 </style>
 ```
 
-### 生命周期**
+## 生命周期**
 
 <span style='display: block;text-align: left;'> 生命周期	</span>|<span style='display: block;text-align: left;'> 描述</span>|
 :-------- | :--------
@@ -917,7 +902,7 @@ deactivated | `keep-alive 专属`，组件被销毁时调用
 beforeDestroy | 组件销毁前调用
 destoryed | 组件销毁后调用
 
-### 路由使用
+## 路由使用
 
 ```javascript
    {
@@ -948,7 +933,7 @@ export default new Router({
 })
 ```
 
-#### 路由的方法
+## 路由的方法
 
 ```javascript
 this.$router.back()  // 回退
@@ -960,7 +945,7 @@ this.$router.push(`/permission/role-detail/${val}`);  // 跳转到当前role-det
  const {name, meta, path, params, fullPath, query, hash} = this.$route // 获取值
 ```
 
-#### 全局守卫
+## 全局守卫
 
 ```javascript
 // main.js 入口文件
@@ -976,7 +961,7 @@ router.afterEach((to, from) => {
 });
 ```
 
-#### 路由独享守卫
+## 路由独享守卫
 
 ```javascript
 const router = new VueRouter({
@@ -992,7 +977,7 @@ const router = new VueRouter({
 })
 ```
 
-#### router-link-exact-active和router-link-active
+## router-link-exact-active和router-link-active
 
 **router-link-exact-active**
 
@@ -1002,7 +987,7 @@ const router = new VueRouter({
 
 子级选中后，父级也会跟着选中
 
-### AJAX数据调取
+## AJAX数据调取
 
 可以在钩子函数 `created、beforeMount、mounted` 中进行调用，因为在这三个钩子函数中，data 已经创建，
 可以将服务端端返回的数据进行赋值。推荐在 `created` 钩子函数中调用异步请求，因为在 `created` 钩子函数中调用异步请求有以下优点：
@@ -1043,7 +1028,7 @@ export default {
 }
 ```
 
-### 语法示例*
+## 语法示例*
 
 ```javascript
 <div id="app">
@@ -1137,7 +1122,7 @@ vm.$set(vm.toDoList, item, play) // 向data中新增属性需要使用$set方法
 </script>
 ```
 
-### Vuex
+## Vuex
 
 Vuex是一个专为Vue应用程序开发的状态管理模式。每一个Vuex应用的核心就是store,就是一个容器，它包含着你的应用中大部分的状态state。
 
@@ -1149,7 +1134,7 @@ Vuex是一个专为Vue应用程序开发的状态管理模式。每一个Vuex应
 - **Action**：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作，`相当于rudex的action`
 - **Module**：允许将单一的 Store 拆分为多个store且同时保存在单一的状态树中。
 
-#### 项目结构
+## 项目结构
 
     ├── main.js
     ├── api
@@ -1164,7 +1149,7 @@ Vuex是一个专为Vue应用程序开发的状态管理模式。每一个Vuex应
         └── modules
             └── test.js       # 测试demo
 
-#### vuex配置
+## vuex配置
 
 ```javascript
 // modules/test.js
@@ -1263,7 +1248,7 @@ new Vue({
 }).$mount('#app');
 ```
 
-#### 组件中使用
+## 组件中使用
 
 ```vue
 <template>
@@ -1321,9 +1306,9 @@ export default {
 
 ...mapGetters('map',['zoom'])
 ```
-### element ui
+## element ui
 
-#### form表单自定义验证规则
+## form表单自定义验证规则
 
 ```javascript{5}
 rules = {
@@ -1344,7 +1329,7 @@ async repeatRoleName(rule: any, value: string, callback: (val?: string) => void)
 }
 ```
 
-#### Table
+## Table
 
 ```javascript{7,11-13}
 // 格式化
@@ -1363,7 +1348,7 @@ async repeatRoleName(rule: any, value: string, callback: (val?: string) => void)
 </el-table-column>
 ```
 
-### 参考文档
+## 参考文档
 
-[vuejs](https://cn.vuejs.org/)
+[vue.js](https://cn.vuejs.org/)<br/>
 [vuex](https://vuex.vuejs.org/zh/guide/actions.html)

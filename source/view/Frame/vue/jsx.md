@@ -1,18 +1,7 @@
----
-abbrlink: 65a337f1
-title: vue中使用JSX
-date: 2020-02-17
-categories: 
-- FE框架 
-- Vue
-- 调研JSX
----
+# vue中使用JSX
 
-<strong class='old-blog'>vue中使用JSX</strong>
 
-[[toc]]
-
-<!-- ### vue中使用JSX -->
+## vue中使用JSX
 
 **Template**
 
@@ -52,7 +41,7 @@ categories:
  }
 ```
 
-### 配置vue以使用JSX
+## 配置vue以使用JSX
 
 如果使用的Vue-cli大于或等于 3.0 版本，那么就直接可以使用JSX的语法了。
 
@@ -74,9 +63,9 @@ yarn add  babel-preset-vue-app -D
 
 我们现在可以在组件的render函数中使用JSX。
 
-### 使用JSX需要注意的
+## 使用JSX需要注意的
 
-#### slot
+## slot
 
 slot 是挂在 `this.$slots` 的这个属性上的，this.$slot['property'] 可以直接拿到slot的vNode,也可以通过数组索引拿到（不推荐）
 
@@ -114,7 +103,7 @@ render() {
 }
 ```
 
-#### scoped slots
+## scoped slots
 
 `scopedSlot` 是挂在 `this.$scopedSlots` 的这个属性上的，`this.$scopedSlots['property']` 可以直接拿到一个函数，这个函数的参数就是 `scopeSlots` 外传的数据，返回值是VNode.
 
@@ -166,7 +155,7 @@ export default {
 };
 ```
 
-#### 事件
+## 事件
 
 要监听 `JSX` 中的事件，我们需要“on”前缀。 例如，将`onClick`用于单击事件。
 
@@ -188,7 +177,7 @@ render (createElement) {
 }
 ```
 
-#### v-model
+## v-model
 
 v-model 实际上就是一个语法糖。
 
@@ -220,7 +209,7 @@ vue-cli默认搭建的脚手架时配置好这个plugin的，可直接使用`v-m
 
 babel7以上 访问[https://github.com/vuejs/jsx](https://github.com/vuejs/jsx)
 
-#### sync 修饰符
+## sync 修饰符
 
 ```javascript
 <comp :foo.sync="bar"></comp>
@@ -257,7 +246,7 @@ this.$emit('update:foo', newValue)
 
 [在jsx里面直接用.sync的方法](https://github.com/nickmessing)
 
-#### v-html
+## v-html
 
 将HTML字符串设置为元素的内容，使用domPropsInnerHTML而不是使用v-html
 
@@ -269,7 +258,7 @@ render (createElement) {
 }
 ```
 
-#### 可以使用拓展运算符
+## 可以使用拓展运算符
 
 我们也可以展开一个大对象：
 
@@ -281,7 +270,7 @@ render (createElement) {
 }
 ```
 
-### 用好jsx需要知道的**
+## 用好jsx需要知道的**
 
 ```vue
 render (h) {
@@ -361,7 +350,7 @@ render (h) {
 />
 ```
 
-### JSX代码示例
+## JSX代码示例
 
 以下是jsx写法
 
@@ -644,7 +633,7 @@ export default {
 感觉看起来还是没有react的顺眼
 
 
-### 基于类react的编码格式 **
+## 基于类react的编码格式 **
 
 [基于类的Vue组件](https://cn.vuejs.org/v2/guide/typescript.html#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6)
 
@@ -663,7 +652,7 @@ export default {
 Mixins (继承vue-class-component中的mixins)
 ```
 
-#### 类写的JSX
+## 类写的JSX
 
 ```javascript
 // import Vue from 'vue'
@@ -701,7 +690,7 @@ export default class Index extends Vue {
 }
 ```
 
-#### 添加声明文件
+## 添加声明文件
 
 我们在开发的时候很可能会自定义一些全局的指令或者一些的方法等等，如果不添加声明的话，可能需要每一个都`// @ts-ignore`,甚至有的报错。
 
@@ -756,7 +745,7 @@ var vm = new Vue({
 })
 ```
 
-#### 使用 Mixins
+## 使用 Mixins
 
 [template的声明方式](/workspace/Frame/vue/vue.html#mixins)
 
@@ -791,7 +780,7 @@ export class MyComp extends Mixins(MyMixin) {
 }
 ```
 
-#### 自定义修饰器
+## 自定义修饰器
 
 `vue-class-component` 提供 `createDecorator` 帮助函数用来创建自定义修饰器。
 
@@ -825,7 +814,7 @@ class MyComp extends Vue {
 }
 ```
 
-#### 添加自定义钩子
+## 添加自定义钩子
 
 如果你使用了一些Vue 插件比如 Vue Router，你可能会希望 class 组件解析它们所提供的钩子， `Component.registerHooks` 就允许你注册这些钩子
 
@@ -884,7 +873,7 @@ new Vue({
 这种乍一看跟react的编码格式很像，但是代码压缩后文件太大，
 而且vue的版本迭代速度很快，vue3已经不推崇这种写法了，vue3推崇使用函数式开发，对react的用户很是友好
 
-### vue-property-decorator
+## vue-property-decorator
 
 `vue-property-decorator` 是一个非官方库，是 `vue-class-component` 的很好的补充。它可以让`vue`的某些属性和方法，通过修饰器的写法让它也写到`vue`组件实例的类里面。
 
@@ -899,7 +888,7 @@ new Vue({
 Mixins (继承vue-class-component中的mixins)
 ```
 
-#### @Component
+## @Component
 
 @Component 修饰符注明了此类为一个 Vue 组件
 
@@ -914,7 +903,7 @@ Mixins (继承vue-class-component中的mixins)
 })
 ```
 
-#### @Props
+## @Props
 
 ```typescript
 @Prop({default: '默认的title', type: [String, Number]}) public readonly title!: string;
@@ -944,7 +933,7 @@ const {title,changeTitle} = this.zContext;
 changeTitle('只能是字符串')
 ```
 
-#### @Watch
+## @Watch
 
 ```typescript
 @Watch('message', {immediate: true, deep: false})
@@ -954,7 +943,7 @@ public onMsgChane(val: string, oldVal: string) {
 }
 ```
 
-#### Mixins
+## Mixins
 
 在使用`Vue`进行开发时我们经常要用到混合,结合`TypeScript`之后我们有两种`mixins`的方法
 
@@ -1017,7 +1006,7 @@ export default class myComponent extends Vue{
 }
 ```
 
-### 使用JSX遇到的坑
+## 使用JSX遇到的坑
 
 - 在使用ui框架的时候，@都用 on- 代替
 - el-popconfirm 在 table 里面不能直接使用
@@ -1111,6 +1100,6 @@ export default class myComponent extends Vue{
 </el-select>
 ```
 
-### 参考文档
+## 参考文档
 
 [https://juejin.im/post/5d7e662e6fb9a06b1f1460c2](https://juejin.im/post/5d7e662e6fb9a06b1f1460c2)

@@ -1,21 +1,9 @@
----
-abbrlink: b3d4a489
-title: 全局挂载组件之Vue.extend
-date: 2020-06-13
-categories: 
-- FE框架 
-- Vue
-- 源码分析
-- Vue.extend
----
 
-<strong class='old-blog'>全局挂载组件之Vue.extend</strong>
-
-[[toc]]
+# 全局挂载组件之Vue.extend
 
 `Vue.extend` 属于Vue的全局 api，在实际业务开发中我们很少使用，因为相比常用的 `Vue.component` 写法使用 `extend` 步骤要更加繁琐一些。但是在一些独立组件开发场景中（例如：ElementUI库），所以`Vue.extend` + `$mount` 这对组合非常有必要需要我们了解下。
 
-###  Vue.component
+##  Vue.component
 
 [文档](https://cn.vuejs.org/v2/api/index.html#Vue-componen)
 
@@ -48,7 +36,7 @@ console.log(new ElInput);  // 就是Inout的实例
 这时候，`Vue.extend + vm.$mount` 组合就派上用场了。
 
 
-### Vue.extend
+## Vue.extend
 
 [文档](https://cn.vuejs.org/v2/api/index.html#Vue-extend)
 
@@ -185,7 +173,7 @@ export default Vue
 - `$mount `方法实际上会调用` mountComponent` 方法，方法定义在 `src/core/instance/lifecycle.js `中
 
 
-### 实现一个弹框组件
+## 实现一个弹框组件
 
 ```javascript
 // message/src/index.vue
@@ -347,6 +335,6 @@ Vue.use(Message)
 
 
 
-### 参考文章
+## 参考文章
 
 [JavaScript 方式调用的组件](https://blog.csdn.net/weixin_44867717/article/details/104954173)

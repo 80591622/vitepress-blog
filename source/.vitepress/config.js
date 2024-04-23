@@ -23,7 +23,7 @@ export default {
   },
   // outDir: "../dist", // 打包输出的目录
   // titleTemplate: '牧涯前端学习笔记', // 标题后缀
-  cleanUrls: true, // url是否带.html后缀
+  cleanUrls: false, // url是否带.html后缀
   
   // 浏览器标签图标设置
   head: [
@@ -60,7 +60,7 @@ export default {
 
     // 自定义上次更新的文本和日期格式
     lastUpdated: {
-      text: "上次更新：",
+      text: "上次更新",
       formatOptions: {
         dateStyle: "full",
         timeStyle: "medium"

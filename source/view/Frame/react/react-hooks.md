@@ -1,18 +1,8 @@
----
-abbrlink: d16841f
-title: Hooks
-date: 2019-10-17
-categories: 
-- FE框架 
-- React
-- Hooks
----
 
-<strong class='old-blog'>Hooks</strong>
 
-[[toc]]
+# Hooks
  
-### Hook的规则
+## Hook的规则
  
 - 只在最顶层使用 Hook
     - 不要在`循环`，`条件`或`嵌套函数`中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们。遵守这条规则，你就能确保 Hook 在每一次渲染中都按照同样的 <strong>`顺序`</strong> 被调用。这让 React 能够在多次的 useState 和 useEffect 调用之间保持 hook 状态的正确。
@@ -22,7 +12,7 @@ categories:
        - **在类中使用报错警告** 「Hooks can only be called inside the body of a function component」
     
 
-### 使用Hooks的好处
+## 使用Hooks的好处
 
 **1.class 学习成本高**<br/>
 生命周期，this指向啥的，hooks只要会usestate   useeffect差不多能解决所有问题<br/>
@@ -57,7 +47,7 @@ useStore<br/>
 
 
     
-### Hooks的方法
+## Hooks的方法
  
 <span style='display: block;text-align: left;'> 钩子名</span>|<span style='display: block;text-align: left;'> 作用</span>|
 :-------- | :-------- 
@@ -73,7 +63,7 @@ useLayoutEffect|作用与useEffect相同，但在所有DOM改变后同步触发
 useDebugValue|useDebugValue 可用于在 React 开发者工具中显示自定义 hook 的标签。
  
  
-### useState
+## useState
  
 ```javascript{2}
 //直接传入初始值
@@ -98,7 +88,7 @@ setState(state+1);  //直接从初始值里面获取
 setState(prevState=>prevState+1) //该函数将接收先前的state,并返回一个更新后的值
 ```
 
-### useEffect
+## useEffect
  
 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`：useEffect Hook 可以表达所有这些(包括 不那么 常见 的场景)的组合。
 
@@ -188,7 +178,7 @@ export default Example
 
 [官方建议effect使用的方法声明在其内部](http://file.wk.jing999.cn/workspace/Frame/react/use-hooks.html#useeffect%E5%9C%A8%E5%A4%96%E9%9D%A2%E5%A3%B0%E6%98%8E%E5%87%BD%E6%95%B0')
 
-### useContext
+## useContext
  
 React16中更新了Context API，Context主要用于爷孙组件的传值问题，新的Context API使用订阅发布者模式方式实现在爷孙组件中传值
  
@@ -216,7 +206,7 @@ const ContextComponent = () => {
 
 可以看出，使用`useContext仍然需要在上层组件中使用<MyContext.Provider>`来为下层组件提供context。
 
-### useReducer
+## useReducer
 
 看到`useReducer`,肯定会想到Redux，没错它和Redux的工作方式是一样的。useReducer的出现是useState的替代方案，能够让我们更好的管理状态。
 
@@ -291,14 +281,14 @@ export default Counter
 
 ```
 
-### useCallback
+## useCallback
 
 返回一个memoized回调`函数`。
 
 [下面介绍的使用方式](http://file.wk.jing999.cn/workspace/Frame/react/use-hooks.html#usecallback%E7%A4%BA%E4%BE%8B%E4%BD%95%E6%97%B6%E6%9B%B4%E6%96%B0)
 
 
-### useMemo
+## useMemo
 
 返回一个memoized`值`。
 
@@ -308,7 +298,7 @@ useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。
 
 公用的`方法`用`useCallback`,若是直接`渲染值`则用`useMemo`，用`useCallback`的话也是每次都要执行的，但是`useMemo`是直接把值记忆存储了（前面的都是废话，其实都能实现，不过这样更符合习惯）
 
-### useRef
+## useRef
 
 本质上`useRef`就像是可以在其`.current`属性中保存一个可变值的“盒子”，`useRef(null)返回值`是不可拓展的属性,`.current`可以。
 
@@ -333,7 +323,7 @@ export default Example
 ```
 
 
-### useImperativeHandle
+## useImperativeHandle
 
 ```javascript
 useImperativeHandle(ref, createHandle, [deps])
@@ -387,17 +377,17 @@ export default Example
 ```
 ![](https://ae01.alicdn.com/kf/H3eab0df2695d4654a1f9e9a9b1f20edem.png)
 
-### useLayoutEffect
+## useLayoutEffect
 
 这个钩子函数与useEffect相同，但它会在所有的DOM变更之后`同步`调用effect。可以使用它来读取DOM布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。
 
 官网建议还是尽可能的是使用标准的useEffec以避免阻塞视觉更新。
 
-### useDebugValue
+## useDebugValue
 
 useDebugValue 可用于在 React 开发者工具中显示自定义 hook 的标签。
 
-### 自定义 Hook 必须以 use 开头吗？
+## 自定义 Hook 必须以 use 开头吗？
  
 必须如此。这个约定非常重要。不遵循的话，由于无法判断某个函数是否包含对其内部 Hook 的调用，React 将无法自动检查你的 Hook 是否违反了 Hook 的[规则](https://react.docschina.org/docs/hooks-rules.html)。
  
@@ -432,7 +422,7 @@ const Home = () => {
 ```
 
 
-### 面试题示例
+## 面试题示例
 
 ```javascript
 import React, {Fragment, useState, useEffect, useRef, useCallback} from "react";
@@ -526,9 +516,9 @@ export default Home
 
 ```
 
-### `Hooks FAQ`
+## `Hooks FAQ`
 
-#### useEffect在外面声明函数
+### useEffect在外面声明函数
 
 **一般来说，不安全**
 
@@ -565,7 +555,7 @@ function Example({ someProp }) {
 
 - 万不得已的情况下，你可以把函数加入effect的依赖但 把它的定义包裹 进`useCallback Hook`。这就确保了它不随渲染而改变，除非 它自身 的依赖发生了改变
 
-#### 如何获取上一轮的 props 或 state
+## 如何获取上一轮的 props 或 state
 
 ```javascript
 import React, {Fragment, useState, useEffect, useRef} from "react";
@@ -599,7 +589,7 @@ export default Example
 
 考虑到这是一个相对常见的使用场景，很可能在未来 React 会自带一个 usePrevious Hook。
 
-#### 为什么我修改后在别的函数中获取的还是上一次的值
+## 为什么我修改后在别的函数中获取的还是上一次的值
 
 组件内部的任何函数，包括事件处理函数和 effect，都是从它`被创建`的那次渲染中拿到的
 
@@ -664,7 +654,7 @@ function Example() {
 export default Example;
 ```
 
-#### 获取DOM 节点
+## 获取DOM 节点
 
 ```javascript{9,10,11,13,12}
 import React, {Fragment,useState, useRef, useCallback} from "react";
@@ -719,7 +709,7 @@ function Example() {
 export default Example
 ```
 
-#### useCallback示例何时更新
+## useCallback示例何时更新
 
 ```javascript{5,7,8,9,26,15,16,17,18,19,20,21}
 import React, {Fragment, useState, useEffect, useRef, useCallback} from "react";
@@ -770,7 +760,7 @@ export default Form
 
 由此可见obj每次执行都要`浅克隆`，useCallback依赖于`obj`所以每次都会生成新的函数。
 
-#### useMemo优化组件
+## useMemo优化组件
 
 ```javascript{3,5,8,9}
 function Example({ a, b }) {
@@ -789,7 +779,7 @@ export default Example
 ```
 `注意这种方式在循环中是无效的`
 
-#### 如何向下传递回调？
+## 如何向下传递回调？
 
 我们已经发现大部分人并不喜欢在组件树的每一层手动传递回调。尽管这种写法更明确，但这给人感觉像错综复杂的管道工程一样麻烦。
 
@@ -824,9 +814,9 @@ function DeepTree(props) {
 }
 ```
 
-### 自定义Hooks
+## 自定义Hooks
 
-#### useFetch
+### useFetch
 
 ```javascript
 const useDataApi = (initialUrl, initialData) => {
@@ -856,9 +846,9 @@ const useDataApi = (initialUrl, initialData) => {
 };
 ```
 
-### Hooks原理分析
+## Hooks原理分析
 
-#### 简单实现一个useState
+### 简单实现一个useState
 
 ```javascript
 var _state;
@@ -929,7 +919,7 @@ function render() {
 render();
 ```
 
-#### 简单实现一个useEffect
+## 简单实现一个useEffect
 
 dependencies:依赖关系
 
@@ -997,7 +987,7 @@ function useEffect(callback, depArray) {
 - memoizedState 数组是按 hook定义的顺序来放置数据的，如果hooks的顺序变化，memoizedState 并不会感知到所以不要再循环或者判断语句中调用。
 - 自定义的hooks也是共享同一个 memoizedState，共享同一个顺序。
 
-### 参考文档
+## 参考文档
 
 [hooks](https://react.docschina.org/docs/hooks-reference.html)
 

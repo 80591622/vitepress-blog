@@ -1,18 +1,6 @@
----
-abbrlink: c0e3a80
-title: Immer
-date: 2019-01-17
-categories: 
-- FE框架 
-- React
-- Immer
----
+# Immer
 
-<strong class='old-blog'>Immer</strong>
-
-[[toc]]
-
-### React中浅层次拷贝的问题
+## React中浅层次拷贝的问题
 
 ```javascript
 const detail = {name:'王可',school:{loc:'shijaizhuang'}}
@@ -26,7 +14,7 @@ copy.school === detail.school
 要解决上面的问题，一定要深克隆，而不是浅层次的拷贝
 
 
-### React中引用类型导致组件不更新
+## React中引用类型导致组件不更新
 
 **栗子**
 
@@ -84,7 +72,7 @@ class Index extends Component {
 export default Index
 ```
 
-### 简介不可变数据
+## 简介不可变数据
 
 React在减少重复渲染方面确实是有一套独特的处理办法，那就是虚拟DOM，但显然在首次渲染的时候React绝无可能超越原生的速度，或者一定能将其它的框架比下去。
 但是每次数据变动都会执行render，大大影响了性能，特别是在移动端。
@@ -104,11 +92,11 @@ Immutable 使用了Structural Sharing（结构共享），即如果对象树中�
 `Object.seal()` 和`Object.defineProperty()`均为ES5中定义的方法
 
 
-### immerJS
+## immerJS
 
 Immer是mobx的作者写的一个immutable库，核心实现是利用 ES6 的 `proxy`，几乎以最小的成本实现了js的不可变数据结构
 
-#### 使用方式
+## 使用方式
 
 ```javascript
 import produce from "immer"
@@ -159,7 +147,7 @@ onBirthDayClick2 = () => {
 }
 
 ```
-#### 图解
+## 图解
 
 ![](https://ae01.alicdn.com/kf/H7060e5bd80e044aea4ccda0edcf06f8e7.png)
 
@@ -188,9 +176,9 @@ Immer内部使用Object.freeze()方法,只冻结nextState跟currentState`相比�
    - 它的操作结果需要通过toJS方法才能得到原生对象，这使得在操作一个对象的时候，时刻要主要操作的是原生对象还是 ImmutableJS 的返回结果，稍不注意，就会产生意想不到的 bug。
 
 
-### 示例
+## 示例
 
-#### immutable.js
+### immutable.js
 
 看看Immutable怎么使用的，谁能保证以后一定不用这个
 
@@ -215,7 +203,7 @@ map4.c =4;
 console.log('map3===map4',map3===map4);
 ```
 
-#### Immer.js
+## Immer.js
 
 ```javascript
 import produce from "immer"
@@ -235,7 +223,7 @@ console.log(map1.school === map2.school);  //没有变化的对象将会共享
 console.log(map2.school.name = 1);  //school的引用地址没有发生改变，可以修改,双方发生变化  不建议修改
 ```
 
-### 实践
+## 实践
 
 为什么你要在React.js中使用Immutable Data熟悉React.js的都应该知道，React.js是一个UI = f(states)的框架，为了解决更新的问题，React.js使用了virtual dom，virtual dom通过diff修改dom，来实现高效的dom更新。听起来很完美吧，但是有一个问题。
 当state更新时，如果子组件数据没变，你也会去做virtual dom的diff，这就产生了浪费。
@@ -254,7 +242,7 @@ memo(xxxx, (prevProps, nextProps) => prevProps.data === nextProps.data);
 
 3. 与 Redux 搭配使用
 
-### 参考
+## 参考
 
 [官方文档](https://immerjs.github.io/immer/docs/introduction)
 

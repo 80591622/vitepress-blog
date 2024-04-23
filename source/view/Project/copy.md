@@ -1,15 +1,5 @@
----
-abbrlink: 3cc0fad5
-title: 实现JS复制内容到剪贴板
-date: 2019-03-19
-categories: 
-- Project
-- 实现JS复制内容到剪贴板
----
 
-<strong class='old-blog'>实现JS复制内容到剪贴板</strong>
-
-[[toc]]
+# 实现JS复制内容到剪贴板
 
 
 **实现JS复制内容到剪贴板**
@@ -40,7 +30,7 @@ execCommand()方法的定义中提到，它只能操作可编辑区域，也就�
 clipboard = (text) => {
  const copyText = document.createElement('input');
  copyText.setAttribute('readonly', 'readonly');//防止在移动端默认获取焦点，使键盘弹起
- copyText.setAttribute('value', text); // [!code focus]
+ copyText.setAttribute('value', text);
  document.body.appendChild(copyText);
  copyText.select();
  if (document.execCommand('copy')) {

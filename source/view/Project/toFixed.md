@@ -1,13 +1,5 @@
----
-abbrlink: d5825ec0
-title: toFixed方法的bug
-date: 2019-03-19
-categories: 
-- Project
-- toFixed方法的bug
----
 
-<strong class='old-blog'>toFixed方法的bug</strong>
+# toFixed方法的bug
 
 最近在工作过程中碰到一个隐藏的bug，经调试发现竟然是toFixed函数不可靠的结果引起的。在处理价格比较的时候，用foFixed进行价格的四舍五入之后，竟然发现比较的结果有问题；
 大家都知道，Number类型的变量有个toFixed方法，该方法将Number四舍五入为指定小数位数的数字，以`字符串`返回。

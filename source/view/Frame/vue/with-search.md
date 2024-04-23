@@ -1,19 +1,8 @@
----
-abbrlink: 97cd0111
-title: Vue之JSX封装搜索头部
-date: 2020-07-17
-categories: 
-- FE框架 
-- Vue
-- 组件封装
-- Vue之JSX封装搜索头部
----
 
-<strong class='old-blog'>Vue之JSX封装搜索头部</strong>
+# Vue之JSX封装搜索头部
 
-[[toc]]
 
-### 组件封装源码
+## 组件封装源码
 
 ```javascript
 export default {
@@ -155,7 +144,7 @@ export default {
 };
 ```
 
-### WithSearch文档
+## WithSearch文档
 
 
 | 参数名   | 作用                                                         | 类型   | 默认值 |
@@ -200,7 +189,7 @@ const searchFields = [
 
 
 
-### 组件使用
+## 组件使用
 
 ```vue
 <template>
@@ -223,6 +212,6 @@ export default {
 ```
 
 
-### 写在最后
+## 写在最后
 
 `仅仅是提供一个思路，有待完善  有待完善  ...`

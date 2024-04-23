@@ -1,18 +1,9 @@
----
-abbrlink: 8df09e6f
-title: 脚手架vue-cli
-date: 2020-02-11
-categories: 
-- FE框架 
-- Vue
-- 脚手架vue-cli
----
 
-<strong class='old-blog'>脚手架vue-cli</strong>
 
-[[toc]]
+# 脚手架vue-cli
 
-```liunx
+## vue-cli
+```bash
 # 安装 Vue CLI 3.x
 yarn global @vue/cli
 
@@ -37,7 +28,7 @@ Check the features needed for your project:
  ◯ E2E Testing
 ```
 
-### vue.config.js 的配置
+## vue.config.js 的配置
 
 ```javascript
 // 这个文件用于修改cli和webpack的配置
@@ -63,7 +54,7 @@ module.exports = {
 };
 ```
 
-### 开启Gzip压缩
+## 开启Gzip压缩
 
 ```javascript
 /* vue.config.js */
@@ -98,7 +89,7 @@ module.exports = {
 }
 ```
 
-### 分析包文件
+## 分析包文件
 
 ```javascript
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -118,7 +109,7 @@ chainWebpack: config => {
 }
 ```
 
-### 拆包
+## 拆包
 
 ```javascript
 configureWebpack: () => ({
@@ -158,7 +149,7 @@ configureWebpack: () => ({
 })
 ```
 
-### 默认插件简介
+## 默认插件简介
 
 通过对 `vue.config.js` 的了解，我们知道了 `vue-cli 3.x`为我们默认封装了项目运行的常用 `webpack` 配置，那么它给我们提供了哪些默认插件，每一个`plugin` 又有着怎样的用途呢？除了使用 **vue inspect plugins** 我们还可以通过运行 **vue ui** 进入可视化页面查看，步骤如下
 
@@ -236,7 +227,7 @@ module.exports = {
 }
 ```
 
-### 使用 alias 简化路径
+## 使用 alias 简化路径
 
 而在 `CLI 3.x `中我们无法直接操作 `webpack` 的配置文件，我们需要通过 `chainWebpack` 来进行间接修改，代码如下
 
@@ -265,9 +256,9 @@ module.exports = {
 }
 ```
 
-### 构建多页应用
+## 构建多页应用
 
-#### 多入口
+## 多入口
 
 在单页应用中，我们的入口文件只有一个，`CLI` 默认配置的是 `main.js`，但是到了多页应用，
 我们的入口文件便包含了 `page1.js、page2.js、index.js`等，数量取决于 pages 文件夹下目录的个数，
@@ -335,7 +326,7 @@ module.exports = {
 }
 ```
 
-#### 多模板
+## 多模板
 
 相对于多入口来说，多模板的配置也是大同小异，这里所说的模板便是每个` page` 下的` html` 模板文件，
 而模板文件的作用主要用于 `webpack `中 `html-webpack-plugin` 插件的配置，
@@ -424,7 +415,7 @@ module.exports = {
 如此我们多页应用的多入口和多模板的配置就完成了，
 这时候我们运行命令 `yarn build` 后你会发现 `dist` 目录下生成了 3 个 html 文件，分别是 `index.html、page1.html 和 page2.html`
 
-#### 使用 pages 配置
+## 使用 pages 配置
 
 其实，在 `vue.config.js` 中，我们还有一个配置没有使用，便是 `pages`。`pages` 对象允许我们为应用配置多个入口及模板，
 这就为我们的多页应用提供了开放的配置入口。官方示例代码如下
@@ -518,11 +509,11 @@ module.exports = {
 这样我们多页应用基于 `pages` 配置的改进就大功告成了，当你运行打包命令来查看输出结果的时候，你会发现和之前的方式相比并没有什么变化，
 这就说明这两种方式都适用于多页的构建，但是这里还是`推荐`大家使用更便捷的 `pages` 配置
 
-#### 多页面应用分页面打包
+## 多页面应用分页面打包
 
 **如果支持分项目编译打包到相应文件夹中,请看我的github [编译打包到相应文件夹](https://github.com/wkvictory/vue-mpa/blob/master/vue.config.js#L17)**
 
-#### 路由配置
+## 路由配置
 
 首先我们要明确一点就是，多页应用中的每个单页都是相互隔离的，即如果你想从 `page1` 下的路由跳到 `page2` 下的路由，
 你无法使用 `vue-router` 中的方法进行跳转，需要使用原生方法：`location.href` 或 `location.replace`
@@ -572,7 +563,7 @@ Vue.prototype.$openRouter = Navigator.openRouter; // 添加至 Vue 原型链
 
 至此我们已经能够成功模仿 `vue-router `进行单页间的跳转，但是需要注意的是因为其本质使用的是 `location` 跳转，所以必然会产生浏览器的刷新与重载
 
-#### 重定向
+## 重定向
 
 当我们完成上述路由跳转的功能后，可以在本地服务器上来进行一下测试，你会发现` Index` 首页可以正常打开，
 但是跳转 `Page1、Page2 `却仍然处于 `Index` 父组件下，这是因为浏览器认为你所要跳转的页面还是在 `Index` 根路由下，

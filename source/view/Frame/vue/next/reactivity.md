@@ -1,16 +1,5 @@
----
-abbrlink: fa0ddbec
-title: vue3.o源码分析
-date: 2020-03-17
-categories: 
-- FE框架 
-- Vue
-- 源码分析
----
 
-<strong class='old-blog'>vue3.o源码分析</strong>
-
-[[toc]]
+# vue3.o源码分析
 
 ## 前言
 
@@ -28,7 +17,7 @@ categories:
 
 ## 源码目录
 
-```text
+```bash
 ├── packages
 │   ├── compiler-core # 所有平台的编译器(weex也是基于这个)
 │   ├── compiler-dom # 针对浏览器的编译器
@@ -62,7 +51,7 @@ Composition API纯粹是添加的，不会影响/弃用任何现有的2.x API，
 > import VueCompositionApi from '@vue/composition-api';<br/>
 > Vue.use(VueCompositionApi);<br/>
 
-### reactive
+## reactive
 
 #### Object.defineProperty()
 
@@ -209,7 +198,7 @@ function toRef(object, key) {
 
 ## 安装3.o新版本
 
-> yarn add vue@next  vue-router@next vuex@next 
+> yarn add vue@next  vue-router@next vuex@next<br>
 > yarn add @vue/compiler-sfc@next eslint-plugin-vue@next vue-cli-plugin-vue-next -D
 
 
@@ -248,10 +237,10 @@ export default {
 
 ## 参考文档
 
-[vue-next](https://github.com/vuejs/vue-next)
-[vue-cli-plugin-vue-nex](https://github.com/vuejs/vue-cli-plugin-vue-next)
-[vue-composition-api文档](https://vue-composition-api-rfc.netlify.app/#summary)
-[vue3的编译工具](https://vue-next-template-explorer.netlify.app/)
-[尤雨溪在Vue3.0Beta直播里聊到了这些](https://juejin.im/post/5e9f6b3251882573a855cd52)
-[juejin](https://juejin.im/post/5eaead656fb9a0438d4060be)
+[vue-next](https://github.com/vuejs/vue-next)<br>
+[vue-cli-plugin-vue-nex](https://github.com/vuejs/vue-cli-plugin-vue-next)<br>
+[vue-composition-api文档](https://vue-composition-api-rfc.netlify.app/#summary)<br>
+[vue3的编译工具](https://vue-next-template-explorer.netlify.app/)<br>
+[尤雨溪在Vue3.0Beta直播里聊到了这些](https://juejin.im/post/5e9f6b3251882573a855cd52)<br>
+[juejin](https://juejin.im/post/5eaead656fb9a0438d4060be)<br>
 [segmentfault](https://segmentfault.com/a/1190000020709962?utm_source=tag-newest)

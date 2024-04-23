@@ -1,17 +1,7 @@
----
-abbrlink: a711f399
-title: 使用keepAlive遇到的坑
-date: 2020-05-25
-categories: 
-- FE框架 
-- Vue
-- 项目踩坑
-- keepAlive遇到的坑
----
 
-<strong class='old-blog'>使用keepAlive遇到的坑</strong>
 
-[[toc]]
+# 使用keepAlive遇到的坑
+
 
 ## 介绍
 
@@ -57,7 +47,7 @@ mutations: {
 }	
 ```
 
-### include和exclude无效问题
+## include和exclude无效问题
 
 使用`include/exclude` 属性需要给所有`vue类的name`赋值（注意不是给route的name赋值），否则 `include/exclude`不生效
 
@@ -451,11 +441,6 @@ scrollBehavior(to, from, savedPosition) {
 2. 若将include设置空 ' ' 每个页面都将会缓存
 3. exclude的优先级高于include 使用exclude后
 
---------------
-
-> 人生中第一次发布文章，希望大佬们多多指教，
-
----------
 
 ## 参考文档
 

@@ -1,16 +1,6 @@
----
-abbrlink: 4e764fd1
-title: XCODE模拟器报错修复
-date: 2019-11-17
-categories: 
-- FE框架 
-- ReactNative
-- XCODE模拟器报错修复
----
 
-<strong class='old-blog'>XCODE模拟器报错修复</strong>
 
-<!-- # `XCODE模拟器报错修复` -->
+# XCODE模拟器报错修复
 
 **1.MAC上调试工具React-native-debugger下载缓慢及其解决办法。**
 

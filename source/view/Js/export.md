@@ -1,17 +1,6 @@
----
-abbrlink: ggc3a6ba
-title: Axios 获取文件流导出 excel 表格
-date: 2021-03-11
-categories: 
-- JS
-- Axios 获取文件流导出 excel 表格
----
+# Axios 获取文件流导出 excel 表格
 
-<strong class='old-blog'>Axios 获取文件流导出 excel 表格</strong>
-
-[[toc]]
-
-##### 一、导出excel表格实现的具体思路：
+## 一、导出excel表格实现的具体思路：
 
 1.创建一个`a`标签；
 2.获取响应头`content-disposition`作为文件名；(需要服务端放开`content-disposition`所以尽量自己命名)
@@ -21,7 +10,7 @@ categories:
 
 
 
-##### 二、理解什么是 `Content-Disposition`
+## 二、理解什么是 `Content-Disposition`
 
 Content-disposition 是 MIME 协议的扩展，MIME 协议指示 MIME 用户代理如何显示附加的文件。Content-disposition其实可以控制用户请求所得的内容存为一个文件的时候提供一个默认的文件名，文件直接在浏览器上显示或者在访问时弹出文件下载对话框。
 
@@ -58,9 +47,9 @@ Access-Control-Expose-Headers : 'Content-Disposition' // 注意是大写
 
 
 
-##### 三、文件下载Content-Disposition中文乱码
+## 三、文件下载Content-Disposition中文乱码
 
-先确定后端的转码格式，一般默认的 ``UTF-8`
+先确定后端的转码格式，一般默认的 `UTF-8`
 
 ```javascript
 String fileName = "中国.doc";
@@ -76,7 +65,7 @@ response.setHeader("Content-Disposition", "attachment; filename=" + new Stri
 
 
 
-##### 四、完整导出表格代码
+## 四、完整导出表格代码
 
 ```javascript
 down(url) {

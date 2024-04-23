@@ -1,17 +1,9 @@
----
-abbrlink: aa78f18f
-title: 用到的方法
-date: 2019-03-19
-categories: 
-- Project
-- Methods
----
 
-<strong class='old-blog'>用到的方法</strong>
 
-[[toc]]
+# 用到的方法
 
-### 获取给定范围的随机数
+
+## 获取给定范围的随机数
 
 ```javascript
 export const  getRand= (min, max)=> {
@@ -21,7 +13,7 @@ export const  getRand= (min, max)=> {
 
 ```
 
-### 吸顶
+## 吸顶
 
 ```javascript
 //titleFixed是className的名字
@@ -54,7 +46,7 @@ function getOffset(obj, direction){
 }
 ```
 
-### 字符串去空
+## 字符串去空
 
 ```javascript
 /**
@@ -72,7 +64,7 @@ export const trim = (str, is_global) => {
 };
 ```
 
-### 经常用到的一些小正则
+## 经常用到的一些小正则
 
 ```javascript
 // 匹配8-16位数字和字母密码的正则表达式
@@ -94,7 +86,7 @@ let reg =/\(([^)]*)\)/g
 let reg =/^(-)?\d{1,3}(,\d{3})*(.\d+)?$/
 ```
 
-### 单击和双击同时存在
+## 单击和双击同时存在
 
 ```javascript
  dbJumpHome = () => {
@@ -117,7 +109,7 @@ jumpTo = () => {
 };
 ```
 
-### 同时调取多个接口
+## 同时调取多个接口
 
 ```javascript
 //Promise 请求多个接口
@@ -132,7 +124,7 @@ axios.all([queryWxapps(scenicid()['id']), queryWxapps(scenicid()['id']), queryWx
 
 ```
 
-### 移动端兼容性问题
+## 移动端兼容性问题
 
 ```javascript
 //解决ios键盘弹起取消后留空白的现象
@@ -149,7 +141,7 @@ if (
 }, true);
 ```
 
-### 获取滚动条的高度
+## 获取滚动条的高度
 
 ```javascript
 function ScollPostion() {//滚动条位置
@@ -179,7 +171,7 @@ var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documen
 
 ```
 
-### URL的编码解码
+## URL的编码解码
 
 ```javascript
 //编码
@@ -192,7 +184,7 @@ decodeURIComponent(URIstring)
 decodeURIComponent("%2C%2F%3F%3A%40%26%3D%2B%24%23")//,/?:@&=+$#
 ```
 
-### 获取图片的原始尺寸
+## 获取图片的原始尺寸
 
 ```js
 function getImgNaturalDimensions(oImg, callback) {
@@ -221,7 +213,7 @@ getImgNaturalDimensions(img, function(dimensions){
 });
 ```
 
-### 无尺寸的图像布局偏移
+## 无尺寸的图像布局偏移
 
 https://web.dev/optimize-cls/#images-without-dimensions
 

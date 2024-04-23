@@ -1,16 +1,5 @@
----
-abbrlink: a607d3b
-title: React16 Fiber
-date: 2019-01-17
-categories: 
-- FE框架 
-- React
-- Fiber
----
 
-<strong class='old-blog'>React16 Fiber</strong>
-
-[[toc]]
+# React16 Fiber
 
 React早期的优化都是`停留于JS层面`（vdom的 create/diff），诸如减少组件的复杂度（Stateless），
 减少向下diff的规模(SCU)，减少diff的成本(immutable.js)，当然，也有例外，比如针对老式的IE的LazyDOMTree。 
@@ -19,7 +8,7 @@ React早期的优化都是`停留于JS层面`（vdom的 create/diff），诸如�
 线程是并发的，无法决定顺序，这样页面的效果是不可控的。换单线程则简单可控，
 但JS执行与视图渲染与资原加载与事件回调是如何调度呢，于是有了EventLoop这种东西。
 
-### React16之前的痛点
+## React16之前的痛点
 
 - 组件不能返回数组
 - 弹窗问题
@@ -29,7 +18,7 @@ React早期的优化都是`停留于JS层面`（vdom的 create/diff），诸如�
 
 ![](https://ae01.alicdn.com/kf/He5cb4e937aaa4ecfbb32c6f106bd1b98O.jpg)
 
-### 解决进度
+## 解决进度
 
 16版本大更新，Fiber顺手解决了这些痛点
 
@@ -40,7 +29,7 @@ React早期的优化都是`停留于JS层面`（vdom的 create/diff），诸如�
 
 ![](https://ae01.alicdn.com/kf/H0c7d42dd77864b7484ada4c2d7ea9316J.jpg)
 
-### Fiber是什么
+## Fiber是什么
 
 `React Fiber`是对核心算法的一次重新实现。`React Fiber`把更新过程碎片化，把一个耗时长的任务分成很多小片，每一个小片的运行时间很短，虽然总时间依然很长，但是在每个小片执行完之后，都给其他任务一个执行的机会，这样唯一的线程就不会被独占，其他任务依然有运行的机会
 
@@ -51,20 +40,20 @@ React早期的优化都是`停留于JS层面`（vdom的 create/diff），诸如�
 
 React Fiber改变了之前react的组件渲染机制，新的架构使原来同步渲染的组件现在可以异步化，可中途中断渲染，执行更高优先级的任务。释放浏览器主线程,解决掉帧的问题
 
-### 关键特性
+## 关键特性
 
 - 时间分片（把渲染任务拆分成块，匀到多帧）
 - 更新时能够暂停，终止，复用渲染任务（链表）
 - 给不同类型的更新赋予优先级
 - 并发方面新的基础能力
 
-### 为什么需要异步渲染
+## 为什么需要异步渲染
 
 我们都知道在react16之前，react对virtual dom 的渲染是同步的，即每次将所有操作累加起来，统计对比出所有的变化后，统一更新一次DOM树（[了解虚拟dom算法](https://github.com/livoras/blog/issues/13)），随着组件层级的深入，由于渲染更新**一旦开始就无法停止**，导致主线程长时间被占用，这也是react在动画，布局和手势等区域会有造成掉帧、延迟响应（甚至无响应）等不佳体验。
 
 假如更新一个组件需要1毫秒，如果有200个组件要更新，那就需要200毫秒，在这200毫秒的更新过程中，浏览器那个唯一的主线程都在专心运行更新操作，无暇去做任何其他的事情。想象一下，在这200毫秒内，用户往一个input元素中输入点什么，敲击键盘也不会获得响应，因为渲染输入按键结果也是浏览器主线程的工作，但是浏览器主线程被React占着呢，抽不出空，最后的结果就是用户敲了按键看不到反应，等React更新过程结束之后，咔咔咔那些按键一下子出现在input元素里了。
 
-### Fiber的结构
+## Fiber的结构
 
 React 目前的做法是使用`链表`, 每个 VirtualDOM 节点内部现在使用 Fiber表示, 它的结构大概如下:
 
@@ -87,7 +76,7 @@ Fiber中最为重要的是return、child、sibling指针，连接父子兄弟节
 
 ![](https://ae01.alicdn.com/kf/Hf4b7a27bd4e1433e87216f879a2b9b78B.jpg)
 
-### Fiber tree与workInProgress tree*
+## Fiber tree与workInProgress tree*
 
 
 **current树：** React 在 render 第一次渲染时，会通过 React.createElement 创建一颗 Element 树，可以称之为` Virtual DOM Tree`，由于要`记录上下文信息`，加入了 Fiber，每一个 Element 会对应一个 `Fiber Node`，将 `Fiber Node` 链接起来的结构成为 `Fiber Tree`。它反映了用于渲染 UI 的应用程序的状态。这棵树通常被称为 `current 树`（当前树，记录当前页面的状态）。
@@ -118,7 +107,7 @@ WorkInProgress Tree 构造完毕，得到的就是新的 Fiber Tree，然后喜�
 **alternate** 可以理解为一个Fiber版本池，用于交替记录组件更新（切分任务后变成多阶段更新）过程中Fiber的更新，因为在组件更新的各阶段，更新前及更新过程中Fiber状态并不一致，在需要恢复时（如发生冲突），即可使用另一者直接回退至上一版本Fiber。
 
 
-### Fiber Reconciliation(更新过程)*
+## Fiber Reconciliation(更新过程)*
 
 react渲染大抵可以分为**reconciler（调度阶段）和 commit（渲染阶段）**，前者用于对比，后者用于操作dom，`reconciler`阶段可以算是一个从顶向下的递归算法，主要工作是对`current tree 和 new tree`做计算，找出变化部分。`commit`阶段是对在reconciler阶段获取到的变化部分应用到真实的DOM树中,在绝大部分运用场景中，reconciler阶段的时间远远超过commit，因此Fiber选择将reconciler阶段进行分割。
 
@@ -140,7 +129,7 @@ componentDidMount
 componentDidUpdate
 componentWillUnmount
 ```
-#### diff ~ render/reconciliation
+### diff ~ render/reconciliation
 
 diff的实际工作是对比prevInstance和nextInstance的状态，找出差异及其对应的DOM change。diff本质上是一些计算（遍历、比较），是可拆分的（算一半待会儿接着算）
 
@@ -176,7 +165,7 @@ function beginWork(fiber: Fiber): Fiber | undefined {
   }
 }
 ```
-#### patch ~ commit
+### patch ~ commit
 
 第2阶段直接一口气做完：
 
@@ -189,7 +178,7 @@ function beginWork(fiber: Fiber): Fiber | undefined {
 patch阶段把本次更新中的所有DOM change应用到DOM树，是一连串的DOM操作。这些DOM操作虽然看起来也可以拆分（按照change list一段一段做），但这样做一方面可能造成DOM实际状态与维护的内部状态不一致，另外还会影响体验。而且，一般场景下，DOM更新的耗时比起diff及生命周期函数耗时不算什么，拆分的意义不很大
 
 
-### 为什么需要新的生命周期
+## 为什么需要新的生命周期
 
 v16之前的生命周期
 ![](https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=184887708,229247596&fm=26&gp=0.jpg)
@@ -201,11 +190,11 @@ v16之前的生命周期
 
 `reconciler`阶段的钩子都不应该操作DOM，最好也不要setState，我们称之为`轻量钩子`。`commit`阶段的钩子则对应称之为`重量钩子`。
 
-### Fiber流程图
+## Fiber流程图
 
 ![](https://ae01.alicdn.com/kf/H42a99254c6d8425ab9b8bf782554349aG.jpg)
 
-### 优先级策略
+## 优先级策略
 
 每个工作单元运行时有6种优先级：
 
@@ -218,7 +207,7 @@ v16之前的生命周期
 
 `synchronous`首屏（首次渲染）用，要求尽量快，不管会不会阻塞UI线程。`animation`通过requestAnimationFrame来调度，这样在下一帧就能立即开始动画过程；`后3个`都是由requestIdleCallback回调执行的；offscreen指的是当前隐藏的、屏幕外的（看不见的）元素
 
-### 参考文档
+## 参考文档
 
 [https://zhuanlan.zhihu.com/p/37095662](https://zhuanlan.zhihu.com/p/37095662)
 

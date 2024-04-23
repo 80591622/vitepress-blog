@@ -1,13 +1,6 @@
----
-abbrlink: de59479a
-title: base64上传七云获取key
-date: 2019-03-19
-categories: 
-- Project
-- base64上传七云获取key
----
 
-<strong class='old-blog'>base64上传七云获取key</strong>
+
+# base64上传七云获取key
 
 上传到七云牛 base64 转化为 key(原生的ajax)
 

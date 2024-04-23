@@ -1,16 +1,5 @@
----
-abbrlink: 9e6c659f
-title: VirtualDOM
-date: 2019-11-17
-categories: 
-- FE框架 
-- React
-- VirtualDOM
----
 
-<strong class='old-blog'>VirtualDOM</strong>
-
-[[toc]]
+# VirtualDOM
 
 **React 的核心思想**
 
@@ -18,7 +7,7 @@ categories:
 然后把这个Patch打到浏览器的DOM上去。完事,并且这里的patch显然`不是完整的虚拟DOM`，
 而是新的虚拟DOM和上一次的虚拟DOM经过`diff`后的`差异化`的部分。
 
-### JSX和createElement
+## JSX和createElement
 
 我们在实现一个React组件时可以选择两种编码方式，第一种是使用`JSX`编写：
 
@@ -44,19 +33,19 @@ class Hello extends Component {
 **注意**：babel在编译时会判断JSX中组件的首字母，当`首字母为小写时`，其被认定为`原生DOM标签`，createElement的第一个变量被编译为字符串；当`首字母为大写时`，其被认定为自定义`组件`，createElement的第一个变量被`编译为对象`,所以组件首字母要大写
 
 
-### Virtual DOM
+## Virtual DOM
 
 ![](https://lsqimg-1257917459.cos-website.ap-beijing.myqcloud.com/blog/%E8%99%9A%E6%8B%9Fdom.png)
 
 冷静对待虚拟dom，他不是一定能够提升页面的性能，如果是首次渲染，Vitrua lDom不具有任何优势，甚至它要进行更多的计算，消耗更多的内存，是因为有diff他才会展现它的优势
 
-#### Virtual DOM的存在的意义
+### Virtual DOM的存在的意义
 
 - Vitrua Dom为React带来了跨平台渲染的能力。以React Native为例子;React根据Vitrual Dom画出相应平台的ui层，只不过不同平台画的姿势不同而已
 - 服务端渲染
 - 函数式编程
 
-#### Virtual DOM 基本步骤:
+### Virtual DOM 基本步骤:
 
 1. 用`js对象来表示DOM树的结构`； 然后用这个树构建一个真正的DOM树，插入到文档中。
 1. 当状态变更的时候，`重新构造一个新的对象`，然后用这个新的树和旧的树作对比，记录`两个树的差异`。 
@@ -75,7 +64,7 @@ class Hello extends Component {
 - `self`指定当前位于哪个组件实例。
 - `_source`指定调试代码来自的文件(fileName)和代码行数(lineNumber)。
 
-#### 简单实现 vdom
+### 简单实现 vdom
 
 ```html
 <body>
@@ -214,16 +203,16 @@ ReactDom.render(
 - **patch**：根据不同的差异，进行节点的更新
 
 
-### diff
+## diff
 
 其实React的 virtual dom的性能好也离不开它本身特殊的diff算法。传统的diff算法时间复杂度达到O(n3)，而react的diff算法时间复杂度只是o(n)，react的diff能减少到o(n)依靠的是react diff的三大策略。
 
-#### 传统diff 对比 react diff
+### 传统diff 对比 react diff
 
 传统的diff算法追求的是“`完全`”以及“`最小`”，而react diff则是放弃了这两种追求：
 在传统的diff算法下，对比前后两个节点，`如果发现节点改变了，会继续去比较节点的子节点，一层一层去对比`。就这样循环递归去进行对比，复杂度就达到了O(n3)，n是树的节点数，想象一下如果这棵树有1000个节点，我们得执行上十亿次比较，这种量级的对比次数，时间基本要用秒来做计数单位了。
 
-#### React diff 三大策略
+### React diff 三大策略
 
 - **tree diff**：Web UI中DOM节点跨层级的移动操作特别少，可以忽略不计。`（DOM结构发生改变-----直接卸载并重新creat）`
 - **component diff**：组件的DOM结构一样-----不会卸载,但是会update
@@ -231,7 +220,7 @@ ReactDom.render(
 
 ![](https://ae01.alicdn.com/kf/H9b1d122f787048f7afc393265e732d28D.png)
 
-#### 虚拟DOM树分层比较（`tree diff`）
+### 虚拟DOM树分层比较（`tree diff`）
 
 ![](https://ae01.alicdn.com/kf/H087b9d785877406b94078d9b6a07c15av.png)
 
@@ -242,7 +231,7 @@ ReactDom.render(
 React是不会机智的判断出子树仅仅是发生了移动，而是**会直接销毁**，并重新创建这个子树，然后再挂在到目标DOM上;<br/>
 实际上，React官方也并不推荐我们做出跨层级的骚操作。所以我们可以从中悟出一个道理：就是我们自己在实现组件的时候，一个稳定的DOM结构是有助于我们的性能提升的。
 
-#### 组件间的比较（`component diff`）
+### 组件间的比较（`component diff`）
 
 核心的策略还是看结构是否发生改变。React是基于组件构建应用的，对于组件间的比较所采用的策略也是非常简洁和高效的。
 
@@ -263,7 +252,7 @@ function diffComponent(oldNode, newNode) {
   }
 }
 ```
-#### 元素间的比较（`element diff`）
+### 元素间的比较（`element diff`）
 
 当节点处于同一层级的时候，react diff 提供了三种节点操作：**插入、删除、移动**。
 
@@ -273,7 +262,7 @@ function diffComponent(oldNode, newNode) {
 移动|新节点在老集合中存在，并且只做了位置上的更新，就会复用之前的节点，做移动操作（依赖于Key）|
 删除|新节点在老集合中存在，但节点做出了更改不能直接复用，做出删除操作|
 
-#### Key的作用
+### Key的作用
 
 **react利用key来识别组件，它是一种身份标识标识，就像我们的身份证用来辨识一个人一样**。每个key对应一个组件，相同的key react认为是同一个组件，这样后续相同的key对应组件都不会被创建。
 
@@ -322,7 +311,7 @@ react会去循环整个新的集合：
 
 因为`D`节点在老集合里面的`index` 是最大的，使得**A、B、C**三个节点都会 `index < lastindex`，从而导致**A、B、C**都会去做移动操作。所以在开发过程中，尽量减少类似将最后一个节点移动到列表首部的操作，当节点数量过大或更新操作过于频繁时，在一定程度上会影响 React 的渲染性能。
 
-#### 三句箴言
+### 三句箴言
 
 所以经过这么一分析`react diff`的三大策略，我们能够在开发中更加进一步的提高react的渲染效率。
 
@@ -330,7 +319,7 @@ react会去循环整个新的集合：
 - 使用 `shouldComponentUpdate()`方法节省diff的开销
 - 在开发过程中，尽量减少类似将最后一个节点移动到列表首部的操作，当节点数量过大或更新操作过于频繁时，在一定程度上会影响 React 的渲染性能。
 
-#### 为什么不推荐使用index作为Key
+### 为什么不推荐使用index作为Key
 
 看下面这个示例
 
@@ -376,7 +365,7 @@ class App extends Component {
 - 检测item.val部分，发现有变化重新渲染这部分
 - 检测input，发现不依赖props，所以不进行重新渲染
 
-#### diff 源码
+### diff 源码
 
 ```javascript{19,23,27,34,40}
 // diff函数，对比两颗树
@@ -442,7 +431,7 @@ function diffChildren(oldChildren, newChildren, index, pathches) {
 
 [详细diff跳转](https://github.com/livoras/simple-virtual-dom/blob/master/lib/diff.js#L5)
 
-### patch
+## patch
 
 因为步骤一所构建的 JavaScript 对象树和render出来真正的DOM树的信息、结构是一样的。
 所以我们可以对那棵DOM树也进行深度优先的遍历，遍历的时候从步骤二生成的patches对象中找出当前遍历的节点差异，然后进行 DOM 操作。
@@ -531,7 +520,7 @@ function applyPatches (node, currentPatches) {
  
 [详细patch跳转](https://github.com/livoras/simple-virtual-dom/blob/master/lib/patch.js#L8)
  
-### 总结
+## 总结
 
 virtual DOM算法主要实现上面步骤的三个函数： `react.createElement`、`diff`、`patch`，然后就可以实际的进行使用了。 
 
@@ -575,7 +564,7 @@ patch(root, patches)
 ```
 当然这是非常粗糙的实践，实际中还需要处理事件监听等；生成虚拟 DOM 的时候也可以加入 JSX 语法。这些事情都做了的话，就可以构造一个简单的ReactJS了。
 
-### 参考文档
+## 参考文档
 
 [https://juejin.im/post/5cb66fdaf265da0384128445](https://juejin.im/post/5cb66fdaf265da0384128445)<br/>
 [https://blog.csdn.net/qq_36407875/article/details/84965311](https://blog.csdn.net/qq_36407875/article/details/84965311)<br/>

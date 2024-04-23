@@ -1,14 +1,6 @@
----
-abbrlink: egsgsds
-title: 基于Vue的组件局部刷新
-date: 2020-06-15
-categories: 
-- FE框架 
-- Vue
-- 基于Vue的组件局部刷新
----
 
-<strong class='old-blog'>基于Vue的组件局部刷新</strong>
+
+# 基于Vue的组件局部刷新
 
 
 之前做keepalive，组件destroy销毁后，就不会缓存该页面了，解决的办法就是刷新当前的页面，一种是原始的刷新方式，一种就是基于框架本身的局部刷新，今天完善下基于vue的局部刷新。

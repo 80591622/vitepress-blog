@@ -1,16 +1,5 @@
----
-abbrlink: 83d5db7a
-title: Taro一些配置
-date: 2019-07-01
-categories: 
-- FE框架 
-- Taro
-- Taro一些配置
----
 
-<strong class='old-blog'>Taro一些配置</strong>
-
-[[toc]]
+# Taro一些配置
 
 ```typescript
 /*获取当前页url*/
