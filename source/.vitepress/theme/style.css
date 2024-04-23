@@ -187,7 +187,54 @@
   font-weight: 600 !important;
 }
 
+.VPSidebarItem.level-2.is-active > .item .link > .text {
+  color: #3eaf7c !important;
+  font-weight: 600 !important;
+}
+
+.VPSidebarItem.level-3.is-active > .item .link > .text {
+  color: #3eaf7c !important;
+  font-weight: 600 !important;
+}
+
+.VPSidebarItem.level-1.has-active > .item > .link > .text {
+  color: #3eaf7c !important;
+}
+
+.VPSidebarItem.level-2.has-active > .item > .link > .text {
+  color: #3eaf7c !important;
+}
+
+.VPSidebarItem.level-3.has-active > .item > .link > .text {
+  color: #3eaf7c !important;
+}
+
 .VPSidebarItem.level-1.is-link > .item > .link:hover .text {
+  color: #3eaf7c !important;
+}
+
+.VPSidebarItem.level-2.is-link > .item > .link:hover .text {
+  color: #3eaf7c !important;
+}
+
+.VPSidebarItem.level-3.is-link > .item > .link:hover .text {
+  color: #3eaf7c !important;
+}
+
+
+.VPSidebarItem.level-2.is-active > .item > .indicator {
+  background-color: #3eaf7c !important;
+}
+
+.VPSidebarItem.level-3.is-active > .item > .indicator {
+  background-color: #3eaf7c !important;
+}
+
+.outline-marker {
+  background-color: #3eaf7c !important;
+}
+
+.outline-link.active {
   color: #3eaf7c !important;
 }
 
