@@ -4,11 +4,11 @@ const nav = [
   {
     text: 'Useful',
     items: [
-      {text: 'Vue', link: '/view/Frame/vue/vue'},
-      {text: 'React', link: '/view/Frame/react/react'},
-      {text: 'Taro', link: '/view/Frame/taro/taroBase'},
-      // { text: '习题', link: '/workspace/Interviews/result' },
-      // { text: '理论', link: '/workspace/Interviews/theory' },
+      {text: 'Vue', link: '/workspace/Frame/vue/vue'},
+      {text: 'React', link: '/workspace/Frame/react/react'},
+      {text: 'Taro', link: '/workspace/Frame/taro/taroBase'},
+      // { text: '习题', link: '/workspace/Interworkspaces/result' },
+      // { text: '理论', link: '/workspace/Interworkspaces/theory' },
       // {text: ' 谷歌', link: 'https://google.com'},
     ]
   }

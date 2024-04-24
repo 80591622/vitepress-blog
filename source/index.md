@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Home
-      link: /view/Js/home
+      link: /workspace/Js/home
 
 features:
   - title: Feature A
