@@ -131,7 +131,7 @@ export default {
     }]
     link: [{                
       rel: 'asstes',
-      href: 'file.wk.jing999.cn'
+      href: 'file.wkdevhub.cn'
     }]
   }
 }

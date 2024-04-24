@@ -569,7 +569,7 @@ Vue.prototype.$openRouter = Navigator.openRouter; // 添加至 Vue 原型链
 但是跳转 `Page1、Page2 `却仍然处于 `Index` 父组件下，这是因为浏览器认为你所要跳转的页面还是在 `Index` 根路由下，
 同时又没有匹配到` Index` 单页中对应的路由。这时候我们服务器需要做一次重定向，将下方路由指向对应的 `html `文件即可
 
-```text
+```bash
 /vue/page1 -> /vue/page1.html
 /vue/page2 -> /vue/page2.html
 ```

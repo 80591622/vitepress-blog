@@ -292,7 +292,7 @@ location /test {
 }
 
 location @opr_404_error {
-	return 302 https://h5.wk.jing999.cn/opr/activity.html?$args; # 带上问号后面的参数
+	return 302 https://h5.wkdevhub.cn/opr/activity.html?$args; # 带上问号后面的参数
 }
 ```
 

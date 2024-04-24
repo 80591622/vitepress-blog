@@ -196,6 +196,7 @@ const searchFields = [
  <with-search :searchProps="searchProps"/>
 </template>
 
+<script>
 export default {
    data() {
       return {
@@ -205,10 +206,11 @@ export default {
           onSearch: this.handleSearch,
           onReset: this.handleReset,
           formData: {}
-        },
+        }
       }
    }
 }
+<script/>
 ```
 
 

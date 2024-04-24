@@ -28,8 +28,8 @@ chmod -R 777 pet_07 | 赋权限
 r：可读<br/>w：可写<br/>x：可执行<br/><br/>-rw------- (600) -- 只有属主有读写权限。<br/>-rw-r--r-- (644) -- 只有属主有读写权限；而属组用户和其他用户只有读权限。<br/>-rwx------ (700) -- 只有属主有读、写、执行权限。<br/>**-rwxr-xr-x (755) -- 属主有读、写、执行权限；别的用户组只有读、执行权限。**<br/>-rwx--x--x (711) -- 属主有读、写、执行权限；而属组用户和其他用户只有执行权限。<br/>-rw-rw-rw- (666) -- 所有用户都有文件读、写权限。这种做法不可取。<br/>-rwxrwxrwx (777) -- 所有用户都有读、写、执行权限。更不可取的做法。<br/> | 参数解释
 sudo chown -R $(whoami) or【你的用户名】  /Users/wk/Desktop/projectSvelte | 更改某个目录或文件的用户名和用户组
 yarn version --new-version 1.0.0 | 更改版本号
-curl http://www.wk.jing999.cn:8000/banner | http命令行工具
-ping www.wk.jing999.cn | ping  
+curl http://www.wkdevhub.cn:8000/banner | http命令行工具
+ping www.wkdevhub.cn | ping  
 kill -9 PID |  杀死这个进程
 npx browser-sync start -s . -f . | 静态页面动态刷新
 browser-sync start --server --files . | 静态页面动态刷新

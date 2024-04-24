@@ -633,7 +633,7 @@ export default {
 感觉看起来还是没有react的顺眼
 
 
-## 基于类react的编码格式 **
+## 基于类react的编码格式 
 
 [基于类的Vue组件](https://cn.vuejs.org/v2/guide/typescript.html#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6)
 

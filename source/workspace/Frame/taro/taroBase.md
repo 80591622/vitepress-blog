@@ -624,7 +624,7 @@ module.exports = function(merge) {
 > config目录下面的index
 
 **defineConstants**
-```
+```bash
 用来配置一些全局变量供代码中进行使用，例如：
 
 defineConstants: {

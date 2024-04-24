@@ -127,12 +127,13 @@
   }
 
   .VPContent.has-sidebar {
+    padding-right: 0 !important;
     padding-left: var(--vp-sidebar-width) !important;
   }
 
-  .VPDoc .aside {
+  /* .VPDoc .aside {
     padding-left: 180px !important;
-  }
+  } */
 
   /* 内容加宽 */
   .VPDoc.has-aside .content-container{

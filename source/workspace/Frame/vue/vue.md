@@ -57,7 +57,7 @@
 
 ## class与style如何动态绑定
 
-```vue
+```html
 <div id="box">
     <p :class="{ active: isActive, 'text-danger': hasError }"></p>
     <p v-bind:class="[isActive ? activeClass : '', errorClass]"></p>
@@ -135,7 +135,7 @@ props: {
 
 在直接import导入在components里面注册下就能用了
 
-```javascript
+```js
 <script>
     import compB from './components/CompB'
     import compA from './components/CompA'
@@ -1135,7 +1135,7 @@ Vuex是一个专为Vue应用程序开发的状态管理模式。每一个Vuex应
 - **Module**：允许将单一的 Store 拆分为多个store且同时保存在单一的状态树中。
 
 ## 项目结构
-
+```bash
     ├── main.js
     ├── api
     │   └── ... // API请求
@@ -1148,7 +1148,7 @@ Vuex是一个专为Vue应用程序开发的状态管理模式。每一个Vuex应
         ├── mutations.js      # 根级别的 mutation
         └── modules
             └── test.js       # 测试demo
-
+```
 ## vuex配置
 
 ```javascript

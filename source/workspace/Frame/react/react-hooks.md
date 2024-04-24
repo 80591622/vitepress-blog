@@ -176,7 +176,7 @@ export default Example
 ![](https://ae01.alicdn.com/kf/H9d109cbe0722447baf4ef132fa24268fE.gif)
 
 
-[官方建议effect使用的方法声明在其内部](http://file.wk.jing999.cn/workspace/Frame/react/use-hooks.html#useeffect%E5%9C%A8%E5%A4%96%E9%9D%A2%E5%A3%B0%E6%98%8E%E5%87%BD%E6%95%B0')
+[官方建议effect使用的方法声明在其内部](http://file.wkdevhub.cn/workspace/Frame/react/use-hooks.html#useeffect%E5%9C%A8%E5%A4%96%E9%9D%A2%E5%A3%B0%E6%98%8E%E5%87%BD%E6%95%B0')
 
 ## useContext
  
@@ -285,7 +285,7 @@ export default Counter
 
 返回一个memoized回调`函数`。
 
-[下面介绍的使用方式](http://file.wk.jing999.cn/workspace/Frame/react/use-hooks.html#usecallback%E7%A4%BA%E4%BE%8B%E4%BD%95%E6%97%B6%E6%9B%B4%E6%96%B0)
+[下面介绍的使用方式](http://file.wkdevhub.cn/workspace/Frame/react/use-hooks.html#usecallback%E7%A4%BA%E4%BE%8B%E4%BD%95%E6%97%B6%E6%9B%B4%E6%96%B0)
 
 
 ## useMemo

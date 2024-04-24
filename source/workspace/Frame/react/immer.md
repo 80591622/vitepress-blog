@@ -23,7 +23,7 @@ class Index extends Component {
     state = {
         ff: {
             a: 1, b: 2, c: 3, school: {
-                location: "wk.jing999.cn",
+                location: "wkdevhub.cn",
                 name: "王可"
             }
         }
@@ -36,7 +36,7 @@ class Index extends Component {
             ff: {
                 ...ff,
                 school: {
-                    location: "wk.jing999.cn",
+                    location: "wkdevhub.cn",
                     name: 11
                 }
             }
@@ -248,6 +248,6 @@ memo(xxxx, (prevProps, nextProps) => prevProps.data === nextProps.data);
 
 [Immutable 详解及 React 中实践](https://github.com/camsong/blog/issues/3)
 
-[seamless-immutable](http://file.wk.jing999.cn/workspace/Project/immutable.html)
+[seamless-immutable](http://file.wkdevhub.cn/workspace/Project/immutable.html)
 
 [Immer.js简析](https://segmentfault.com/a/1190000015426465)

@@ -483,7 +483,7 @@ module.exports = {
 
 #### 基于浏览器原生事件做通信
 
-[CustomEvent API 详情](http://blog.wk.jing999.cn/2020/08/28/workspace/Js/dispatchEvent/)
+[CustomEvent API 详情](http://wkdevhub.cn/2020/08/28/workspace/Js/dispatchEvent/)
 
 **父应用**
 
@@ -937,7 +937,7 @@ server
         listen 10200; # 监听端口
         server_name 120.79.229.197 ; # 请求到达的服务器名
         index index.html index.htm index.php default.html default.htm default.php;
-        root /home/wwwroot/mic200.wk.jing999.cn/dist; # 指定运行路径
+        root /home/wwwroot/mic200.wkdevhub.cn/dist; # 指定运行路径
   
         location / {
             try_files $uri $uri/ /index.html; # 重定向

@@ -120,7 +120,7 @@ yarn add qrcode-terminal -D
 ```javascript
 const qrcode = require('qrcode-terminal');
 
-const url = 'http://www.wk.jing999.cn';
+const url = 'http://www.wkdevhub.cn';
 qrcode.generate(url);
 // 第二个参数 {small:true} 第三个参数是回调
 ```
