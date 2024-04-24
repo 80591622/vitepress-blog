@@ -249,7 +249,7 @@ input.oninput = function (e) {
 
 `proxy`版本
 
-```javascript
+```js
 <input type="text" id="input">
 <span id="text"/>
 

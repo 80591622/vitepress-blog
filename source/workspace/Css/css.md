@@ -318,7 +318,7 @@ elm.style.setProperty("background-color", "yellow");
 ```html
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover">
 ```
-```text
+```bash
 content属性值 :
 width:可视区域的宽度，值可为数字或关键词device-width
 height:同width

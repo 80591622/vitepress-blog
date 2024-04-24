@@ -4,10 +4,13 @@
     "yarn": "^1.22.21"
   },
   "devDependencies": {
+    "@types/node": "^20.12.7",
     "sass": "^1.75.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10",
     "vitepress": "^1.1.0"
   },
-  "scripts": {    
+  "scripts": {
     "dev": "vitepress dev source",
     "build": "vitepress build source",
     "preview": "vitepress preview source"

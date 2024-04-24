@@ -175,7 +175,7 @@ vw vh rem响应式拓展不足
 5. Jsx  直接引入也ok
 6. 版本之间跳转的问题
 7. 在线ide
-8. markdown      <span v-text="radio"></span>
+8. markdown      
 9. highlight  代码高亮
 10. 一个组件使用另一个组件  记得导入css
 11. 启动慢、hmr慢的问题  开发优化、生产保持现有的

@@ -72,9 +72,9 @@ yarn upgrade react --latest //yarn upgrade 更新依赖包时yarn.lock更新但p
 ### yarn 切换源
 
 1、`查看一下当前源`
-yarn config get registry
+yarn config get registry<br>
 2、`切换为淘宝源`
-yarn config set registry https://registry.npm.taobao.org
+yarn config set registry https://registry.npm.taobao.org<br>
 3、`或者切换为自带的`
 yarn config set registry https://registry.yarnpkg.com
 
