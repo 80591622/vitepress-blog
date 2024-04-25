@@ -271,7 +271,7 @@ export default {
         { text: "开发工具", link: "/tools/store" },
         { text: "网站大全", link: "/tools/page" },
         { text: "配置WS", link: "/other/ws-configure" },
-        { text: "习题解答", link: "/workspace/Interworkspaces/result" },
+        { text: "习题解答", link: "/workspace/Interviews/result" },
       ]
     }
   ]

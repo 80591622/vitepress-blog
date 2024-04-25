@@ -1,21 +1,12 @@
----
-abbrlink: 1301e6de
-title: 开发工具
-date: 2019-03-16
-tags: 实用库
-categories: 
-- Other
----
 
-<strong class='old-blog'>开发工具</strong>
 
-[[toc]]
+# 开发工具
 
-### 推荐库
+## 推荐库
 
 **太常用的一些库，比如 `lodash`、`axios`、`echarts`、`normalize.css`等就不再下面推荐了。这里主要推荐一下自己平时常用，提高效率的，但大家可能又不知道的一些库。**
 
-### 前端常用
+## 前端常用
 
 - [sweetalert2](https://github.com/sweetalert2/sweetalert2) 一个自适应，且自定义性强的弹出框（零依赖）
 - [tippy.js ](https://github.com/atomiks/tippyjs) 最著名的 tooltip/popover library
@@ -75,12 +66,12 @@ categories:
 - [grade](https://github.com/benhowdle89/grade) 一个可以根据你的 图片 调整底色的插件
 - [pretty-bytes](https://github.com/sindresorhus/pretty-bytes) 将字节转换成可以读的字符串，比如 1337 个字节，会显示成 1.34 KB
 
-### 全景图
+## 全景图
 
 [krpano全景图](https://www.jianshu.com/p/b227912b1d71)
 [krpano文档](https://krpano.milly.me/)
 
-### Css & 动画
+## Css & 动画
 
 - [animate.css](https://github.com/daneden/animate.css) 最有名的动画效果库
 - [magic.css](https://github.com/miniMAC/magic) css 动画效果库 类似 animate.css
@@ -97,7 +88,7 @@ categories:
 - [cssfx](https://cssfx.dev/) 优雅的 CSS 动画效果，开箱即用
 - [zdog](https://github.com/metafizzy/zdog) 3D engine 引擎
 
-### Vue
+## Vue
 
 - [vue-multiselect](https://github.com/shentao/vue-multiselect) select 组件 目前 vue 里面用过最好用的
 - [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable) DnD 拖拽组件 基于 Sortable.js 的 vue 版本
@@ -110,14 +101,14 @@ categories:
 - [vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller) 基于 vue 的虚拟列表无限滚动
 - [vue-content-placeholders](https://github.com/michalsnik/vue-content-placeholders) 页面龙骨 skeleton
 
-### 实践库
+## 实践库
 
 - [Jasonette](https://github.com/Jasonette/JASONETTE-iOS) 一个用 json 来构建 hybrid App 的框架
 - [crate](https://github.com/atulmy/crate) 一个 react 全栈练习(pc,mobile,rn,api) demo，适合入门拿来练手
 - [react-in-patterns](https://github.com/krasimir/react-in-patterns) 一本开源教你如何写 react 的书
 - [hocs](https://github.com/deepsweet/hocs) react 相关 hoc 收集库
 
-### 工具库
+## 工具库
 
 - [live-server](https://github.com/tapio/live-server) 可以快速启一个本地 dev 服务 并且支持自动刷新的 http server
 - [serve](https://github.com/zeit/serve) - 快速起本地静态服务
@@ -140,7 +131,7 @@ categories:
 - [stats.js](https://github.com/mrdoob/stats.js/) 前端性能监控 如 FPS、内存使用情况等
 - [PapaParse](https://github.com/mholt/PapaParse) 解析 csv excel
 
-### Node
+## Node
 
 - [consola](https://github.com/nuxt/consola) 优雅的命令行 console `vuepress` 也使用了它
 - [cheerio](https://github.com/cheeriojs/cheerio) - 用类 jQuery 语法处理 HTML
@@ -183,12 +174,12 @@ categories:
 - [listr](https://github.com/SamVerschueren/listr) Terminal task list
 - [dotenv](https://github.com/motdotla/dotenv) 通过.env 设置环境部变量 vue-cli 也依赖它
 
-### GraphQL
+## GraphQL
 
 - [prisma](https://www.prisma.io/docs/) - 让前端也能快速的写出
 - [Apollo GraphQL](https://www.apollographql.com/) - 是基于 GraphQL 的全栈解决方案集合。从后端到前端提供了对应的 lib 使得开发使用 GraphQL 更加的方便
 
-### 有趣
+## 有趣
 
 - [the-bread-code](https://github.com/hendricius/the-bread-code) - 使用程序员的思维制作面包 ，比如制作中使用 A/B test,
   来比较那种做法更好。
@@ -200,7 +191,7 @@ categories:
 - [app-ideas](https://github.com/florinpop17/app-ideas) 很多年轻人苦于缺少练手的项目，这个项目收集了不少点子，每个点子都有明确的目标和复杂资源。
 - [WebGL-Fluid-Simulation](https://github.com/PavelDoGreat/WebGL-Fluid-Simulation) 很酷的 WebGL 交互
 
-### 工具
+## 工具
 
 - [high-speed-downloader](https://github.com/high-speed-downloader/high-speed-downloader) - 百度网盘不限速下载 支持 Windows 和 Mac
 - [hyper](https://github.com/zeit/hyper) - 前端命令行
@@ -256,7 +247,7 @@ categories:
 - [pixelmatch](https://github.com/mapbox/pixelmatch) diff 两张图片不一样的地方
 - [readme-md-generator](https://github.com/kefranabg/readme-md-generator) 一个命令行脚本帮你快速的创建一个 README
 
-### Webpack
+## Webpack
 
 - [webpackbar](https://github.com/nuxt/webpackbar) webpack 打包进度可视化
 - [jarvis](https://github.com/zouhir/jarvis) webpack dashboard
@@ -267,7 +258,7 @@ categories:
 - [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin) 复制额外的文件到输出目录
 - [duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin) 检查是否存在重复依赖
 
-### Mac
+## Mac
 
 - [get-plain-text](https://itunes.apple.com/cn/app/get-plain-text/) - 能清除剪贴板里的格式 很实用
 - [IINA](https://github.com/lhc70000/iina) - mac 平台感觉免费最好的播放器 强推
@@ -288,7 +279,7 @@ categories:
 - [more](https://github.com/serhii-londar/open-source-mac-os-apps) - 更多优秀的 mac app 介绍
 - [Motrix](https://github.com/agalwood/Motrix) - 支持 HTTP、FTP、BT、磁力链、百度网盘的下载工具
 
-### Chrome 拓展
+## Chrome 拓展
 
 - [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 油猴 神器
 - [扩展管理器](https://chrome.google.com/webstore/detail/extension-manager/gjldcdngmdknpinoemndlidpcabkggco/related?utm_source=chrome-ntp-icon) 轻松管理扩展，就不用担心安装太多扩展了
@@ -309,7 +300,7 @@ categories:
 - [沙拉查词](https://chrome.google.com/webstore/detail/%E6%B2%99%E6%8B%89%E6%9F%A5%E8%AF%8D-%E8%81%9A%E5%90%88%E8%AF%8D%E5%85%B8%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91/cdonnmffkdaoajfknoeeecmchibpmkmg) 划词翻译插件
 - [npmhub](https://github.com/npmhub/npmhub)在 README 下方显示 npm 依赖信息
 
-### VS Code
+## VS Code
 
 - [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost) 查看你引入的依赖模块大小
 - [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag) 自动补全 html 标签，如输入`<a>`将自动补全`</a>`
@@ -318,7 +309,7 @@ categories:
 - [vscode-leetcode](https://github.com/jdneo/vscode-leetcode) - 一个能让你在 vscode 中刷 LeetCode 的插件 算一个划水神器吧
 - [vscode-icons](https://marketplace.visualstudio.com/items?itemName=robertohuertasm.vscode-icons) VS Code 必备吧，为文件添加炫图标
 
-### 工程
+## 工程
 
 - [lerna](https://github.com/lerna/lerna) - monorepo 管理。
 - [lerna-changelog](https://github.com/lerna/lerna-changelog) - 为 lerna 项目自动生成 changelog。

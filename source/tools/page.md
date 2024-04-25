@@ -1,26 +1,14 @@
----
-abbrlink: '214639e1'
-title: 网站大全
-date: 2019-03-16
-tags: 实用网站
-categories: 
-- Other
----
 
-<strong class='old-blog'>网站大全</strong>
+# 网站大全
 
-[[toc]]
-
-###  网站
-
-### 常看的网站
+## 常看的网站
 
 - [awesome-f2e-libs](https://github.com/sorrycc/awesome-f2e-libs) sorrycc 整理的个人关注使用的前端库
 - [overreacted](https://overreacted.io/) react Dan 的个人博客，更新频率很高
 - [DailyJS](https://medium.com/dailyjs)
 - [codeburst](https://codeburst.io/)
 
-### Github
+## Github
 
 - [github 短域名服务](https://git.io)
 - [shields](https://shields.io/) Github README 里面的装逼小图标
@@ -32,7 +20,7 @@ categories:
 - [star-history](https://www.timqian.com/star-history/#PanJiaChen/vue-element-admin) 展示一个项目 Stars 增长规矩曲线
 - [probot](https://github.com/probot/probot) 基于 github 做一个小机器人。可以做很多 workflow 的事情
 
-### 开发
+## 开发
 
 - [can i use](https://caniuse.com/) 前端常用网站了 查看不同属性和方法的兼容性
 - [Squoosh](https://squoosh.app/) 谷歌出品在线免费图片压缩工具 神器
@@ -81,7 +69,7 @@ categories:
 - [Lorem Picsum](https://picsum.photos/) 提供免费的占位图
 - [sm.ms](https://sm.ms/) 免费图床
 
-### 设计
+## 设计
 
 - [uimovement](https://uimovement.com/) 能从这个网站找到不少动画交互的灵感
 - [awwwards](https://www.awwwards.com/)是一个一个专门为设计精美的网站以及富有创意的网站颁奖的网站
@@ -104,7 +92,7 @@ categories:
 - [Unsplash](https://unsplash.com/) 提供免费的高清图片
 - [colorkitty](https://colorkitty.com/) 从你的图片中提取配色
 
-### 有趣
+## 有趣
 
 - [帮你百度一下](http://www.baidu-x.com/) 可以 [点我测试一下](http://www.baidu-x.com/?q=%E5%92%8C%E8%B0%90%E6%9C%89%E7%88%B1%E5%AF%8C%E5%BC%BA)-
 - [国际版](http://lmgtfy.com/) 同`帮我百度一下`-[点我测试一下](http://lmgtfy.com/?q=a)-
@@ -117,7 +105,7 @@ categories:
 - [weird-fonts](https://github.com/beizhedenglong/weird-fonts) 将普通字母转化为 特殊 unicode
 - [snake](https://github.com/epidemian/snake) 在地址栏里面玩贪吃蛇
 
-### 交互
+## 交互
 
 - [微交互](http://aliscued.lofter.com/) 里面收集了市面上很多很好的微交互例子 值得学习
 - [Little Big Details](http://littlebigdetails.com/) 同上，一个国外微交互汇集网站
@@ -125,30 +113,30 @@ categories:
 - [Comixify](https://comixify.ii.pw.edu.pl/) 一个波兰团队做了非常好玩的工具，可以把视频自动转成漫画，上图是他们提供的 demo，效果很棒。
 - [taiko-web](https://github.com/bui/taiko-web) 太鼓达人网页版 只能说很 6
 
-### Css
+## Css
 
 - [css-tricks](https://css-tricks.com/) 一个学习 css 不错的网站 有很多有意思的 demo
 
-### 教程
+## 教程
 
 - [npx](https://egghead.io/courses/execute-npm-package-binaries-with-the-npx-package-runner) 教你怎么合理的使用 npx
 
 - [hacksplaining](https://www.hacksplaining.com/lessons) 网络安全学习网站
 
-### 产品
+## 产品
 
 - [产品大牛](http://www.pmdaniu.com/) 什么有很多完整的产品原型可以借鉴
 
 - [磨刀](https://modao.cc/pricing) 快速出 ui 原型
 
-### 实用
+## 实用
 
 [typeform](https://admin.typeform.com/signup) 一个国外的在线调查问卷网站
 
-### Talk
+## Talk
 
 [peerigon-talks](https://github.com/peerigon/talks) 收集了不少有意思的 talks
 
-### 算法
+## 算法
 
 [leetcode](https://github.com/azl397985856/leetcode) 用 js 刷 leetcode

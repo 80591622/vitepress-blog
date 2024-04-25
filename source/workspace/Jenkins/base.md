@@ -20,7 +20,7 @@ docker
 
 
 
-### Why Jenkins
+## Why Jenkins
 
 `是业界流行开源的持续集成的工具，广泛用于项目开发，具有自动化构建，测试，部署等功能`
 
@@ -28,9 +28,9 @@ docker
  
  CD 持续部署
       
-<!-- <img src='/assets/img/jenkins.jpeg'/> -->
+ <img src='/assets/img/jenkins.jpeg'/> 
 
-### 配置jdk安装Java环境
+## 配置jdk安装Java环境
 
 `jenkins是java编写的，所以需要先安装jdk`
 
@@ -51,7 +51,7 @@ ln -s  /usr/java/[name]/bin/java /usr/bin/java   //创建一个软连接 or 创�
 java -version //查看版本号是否成功
 ```
 
-### 配置/启动 Jenkins
+## 配置/启动 Jenkins
 
 ```javascript
 cd /etc/yum.repos.d
@@ -78,7 +78,7 @@ docker ps -a
 docker start  [name]
 
 ```
-#### 如果是wget 安装的话
+### 如果是wget 安装的话
 
 `启动jenkins`<br/>
 java -jar jenkins.war --httpPort=8081
@@ -94,12 +94,12 @@ ps -aux|grep jenkins
 `杀死这个进程`<br/>
 kill -9 [PID]
 
-#### 登录
+### 登录
 
 账号：admin <br/>
 密码：`cat /var/lib/jenkins/secrets/initialAdminPassword`（初始密码）
 
-### 安装插件
+## 安装插件
 
 首先重置安装源，切换到中国的镜像
 
@@ -118,7 +118,7 @@ Role-based Authorization Strategy//增加用户的权限管理
 
 ```
 
-#### 手动下载jenkins插件
+### 手动下载jenkins插件
 
 插件下载地址：`http://updates.jenkins-ci.org/download/plugins/`
 
@@ -131,7 +131,7 @@ Role-based Authorization Strategy//增加用户的权限管理
 <img src='/assets/img/plugin.png'/>
 
 
-### 关闭防火墙
+## 关闭防火墙
 ```bash
 设置开机启用防火墙：systemctl enable firewalld.service
 设置开机禁用防火墙：systemctl disable firewalld.service
@@ -140,42 +140,42 @@ Role-based Authorization Strategy//增加用户的权限管理
 检查防火墙状态：systemctl status firewalld 
 ```
 
-### 添加项目
+## 添加项目
 
 新建一个任务[name]->构架一个自由风格的项目->确定
 
 源代码->git->https://github.com/wkvictory/weapp.git->添加权限【git 的用户名和密码】->构建触发器(Generic Webhook Trigger)->应用保存
 
-<!-- <img src='/assets/img/addGit.png'/> -->
+<img src='/assets/img/addGit.png'/>
 
-<!-- <img src='/assets/img/trigger.png'/> -->
+<img src='/assets/img/trigger.png'/>
 
-### 配置webhook
+## 配置webhook
 
 此时可以构建了，但是需要在还给Git中添加Webhooks，否则不能自动化构建
 
-<!-- <img src='/assets/img/webhooks.png'/> -->
+<img src='/assets/img/webhooks.png'/>
 
 `http://JENKINS_URL/generic-webhook-trigger/invoke` 
 
 JENKINS_URL格式为 `用户名:token@ip:8080`
 
 **token生成的位置**<br/>
-<!-- <img src='/assets/img/token.png'/> -->
+<img src='/assets/img/token.png'/>
 
 admin<br/>
 1108c27bdd32e70d8ba6ba7893bcf57450<br/>
 120.79.229.197:8080<br/>
 http://admin:1108c27bdd32e70d8ba6ba7893bcf57450@120.79.229.197:8080/generic-webhook-trigger/invoke
 
-### 触发
+## 触发
 
 手动触发，查看日志是否成功<br/>
 代码默认目录,在控制台查看  cd /var/lib/jenkins/workspace/[name]
 
 也可以Git提交一版代码触发看是否成功
 
-### 构建
+## 构建
 
 下拉任务名字->配置->构建环境（选中Run the build in an NVM managed environment，【我们自己下载的插件提供node环境】）->
 输入node的版本号->构建->选择shell
@@ -193,13 +193,13 @@ yarn build:h5
 tar -czvf dist.tar.gz dist/h5
 ```
 
-### 添加服务器的私钥
+## 添加服务器的私钥
 
 系统管理->系统设置->Publish over SSH
 
-<!-- <img src='/assets/img/ssh.png'/> -->
+<img src='/assets/img/ssh.png'/>
 
-### 配置免费登录（同一台也要）
+## 配置免费登录（同一台也要）
 
 ssh-keygen -t rsa
 
@@ -207,37 +207,37 @@ ssh-copy-id 120.79.229.197
 
 `这里不配置免登录，在部署的时候，找不到要部署的服务器`
 
-### 构建后操作
+## 构建后操作
 
 下拉任务名字->配置->构建后操作->Send build artifacts over SSH
 <br/>
-<!-- <img src='/assets/img/deploy.png'/> -->
+<img src='/assets/img/deploy.png'/>
 
-### 邮件提醒
+## 邮件提醒
 
 1.系统管理->系统设置->Jenkins Location(系统管理员邮件地址) feng960106@163.com
 
 2.系统管理->系统设置->Extended E-mail Notification
 
-<!-- <img src='/assets/img/email.png'/> -->
+<img src='/assets/img/email.png'/>
 
 3.系统管理->系统设置->邮件通知
 
-<!-- <img src='/assets/img/nextEmail.png'/> -->
+<img src='/assets/img/nextEmail.png'/>
 
 4.拉任务名字->配置->构建后操作->Editable Email Notification
 
-<!-- <img src='/assets/img/nextDeployEmail.png'/> -->
+<img src='/assets/img/nextDeployEmail.png'/>
 <br/>
-<!-- <img src='/assets/img/always.png'/> -->
+<img src='/assets/img/always.png'/>
 
 > 优化jenkins运行内存 vim /etc/sysconfig/jenkins
 
 
-### Jenkins权限设置错误
+## Jenkins权限设置错误
 
 
-#### 修改config.xml
+### 修改config.xml
 
 先查看目录 find / -name jenkins
 
@@ -265,10 +265,10 @@ service jenkins restart
 **再次访问Jenkins后，首先要设置登录认证。**
 
 
-<!-- <img src='/assets/img/security.png'/> -->
+<img src='/assets/img/security.png'/>
        
 
-### Jenkins调优 
+## Jenkins调优 
 
 ```bash
 # 查看物理CPU个数
@@ -293,7 +293,7 @@ pm2 start /home/admin/wangyiyunServer/app.js --name='wangyiyunServer'
 
 ```
 
-### 卸载jenkins
+## 卸载jenkins
 
 ```js
 service jenkins stop

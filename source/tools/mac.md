@@ -1,20 +1,9 @@
----
-abbrlink: ee34d04d
-title: MAC整理
-date: 2019-01-16
-tags: Mac
-categories: 
-- Other
-- MAC整理
----
 
-<strong class='old-blog'>MAC整理</strong>
 
-[[toc]]
+# MAC整理
 
-<!-- ### MAC整理 -->
 
-###  配置sudo免密码
+##  配置sudo免密码
 [创建root账户](https://blog.csdn.net/u011046452/article/details/90140936)
 
 `1.` 需要在/etc/sudoers中配置。 
@@ -38,7 +27,7 @@ categories:
 `sudo chmod u-w /etc/sudoers`
 
 
-### sudo报错信息 /etc/sudoers is world writable
+## sudo报错信息 /etc/sudoers is world writable
 
 ::: danger 错误信息
 
@@ -91,7 +80,7 @@ sh-3.2# exit
 
 ```
 
-### mac下安装Homebrew
+## mac下安装Homebrew
 
 
 安装 [Homebrew](https://brew.sh/index_zh-cn)
@@ -106,7 +95,7 @@ brew install yum
 ```
 
 
-### mac安装autojump
+## mac安装autojump
 
 要知道autojump是什么，我们得先来了解一下shell，bash和zsh。
 <br/>
@@ -142,7 +131,7 @@ b. 新开一行，添加：`[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] 
 c. :wq保存退出，重启终端。
 
 
-### Mac 终端 oh-my-zsh 配置
+## Mac 终端 oh-my-zsh 配置
 
 Mac 终端默认 shell 为 `bash`。
 
@@ -235,7 +224,7 @@ echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> 
 
 
 
-### mac下sshpass 不能使用
+## mac下sshpass 不能使用
 
 ```nginx
 # 在官网下载源码包（最新的是1.06)
@@ -248,7 +237,7 @@ tar xvzf sshpass-1.05.tar.gz
 make
 sudo make install
 ```
-### mac设置git的分支记录
+## mac设置git的分支记录
 
 `基于bash,zsh下不能使用`
 
@@ -296,35 +285,35 @@ source .bash_profile
 # 6.完成
 ```
 
-### 允许安装未知来源
+## 允许安装未知来源
 
 ```nginx
 sudo spctl --master-disable
 ```
 
-### 微信助手
+## 微信助手
 
 跳转这个链接，有教程，[https://github.com/lmk123/oh-my-wechat#oh-my-wechat](https://github.com/lmk123/oh-my-wechat#oh-my-wechat)
 
-### 添加WebStrom的主题
+## 添加WebStrom的主题
 
 先到这里下载喜欢的主题[http://color-themes.com/?view=index](http://color-themes.com/?view=index)
 
 然后打开ws,左上角打开`File-> Import Settings->选择jar文件`
 
-### VSCode
+## VSCode
 
 **添加`code+文件`打开VSCode**
 
 安装code：打开VSCode –> command+shift+p –> 输入shell command –> 点击提示Shell Command: Install ‘code’ command in PATH运行
 
-### 谷歌插件
+## 谷歌插件
 
 https://chrome.google.com/webstore/category/extensions?utm_source=chrome-ntp-icon
 
 由于Google域名在国内不可访问，可以使用第三方网站  http://chrome-extension-downloader.com/ 或者 www.gugeapps.net 来下载
 
-#### Mac系统中如何导出 chrome 插件
+### Mac系统中如何导出 chrome 插件
 
 1.使用命令行进入 ~/Library/ApplicationSupport/Google/Chrome/Default/Extensions/
 

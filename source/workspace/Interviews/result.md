@@ -1,17 +1,8 @@
----
-abbrlink: 4745d5cc
-title: 习题解答
-date: 2020-01-16
-hidden: true
-categories: 
-- Interview
----
 
-<strong class='old-blog'>习题解答</strong>
+# 习题解答
 
-[[toc]]
 
-### 基于promise的改造Ajax
+## 基于promise的改造Ajax
 
 ```javascript
 function ajax(url, callback,error) {
@@ -50,7 +41,7 @@ request('a.txt').then( (res)=> {
 
 ```
 
-### JS实现bind方法
+## JS实现bind方法
 ```javascript
 Function.prototype.bindFn = function bind(thisArg){
     if(typeof this !== 'function'){
@@ -81,7 +72,7 @@ bound(2); // 'wk', [1, 2]
 
 ```
 
-### JS实现call/apply方法
+## JS实现call/apply方法
 
 ```javascript
 Function.prototype.myCall = function(thisArg) {
@@ -104,7 +95,7 @@ Function.prototype.myCall = function(thisArg) {
 }
 ```
 
-### JS的闭包 & 作用域
+## JS的闭包 & 作用域
 
 **闭包的概念**
 - 一个函数执行完后所在的作用域没有被销毁，就形成了闭包
@@ -132,7 +123,7 @@ result(); // 1000
 //n一直保存在内存中，为什么没有在f1调用后被自动清除？
 //原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制回收。
 ```
-#### 使用闭包注意的点
+### 使用闭包注意的点
 
 1）由于闭包会使得函数中的变量都被保存在内存中，`内存消耗很大`，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致`内存泄露`。解决方法是，`在退出函数之前，将不使用的局部变量全部删除`。
 
@@ -199,10 +190,9 @@ function test(){
 }
 test(); // 打印 0 到 9
 ```
+![result1.webp](/assets/img/result1.webp)
 
-![](https://ae01.alicdn.com/kf/Hc55da09b465740a1beaaf7862bada9d9v.jpg)
-
-### 实现一个instanceof
+## 实现一个instanceof
 
 **先看用法**
 
@@ -229,7 +219,7 @@ function myInstanceof(val, type) {
 }
 ```
 
-### 手写实现去除字符串连续重复值（例：'aaabcdeefghhb'=>'abcdefghb'）
+## 手写实现去除字符串连续重复值（例：'aaabcdeefghhb'=>'abcdefghb'）
 
 ```javascript
 //方法一
@@ -257,7 +247,7 @@ function removeRepeatStr(str){
 ```
 
 
-### num++ 和 ++num
+## num++ 和 ++num
 
 ```javascript
 let number = 0;
@@ -271,7 +261,7 @@ console.log(number);
 前缀一元运算符++：先增加在返回
 
 
-### 函数执行 例：fn`${num}模板字符串`
+## 函数执行 例：fn`${num}模板字符串`
 
 ```javascript
 function getPersonInfo(one, two, three) {
@@ -288,7 +278,7 @@ getPersonInfo`${person} is ${age} years old`;
 //余参数获取传递到模板字符串中的表达式的值！
 ```
 
-### continue & break & return
+## continue & break & return
 
 **break**用于完全结束一个循环，跳出循环体执行循环后面的语句，完全终止循环。
 
@@ -312,7 +302,7 @@ for (let i = 1; i < 5; i++) {
 //1,2  true
 ```
 
-### 下面这些值哪些是假值?
+## 下面这些值哪些是假值?
 
 ```javascript
 0;
@@ -331,19 +321,19 @@ NaN
 false
 ```
 
-### typeof typeof 1
+## typeof typeof 1
 ```javascript
 typeof 1  //返回 "number".
 typeof "number" //返回 "string"
 ```
 
 
-### [..."wk"]返回什么
+## [..."wk"]返回什么
 
 ["h", "z", "f"]
 
 
-### 小程序里面canvas map等组件优先级最高，怎么将其覆盖
+## 小程序里面canvas map等组件优先级最高，怎么将其覆盖
 
 可以在state里定义了一个radarImg，然后在render中判断，radarImg这个值是否有效，若有效，canvas隐藏；否则，显示canvas。然后在页面渲染雷达图时，执行了Taro.canvasToTempfilepath方法，将雷达图转化为图片。此时给radarImg赋值，canvas隐藏，image显示
 ```javascript
@@ -363,7 +353,7 @@ Taro.canvasToTempFilePath({
 
 
 
-### Promise 中断或者取消 
+## Promise 中断或者取消 
 
 **Promise.race()**
 ```javascript
@@ -405,7 +395,7 @@ promise.then(function(val) {
     console.log('返回失败')
 })
 ```
-### JavaScript中Null和Undefined的区别
+## JavaScript中Null和Undefined的区别
 
 **`Null`**
 
@@ -471,7 +461,7 @@ var arr=["aa","bb","cc"];
 <br/>
 arr=null;//释放指向数组的引用
 
-### 堆内存
+## 堆内存
 
 ```javascript
 const getInfo=(member,year)=>{
@@ -486,7 +476,7 @@ getInfo(person,age)
 console.log(person,age)   //{name: "大江"} 23
 ```
 
-### 作用域
+## 作用域
 
 ```javascript
 (()=>{
@@ -495,7 +485,7 @@ console.log(person,age)   //{name: "大江"} 23
 console.log(typeof x , typeof y)
 ```
 
-### 原型链
+## 原型链
 
 ```javascript
 class person {
@@ -523,7 +513,7 @@ l.name //undefined
 <img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="https://ae01.alicdn.com/kf/H9c240b019636472a8f8f9d6165ca878fi.png">
 
 
-### import导入不可被修改
+## import导入不可被修改
 
 ```javascript
 // counter.js
@@ -540,14 +530,14 @@ console.log(counter)   //不可被修改，只读的
 
 **`引用数据类型是可修改的，慎重慎重`**
 
-### JSON.stringify参数
+## JSON.stringify参数
 
 ```javascript
 let obj={a:1,b:2}
 JSON.stringify(obj,['a']) //"{"a":1}"
 ```
 
-### String.raw
+## String.raw
 
 ```javascript
 const path =`C:\Documents\Projects\table.html`
