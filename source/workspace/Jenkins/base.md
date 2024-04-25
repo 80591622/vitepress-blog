@@ -128,7 +128,7 @@ Role-based Authorization Strategy//增加用户的权限管理
 
 在jenkins`插件管理->高级`选择上传插件进行安装。
        
-<!-- <img src='/assets/img/plugin.png'/> -->
+<img src='/assets/img/plugin.png'/>
 
 
 ### 关闭防火墙
