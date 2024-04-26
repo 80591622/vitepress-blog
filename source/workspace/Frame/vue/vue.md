@@ -18,7 +18,7 @@
 
 与react的不同的是，react的map()只能循环对象，vue的v-for就厉害了可以遍历数组、对象、数组、字符串
 
-```javascript
+```html
 <li v-for="(item, key) of items" :key="key">
 <li v-for="(item, key) in items" :key="key">
 <li v-for="count in 10" :key="count">{{count}}</li>
@@ -35,7 +35,7 @@
 **.self** | 自身的事件触发时才执行事件函数
 **.passive** | 事件完成才会触发  例如：@scroll.passive="onScroll"
 
-```javascript
+```html
 <!-- 修饰符可以串联 -->
 <a v-on:click.stop.prevent="doThat"></a>
 // 使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。
@@ -60,11 +60,11 @@
 ```html
 <div id="box">
     <p :class="{ active: isActive, 'text-danger': hasError }"></p>
-    <p v-bind:class="[isActive ? activeClass : '', errorClass]"></p>
+    <p :class="[isActive ? activeClass : '', errorClass]"></p>
     <!--直接添加样式-->
     <p style="background-color: blue;">sssss</p>
     <!--绑定样式-->
-    <p v-bind:style="'background-color: red;'">sssss</p>
+    <p :style="'background-color: red;'">sssss</p>
     <!--将vue中的属性作为样式设置-->
     <p :style="obj">sssss</p>
     <!--将多个属性作为样式设置-->
@@ -1030,7 +1030,7 @@ export default {
 
 ## 语法示例*
 
-```javascript
+```html
 <div id="app">
     <!-- 小胡子语法 -->
     {{ msg }}

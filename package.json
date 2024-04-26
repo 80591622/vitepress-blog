@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "vitepress dev source",
     "build": "vitepress build source",
-    "preview": "vitepress preview source"
+    "preview": "vitepress preview source",
+    "deploy": "bash deploy.sh"
   }
 }

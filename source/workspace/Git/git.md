@@ -324,9 +324,9 @@ git describe --abbrev=0
 
 使用git checkout -- 文件名，注意中间有  -- 
 
-``````js
+```js
 git checkout -- filename
-``````
+```
 
 放弃所有文件修改 git checkout .
 
