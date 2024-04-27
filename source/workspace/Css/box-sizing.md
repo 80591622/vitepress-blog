@@ -1,15 +1,8 @@
----
-abbrlink: 9acb3b73
-title: css的两种盒模型
-tag: css
-date: 2019-01-21
----
 
-[[toc]]
 
-<!-- ### css的两种盒模型 -->
+# css的两种盒模型
 
-#### W3C的标准盒模型
+## W3C的标准盒模型
 
 默认是w3c标准的
 
@@ -17,13 +10,13 @@ date: 2019-01-21
 
 > 在标准的盒子模型中，width指content部分的宽度
   
-#### IE的盒模型
+## IE的盒模型
 
 ![仔细看图](https://ae01.alicdn.com/kf/H113065c568374278958356d8834155a1x.jpg)
 
 > 在IE盒子模型中，width表示content+padding+border这三个部分的宽度
   
-#### box-sizing的使用
+## box-sizing的使用
 
 如果想要切换盒模型也很简单，这里需要借助css3的box-sizing属性
 

@@ -1,15 +1,6 @@
----
-abbrlink: 82578beb
-title: ref
-date: 2020-03-17
-hidden: true
-categories: 
-- FE框架 
-- Vue
-- 源码分析
----
 
-<strong class='old-blog'>ref</strong>
+
+# ref
 
 `ref`可以将原始数据类型也转换成响应式数据，需要通过`.value`属性进行获取值
 

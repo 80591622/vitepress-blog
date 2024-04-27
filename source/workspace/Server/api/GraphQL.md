@@ -1,18 +1,7 @@
----
-abbrlink: e1208224
-title: GraphQL
-date: 2019-10-15
-tags: GraphQL
-categories: 
-- Server
-- GraphQL
----
 
-<strong class='old-blog'>GraphQL</strong>
 
-[[toc]]
-
-### BFF —— Backend For Frontend
+# GraphQL
+## BFF —— Backend For Frontend
 
 `BFF，即 Backend For Frontend（服务于前端的后端）,BFF 只是一种逻辑分层，而非一种技术`
 
@@ -36,7 +25,7 @@ categories:
        "
        src='/assets/img/bff.png'/>
 
-### GraphQL 语言设计中的必然性
+## GraphQL 语言设计中的必然性
  
 ```text{7}
 查询语法跟查询结果相近（自定义接口数据的字段）
@@ -58,7 +47,7 @@ categories:
 
 
 
-### react需要的技术栈
+## react需要的技术栈
 
 ```javascript
 apollo-boost 包含启动阿波罗客户端的所有依赖

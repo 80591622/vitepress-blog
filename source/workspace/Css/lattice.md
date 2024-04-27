@@ -1,13 +1,7 @@
----
-abbrlink: '37888229'
-title: CSS九宫格布局实现
-date: 2018-01-20
-tag: css
----
 
-<strong class='old-blog'>CSS九宫格布局实现</strong>
 
-[[toc]]
+# CSS九宫格布局实现
+
 
 **基本的布局**
 

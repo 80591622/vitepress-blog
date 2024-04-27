@@ -1,11 +1,6 @@
----
-abbrlink: c22368c1
-title: css的模块化
-tag: css
-date: 2018-01-20
----
 
-<strong class='old-blog'>css的模块化</strong>
+
+# css的模块化
 
 `1`. 关于less使用建议
 

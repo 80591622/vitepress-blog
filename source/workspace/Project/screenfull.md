@@ -1,14 +1,7 @@
----
-abbrlink: '36484973'
-title: 全屏实现方案
-date: 2019-03-19
-categories: 
-- Project
-- 全屏实现方案
----
 
 
-<strong class='old-blog'>全屏实现方案</strong>
+
+# 全屏实现方案
 
 ```javascript
 

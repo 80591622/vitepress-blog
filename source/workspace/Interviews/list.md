@@ -1,17 +1,8 @@
----
-abbrlink: d3dc4cc9
-title: 面试清单
-date: 2019-01-16
-hidden: true
-categories: 
-- Interview
----
 
-<strong class='old-blog'>面试清单</strong>
 
-[[toc]]
+# 面试清单
 
-### 一
+## 一
 ```text
 数组去重的方法有哪些？
 如何判断左右小括号是否全部匹配。如 ( ( ))()((((()))))
@@ -55,7 +46,7 @@ set和map的区别
 ```
 
 
-### 二
+## 二
 ```text
 js 中 module 的了解
 写一个单例模式
@@ -142,7 +133,7 @@ bloom filter 是什么
 Function.prototype.bind 的实现
 ```
 
-### 三
+## 三
 ```text
 一道 setTimeout/Promise 输出顺序问题的题
 什么是事件循环
@@ -206,7 +197,7 @@ rpc 与 rest 相比有什么优势与劣势
 ```
 
 
-### 四
+## 四
 ```text
 弹性布局使用场景
 bfc
@@ -227,7 +218,7 @@ git 工作流
 工程目录怎么搭建的
 ```
 
-### 五
+## 五
 ```text
 事件委托
 深浅拷贝的区别
@@ -248,7 +239,7 @@ Vue数据流
 Vue与React的区别
 ```
 
-### 六
+## 六
 ```text
 输入url到页面渲染展示
 DNS如何解析
@@ -295,7 +286,7 @@ Taro编译原理
 typescript优势，为何收到推崇
 ```
 
-### React相关问题
+## React相关问题
 
 **问题**
 

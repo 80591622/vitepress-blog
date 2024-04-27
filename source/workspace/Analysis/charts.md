@@ -1,24 +1,17 @@
----
-abbrlink: 9d0b6d80
-title: 数据统计
-date: 2019-08-16
-hidden: true
----
 
-<strong class='old-blog'>数据统计</strong>
 
-[[toc]]
+# 数据统计
 
-### 简要分析下数据统计的几个框架
+## 简要分析下数据统计的几个框架
 
-### ECharts(推荐五星)
+## ECharts(推荐五星)
 
 ECharts，一个纯 Javascript 的图表库，可以流畅的运行在`PC和移动`设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。
 
 ECharts是一个成熟的图表库， 使用方便、图表种类多、容易上手、社区强大。文档资源也比较丰富
 
 
-### G2
+## G2
 
 [文档](https://www.yuque.com/antv/g2-docs/api-g2)
 
@@ -29,27 +22,27 @@ G2 是一套基于可视化编码的图形语法，以数据驱动，具有高�
 - 完备的可视化编码
 - 强大的扩展能力
 
-### BizCharts(推荐四星半)
+## BizCharts(推荐四星半)
 
 超强的`react的模块化`开发，社区相对echarts还是差点
 
 在 React 环境下使用 G2，我们推荐可以尝试使用BizCharts这个产品都是基于 G2 的 React 版本封装，使用体验更符合 React 技术栈的习惯
 
-### G6
+## G6
 
 [文档](https://www.yuque.com/antv/g6)
 
 在我看来他就是做`流程图`渲染的，树图，脑图，流程图
 
 
-### F2
+## F2
 
 [文档](https://www.yuque.com/antv/f2/api-index)
 
 F2 是一个专注于移动，开箱即用的可视化解决方案，`完美支持 H5 环境同时兼容多种环境（Node, 小程序，Weex）`，完备的图形语法理论，满足你的各种可视化需求，专业的移动设计指引为你带来最佳的移动端图表体验。
 
 
-### L7
+## L7
 
 [文档](https://www.yuque.com/antv/l7)
 
@@ -60,7 +53,7 @@ L7 和 React结合使用可与参考[demo](https://github.com/lzxue/l7_react_tem
 L7 依赖高德地图，目前高德地图只支持在线引入，因此在react使用L7需要动态加载 高德jsapi, jsapi加载完成后再进行L7 scene初始化。
 
 
-### HighChart
+## HighChart
 
 HighChart 是一个用纯 JavaScript 编写的一个图表库， 能够很简单便捷的在 Web 网站或是 Web 应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和`非商业`用途使用
 
@@ -71,7 +64,7 @@ Highcharts 系列软件包含 `Highcharts JS，Highstock JS，Highmaps JS` 共�
 
 少量的 ？？  我擦 这是少量？，分这么多的软件包就是为了收费
 
-### D3js
+## D3js
 
 `如果技术够硬，可以选择D3.js`
 

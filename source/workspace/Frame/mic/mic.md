@@ -1,23 +1,14 @@
----
-abbrlink: k4b9f911
-title: 微前端
-date: 2020-09-01
-categories: 
-- FE框架 
-- 微前端
----
-
-<strong class='old-blog'>微前端</strong>
 
 
-[[toc]]
+# 微前端
+
 
 代码的天敌就是代码量
 
 ![](https://s.pc.qq.com/tousu/img/20200910/1008611_1599722415.jpg)
 
 
-### 前言
+## 前言
 
 **什么是微前端 ？？**
 
@@ -48,7 +39,7 @@ categories:
 
 
 
-### Why Not Iframe？
+## Why Not Iframe？
 
 [https://www.yuque.com/kuitos/gky7yw/gesexv](https://www.yuque.com/kuitos/gky7yw/gesexv)
 
@@ -67,7 +58,7 @@ iframe 最大的特性就是提供了浏览器原生的硬隔离方案，不论�
 
 
 
-###  跟 iFrame、Web Components、NPM包、路由分发、插件有什么区别? 
+##  跟 iFrame、Web Components、NPM包、路由分发、插件有什么区别? 
 
 
 
@@ -85,7 +76,7 @@ iframe 最大的特性就是提供了浏览器原生的硬隔离方案，不论�
 
 
 
-### 微前端架构实践中的问题
+## 微前端架构实践中的问题
 
 - SPA VS MPA
 
@@ -185,7 +176,7 @@ iframe 最大的特性就是提供了浏览器原生的硬隔离方案，不论�
 
 
 
-### 子应用的划分
+## 子应用的划分
 
 
 
@@ -196,11 +187,11 @@ iframe 最大的特性就是提供了浏览器原生的硬隔离方案，不论�
 
 
 
-### 接入qiankun
+## 接入qiankun
 
 
 
-#### 构建主应用基座
+### 构建主应用基座
 
 这里用vue作为主应用，接入其他的子应用
 
@@ -338,7 +329,7 @@ startQiankun({singular: true, prefetch: true});
 
 
 
-#### 接入子应用
+### 接入子应用
 
 首先，我们在 `React` 的入口文件 `index.js` 中，导出 `qiankun` 主应用所需要的三个生命周期钩子函数，代码实现如下：
 
@@ -475,13 +466,13 @@ module.exports = {
 
 
 
-### 通信
+## 通信
 
 **示例：子应用跳转到另一个子应用（通过主应用做媒介）**
 
 
 
-#### 基于浏览器原生事件做通信
+### 基于浏览器原生事件做通信
 
 [CustomEvent API 详情](http://wkdevhub.cn/2020/08/28/workspace/Js/dispatchEvent/)
 
@@ -575,7 +566,7 @@ if (!window.__POWERED_BY_QIANKUN__) {
 
 
 
-####  基于qiankun提供的API
+###  基于qiankun提供的API
 
 
 
@@ -724,7 +715,7 @@ export default {
 
 
 
-#### 基于redux
+### 基于redux
 
 基于 `qiankun` 提供的通信方案也存在一些优缺点，优点如下：
 
@@ -913,7 +904,7 @@ export default Index
 
 
 
-### 项目部署
+## 项目部署
 
 
 
@@ -1005,19 +996,19 @@ server
 
 
 
-### 配置中心
+## 配置中心
 
 版本管理、监控方案（埋点） 、 回滚方案
 
 
 
-### 源码解析
+## 源码解析
 
 本地代码注释，没来及摘抄出来
 
 此处是 miacro-app 源码，跟乾坤原理大致相同
 
-#### 渲染原理
+### 渲染原理
 
 架构思路为：**[CustomElement](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_custom_elements) + HTMLEntry**。
 
@@ -1032,7 +1023,7 @@ server
 注意： 一个页面只能有一个head标签，body也尽可能的保持一个，所以获取到的html  ,会进行head和body的额外处理（qiankun是直接干掉了）。
 
 
-#### Js沙箱
+### Js沙箱
 
 js沙箱流程：
 
@@ -1091,7 +1082,7 @@ class SandBox {
 沙箱的开启是在 创建微应用的时候开启，在 `mount` 函数里面执行，`unmount` 里面卸载
 
 
-##### 更改作用域
+#### 更改作用域
 
 大致进化结果就是这样
 
@@ -1115,7 +1106,7 @@ class SandBox {
 }).call({name:'wk'},{name:'wk'})
 ```
 
-#### 样式隔离
+### 样式隔离
 
 [CSSRule](https://developer.mozilla.org/zh-CN/docs/Web/API/CSSRule) 
 
@@ -1212,7 +1203,7 @@ function scopedStyleRule(rule, prefix) {
 ```
 
 
-### 参考文档
+## 参考文档
 
 [蚂蚁 有知(乾坤)  沙盒内容](https://zhuanlan.zhihu.com/p/78362028)
 

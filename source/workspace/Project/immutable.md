@@ -1,14 +1,5 @@
----
-abbrlink: ec823e80
-title: seamless-immutable
-date: 2019-03-19
-categories: 
-- Project
----
 
-<strong class='old-blog'>seamless-immutable</strong>
-
-[[toc]]
+# seamless-immutable
 
 
 React在减少重复渲染方面确实是有一套独特的处理办法，那就是虚拟DOM，但显然在首次渲染的时候React绝无可能超越原生的速度，或者一定能将其它的框架比下去。

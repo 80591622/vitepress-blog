@@ -1,11 +1,6 @@
----
-abbrlink: fb387394
-title: BFC
-tag: css
-date: 2018-01-20
----
 
-<strong class='old-blog'>BFC</strong>
+
+# BFC
 
 **如何创建BFC**
 - float的值不是none。

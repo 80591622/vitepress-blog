@@ -1,17 +1,9 @@
----
-abbrlink: d82f441
-title: React封装的组件
-date: 2019-03-17
-categories: 
-- FE框架 
-- React
----
 
-<strong class='old-blog'>React封装的组件</strong>
 
-[[toc]]
+# React封装的组件
 
-### 高阶函数 ，封装context
+
+## 高阶函数 ，封装context
 
 ```javascript
 import React, { Component,createContext } from 'react';
@@ -50,7 +42,7 @@ export const getChildrenContext = (contexts) => RealComponent => {
 
 ```
 
-### 封装的裁剪功能 带压缩下载
+## 封装的裁剪功能 带压缩下载
 
 ```javascript
 import React, {Component, Fragment} from 'react';

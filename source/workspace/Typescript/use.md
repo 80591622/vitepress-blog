@@ -1,15 +1,6 @@
----
-abbrlink: 927852b
-title: 使用指南（antdp）
-date: 2019-05-11
-categories: 
-- TypeScript
-- 使用指南（antdp）
----
 
-<strong class='old-blog'>使用指南（antdp）</strong>
 
-[[toc]]
+# 使用指南（antdp）
 
 ```javascript
 export type SiderTheme = 'light' | 'dark';

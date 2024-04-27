@@ -7,7 +7,7 @@ import algolia from "./config/algolia"
 // https://vitepress.dev/reference/site-config
 export default {
   lang: "zh",
-  title: "wangke blog",
+  title: "Oasis Blog",
   description:
     "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具",
   appearance: true, // 暗黑模式
@@ -54,8 +54,8 @@ export default {
     // 编辑
     editLink: {
       pattern:
-        "https://gitee.com/muyaCode/program-learn-notes/edit/main/docs/:path",
-      text: "在 Gitee上编辑此页"
+        "https://github.com/80591622",
+      text: "https://github.com/80591622"
     },
 
     // 自定义上次更新的文本和日期格式
@@ -80,8 +80,8 @@ export default {
 
     // 首页页脚配置。您可以添加消息和版权。仅当页面由于设计原因不包含边栏时，才会显示页脚。
     footer: {
-      message: "Released under the MIT License.",
-      copyright: "Copyright © 2024  heyu"
+      message: "京ICP备18059340号",
+      copyright: "Copyright © 2019 - 2024 Corporation, All Rights Reserved"
     }
   }
 }

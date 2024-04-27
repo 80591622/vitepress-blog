@@ -1,16 +1,9 @@
----
-abbrlink: 69f1febc
-title: Electron基础
-date: 2019-07-16
-categories: 
-- Electron
----
 
-<strong class='old-blog'>Electron基础</strong>
 
-[[toc]]
+# Electron基础
 
-### 简介
+
+## 简介
 
 `​Electron 是一个由 GitHub 开发的开源库，通过将 Chromium) 和Node.js 组合并使用 HTML，CSS 和 JavaScript 进行构建 Mac，Windows，和 Linux 跨平台桌面应用程序。`
 
@@ -22,7 +15,7 @@ categories:
 
 性能肯定比不上原生的桌面应用，发布的包很大。（DeskGap这个不带浏览器的功能，包比较小）
 
-### 初始化项目
+## 初始化项目
 
 **1.electron-react-boilerplate**
 
@@ -135,7 +128,7 @@ npm init -y
 }
 ```
 
-### API
+## API
 
 ```javascript
 //加载index.html文件
@@ -148,7 +141,7 @@ win.webContents.openDevTools();
 win.webContents.closeDevTools();
 ```
 
-### 打包
+## 打包
 
 
 `devDependencies与dependencies的区别`

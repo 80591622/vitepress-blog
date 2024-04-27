@@ -1,39 +1,21 @@
 #!/usr/bin/env sh
 
-# 确保脚本抛出遇到的错误
-set -e
+# 压缩文件，其中 dist为要上传的文件所在目录
+tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/source/.vitepress/dist
 
-# 打包生成静态文件
-yarn build
+# 上传到服务器（需要输入密码，如果已经进行过私钥配置，则不用），其中/home/wwwapp/www.wkdevhub.cn 为上传文件所在目录
+scp  -r dist.tar.gz root@101.42.135.167:/home/wwwapp/www.wkdevhub.cn
 
-# 进入生成的文件夹
-cd source/.vitepress/dist
+# 登录到服务器（需要输入密码，如果已经进行过私钥配置，则不用）
+# 服务器环境开启
+ssh root@101.42.135.167 << EOF
 
-# 如果是发布到自定义域名
-# echo 'www.example.com' > CNAME
+# 进入目标目录
+cd /home/wwwapp/www.wkdevhub.cn/dist
 
-time=$(date "+%Y-%m-%d %H:%M:%S") 
+# 解压
+sudo tar -zxvf dist.tar.gz --strip-components 6
 
-git init
-git add -A
-git commit -m "GitHub Action 自动部署：$time"
 
-# # 如果发布到 https://<USERNAME>.github.io   -f 强制推送
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-git push -f git@gitee.com:muyaCode/program-learn-notes.git master:gh-pages # 发布到Gitee
-# git push -f git@github.com:muyaCode/program-learn-notes.git master:gh-pages # 发布到GitHub
-
-# 退出到本项目根目录
-cd -
-# 删除 打包成的dist文件目录
-rm -rf source/.vitepress/dist
-
-# echo "仓库地址：https://github.com/muyaCode/program-learn-notes"
-# echo "文档地址：https://muyacode.github.io/program-learn-notes/"
-
-# 格式化输出带颜色配置：https://www.shuzhiduo.com/A/D854N3mVzE/
-echo -e "Gitee仓库地址：\033[44;37m https://gitee.com/muyaCode/program-learn-notes/ \033[0m"
-echo -e "GiteePages文档地址：\033[47;30m https://muyacode.gitee.io/program-learn-notes/ \033[0m"
-
-# echo -e "GitHub仓库地址：\033[44;37m https://github.com/muyaCode/program-learn-notes/ \033[0m"
-# echo -e "GitHubPages文档地址：\033[47;30m https://muyacode.github.io/program-learn-notes/ \033[0m"
+# 移除线上压缩文件
+sudo rm -rf dist.tar.gz

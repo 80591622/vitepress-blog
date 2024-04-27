@@ -1,24 +1,19 @@
----
-abbrlink: fb3yy394
-title: display:none opacity:0以及visibility:hidden的区别
-tag: css
-date: 2018-01-20
----
 
-<strong class='old-blog'>display:none opacity:0以及visibility:hidden的区别</strong>
+
+# display:none opacity:0以及visibility:hidden的区别
 
 
 **相同作用**
 能够对元素进行隐藏 
 
-### 空间占据
+## 空间占据
 display:none;不占据空间，所以动态改变此属性时会引起重排。
 
 visibility:hidden;元素会被隐藏，但是不会消失，依然占据空间。
 
 opacity:0; 只是透明度为100%,元素隐藏，依然占据空间。
 
-### 继承性
+## 继承性
 
 display:none; 不会被子元素继承，但是父元素都不在了，子元素自然也就不会显示了，皮之不存，毛之安附~~
 
@@ -26,7 +21,7 @@ visibility:hidden; 会被子元素继承，可以通过设置子元素 visibilit
 
 opacity:0; 也会被子元素继承，但是不能通过设置子元素opacity:0 使其重新显示
 
-### 动画效果transition 
+## 动画效果transition 
 
 **display**
 
@@ -108,7 +103,7 @@ visibility  visibility:visible 过渡到 visibility:hidden，不能从 visibilit
   }
 ```
 
-### 总结
+## 总结
 
 |                                        | display:none | visibility:hidden                                           | opacity:0  |
 | -------------------------------------- | ------------ | ----------------------------------------------------------- | ---------- |
