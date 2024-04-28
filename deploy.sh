@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # 压缩文件，其中 dist为要上传的文件所在目录
 tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/source/.vitepress/dist
@@ -14,8 +14,8 @@ ssh root@101.42.135.167 << EOF
 cd /home/wwwapp/www.wkdevhub.cn/dist
 
 # 解压
-sudo tar -zxvf dist.tar.gz --strip-components 6
+tar -zxvf dist.tar.gz --strip-components 6
 
 
 # 移除线上压缩文件
-sudo rm -rf dist.tar.gz
+rm -rf dist.tar.gz

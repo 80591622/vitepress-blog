@@ -53,9 +53,8 @@ export default {
 
     // 编辑
     editLink: {
-      pattern:
-        "https://github.com/80591622",
-      text: "https://github.com/80591622"
+      pattern:"https://github.com/80591622",
+      text: "在 Gihub上编辑此页"
     },
 
     // 自定义上次更新的文本和日期格式
