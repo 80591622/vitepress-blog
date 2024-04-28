@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # 压缩文件，其中 dist为要上传的文件所在目录
-tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/source/.vitepress/dist
+tar -zcvf dist.tar.gz "C:/Users/v-wangke3/Desktop/vitepress-blog/source/.vitepress/dist"
+
+# tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/source/.vitepress/dist
 
 # 上传到服务器（需要输入密码，如果已经进行过私钥配置，则不用），其中/home/wwwapp/www.wkdevhub.cn 为上传文件所在目录
 scp  -r dist.tar.gz root@101.42.135.167:/home/wwwapp/www.wkdevhub.cn
@@ -19,3 +21,5 @@ tar -zxvf dist.tar.gz --strip-components 6
 
 # 移除线上压缩文件
 rm -rf dist.tar.gz
+
+EOF
