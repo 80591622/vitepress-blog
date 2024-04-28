@@ -21,7 +21,7 @@ export default {
     theme: "one-dark-pro",
     lineNumbers: true // 显示代码行数
   },
-  // outDir: "../dist", // 打包输出的目录
+  outDir: "../dist", // 打包输出的目录
   // titleTemplate: '牧涯前端学习笔记', // 标题后缀
   cleanUrls: false, // url是否带.html后缀
   

@@ -6,4 +6,5 @@ node_modules
 yarn.lock
 package.json
 .package.json
+dist.tar.gz
 
