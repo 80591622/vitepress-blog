@@ -172,17 +172,6 @@
   color: #ffffff;
 }
 
-/* 标题颜色 */
-/* .vp-doc a {
-  color: #3eaf7c;
-  text-decoration: none;
-} */
-
-/* 点击a标签加下划线 */
-/* .vp-doc a:hover {
-  text-decoration: underline;
-} */
-
 .VPSidebarItem.level-1.is-active > .item .link > .text {
   color: #3eaf7c !important;
   font-weight: 600 !important;
@@ -243,9 +232,8 @@
   padding: 10px !important;
   backdrop-filter: blur(10px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
-  background-color: rgba(0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
   border-top: none !important;
-  
   font-size: 16px !important;  
   .message {
     color: #fff !important;
@@ -262,6 +250,11 @@
   background-color: rgba(0, 0, 0, 0.1) !important;
   color: #fff;
 } 
+
+.wrapper .container {
+  margin: 0 !important;
+  max-width: 100% !important;
+}
 
 /* .VPNavBar .home {
   backdrop-filter: blur(10px) saturate(180%) !important;
@@ -289,6 +282,12 @@
   .divider {
     height: 0 !important;
     width: 0 !important;
+  }
+  .VPNavBarTitle .title{
+    color: #fff !important;
+  }
+  .button .text{
+    color: #fff !important;
   }
 }
 

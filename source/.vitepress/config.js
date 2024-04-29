@@ -27,7 +27,7 @@ export default {
   
   // 浏览器标签图标设置
   head: [
-    ['link', { rel: 'icon', type: 'image/x-icon', href: '	https://vitepress.dev/vitepress-logo-mini.svg' }],
+    ['link', { rel: 'icon', type: 'image/x-icon', href: 'assets/img/avatar.png' }],
   ],
 
   themeConfig: {
