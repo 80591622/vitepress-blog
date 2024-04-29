@@ -79,8 +79,8 @@ export default {
 
     // 首页页脚配置。您可以添加消息和版权。仅当页面由于设计原因不包含边栏时，才会显示页脚。
     footer: {
-      message: "京ICP备18059340号",
-      copyright: "Copyright © 2019 - 2024 Corporation, All Rights Reserved"
+      message: "Copyright © 2024 京ICP备18059340号",
+      // copyright: ""
     }
   }
 }

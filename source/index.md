@@ -4,11 +4,11 @@ layout: home
 
 hero:
   name: "Oasis Blog"
-  text: "This blog is built for vitepress"
-  tagline: My great project tagline
-  image:
-    src: https://gcore.jsdelivr.net/gh/hzfvictory/cdn@master/newBlog/img/banner/0.jpg
-    alt: VitePress
+  # text: "This blog is built for vitepress"
+  # tagline: My great project tagline
+  # image:
+  #   src: /assets/img/avatar.png
+  #   alt: VitePress
   actions:
     - theme: brand
       text: Home
@@ -26,5 +26,4 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
-<CustomHome />
 

@@ -55,7 +55,7 @@ export default {
       items: [
         {
           text: "☞ vue",
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: "vue基本用法", link: "/workspace/Frame/vue/vue" },
             // { text: "会用到的插件", link: "workspace/Frame/vue/use-project" },
@@ -159,7 +159,7 @@ export default {
       items: [
         {
           text: '☞ NodeJS',
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: "NodeJs的原生方法", link: "/workspace/Server/node/base" },
             { text: "Koa2", link: "/workspace/Server/node/node-1" },
@@ -209,7 +209,7 @@ export default {
       items: [
         {
           text: '☞ webpack',
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: "Webpack4 配置详解", link: "/workspace/Webpack/webpack" },
             { text: "Webpack的使用", link: "/workspace/Webpack/use" },

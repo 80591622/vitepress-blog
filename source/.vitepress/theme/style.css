@@ -239,6 +239,70 @@
   color: #3eaf7c !important;
 }
 
+.VPFooter {
+  padding: 10px !important;
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
+  background-color: rgba(0, 0, 0) !important;
+  border-top: none !important;
+  
+  font-size: 16px !important;  
+  .message {
+    color: #fff !important;
+  }
+}
+
+.VPContent.is-home {
+  background: url(/assets/img/5.jpg) no-repeat 0 0 / 100% 100%;
+}
+
+.VPFeature {
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #fff;
+} 
+
+/* .VPNavBar .home {
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #fff;
+} */
+
+.VPNavBar:not(.has-sidebar):not(.home.top) {
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #fff;
+  .divider {
+    height: 0 !important;
+    width: 0 !important;
+  }
+}
+
+.VPNavBar.home.top {
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #fff;
+  .divider {
+    height: 0 !important;
+    width: 0 !important;
+  }
+}
+
+.image-src {
+  max-width: 150px !important;
+  max-height: 150px !important;
+  border-radius: 50%;
+}
+
+/* .DocSearch-Button {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+} */
+
+
 /**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
