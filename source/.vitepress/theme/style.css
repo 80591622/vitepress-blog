@@ -231,7 +231,6 @@
 .VPFooter {
   padding: 10px !important;
   backdrop-filter: blur(10px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
   background-color: rgba(0, 0, 0, 0.9) !important;
   border-top: none !important;
   font-size: 16px !important;  
@@ -240,13 +239,8 @@
   }
 }
 
-.VPContent.is-home {
-  background: url(/assets/img/5.jpg) no-repeat 0 0 / 100% 100%;
-}
-
 .VPFeature {
   backdrop-filter: blur(10px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
   background-color: rgba(0, 0, 0, 0.1) !important;
   color: #fff;
 } 
@@ -265,7 +259,6 @@
 
 .VPNavBar:not(.has-sidebar):not(.home.top) {
   backdrop-filter: blur(10px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
   background-color: rgba(0, 0, 0, 0.1) !important;
   color: #fff;
   .divider {
@@ -276,7 +269,6 @@
 
 .VPNavBar.home.top {
   backdrop-filter: blur(10px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
   background-color: rgba(0, 0, 0, 0.1) !important;
   color: #fff;
   .divider {

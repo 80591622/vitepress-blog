@@ -2,7 +2,7 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import CustomHome from './components/CustomHome.vue'
+import Layout from './components/Layout.vue'
 import './style.css'
 
 export default {
@@ -13,6 +13,6 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    app.component('CustomHome', CustomHome)
+    app.component('Layout', Layout)
   }
 } satisfies Theme

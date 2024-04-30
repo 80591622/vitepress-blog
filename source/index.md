@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "Oasis Blog"
-  # text: "This blog is built for vitepress"
-  # tagline: My great project tagline
+  # text: "Welcome to Oasis Blog"
+  # tagline: This blog is built for VitePress
   # image:
   #   src: /assets/img/avatar.png
   #   alt: VitePress
@@ -13,7 +13,6 @@ hero:
     - theme: brand
       text: Home
       link: /workspace/Js/home
-
 features:
   - icon: 🛠️
     title: Feature A
@@ -25,5 +24,10 @@ features:
     title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
+
+<Layout />
+
+
+
 
 
