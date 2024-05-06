@@ -29,15 +29,15 @@ import Hitokoto from "./Hitokoto.vue";
 import { getCurrentTime } from "../utils/getTime";
 
 const backgrounds = [
-  'url(/assets/img/bcg0.webp)',
-  'url(/assets/img/bcg1.webp)',
-  'url(/assets/img/bcg2.webp)',
-  'url(/assets/img/bcg3.webp)',
-  'url(/assets/img/bcg4.webp)',
-  'url(/assets/img/bcg5.webp)',
-  'url(/assets/img/bcg6.webp)',
-  'url(/assets/img/bcg7.webp)',
-  'url(/assets/img/bcg8.webp)',
+  'url(/img/bcg0.webp)',
+  'url(/img/bcg1.webp)',
+  'url(/img/bcg2.webp)',
+  'url(/img/bcg3.webp)',
+  'url(/img/bcg4.webp)',
+  'url(/img/bcg5.webp)',
+  'url(/img/bcg6.webp)',
+  'url(/img/bcg7.webp)',
+  'url(/img/bcg8.webp)',
 ];
 
 // 当前时间

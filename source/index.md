@@ -7,7 +7,7 @@ hero:
   # text: "Welcome to Oasis Blog"
   # tagline: This blog is built for VitePress
   # image:
-  #   src: /assets/img/avatar.png
+  #   src: /img/avatar.png
   #   alt: VitePress
   actions:
     - theme: brand

@@ -147,7 +147,7 @@ const fs = require('fs');
 
 app.use(ctx => {
     ctx.response.type = 'html';
-    ctx.response.body = fs.createReadStream('./public/template.html');
+    ctx.response.body = fs.createReadStream('./template.html');
 }).listen(3000);
 ```
 
@@ -226,7 +226,7 @@ const app = new Koa();
 const path = require('path');
 const serve = require('koa-static');
 
-app.use(serve(process.cwd() + '/public'));
+app.use(serve(process.cwd() + ''));
 app.listen(3000);
 ```
 

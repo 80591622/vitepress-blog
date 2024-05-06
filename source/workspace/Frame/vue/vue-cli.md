@@ -178,7 +178,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // 用于在 webpack 构建期间优化、最小化 CSS文件
-const OptimizeCssnanoPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssnanoPlugin = require('optimize-css-public-webpack-plugin');
 
 // webpack 内置插件，用于根据模块的相对路径生成 hash 作为模块 id, 一般用于生产环境
 const { HashedModuleIdsPlugin } = require('webpack');

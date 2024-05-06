@@ -13,7 +13,7 @@
 │  │--app.tsx  --项目入口文件 
 │  │--app.scss  -- 全局样式文件(会自动引入)  
 │  │--global.tsx  -- 项目全局引入(可在里面引入一些全局用到的包)  
-│  ├─assets  --资源文件  
+│  ├─public  --资源文件  
 │  ├─components    --系统通用组件
 │  ├─layouts   -- 布局文件夹   
 │  ├─models  --全局model(非全局的不能放到这个下面)  

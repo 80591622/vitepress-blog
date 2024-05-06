@@ -9,7 +9,7 @@
        width: 50%;
        transform: translateX(50%);
        "
-       src='/assets/img/jiaohu.png'/>
+       src='/img/jiaohu.png'/>
        
 
 此时为了保障多端的不同需求，需要为不同的平台写不同的 API 接口，
@@ -23,7 +23,7 @@
        width: 50%;
        transform: translateX(50%);
        "
-       src='/assets/img/bff.png'/>
+       src='/img/bff.png'/>
 
 ## GraphQL 语言设计中的必然性
  

@@ -56,12 +56,12 @@ module.exports = {
     },
      plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname,'./public/index.html'),   // 用哪个html作为模板 , react一般在在src目录下public里创建一个index.html页面当做模板来用
+            template: path.resolve(__dirname,'./index.html'),   // 用哪个html作为模板 , react一般在在src目录下public里创建一个index.html页面当做模板来用
             filename: 'index.html', //  要打包输出的文件名
             chunks: ['manifest','index']   // 对应关系,index.js对应的是index.html
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname,'./public/login.html'),
+            template: path.resolve(__dirname,'./login.html'),
             filename: 'login.html', 
             chunks: ['manifest','login']   // 对应关系,login.js对应的是login.html
         })
@@ -212,7 +212,7 @@ ExtractTextWebpackPlugin 拆分css样式的插件(webapck4已废弃)。由于web
  const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // 压缩打包后的js 
  const HappyPack = require('happypack'); // 多线程构建
  const happyThreadPool = HappyPack.ThreadPool({ size: 5 });  // 构造出共享进程池，进程池中包含5个子进程
- const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')// 最大化压缩css
+ const OptimizeCsspublicPlugin = require('optimize-css-public-webpack-plugin')// 最大化压缩css
  const Dotenv = require('dotenv-webpack');
 
  console.log('process.env.NODE_ENV------->',  process.env.NODE_ENV)
@@ -363,7 +363,7 @@ ExtractTextWebpackPlugin 拆分css样式的插件(webapck4已废弃)。由于web
                  }
              }),
              // 用于优化css文件 最大化压缩成css 并且去掉注释掉的css
-             new OptimizeCssAssetsPlugin({
+             new OptimizeCsspublicPlugin({
                  assetNameRegExp: /\.css$/g,
                  cssProcessorOptions: {
                    safe: true,

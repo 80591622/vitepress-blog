@@ -752,7 +752,7 @@ var vm = new Vue({
 声明 mixin 的例子：
 
 ```javascript
-// assets/mixins/mixin.js
+// public/mixins/mixin.js
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -767,7 +767,7 @@ export default class MyMixin extends Vue {
 ```javascript
 // import Component, { mixins } from 'vue-class-component'
 import {Component, Mixins} from 'vue-property-decorator';
-import MyMixin from '@/assets/mixins/mixin'
+import MyMixin from '@/mixins/mixin'
 
 // 使用 `mixins` 帮助函数，而不是 `Vue`.
 // `mixins` 可以获取任何数量的参数

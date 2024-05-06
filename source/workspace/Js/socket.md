@@ -124,7 +124,7 @@ setInterval(() => {
 }, 60000)
 ```
 
-<img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="/assets/img/socket.webp">
+<img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="/img/socket.webp">
 
 其中`绿色`箭头表示`发出`的消息，`红色`箭头表示`收到`的消息。
 

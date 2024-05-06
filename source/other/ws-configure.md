@@ -13,9 +13,9 @@
 
 ## 配置js格式化规范
 
-![1](/assets/img/ws-configure.webp)<br>
-![2](/assets/img/ws-configure2.webp)<br>
-![3](/assets/img/ws-configure3.webp)
+![1](/img/ws-configure.webp)<br>
+![2](/img/ws-configure2.webp)<br>
+![3](/img/ws-configure3.webp)
 
 ## 配置html/vue组件
 

@@ -389,7 +389,7 @@ new MiniCssExtractPlugin({
 */
 extract-text-webpack-plugin@next //拆分多个css
 terser-webpack-plugin/uglifyjs-webpack-plugin  //压缩js 解决uglifyjs不支持es6语法问题
-optimize-css-assets-webpack-plugin //最大化压缩css
+optimize-css-public-webpack-plugin //最大化压缩css
 
 
 image-webpack-loader  //图片压缩

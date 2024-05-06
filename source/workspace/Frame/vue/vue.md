@@ -342,7 +342,7 @@ Vue.directive('focus',{
 ## 局部mixins
 
 ```javascript
-//assets/mixins/mixin.js
+//mixins/mixin.js
 export const toggle = {
   data() {
     return {

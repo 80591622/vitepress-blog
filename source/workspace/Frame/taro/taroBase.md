@@ -669,7 +669,7 @@ plugins: {
     }
   }
 }
-//备注：目前资源引用时仍无法使用别名，如 background: url('@assets/logo.png')
+//备注：目前资源引用时仍无法使用别名，如 background: url('@public/logo.png')
 ```
 
 还需要额外的配置（Taro 对样式的处理是 node-sass -> postcss，在 sass 这步就报错了，不能用 postcss-import 插件解决）：

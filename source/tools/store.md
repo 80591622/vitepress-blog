@@ -46,7 +46,7 @@
 - [rrweb](https://github.com/rrweb-io/rrweb) - 一个可以记录你页面中所有操作的库
 - [nodeppt](https://github.com/ksky521/nodeppt) - markdown 写 ppt
 - [flexsearch](https://github.com/nextapps-de/flexsearch) - 能让你更加高效和快速的检索文本内容
-- [public-apis](https://github.com/toddmotto/public-apis) - 汇集了市面上一些对外免费开放的 api，做一些自己练手 app 的时候很好用。
+- [public-apis](https://github.com/toddmotto-apis) - 汇集了市面上一些对外免费开放的 api，做一些自己练手 app 的时候很好用。
 - [scroll-hint](https://github.com/appleple/scroll-hint) 用于提示用户页面可以左右滑动的一个提示库
 - [fuse.js](https://github.com/krisk/fuse) 轻量级前端模糊查询库 非常的好用
 - [FileSaver.js](https://github.com/eligrey/FileSaver.js) 文件下载插件 很多时候下载会有兼容性问题，它能帮你解决这些问题

@@ -36,7 +36,7 @@ module.exports = {
               test: /\.(js|css|html|svg)$/, // 可设置需要压缩的文件类型
               threshold: 10240, // 大于 10 kb 的文件启用压缩
               minRatio: 0.8, // 压缩比率大于等于0.8时不进行压缩
-              deleteOriginalAssets: false, // 是否删除压缩前的文件，默认false
+              deleteOriginalpublic: false, // 是否删除压缩前的文件，默认false
             }),
           );
           console.log(1212, config);
@@ -60,7 +60,7 @@ module.exports = {
     vue: "vue/dist/vue.esm.js",
     src: "./src",
     "@": "./src",
-    assets: "./src/assets",
+    public: "./src",
   },
 };
 ```
@@ -72,7 +72,7 @@ module.exports = {
 │   ├── app.vue.css
 │   ├── app.vue.css.proxy.js
 │   ├── app.vue.js
-│   ├── assets // 静态资源要使用import导入才能用
+│   ├── public // 静态资源要使用import导入才能用
 │   │   ├── css
 │   │   │   ├── base.css
 │   │   │   └── common.css

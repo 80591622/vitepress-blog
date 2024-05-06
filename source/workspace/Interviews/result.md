@@ -190,7 +190,7 @@ function test(){
 }
 test(); // 打印 0 到 9
 ```
-![result1.webp](/assets/img/result1.webp)
+![result1.webp](/img/result1.webp)
 
 ## 实现一个instanceof
 
