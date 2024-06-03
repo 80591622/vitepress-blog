@@ -75,7 +75,7 @@ onMounted(() => {
       const navbar = document.querySelector('.VPNavBar.home.top');
       if (navbar) {
         navbar.style.backdropFilter = 'none';
-        navbar.style.backgroundColor = '#ffffff'; // 设置背景色为白色
+        // navbar.style.backgroundColor = '#ffffff'; // 设置背景色为白色
       }
 
       const navbars = document.querySelectorAll('.VPNavBar:not(.has-sidebar):not(.home.top)');
