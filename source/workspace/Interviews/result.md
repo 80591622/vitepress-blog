@@ -330,7 +330,7 @@ typeof "number" //返回 "string"
 
 ## [..."wk"]返回什么
 
-["h", "z", "f"]
+["w", "k"]
 
 
 ## 小程序里面canvas map等组件优先级最高，怎么将其覆盖
