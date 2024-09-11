@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Oasis Blog"
-  # text: "Welcome to Oasis Blog"
+  name: "梦在笔端 "
+  # text: "Welcome to 梦在笔端 "
   # tagline: This blog is built for VitePress
   # image:
   #   src: /img/avatar.png

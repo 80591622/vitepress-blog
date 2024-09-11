@@ -7,7 +7,7 @@ import algolia from "./config/algolia"
 // https://vitepress.dev/reference/site-config
 export default {
   lang: "zh",
-  title: "Oasis Blog",
+  title: "梦在笔端",
   description:
     "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具",
   appearance: true, // 暗黑模式
@@ -79,8 +79,8 @@ export default {
 
     // 首页页脚配置。您可以添加消息和版权。仅当页面由于设计原因不包含边栏时，才会显示页脚。
     footer: {
-      message: "Copyright © 2024 京ICP备18059340号",
-      // copyright: ""
+      message: "Copyright © 2024",
+      copyright: `<a href="https://beian.miit.gov.cn/" target="_blank">京 ICP 备 18059340 号</a>`
     }
   }
 }
