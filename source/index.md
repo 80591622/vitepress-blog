@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "梦在笔端 "
-  # text: "Welcome to 梦在笔端 "
+  name: "Serein's Blogscape "
+  # text: "Welcome to Serein's Blogscape "
   # tagline: This blog is built for VitePress
   # image:
   #   src: /img/avatar.png
