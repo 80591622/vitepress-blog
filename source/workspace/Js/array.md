@@ -45,7 +45,7 @@ every()与some()方法都是JS中数组的迭代方法。
 
 `every()是对数组中每一项运行给定函数，如果该函数对每一项返回true,则返回true;every从迭代开始，一旦有一个不符合条件，则不会继续迭代下去。`
 
-<img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="https://ae01.alicdn.com/kf/H1f23b6d819f24380a396fd15d5ed914dA.png">
+<img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="https://p1.ssl.qhimg.com/t110b9a9301f089e3c51293f7c9.webp">
 
 
 ## reduce()

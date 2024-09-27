@@ -74,8 +74,8 @@ git reset HEAD <file>  :当你不但改乱了工作区某个文件的内容，�
 git commit --amend -m'新提交消息'  :提交信息出错`
 git stash  :储藏
 git stash pop  :删除当前储藏
-git  config --global  user.name 'hezhenfeng'  :修改git的用户名 
-git  config --global  user.email 'feng960106@163.com'  :修改git的邮箱
+git  config --global  user.name 'wk'  :修改git的用户名 
+git  config --global  user.email 'python.wangke@gmail.com'  :修改git的邮箱
 git config –-list   ：查看信息
 git config --global credential.helper cache  :设置记住密码（默认15分钟）
 git config credential.helper 'cache --timeout=3600'  :设置记住密码（1h）

@@ -7,7 +7,7 @@ import algolia from "./config/algolia"
 // https://vitepress.dev/reference/site-config
 export default {
   lang: "zh",
-  title: "技术分享",
+  title: "Serein's Blogscape",
   description:
     "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具",
   appearance: true, // 暗黑模式

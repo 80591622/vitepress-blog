@@ -223,27 +223,24 @@ export default QueueManager;
 
 ```javascript
 <input type="text" id="input">
-<span id="text"/>
+<span id="text"></span>
 
 const data = {};
 Object.defineProperty(data, 'text', {
     set(value) {
-        this.value = value;
-
-        input.value = value;
-        text.innerText = value;
-
-        return value
+        this._value = value;  // 使用一个私有属性来存储值
+        input.value = value;  // 更新输入框
+        text.innerText = value;  // 更新文本
     },
-    get(val) {
-        console.log('获取值', this);  //this就是当前的对象
-        return val
+    get() {
+        console.log('获取值', this._value);  // 输出当前值
+        return this._value;  // 返回存储的值
     }
 });
 
 input.oninput = function (e) {
-    console.log(data.text = e.target.value);
-    console.log(data.text);
+    data.text = e.target.value;  // 更新 data.text
+    console.log(data.text);  // 输出当前值
 };
 ```
 
@@ -251,28 +248,26 @@ input.oninput = function (e) {
 
 ```js
 <input type="text" id="input">
-<span id="text"/>
+<span id="text"></span>
 
 const data = {};
 const handler = {
-    set(target, key, value) {  //当前对象  key  当前值
+    set(target, key, value) {
         target[key] = value;
-        input.value = value;
-        text.innerText = value;
-        return value
+        input.value = value;  // 更新输入框
+        text.innerText = value;  // 更新文本
+        return true;  // 返回 true 表示成功
     },
-    get(obj, value, target) {//{key:当前值} 当前值 当前对象
-        console.log('获取值')
-        return value
+    get(target, key) {
+        console.log('获取值');
+        return target[key];  // 返回目标对象中的值
     }
 };
 
 const proxy = new Proxy(data, handler);
 
 input.oninput = function (e) {
-    proxy.text1 = e.target.value
-    console.log(proxy.text2 = e.target.value);
-    console.log(proxy.text1);
+    proxy.text = e.target.value;  // 使用统一的属性名
 };
 ```
 
@@ -280,41 +275,49 @@ input.oninput = function (e) {
 
 ```javascript
 // 防抖函数
-export const debounce = function (func, delay) {
+export const debounce = (func, delay) => {
   let timer;
   return function (...args) {
     if (timer) {
-      clearTimeout(timer)
+      clearTimeout(timer);
     }
     timer = setTimeout(() => {
-      func.apply(this, args)
-    }, delay)
-  }
+      func.apply(this, args);
+    }, delay);
+  };
 };
 
 // 节流函数
-export const throttle = function (func, delay) {
-  let now = Date.now();
+export const throttle = (func, delay) => {
+  let lastCall = 0;
   return function (...args) {
-    const current = Date.now();
-    if (current - now >= delay) {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
       func.apply(this, args);
-      now = current
     }
+  };
+};
+
+export default {
+  data() {
+    return {
+      value: ''
+    };
+  },
+  methods: {
+    handleChange: debounce(function(e) {
+      console.log(this.value);
+    }, 300),  // 防抖延迟设为 300 毫秒
+  },
+  created() {
+    this.fnScroll = throttle(() => {
+      // 滚动处理逻辑
+      console.log('滚动事件');
+    }, 1000);
   }
 };
 
-
-// 使用时候切记不是每次都要调用这个，利用闭包原理，
-// vue2下使用方式，或者生命周期里面提前赋值
- methods:{
-  hangleChange:debounce(function(e){
-   console.log(this.value)
-  })
- }
- created(){
-   this.fnScroll = this.throttle(fn, 1000)
-  },
 ```
 
 ## 导出表格
@@ -387,16 +390,16 @@ let product_content = document.getElementById('product_content');
 
 浏览器每一帧都需要完成哪些工作？
 
-![](https://ae01.alicdn.com/kf/H2b91ea861e554256b0226556ca50ef791.jpg)
+<img src="https://p5.ssl.qhimg.com/t110b9a93012e1b41fd501c7ec1.webp" alt="">
 
 通过上图可看到，一帧内需要完成如下六个步骤的任务：
 
-处理用户的交互<br/>
-JS 解析执行<br/>
-帧开始。窗口尺寸变更，页面滚去等的处理<br/>
-requestAnimationFrame(rAF)<br/>
-布局<br/>
-绘制<br/>
+1. 处理用户的交互<br/>
+2. JS 解析执行<br/>
+3. 帧开始。窗口尺寸变更，页面滚去等的处理<br/>
+4. requestAnimationFrame(rAF)<br/>
+5. 布局<br/>
+6. 绘制<br/>
 
 上面六个步骤完成后没超过16.7ms,说明时间有富余，此时就会执行`requestIdleCallback里注册的任务`(requestIdleCallback的时长并不是16ms,他是一个肉眼觉察不到的时间),如果没rAF这样的循环处理，浏览器一直处于空闲状态的话，`deadline.timeRemaining`可以得到的最长时间
 
@@ -665,7 +668,24 @@ var browser = {
 
 ## import和require区别
 
+**语法**：
+    `import`是 ES6 引入的模块导入语法，如：`import module from'modulePath';`
+    `require`是 Node.js 中传统的模块导入方式，如：`const module = require('modulePath');`
+
+**静态与动态**：
+    `import`是静态导入，在编译时确定模块依赖关系，运行时不能动态改变。
+    `require`是动态导入，可在运行时根据条件加载不同模块。
+
+**模块格式**：
+    `import`通常用于导入 ES6 模块，支持默认导出和命名导出，模块默认使用严格模式。
+    `require`主要用于 CommonJS 模块，使用`module.exports`导出模块内容。
+
+**异步与同步**：
+    在浏览器中，`import`通常是异步的，不阻塞页面渲染。
+    `require`在 Node.js 中是同步的，会阻塞代码执行直到模块加载完成。
+
 ```javascript
+
 //index.tsx
 console.log(1)
 import {sum} from "./sum"
@@ -686,31 +706,61 @@ export const sum=(a,b)=>a+b;
 ### typeof
 
 ```javascript
-//typeof用以获取一个变量或者表达式的类型，typeof一般只能返回如下几个结果：
-number,boolean,string,function（函数）,symbol,object（NULL,数组，对象）,undefined。
+// typeof 用以获取一个变量或者表达式的类型，typeof 一般只能返回如下几个结果：
+number，boolean，string，function（函数），symbol，object（NULL,数组，对象），undefined。
+
+let num = 10;
+console.log(typeof num); // 输出: number
+
+let isTrue = true;
+console.log(typeof isTrue); // 输出: boolean
+
+let str = "Hello";
+console.log(typeof str); // 输出: string
+
+let func = function() {};
+console.log(typeof func); // 输出: function
+
+let sym = Symbol();
+console.log(typeof sym); // 输出: symbol
+
+let obj = {};
+console.log(typeof obj); // 输出: object
+
+let arr = [];
+console.log(typeof arr); // 输出: object
+
+let nullVar = null;
+console.log(typeof nullVar); // 输出: object
+
+let undef = undefined;
+console.log(typeof undef); // 输出: undefined
 ```
 
 ### instanceof
 
 ```javascript
 [1, 2, 3] instanceof Array; //true
+
 //可以看到[1, 2, 3]是类型Array的实例
 [1, 2, 3] instanceof Object; //true
 
 //封装
-function myInstanceof(val, type) { 
-    let rightProto = type.prototype; // 取右边 prototype的值
-    let leftPrevProto = val.__proto__; // 取左边__proto__值
-    while (true) {
-        if (leftPrevProto === null) { //如果左边的__proto__值为null，返回false
-            return false;   
+function myInstanceof(val, type) {
+    let rightProto = type.prototype;  // 目标构造函数的原型
+    let proto = Object.getPrototypeOf(val);  // 获取 val 的原型
+    
+    // 循环遍历 val 的原型链
+    while (proto) {
+        if (proto === rightProto) {
+            return true;  // 找到了匹配的原型，返回 true
         }
-        if (leftPrevProto === rightProto) { 
-            return true;    
-        } 
-        leftPrevProto = leftPrevProto.__proto__ ; //以上都不满足，取上一层原型继续循环，直到没取到为null
+        proto = Object.getPrototypeOf(proto);  // 继续向上查找原型链
     }
+    
+    return false;  // 遍历完原型链，没找到匹配的原型，返回 false
 }
+
 ```
 
 ### constructor
@@ -743,25 +793,27 @@ new ew Chameleon().constructor===Function  //false
 
 ```javascript
 function is(type, obj) {
-    var clas = Object.prototype.toString.call(Object(obj)).slice(8, -1);   //Object(null)
-    return obj !== undefined && obj !== null && clas === type;
+    const classType = Object.prototype.toString.call(obj).slice(8, -1); // 获取对象类型
+    return obj != null && classType === type; // 使用 != 来同时检查 null 和 undefined
 }
 
-is('String', 'test'); // true
-is('String', new String('test')); // true
+// 示例使用
+console.log(is('String', 'test')); // true
+console.log(is('String', new String('test'))); // true
 ```
 
 ## HTML页面加载完毕后运行JS
 
 ```javascript
-window.onload=function(){}  // 可以判断js时候加载完毕
+// 可以判断js时候加载完毕
+window.onload=function(){}  
 
+// 当dom加载完就可以执行（比window.onload更早）
 $(function(){}); 
 $(document).ready(function(){})
-// 当dom加载完就可以执行（比window.onload更早）
 
-<body onload="fn()"></body>
 // 最晚执行
+<body onload="fn()"></body>
 ```
 
 **两者的主要区别**
@@ -773,21 +825,22 @@ $(document).ready{ }是在DOM完全就绪并可以使用时调用，此时可能
 ## JS 动态加载 JS
 
 ```js
-// script 加载方式
 function reloadJSFn(id, newJS) {
-  let oldjs = document.getElementById(id);
-  if (document.getElementById(id)) oldjs.parentNode.removeChild(oldjs);
-  let scriptObj = document.createElement('script');
-  scriptObj.src = newJS;
-  scriptObj.type = 'text/javascript';
-  scriptObj.id = id;
-  document.getElementsByTagName('head')[0].appendChild(scriptObj);
+    const oldScript = document.getElementById(id);
+    if (oldScript) oldScript.remove(); // 移除旧脚本
+
+    const scriptObj = document.createElement('script');
+    scriptObj.src = newJS;
+    scriptObj.id = id;
+    document.head.appendChild(scriptObj); // 添加新脚本
 }
-// fetch 直接请求
-fetch('https://gcore.jsdelivr.net/gh/hzfvictory/cdn@master/water-mark/index.js').then(e => e.text()).then((res) => {
-  (0, eval)(res);
-  waterMark('hezhenfeng',null,'app')
-})
+
+// 请求并执行 JS 文件
+fetch('https://gcore.jsdelivr.net/gh/hzfvictory/cdn@master/water-mark/index.js')
+    .then(res => res.ok ? res.text() : Promise.reject('Network error'))
+    .then(eval)
+    .then(() => waterMark('wk', null, 'app'))
+    .catch(console.error);
 ```
 
 ## Symbol
@@ -838,8 +891,6 @@ const TYPE_VIDEO = Symbol()
 const TYPE_IMAGE = Symbol()
 ```
 
-## 小东西
-
 - 显示版本号
 
 ```javascript
@@ -874,16 +925,6 @@ console.table()
 
 Chrome 提供了 亮&暗 两种主题,当你视觉疲劳的时候,可以 switch 哦, 快捷键 `command+shift+p` ,打开 Command Menu,输入 `theme` ,即可选择切换
 
-## Think 循环
-
-```php
- <if condition="$Think.get.edit == 1 OR $Think.get.judge == 1">disabled</if> 
- <?php if($_GET['id'] == $parter['id']){ echo "selected";}?>
- <?php dump ($vo)?>
-
-
- <volist name="areas" id="vo"></volist>
-```
 
 ## js文件压缩原因和压缩原理
 
