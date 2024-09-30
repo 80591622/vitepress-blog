@@ -240,44 +240,136 @@ elm.style.setProperty("background-color", "yellow");
 ```
 
 ## Css的两种盒模型
+**CSS 盒模型包含以下几个部分：**
+ - 内容区域（Content） ：指元素内部实际包含内容的区域，例如文字、图片等。
+ - 内边距（Padding） ：内容区域与边框之间的空白区域，用来控制内容与边框的距离。
+ - 边框（Border） ：内边距外部的边框，用来围绕内容和内边距的区域。
+ - 外边距（Margin） ：边框外部的空白区域，用来控制元素与其他元素之间的距离。
 
-**旧博客**
-[ Css的两种盒模型](/workspace/Css/box-sizing/) 
+**盒模型的分类：**
+`标准盒模型（content-box）`和 `IE 盒模型（border-box）`。
 
-**新博客**
-[Css的两种盒模型](http://wkdevhub.cn/2019/01/21/workspace/Css/box-sizing/) 
+**标准盒模型：**
+在标准盒模型中，元素的宽度和高度仅包括内容区域的尺寸，不包括内边距（padding）、边框（border）和外边距（margin）。这意味着，当你设置一个元素的宽度为 200px 时，这个`宽度值仅包括元素的内容区域`，而`不包括内边距、边框和外边距的宽度`。
+
+`标准盒模型中，元素的总宽度计算方式为：内容宽度（width） + 左右内边距（padding-left + padding-right） + 左右边框宽度（border-left-width + border-right-width） + 左右外边距（margin-left + margin-right）。这个总宽度值就是元素所占据的实际空间。也就是说盒子总宽度：width + padding + border + margin = 330 `
+
+<img src="https://ae01.alicdn.com/kf/H8a671283100a4512ba5ae28cdfe70b3b6.jpg" alt/>
+
+**怪异盒模型（box-sizing）**
+在 IE 盒模型中，元素的宽度和高度包括了内容区域、内边距和边框的尺寸，但不包括外边距。换句话说，当你设置一个元素的宽度为 300px 时，这个宽度值包括了内容区域、内边距和边框的宽度。还是上面的那个例子，但是我们需要在style中加上box-sizing: border-box要求浏览器以IE盒子模型来加载盒子。
+
+` IE 盒模型中，元素的总宽度计算方式为：内容宽度（width）（包括内边距和边框） + 左右外边距（margin-left + margin-right）。这个总宽度值同样是元素所占据的实际空间。也就是是说，盒子总宽度：width + margin，盒子总高度：height + margin。`
+
+<img src="https://ae01.alicdn.com/kf/H113065c568374278958356d8834155a1x.jpg" alt/>
+
 
 ## 清除浮动
 
-**旧博客**
-[清除浮动的几种方法](/workspace/Css/clearfix/)
+浮动（float）常用于创建多列布局或让元素围绕其他元素排列。然而，浮动元素可能会影响布局的正常流动，因此需要清除浮动来恢复文档流。
 
-**新博客**
-[清除浮动的几种方法](http://wkdevhub.cn/2018/01/20/workspace/Css/clearfix/)
+***1. 浮动导致的问题：***
+当父容器中的所有子元素都设置为浮动时，父容器的高度会塌陷，导致其他正常文档流的元素可能覆盖或重叠该容器。这是因为浮动元素脱离了文档流。
+```html
+<div class="container">
+  <div class="box" style="float: left;"></div>
+  <div class="box" style="float: left;"></div>
+</div>
+<!-- 容器高度会塌陷，其他内容可能覆盖到 .container 上 -->
+
+```
+***2.常见清除浮动的方法***
+
+**2.1 clear: both**
+通过在浮动元素的最后插入一个 clear 属性的元素来清除浮动。常见方法是在浮动元素之后添加一个 div，并设置 clear: both。
+```html
+<div class="container">
+  <div class="box" style="float: left;"></div>
+  <div class="box" style="float: left;"></div>
+  <div style="clear: both;"></div> <!-- 清除浮动 -->
+</div>
+<!-- 缺点：增加了额外的无语义的标签，违反了结构与样式分离的原则。 -->
+```
+
+**2.2 overflow: hidden**
+给父容器设置 overflow: hidden，可以使其包含浮动的子元素。
+```css
+.container {
+  overflow: hidden;
+}
+/* 优点：简单且有效。 缺点：会隐藏超出的内容，不适合某些特定场景。 */
+```
+
+**2.3 clearfix 伪元素**
+目前比较推荐的清除浮动的方法，通过使用 ::after 伪元素来自动清除浮动。
+```css
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+```
+
+**2.4 display: flow-root（CSS3）**
+在 CSS3 中，display: flow-root 是一种较新的方法，它可以让元素成为块级格式化上下文，从而自动清除浮动。
+```css
+.container {
+  display: flow-root;
+}
+```
 
 ## BFC
 
-**旧博客**
-[bfc详解](/workspace/Css/bfc/)
+"BFC容器"通常是指"块级格式化上下文容器"（Block Formatting Context Container）。块级格式化上下文（BFC）是在CSS中用来管理和控制元素在页面上布局和排列的一种机制。BFC容器是一种具有特定规则的HTML元素或CSS属性，它们会创建一个独立的上下文，影响其内部元素的布局和排列方式。BFC容器是CSS布局中的一个重要概念，可以帮助开发人员更精确地控制元素的布局和排列
 
-**新博客**
-[bfc详解](http://wkdevhub.cn/2018/01/20/workspace/Css/bfc/)
+作用
+
+ - 清除浮动：BFC容器可以用来清除浮动元素的影响，确保父元素包含浮动子元素的高度，从而避免出现高度塌陷问题。这是BFC最常见的应用之一，特别是在创建多列布局或类似网格的布局时非常有用。
+ - 防止外边距重叠：在同一个BFC容器内的相邻块级元素的外边距不会发生重叠，这有助于更精确地控制元素之间的间距。这对于垂直外边距塌陷问题的解决非常有帮助。
+
+**哪些属性可以创建BFC容器**
+```bash
+- float: left || right
+- position: absolute || fixed
+- display: inline-block;
+- display: table-cell ....
+- overflow: hidden || auto  || overly  || scroll
+- 弹性盒子  (display: flex || inline-flex)
+```
+
+
+
 
 ## display:none opacity:0以及visibility:hidden的区别
+**display: none;**
 
-**旧博客**
-[区别](/workspace/Css/hidden/)
+- DOM 结构：浏览器不会渲染 display 属性为 none 的元素，不占据空间；
+- 事件监听：无法进行 DOM 事件监听；
+- 性能：动态改变此属性时会引起重排，性能较差；
+- 继承：不会被子元素继承，毕竟子类也不会被渲染；
+- transition：transition 不支持 display。
 
-**新博客**
-[区别](http://wkdevhub.cn/2018/01/20/workspace/Css/hidden/)
+**visibility: hidden;**
+
+- DOM 结构：元素被隐藏，但是会被渲染不会消失，占据空间；
+- 事件监听：无法进行 DOM 事件监听；
+- 性 能：动态改变此属性时会引起重绘，性能较高；
+- 继 承：会被子元素继承，子元素可以通过设置 visibility: visible; 来取消隐藏；
+- transition：visibility 会立即显示，隐藏时会延时
+
+**opacity: 0;**
+
+- DOM 结构：透明度为 100%，元素隐藏，占据空间；
+- 事件监听：可以进行 DOM 事件监听；
+- 性 能：提升为合成层，不会触发重绘，性能较高；
+- 继 承：会被子元素继承,且，子元素并不能通过 opacity: 1 来取消隐藏；
+- transition：opacity 可以延时显示和隐藏
+
 
 ## CSS九宫格布局实现
 
-**旧博客**
-[CSS九宫格布局实现](/workspace/Css/lattice/)
+[CSS九宫格布局实现](/workspace/Css/lattice.html)
 
-**新博客**
-[CSS九宫格布局实现](http://wkdevhub.cn/2018/01/20/workspace/Css/lattice/)
 
 ```css
 // 最后一行  去除 margin-bottom
@@ -551,30 +643,26 @@ $dpr: 2 !default;
 ## cssModules
 
 **旧博客**
-[cssModules](/workspace/Css/cssModules/)
-
-**新博客**
-[cssModules](http://wkdevhub.cn/2018/01/20/workspace/Css/cssModules/)
+[cssModules](/workspace/Css/cssModules)
 
 
 ## ✄ Flex弹性布局
 
 **旧博客**
-[Flex弹性布局](/workspace/Css/flex/)
+[Flex弹性布局](/workspace/Css/flex)
 
-**新博客**
-[Flex弹性布局](http://wkdevhub.cn/2018/01/20/workspace/Css/flex/)
 
 
 ## PostCSS
 
 **什么是postcss**
 
-postcss 一种对css编译的工具，类似babel对js的处理，常见的功能如：<br/>
-1.使用下一代css语法<br/>
-2.自动补全浏览器前缀<br/>
-3.自动把px代为转换成rem<br/>
-4.css代码压缩等等<br/>
+postcss 一种对css编译的工具，类似babel对js的处理，常见的功能如:
+
+1. 使用下一代css语法
+2. 自动补全浏览器前缀
+3. 自动把px代为转换成rem
+4. css代码压缩等等
 
 **如何使用**
 
@@ -627,7 +715,7 @@ module.exports = {
 
 ## 暗黑模式
 
-```html
+```css
 @media (prefers-color-scheme: dark) { // 黑暗模式 
   .guide-page {
     background: #292929;

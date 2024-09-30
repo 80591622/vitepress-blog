@@ -28,8 +28,8 @@
   - 返回被截取的字符串，不改变原来的，传入参数是**起始位置和结束位置**。(不包含结束位置)
 
 ```javascript
-let str='wk';
-str.substring(1)//zf
+let str='serein blogscape';
+str.substring(1) // erein blogscape
 ```
 
 ## `substr()`
@@ -37,8 +37,8 @@ str.substring(1)//zf
   
 
 ```javascript
-let str='wk';
-str.substr(1,1)//z
+let str='serein blogscape';
+str.substr(1,1) // e
 ```
 
 
@@ -47,7 +47,7 @@ str.substr(1,1)//z
   - 当为负值的时候不同，还是看例子吧
   
 ```javascript
-var a =  'abcdefg' 
+let a =  'abcdefg' 
 
 a.slice(1,-1) //"bcdef"  相当于 a.slice(1, a.length-1 )   有负值统一用length减去当前的负值来截取
 a.substring(1,-1) //a    相当于 a.substring(0,1) 参数最小为0，小于0自动默认为0，参数小的为第一个参数

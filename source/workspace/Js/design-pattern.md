@@ -5,7 +5,7 @@
 ## 单例模式
 
 ```javascript
-var singleton = {
+const singleton = {
  name: 'wk',
  age: 24,
  walk: function(){
@@ -16,13 +16,13 @@ var singleton = {
  }
 }
 ```
-- 不足之处:<br/>
-   - (1)没有什么封装性，所有的属性方法都是暴露的。<br/>
-   - (2)全局变量很容易造成命名空间污染。<br/>
-   - (3)对象一开始变创建，万一我们用不上就浪费了。<br/>
+ **不足之处:**
+  1. 没有什么封装性，所有的属性方法都是暴露的。<br/>
+  2. 全局变量很容易造成命名空间污染。<br/>
+  3. 对象一开始变创建，万一我们用不上就浪费了。<br/>
 
 ```javascript
-var person = function(){
+const person = function(){
      // 这里声明私有变量和方法；
      const privateVariable = '私有的外面获取不到';
      

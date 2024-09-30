@@ -123,7 +123,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 git push -u origin [name] -f 
 
-太暴力，峰哥不喜欢 ，这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候。
+太暴力，这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候。
 
 **2：push前先将远程repository修改pull下来**
 

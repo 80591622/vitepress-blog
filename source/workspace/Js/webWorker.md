@@ -51,9 +51,9 @@ Worker 线程无法读取本地文件，即不能打开本机的文件系统（`
 然后，读取这一段嵌入页面的脚本，用 Worker 来处理。
 
 ```javascript
-var blob = new Blob([document.querySelector('#worker').textContent]);
-var url = window.URL.createObjectURL(blob);
-var worker = new Worker(url);
+let blob = new Blob([document.querySelector('#worker').textContent]);
+let url = window.URL.createObjectURL(blob);
+let worker = new Worker(url);
 
 worker.onmessage = function (e) {
   // e.data === 'some message'

@@ -9,30 +9,33 @@
 
 2、mac升级node版本
    npm i -g n 
-   n 12.9.1 //指定版本升级
-   n latest //安装最新版本
-   n stable //安装最稳定的版本
+```bash
+n 12.9.1 //指定版本升级
+n latest //安装最新版本
+n stable //安装最稳定的版本
+```
    
 强烈推荐使用 nvm 
 
 **nvm常用命令**
 
 命令 说明
-
-nvm list  nrm ls 查看已经安装的版本 <br/>
-nvm list installed 查看已经安装的版本<br/>
-nvm list available 查看网络可以安装的版本<br/>
-nvm arch 查看当前系统的位数和当前nodejs的位数<br/>
-nvm install [arch] 安装制定版本的node 并且可以指定平台 version 版本号 arch 平台<br/>
-nvm on 打开nodejs版本控制  (在第一次使用nvm安装node后，要记得使用 nvm use 切换下node版本，以及用 nvm on 打开nodejs版本控制，不然这时候node和npm也都不可用。)<br/>
-nvm off 关闭nodejs版本控制<br/>
-nvm proxy [url] 查看和设置代理<br/>
-nvm node_mirror [url] 设置或者查看setting.txt中的node_mirror，如果不设置的默认是 https://nodejs.org/dist/ <br/>
-nvm npm_mirror [url] 设置或者查看setting.txt中的npm_mirror,如果不设置的话默认的是：https://github.com/npm/npm/archive/. <br/>
-nvm uninstall 卸载制定的版本<br/>
-nvm use [version] [arch] 切换制定的node版本和位数<br/>
-nvm root [path] 设置和查看root路径<br/>
-nvm version 查看当前的版本<br/>
+```bash
+nvm list  nrm ls 查看已经安装的版本 
+nvm list installed 查看已经安装的版本
+nvm list available 查看网络可以安装的版本
+nvm arch 查看当前系统的位数和当前nodejs的位数
+nvm install [arch] 安装制定版本的node 并且可以指定平台 version 版本号 arch 平台
+nvm on 打开nodejs版本控制  (在第一次使用nvm安装node后，要记得使用 nvm use 切换下node版本，以及用 nvm on 打开nodejs版本控制，不然这时候node和npm也都不可用。)
+nvm off 关闭nodejs版本控制
+nvm proxy [url] 查看和设置代理
+nvm node_mirror [url] 设置或者查看setting.txt中的node_mirror，如果不设置的默认是 https://nodejs.org/dist/ 
+nvm npm_mirror [url] 设置或者查看setting.txt中的npm_mirror,如果不设置的话默认的是：https://github.com/npm/npm/archive/. 
+nvm uninstall 卸载制定的版本
+nvm use [version] [arch] 切换制定的node版本和位数
+nvm root [path] 设置和查看root路径
+nvm version 查看当前的版本
+```
 
 ##  升级包
 
@@ -74,7 +77,7 @@ yarn upgrade react --latest //yarn upgrade 更新依赖包时yarn.lock更新但p
 1、`查看一下当前源`
 yarn config get registry<br>
 2、`切换为淘宝源`
-yarn config set registry https://registry.npm.taobao.org<br>
+yarn config set registry https://registry.npmmirror.com<br>
 3、`或者切换为自带的`
 yarn config set registry https://registry.yarnpkg.com
 

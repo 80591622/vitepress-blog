@@ -11,22 +11,22 @@
 通过构造函数
 ```javascript
 //创建一个构造函数或者类
-var People = function(){}
+let People = function(){}
 People.prototype.y = 20
 People.prototype.z = 40
 People.prototype.showNum = function() {}
 //通过构造函数创建实例
-var p = new People();
+let p = new People();
 console.log(p.__proto__ === People.prototype) // true
 ```
 使用`Object.create()`
 ```javascript
-var proto = {
+let proto = {
     y: 20,
     z: 40,
     showNum(){}
 };
-var o = Object.create(proto);
+let o = Object.create(proto);
 ```
 
 
@@ -39,7 +39,7 @@ prop: 目标对象需要定义或修改的属性的名称<br/>
 descriptor: 将被定义或修改的属性的描述符<br/>
  
 ```javascript
-var obj = new Object();
+let obj = new Object();
 
 Object.defineProperty(obj, 'name', {
     configurable: false,
@@ -54,23 +54,23 @@ console.log(obj.name)  //张三
 ## 对象的数据属性
 
 ```javascript
-var person = {}
+let person = {}
 Object.defineProperty(person,'name',{
-    configurable:false,// 能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
-    enumerable:false,// 不可枚举 对象属性是否可通过for-in循环，flase为不可循环，默认值为true
-    writable:false,// 对象属性是否可修改,flase为不可修改，默认值为true
+    configurable:false, // 能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
+    enumerable:false, // 不可枚举 对象属性是否可通过for-in循环，flase为不可循环，默认值为true
+    writable:false, // 对象属性是否可修改,flase为不可修改，默认值为true
     value:'xiaoming' // 对象属性的默认值，默认值为undefined
 });
 
 // value
-console.log(person);// xiaoming，默认value
+console.log(person); // xiaoming，默认value
 
 // writable
 person.name="666";
-console.log(person);// xiaoming，不可修改value
+console.log(person); // xiaoming，不可修改value
 
 // enumerable
-for(var i in person){
+for(let i in person){
     console.log(person[i]) // 无结果，不可循环
 }
 Object.keys(person) // []  与for in区别在于不能遍历出原型链上的属性
@@ -102,7 +102,7 @@ obj: 将要被添加属性或修改属性的对象<br/>
 props: 该对象的一个或多个键值对定义了将要为对象添加或修改的属性的具体配置
 
 ```javascript
-var obj = new Object();
+let obj = new Object();
 Object.defineProperties(obj, {
     name: {
         value: '张三',
@@ -200,7 +200,7 @@ for (const value in obj) {
 ## Object.keys、Object.getOwnPropertyNames区别
 
 ```javascript
-var obj = { "prop1": "v1" };
+let obj = { "prop1": "v1" };
 Object.defineProperty(obj, "prop2", { value: "v2", writable: false });
 console.log(Object.keys(obj).length);           //output：1
 console.log(Object.getOwnPropertyNames(obj).length);    //output：2
@@ -223,21 +223,21 @@ console.log(Object.getOwnPropertyNames(obj).length);    //output：2
 在初始化对象的时候这样使用
 
 ```javascript
-var obj={
+let obj={
     a: 1,
     b: 2,
     set c(x){console.log('c被赋值：',x);c=x;},
     get c(){console.log('c被取出: ',c);return c}  
 };
 
-obj.c=3  //c被赋值： 3
-obj.c  //c被取出:  3
+obj.c=3  // c被赋值： 3
+obj.c  // c被取出:  3
 ```
 
 对象初始化之后可以这样添加属性
 
 ```javascript
-var obj={
+let obj={
     a: 1,
     b: 2    
 };
@@ -259,8 +259,8 @@ Object.defineProperty(obj, c, {
 　　　　return c
 　　}
 })
-obj.c=3  //c被赋值： 3
-obj.c  //c被取出:  3
+obj.c=3  // c被赋值： 3
+obj.c  // c被取出:  3
 ```
 
 ## Object.fromEntries()
@@ -327,21 +327,21 @@ const clone = source => { ...source }
 //深克隆
 function deepclone(obj){
    if (typeof obj === 'object' && obj !== null) {
-    let o = obj.push?[]:{};
-    console.log(obj.push);
-    
-    for(let attr in obj){
-        if(obj.hasOwnProperty(attr)){
-            if(typeof obj[attr] === 'object'){
-                o[attr] = deepclone(obj[attr]);
-            }else{
-                o[attr] = obj[attr];
-            }
-        }
-    }
-    return o;
-     } else {
-    return obj;
+      let o = obj.push ? [] : {};
+      console.log(obj.push);
+      
+      for(let attr in obj){
+          if(obj.hasOwnProperty(attr)){
+              if(typeof obj[attr] === 'object'){
+                  o[attr] = deepclone(obj[attr]);
+              }else{
+                  o[attr] = obj[attr];
+              }
+          }
+      }
+      return o;
+    } else {
+      return obj;
   }
 }
 
@@ -351,7 +351,7 @@ function deepclone(obj){
 // 2. 不能处理循环引用
 
 
-const obj = {val:2};
+const obj = { val : 2 };
 obj.target = obj;
 
 //拷贝obj会出现系统栈溢出，因为出现了无限递归的情况。
@@ -449,12 +449,12 @@ console.log(a == 1 && a == 2,a);//true
 javascript 对象的比较是比较坑爹的一件事，因为javascript对象比较的是引用地址，当两个引用地址相同的对象总是相等的,或者两个完全一样的对象也是不相等的。
 
 ```javascript
- var object1={
+ let object1={
     name:"1234 ",
     code:123,
     test:"321",
 };
-var object2={
+let object2={
     name:"1234 ",
     code:123,
     test:"321",
@@ -493,8 +493,8 @@ i|=2等价于i=i|2;
 ```javascript
 console.log(object1===object2);  //false
 
-var test1=hashCode(JSON.stringify(object1));
-var test2=hashCode(JSON.stringify(object2));
+let test1=hashCode(JSON.stringify(object1));
+let test2=hashCode(JSON.stringify(object2));
 console.log(test1,test2,test1===test2);  //true
 ```
 

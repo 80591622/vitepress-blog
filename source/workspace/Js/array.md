@@ -62,28 +62,28 @@ every()与some()方法都是JS中数组的迭代方法。
 
 
 ```javascript
-arr.reduce(function(Accumulator,CurrentValue,CurrentIndex,SourceArray){
+arr.reduce((Accumulator,CurrentValue,CurrentIndex,SourceArray) => {
 ...
 }, init);
 ```
 
 ```javascript
-var arr = [3,9,4,3,6,0,9];
+let arr = [3,9,4,3,6,0,9];
 
 //求数组项之和
-var sum = arr.reduce(function (prev, cur) {
+let sum = arr.reduce((prev, cur) => {
     return prev + cur;
 },0);
 
 //求数组项最大值
-var max = arr.reduce(function (prev, cur) {
+let max = arr.reduce((prev, cur) => {
     return Math.max(prev,cur);
 });
 
 Math.max(...arr);
 
 //数组去重
-var newArr = arr.reduce(function (prev, cur) {
+let newArr = arr.reduce((prev, cur) => {
     prev.indexOf(cur) === -1 && prev.push(cur);
     return prev;
 },[]);
@@ -124,7 +124,7 @@ console.log(Array.myIsArray([])); // true
   
 ```javascript
 const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
-//[].slice.call(animals,1,3)
+// [].slice.call(animals,1,3)
 
 console.log(animals.slice(2));
 // expected output: Array ["camel", "duck", "elephant"]
@@ -137,12 +137,12 @@ console.log(animals.slice(1, 5));
 ```
 
 ```javascript
-//slice的内部实现
+// slice的内部实现
 Array.prototype.slice = function(start,end){ 
-      var result = new Array(); 
+      let result = new Array(); 
       start = start || 0; 
       end = end || this.length; //this指向调用的对象，当用了call后，能够改变this的指向，也就是指向传进来的对象，这是关键 
-      for(var i = start; i < end; i++){ 
+      for(let i = start; i < end; i++){ 
            result.push(this[i]); 
       } 
       return result; 
@@ -159,29 +159,29 @@ Array.prototype.slice = function(start,end){
 第二个参数为`删除的个数`
 
 ```javascript
-var ary =[1,2,3,4,5,6]
-//[].splice.call(ary,1,1)
+let ary =[1,2,3,4,5,6]
+// [].splice.call(ary,1,1)
 ary.splice(1,1);   // 返回删除的一项 [2]
-ary  //[1, 3, 4, 5, 6]
+ary  // [1, 3, 4, 5, 6]
 ```
 
 **插入**
 
 ```javascript
-var ary =[1,2,3,4,5,6]
-ary.splice(2, 0, "7");   //[], 没有元素被删除
-ary  //[1, 2, "7", 3, 4, 5, 6]
+let ary =[1,2,3,4,5,6]
+ary.splice(2, 0, "7");   // [], 没有元素被删除
+ary  // [1, 2, "7", 3, 4, 5, 6]
 
 ary.splice(2, 0, "9",'10',11,12)
-ary  //[1, 2, "9", "10", 11, 12, "7", 3, 4, 5, 6]
+ary  // [1, 2, "9", "10", 11, 12, "7", 3, 4, 5, 6]
 ```
 
 **删除 & 插入**
 
 ```javascript
-var myFish = ['angel', 'clown', 'trumpet', 'sturgeon'];
+let myFish = ['angel', 'clown', 'trumpet', 'sturgeon'];
 myFish.splice(0, 2, 'parrot', 'anemone', 'blue'); //["angel", "clown"]
-myFish  //["parrot", "anemone", "blue", "trumpet", "sturgeon"]
+myFish  // ["parrot", "anemone", "blue", "trumpet", "sturgeon"]
 ```
 
 ## filter() 实现
@@ -201,27 +201,27 @@ array.filter(function(currentValue,index,arr), thisValue)
 ```javascript
 Array.prototype.selfFilter = function(callback, context) {
   // 不能是null调用方法
-  if (this === null) {
-    throw new TypeError(
-      "Array.prototype.reduce" + "called on null or undefined"
-    );
-  }
-  // 第一个参数必须要为function
-  if (typeof callback !== "function") {
-    throw new TypeError(callback + " is not a function");
-  }
-  // 获取数组
-  let aArr = Array.prototype.slice.call(this);
-  let _len = aArr.length;
-  let aFArr = [];
-  // 循环调用callback
-  for (let i = 0; i < _len; i++) {
-    if (!aArr.hasOwnProperty(i)) {
-      continue;
+  if (this == null) {
+        throw new TypeError("Array.prototype.selfFilter called on null or undefined");
     }
-    callback.call(context, aArr[i], i, this) && aFArr.push(aArr[i]);
-  }
-  return aFArr;
+    // 第一个参数必须是函数
+    if (typeof callback !== "function") {
+        throw new TypeError(`${callback} is not a function`);
+    }
+    
+    const result = [];
+    const length = this.length;
+
+    // 循环调用 callback
+    for (let i = 0; i < length; i++) {
+        if (i in this) { 
+            if (callback.call(context, this[i], i, this)) {
+                result.push(this[i]);
+            }
+        }
+    }
+
+    return result;
 };
 
 ```
@@ -230,23 +230,23 @@ Array.prototype.selfFilter = function(callback, context) {
 
 ```javascript
 // Sets
-var s = new Set();
+let s = new Set();
 s.add("hello").add("goodbye").add("hello");
 s.size === 2;
 s.has("hello") === true;
 
 // Weak Sets 
-var ws = new WeakSet();
+let ws = new WeakSet();
 ws.add({ data: 42 }); //只能是对象（null除外）
 
 // Maps
-var m = new Map();
+let m = new Map();
 m.set("hello", 42);
 m.set(s, 34);
 m.get(s) == 34;
 
 // Weak Maps
-var wm = new WeakMap(); 
+let wm = new WeakMap(); 
 wm.set(s, { extra: 42 });//只接受对象作为键名（null除外）
 wm.size === undefined
 ```
@@ -258,14 +258,81 @@ wm.size === undefined
 
 ```javascript
 // 数组去重
-function unique(arr, fn) {
-  return arr.reduce(fn, []);
-}
-unique([1,2,3,3,2,1,15,6], function(arr, item) {
-  !arr.includes(item) && arr.push(item);
-  return arr;
-});
+const uniqueSet = (arr) => [...new Set(arr)];
 
+const uniqueFilter = (arr) => arr.filter((item, index) => arr.indexOf(item) === index); // 性能较差，时间复杂度为 O(n²)
+
+const uniqueReduce = (arr) => arr.reduce((acc, item) => {
+    if (!acc.includes(item)) {
+        acc.push(item);
+    }
+    return acc;
+}, []); // 性能较差，时间复杂度为 O(n²)
+
+const uniqueObject = (arr) => {
+    const obj = {};
+    return arr.filter((item) => {
+        if (!obj[item]) {
+            obj[item] = true;
+            return true;
+        }
+        return false;
+    });
+}; // 性能较好，时间复杂度为 O(n)
+
+const uniqueMap = (arr) => {
+    const map = new Map();
+    arr.forEach(item => map.set(item, item));
+    return [...map.values()];
+}; // 性能较好，时间复杂度为 O(n)
+
+```
+## 对象去重
+```js
+// 对象去重 
+// 时间复杂度为 O(n²)，性能较差
+const uniqueByFilter = (arr) => {
+    return arr.filter((item, index, self) => 
+        index === self.findIndex(obj => obj.id === item.id)
+    );
+};
+
+
+// 性能较好，时间复杂度为 O(n)
+const result = uniqueByFilter([{ id: 1 }, { id: 2 }, { id: 1 }]);
+console.log(result); // 输出: [{ id: 1 }, { id: 2 }]
+
+const uniqueByReduce = (arr) => {
+    const map = new Map();
+    return arr.reduce((acc, item) => {
+        if (!map.has(item.id)) {
+            map.set(item.id, true);
+            acc.push(item);
+        }
+        return acc;
+    }, []);
+};
+
+
+// 使用示例
+const result = uniqueByReduce([{ id: 1 }, { id: 2 }, { id: 1 }]);
+console.log(result); // 输出: [{ id: 1 }, { id: 2 }]
+
+const uniqueByForEach = (arr) => {
+    const seen = {};
+    const result = [];
+    arr.forEach(item => {
+        if (!seen[item.id]) {
+            seen[item.id] = true;
+            result.push(item);
+        }
+    });
+    return result;
+};
+
+// 使用示例
+const result = uniqueByForEach([{ id: 1 }, { id: 2 }, { id: 1 }]);
+console.log(result); // 输出: [{ id: 1 }, { id: 2 }]
 ```
 
 ## forEach中return有效果吗？如何中断forEach循环？
@@ -378,7 +445,7 @@ arr.sort(()=>{
 
 ```javascript
 function selectSort(arr) {
-    var len = arr.length;
+    let len = arr.length;
     for(let i = 0 ;i < len - 1; i++) {
         for(let j = i ; j<len; j++) {
             if(arr[j] < arr[i]) {
@@ -393,7 +460,7 @@ function quickSort(arr) {
     if(arr.length <= 1) {
         return arr;  //递归出口
     }
-    var left = [],
+    let left = [],
         right = [],
         current = arr.splice(0,1); 
     for(let i = 0; i < arr.length; i++) {
@@ -415,8 +482,8 @@ let arr = [1,2,3,4,4]
 
 function isRepeat(arr) {
   let flag = false;
-  for(var i = 0; i < arr.length; i++) {
-    for(var j = i + 1; j < arr.length; j++) {
+  for(let i = 0; i < arr.length; i++) {
+    for(let j = i + 1; j < arr.length; j++) {
       if (arr[i] === arr[j]) {
         flag = true;
         break;
@@ -428,7 +495,7 @@ function isRepeat(arr) {
 
 function isRepeat(arr) {
   let obj = {}
-  for(var i = 0; i < arr.length; i++) {
+  for(let i = 0; i < arr.length; i++) {
    obj[arr[i]] = arr[i]
   }
   return Object.keys(obj).length !== arr.length

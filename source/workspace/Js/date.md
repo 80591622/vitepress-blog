@@ -34,7 +34,7 @@ const dateFormat = (timestamp, formats) => {
     // 4. Y年m月d日 H时i分s秒
     formats = formats || 'Y-m-d';
 
-    var zero = function (value) {
+    let zero = function (value) {
         if (value < 10) {
             return '0' + value;
         }
@@ -79,19 +79,24 @@ const dateFormat = (timeStamp) => {
 ```javascript
 // timeStamp 是未来时间 减去 当前时间的差值
 function format_time(timeStamp) {
+    // 计算各时间单位
     let day = Math.floor(timeStamp / (24 * 3600 * 1000));
-    let leave1 = timeStamp % (24 * 3600 * 1000);
-    let hours = Math.floor(leave1 / (3600 * 1000));
-    let leave2 = leave1 % (3600 * 1000);
-    let minutes = Math.floor(leave2 / (60 * 1000));
-    let leave3 = leave2 % (60 * 1000);
-    let seconds = Math.floor(leave3 / 1000);
-    if (day) return day + "天" + hours + "小时" + minutes + "分";
-    if (hours) return hours + "小时" + minutes + "分" + seconds + "秒";
-    if (minutes) return minutes + "分" + seconds + "秒";
-    if (seconds) return seconds + "秒";
-    return "时间到！";
+    let hours = Math.floor((timeStamp % (24 * 3600 * 1000)) / (3600 * 1000));
+    let minutes = Math.floor((timeStamp % (3600 * 1000)) / (60 * 1000));
+    let seconds = Math.floor((timeStamp % (60 * 1000)) / 1000);
+
+    // 使用数组存储不同时间单位
+    let timeArr = [];
+    if (day) timeArr.push(`${day}天`);
+    if (hours) timeArr.push(`${hours}小时`);
+    if (minutes) timeArr.push(`${minutes}分`);
+    if (seconds) timeArr.push(`${seconds}秒`);
+
+    return timeArr.length ? timeArr.join('') : "时间到！";
 }
+
+// 测试示例
+console.log(format_time(90061000));  // 输出: "1天1小时1分1秒"
 ```
 
 ## 距离现在多久
@@ -125,38 +130,38 @@ function formatToInterval(timestamp) {
 
 ```js
 // 第1种 
-var date1 = '12/04/2021 00:00:00'
-var time1 = new Date(date1)
+let date1 = '12/04/2021 00:00:00'
+let time1 = new Date(date1)
 console.log(time1) 
 //Mon Dec 04 2021 00:00:00 GMT+0800 (中国标准时间)
 
 // 第2种 
-var date2 = '12/04/2021'
-var time2 = new Date(date2)
+let date2 = '12/04/2021'
+let time2 = new Date(date2)
 console.log(time2) 
 //Mon Dec 04 2021 00:00:00 GMT+0800 (中国标准时间)
 
 // 第3种 
-var date3 = '12-04-2021'
-var time3 = new Date(date3)
+let date3 = '12-04-2021'
+let time3 = new Date(date3)
 console.log(time3) 
 //Mon Dec 04 2021 00:00:00 GMT+0800 (中国标准时间)
 
 // 第4种  有bug
-var date4 = '2021-12-04'
-var time4 = new Date(date4)
+let date4 = '2021-12-04'
+let time4 = new Date(date4)
 console.log(time4) 
 //Mon Dec 04 2021 08:00:00 GMT+0800 (中国标准时间)
 
 // 第5种 
-var date5 = '2021-12-4'
-var time5 = new Date(date5)
+let date5 = '2021-12-4'
+let time5 = new Date(date5)
 console.log(time5) 
 //Mon Dec 04 2021 00:00:00 GMT+0800 (中国标准时间)
 
 // 第6种 
-var date6 = '2021/12/4'
-var time6 = new Date(date6)
+let date6 = '2021/12/4'
+let time6 = new Date(date6)
 console.log(time6) 
 //Mon Dec 04 2021 00:00:00 GMT+0800 (中国标准时间)
 ```

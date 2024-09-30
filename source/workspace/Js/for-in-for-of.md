@@ -50,10 +50,12 @@ for (let key in obj) {
 
 ## for in 缺点
 
-1. for in 迭代顺序依赖于执行环境，不一定保证顺序
-1. for in 不仅会遍历当前对象，还包括原型链上的可枚举属性
-1. for in 没有break中断
-1. for in 不适合遍历数组，主要应用为对象
+```bash
+for in 迭代顺序依赖于执行环境，不一定保证顺序
+for in 不仅会遍历当前对象，还包括原型链上的可枚举属性
+for in 没有break中断
+for in 不适合遍历数组，主要应用为对象
+```
 
 
 ## Object.keys()和for in的区别

@@ -14,6 +14,7 @@ export default {
         { text: "Date时间", link: "/workspace/Js/date" },
         { text: "RegExp正则", link: "/workspace/Js/reg" },
         { text: "CSS使用锦囊", link: "/workspace/Css/css" },
+        // { text: "九宫格实现", link: "/workspace/Css/lattice" },
         { text: "自定义事件", link: "/workspace/Js/dispatchEvent" },
         { text: "for in和for of区别", link: "/workspace/Js/for-in-for-of" },
         { text: "ES6-新增特性一览", link: "/workspace/Js/es6" },
