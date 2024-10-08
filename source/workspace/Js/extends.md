@@ -71,7 +71,7 @@ function Person(name,age){
         alert(this.name+'在运动');
     }
 }    
-realizeNew(Person,'王可',24)
+realizeNew(Person,'小明',20)
 ```
 
 
