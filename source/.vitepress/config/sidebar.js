@@ -107,6 +107,8 @@ export default {
           text: '☞ react',
           collapsed: true,
           items: [
+            {text: "React错误处理",link: "/workspace/Frame/react/reactErr-handle"},
+            {text: "React最佳实践",link: "/workspace/Frame/react/react-best-practices"},
             {text: "React基本用法",link: "/workspace/Frame/react/react"},
             {text: "Hooks",link: "/workspace/Frame/react/react-hooks"},
             {text: "Immer",link: "/workspace/Frame/react/immer"},
