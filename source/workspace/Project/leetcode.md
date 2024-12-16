@@ -165,3 +165,110 @@ function back(k, n, nowArr, sum, start) {
 console.log(combinationSum3(k, n));
 ```
 
+## 去除字符串中出现次数最少的字符，同时保持字符串的原始顺序
+
+```js
+function removeLeastFrequentChars(input) {
+  // 统计每个字符的出现次数
+  const charCount = {};
+  for (const char of input) {
+    charCount[char] = (charCount[char] || 0) + 1;
+  }
+
+  // 找到最小出现次数
+  const minCount = Math.min(...Object.values(charCount));
+
+  // 过滤掉出现次数等于最小次数的字符
+  return input.split('').filter(char => charCount[char] > minCount).join('');
+}
+
+// 示例用法
+const input = "aabbccddeeffg";
+const result = removeLeastFrequentChars(input);
+console.log(result); // 输出: "aabbccddeeff"
+
+```
+
+## 写出一个函数trans，将数字转换成汉语的输出，输入为不超过10000亿的数字。
+
+```js
+// 示例：
+// 输入：1234567890
+// 输出：一千二百三十四万五千六百七十八九零
+
+function trans(num) {
+    const units = ['个', '十', '百', '千', '万', '亿']; // 单位
+    const chineseNums = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']; // 汉字数字
+
+    if (num === 0) return chineseNums[0]; // 特殊处理零
+
+    let str = num.toString();
+    let result = '';
+    let zeroFlag = false; // 用于判断是否需要加“零”
+    let unitIndex = 0; // 单位索引
+
+    for (let i = str.length - 1; i >= 0; i--) {
+        const digit = parseInt(str[i]);
+        const unit = units[unitIndex] || ''; // 获取当前位的单位
+
+        if (digit === 0) {
+            // 如果是0且前面不是零，则添加“零”
+            if (!zeroFlag && unitIndex !== 0) {
+                result = chineseNums[0] + result;
+                zeroFlag = true;
+            }
+        } else {
+            // 非零时，拼接数字和单位
+            result = chineseNums[digit] + (unit ? unit : '') + result;
+            zeroFlag = false;
+        }
+
+        unitIndex++;
+        // 如果当前已经超过“亿”单位，可以跳出循环
+        if (unitIndex >= 8) break;
+    }
+
+    // 处理“十”的特殊情况：如果开头是“一十”，则去掉“一”
+    if (result.startsWith('一十')) {
+        result = result.slice(1);
+    }
+
+    return result;
+}
+
+// 示例
+console.log(trans(123456));         // 输出 "十二万三千四百五十六"
+console.log(trans(100010001));      // 输出 "一亿零一万零一"
+console.log(trans(0));              // 输出 "零"
+console.log(trans(1000000000));     // 输出 "十亿"
+console.log(trans(100));            // 输出 "一百"
+console.log(trans(100000));         // 输出 "十万"
+```
+
+## 给几个数组, 可以通过数值找到对应的数组名称
+
+```js
+// 比如这个函数输入一个1，那么要求函数返回A
+const mappings = {
+    A: [1, 2, 3],
+    B: [4, 5, 6],
+    C: [7, 8, 9]
+};
+
+function numberToLetter(num) {
+    // 遍历 mappings 对象的键和值
+    for (const [letter, numbers] of Object.entries(mappings)) {
+        if (numbers.includes(num)) {
+            return letter; // 返回对应的字母
+        }
+    }
+    return 'Invalid input'; // 如果数字不在任何映射中
+}
+
+// 示例
+console.log(numberToLetter(1));  // 输出 "A"
+console.log(numberToLetter(5));  // 输出 "B"
+console.log(numberToLetter(9));  // 输出 "C"
+console.log(numberToLetter(10)); // 输出 "Invalid input"
+
+```

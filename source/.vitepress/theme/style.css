@@ -305,3 +305,16 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+
+
+/**
+ * Global custom styles
+ * -------------------------------------------------------------------------- */
+ /* 全局定义高亮样式 */
+.highlight {
+  color: #d86e89;
+  font-weight: bold;
+  padding:2px 10px;
+  background-color: #f7f7f7;
+}

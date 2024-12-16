@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Home
-      link: /workspace/Js/home
+      link: /workspace/Js/frontend-map
 features:
   - icon: 🛠️
     title: Feature A

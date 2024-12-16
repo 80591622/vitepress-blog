@@ -541,6 +541,47 @@ function differenceSecond(m, n) {
 
 ```
 
+## 数组递归
+```javascript
+const arr = [
+  { id: 2, name: '部门B', parentId: 0 },
+  { id: 3, name: '部门C', parentId: 1 },
+  { id: 1, name: '部门A', parentId: 2 },
+  { id: 4, name: '部门D', parentId: 1 },
+  { id: 5, name: '部门E', parentId: 2 },
+  { id: 6, name: '部门F', parentId: 3 },
+  { id: 7, name: '部门G', parentId: 2 },
+  { id: 8, name: '部门H', parentId: 4 }
+];
+
+function arrayToTree(items, parentId = 0) {
+  return items
+    .filter(item => item.parentId === parentId)
+    .map(item => ({
+      ...item,
+      children: arrayToTree(items, item.id)
+    }));
+}
+
+function treeToArray(tree, parentId = 0) {
+  const result = [];
+  tree.forEach(node => {
+    const { children, ...rest } = node;
+    result.push({ ...rest, parentId });
+    if (children) {
+      result.push(...treeToArray(children, node.id));
+    }
+  });
+  return result;
+}
+
+const tree = arrayToTree(arr);
+console.log("Tree structure:", JSON.stringify(tree, null, 2));
+
+const flatArray = treeToArray(tree);
+console.log("Flat array:", JSON.stringify(flatArray, null, 2));
+```
+
 ## 参考文档
 
 [MDN ARRAY](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)

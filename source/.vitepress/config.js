@@ -31,6 +31,9 @@ export default {
   ],
 
   themeConfig: {
+    outline: {
+      level: [2, 3] // 设置目录级别，显示 ## 和 ### 作为子标题
+    },
     // https://vitepress.dev/reference/default-theme-config
 
     // 使用 algolia 搜索框

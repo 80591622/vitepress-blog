@@ -7,6 +7,7 @@ export default {
       text: "Base",
       collapsed: false, // 初始不折叠
       items: [
+        { text: "前端知识图谱", link: "/workspace/Js/frontend-map" },
         { text: "技术清单", link: "/workspace/Js/home" },
         { text: "Array的方法简单整理", link: "/workspace/Js/array" },
         { text: "Object的方法简单整理", link: "/workspace/Js/object" },
