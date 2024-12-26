@@ -7,7 +7,7 @@
 **太常用的一些库，比如 `lodash`、`axios`、`echarts`、`normalize.css`等就不再下面推荐了。这里主要推荐一下自己平时常用，提高效率的，但大家可能又不知道的一些库。**
 
 ## 前端常用
-
+- [Tinify](https://tinify.com/web) 用于优化和压缩图片的网站
 - [sweetalert2](https://github.com/sweetalert2/sweetalert2) 一个自适应，且自定义性强的弹出框（零依赖）
 - [tippy.js ](https://github.com/atomiks/tippyjs) 最著名的 tooltip/popover library
 - [text-mask](https://github.com/text-mask/text-mask) 可以让 input 按照规则输入(如电话,email,日期,信用卡等)，特殊格式 input
