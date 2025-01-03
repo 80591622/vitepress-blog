@@ -1,6 +1,6 @@
 // 获取一言数据
 export const getHitokoto = async () => {
-  const res = await fetch("https://v1.hitokoto.cn");
+  const res = await fetch("https://api.vvhan.com/api/ian/shici?type=json");
   return await res.json();
 };
 
@@ -11,16 +11,16 @@ export const getAdcode = async (key) => {
 };
 
 // 获取高德地理天气信息
-export const getWeather = async (key, city) => {
+export const getWeather = async (city) => {
   const res = await fetch(
-    `https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${city}`,
+    `https://api.vvhan.com/api/weather?city=${city}`,
   );
   return await res.json();
 };
 
-// 获取教书先生天气 API
-// https://api.oioweb.cn/doc/weather/GetWeather
+//  API
+// https://api.vvhan.com/article/qianming.html
 export const getOtherWeather = async (city) => {
-  const res = await fetch(`https://api.oioweb.cn/api/weather/weather?city_name=${city}`);
+  const res = await fetch(`https://api.vvhan.com/api/weather?city=${city}`);
   return await res.json();
 };

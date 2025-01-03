@@ -28,9 +28,9 @@ const hitokotoData = reactive({
 // 获取一言数据
 const getHitokotoData = async () => {
   try {
-    const result = await getHitokoto();
-    hitokotoData.text = result.hitokoto;
-    hitokotoData.from = result.from;
+    const { data } = await getHitokoto();   
+    hitokotoData.text = data.content;
+    hitokotoData.from = data.form;
   } catch (error) {
     console.log(error)
     hitokotoData.text = "这里应该显示一句话";

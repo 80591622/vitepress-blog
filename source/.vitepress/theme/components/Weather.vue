@@ -10,7 +10,7 @@
           : weatherData.weather.winddirection + "风"
       }}&nbsp;
     </span>
-    <span class="sm-hidden">{{ weatherData.weather.windpower }}&nbsp;级</span>
+    <span class="sm-hidden">{{ weatherData.weather.windpower }}</span>
   </div>
   <div class="weather" v-else>
     <span>天气数据获取失败</span>
@@ -41,8 +41,16 @@ const weatherData = reactive({
 // 取出天气平均值
 const getTemperature = (min, max) => {
   try {
+    // 提取数字部分
+    const minTemp = parseFloat(min.replace(/[^\d.-]/g, ""));
+    const maxTemp = parseFloat(max.replace(/[^\d.-]/g, ""));
+    
+    if (isNaN(minTemp) || isNaN(maxTemp)) {
+      throw new Error("输入值无法转换为数字");
+    }
+
     // 计算平均值并四舍五入
-    const average = (Number(min) + Number(max)) / 2;
+    const average = (minTemp + maxTemp) / 2;
     return Math.round(average);
   } catch (error) {
     console.error("计算温度出现错误：", error);
@@ -55,17 +63,18 @@ const getWeatherData = async () => {
   try {
     // 获取地理位置信息
     if (!mainKey) {
-      const result = await getOtherWeather('北京市');
-      const data = result.result;
+      const res = await getOtherWeather('北京市');
+      const{success, air, city, data} = res
+      
       weatherData.adCode = {
-        city: data.city_name || "未知地区",
+        city: res.city || "未知地区",
         // adcode: data.city.cityId,
       };
       weatherData.weather = {
-        weather: data.current_condition,
-        temperature: getTemperature(data.dat_low_temperature, data.dat_high_temperature),
-        winddirection: data.wind_direction,
-        windpower: data.wind_level,
+        weather: data.type,
+        temperature: getTemperature(data.low, data.high),
+        winddirection: data.fengxiang,
+        windpower: data.fengli,
       };
     } else {
       // 获取 Adcode
@@ -79,7 +88,9 @@ const getWeatherData = async () => {
         adcode: adCode.adcode,
       };
       // 获取天气信息
-      const result = await getWeather(mainKey, weatherData.adCode.adcode);
+      const result = await getWeather("北京");
+      console.log(result, 'result');
+      
       weatherData.weather = {
         weather: result.lives[0].weather,
         temperature: result.lives[0].temperature,
