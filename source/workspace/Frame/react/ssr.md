@@ -1,11 +1,4 @@
 
-# React-SSR
-
-先附上github地址https://github.com/wkvictory/react-ssr,方便大家更容易理解，不然后面很多地方会一头雾水。
-
-欢迎大家点star,提issue，一起进步！😄 
-
-
 ## 客户端渲染与服务端渲染
 
 **CSR:**
@@ -78,7 +71,7 @@ app.use((ctx) => {
       `
      <html>
        <head>
-         <title>禾口和ssr</title>
+         <title>服务端渲染ssr</title>
        </head>
        <body>
          <h1>hello</h1>
@@ -106,7 +99,7 @@ route.get("/", (ctx) => {
     `
    <html>
        <head>
-         <title>禾口和ssr</title>
+         <title>服务端渲染ssr</title>
        </head>
        <body>
          <h1>hello</h1>
@@ -237,7 +230,7 @@ route.get("/", (ctx) => {
     `
     <html>
       <head>
-        <title>禾口和ssr</title>
+        <title>服务端渲染ssr</title>
       </head>
       <body>
         <div id="root">${content}</div>
@@ -459,7 +452,7 @@ export const renderHTML = (content, store) => `
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
         <meta name="theme-color" content="#000000">
-        <title>禾口和ssr</title>
+        <title>服务端渲染ssr</title>
       </head>
       <body>
       <div id="root">${content}</div>
@@ -904,7 +897,7 @@ class Index extends Component {
       <Fragment>
         <Helmet>
           <title>这是login页</title>
-          <meta name="description" content="这里是禾口和react-ssr的调研"/>
+          <meta name="description" content="这里是服务端渲染react-ssr的调研"/>
         </Helmet>
       </Fragment>
      )
@@ -1071,7 +1064,6 @@ if (hasRoute || !matchedRoutes.length) {
 
 [知乎 rendertron](https://zhuanlan.zhihu.com/p/66672794)
 
-[本文的github地址](https://github.com/wkvictory/react-ssr)
 
 
 
