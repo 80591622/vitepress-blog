@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Serein's Blogscape "
+  name: "wankor Blogscape "
   # text: "Welcome to Serein's Blogscape "
   # tagline: This blog is built for VitePress
   # image:

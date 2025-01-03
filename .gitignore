@@ -8,5 +8,7 @@ node_modules
 
 dist
 
+source/.vitepress/cache
+
 
 
