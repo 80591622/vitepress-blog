@@ -49,29 +49,36 @@ useStore<br/>
     
 ## Hooks的方法
  
-<span style='display: block;text-align: left;'> 钩子名</span>|<span style='display: block;text-align: left;'> 作用</span>|
-:-------- | :-------- 
-useState|初始化和设置状态|
-useEffect|componentDidMount，componentDidUpdate和componentWillUnmount和结合体,所以可以监听useState定义值的变化
-useContext|定义一个全局的对象,类似 context
-useReducer|可以增强函数提供类似 Redux 的功能
-useCallback|记忆作用,共有两个参数，第一个参数为一个匿名函数，就是我们想要创建的函数体。第二参数为一个数组，里面的每一项是用来判断是否需要重新创建函数体的变量，如果传入的变量值保持不变，返回记忆结果。如果任何一项改变，则返回新的结果
-useMemo|作用和传入参数与 useCallback 一致,useCallback返回函数,useDemo 返回值
-useRef|获取 ref 属性对应的 dom
-useImperativeMethods|自定义使用ref时公开给父组件的实例值
-useLayoutEffect|作用与useEffect相同，但在所有DOM改变后同步触发
-useDebugValue|useDebugValue 可用于在 React 开发者工具中显示自定义 hook 的标签。
+| 钩子名 | 作用 |
+| --- | --- |
+| `useState` | 初始化和设置状态 |
+| `useEffect` | `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 的结合体，可监听 `useState` 定义值的变化 |
+| `useContext` | 定义一个全局的对象，类似 `context` |
+| `useReducer` | 可以增强函数，提供类似 Redux 的功能 |
+| `useCallback` | 具有记忆作用，共有两个参数。第一个参数为一个匿名函数，即想要创建的函数体；第二个参数为一个数组，里面的每一项是用来判断是否需要重新创建函数体的变量。如果传入的变量值保持不变，返回记忆结果；如果任何一项改变，则返回新的结果 |
+| `useMemo` | 作用和传入参数与 `useCallback` 一致，不过 `useCallback` 返回函数，`useMemo` 返回值 |
+| `useRef` | 获取 `ref` 属性对应的 DOM |
+| `useImperativeMethods` | 自定义使用 `ref` 时公开给父组件的实例值 |
+| `useLayoutEffect` | 作用与 `useEffect` 相同，但在所有 DOM 改变后同步触发 |
+| `useDebugValue` | 可用于在 React 开发者工具中显示自定义 hook 的标签 |
  
  
 ## useState
- 
+
+| 依赖项 | 副作用执行时机 |
+| --- | --- |
+| 没有依赖项 | 组件初始渲染 + 组件更新时执行 |
+| 空数组依赖项 | 只在初始渲染时执行一次 |
+| 添加特定依赖项 | 组件初始渲染 + 特定依赖项变化时执行 |
+
+
 ```javascript{2}
 //直接传入初始值
 const [state, setState] = useState(initialState);
 
 //传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用
 const [state, setState] = useState(() => {
-  const initialState = ff(props);
+  const initialState = ff(props); 
   return initialState;
 });
 ```
@@ -207,6 +214,14 @@ const ContextComponent = () => {
 可以看出，使用`useContext仍然需要在上层组件中使用<MyContext.Provider>`来为下层组件提供context。
 
 ## useReducer
+
+<img src='/img/redux.jpeg'/>
+
+为了职责清晰，数据流向明确，Redux 把整个数据修改的流程分成了三个核心概念：
+1. state：一个对象，存放着我们管理的数据状态。
+2. action：一个对象，用来描述你想怎么改数据。
+3. reducer：一个函数，根据 action 的描述生成一个新的 state 。
+
 
 看到`useReducer`,肯定会想到Redux，没错它和Redux的工作方式是一样的。useReducer的出现是useState的替代方案，能够让我们更好的管理状态。
 
