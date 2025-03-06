@@ -147,7 +147,7 @@ export default {
         },
 
         {
-          text: '☞ 微前端',
+          text: '☞ Micro-Fe',
           collapsed: true,
           items: [
             {text: "微前端方案",link: "/workspace/Frame/micro-app/mic"},
