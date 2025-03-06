@@ -147,6 +147,15 @@ export default {
         },
 
         {
+          text: '☞ 微前端',
+          collapsed: true,
+          items: [
+            {text: "微前端方案",link: "/workspace/Frame/micro-app/mic"},
+            {text: "微前端总结",link: "/workspace/Frame/micro-app/micro-summary"},
+          ]
+        },
+
+        {
           text: '☞ 单元测试',
           collapsed: true,
           items: [
