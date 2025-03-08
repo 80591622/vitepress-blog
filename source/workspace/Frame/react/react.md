@@ -755,11 +755,13 @@ function CustomTextInput(props) {
   - `shouldComponentUpdate`
 
     在组件更新之前调用，可以控制组件是否更新，返回 true 时更新，false 时不更新
-    注意： 当父组件更新时，子组件也会更新，即使子组件没有使用到父组件的任何数据，也会更新。
+    > 注意： 当父组件更新时，子组件也会更新，即使子组件没有使用到父组件的任何数据，也会更新。
     可以通过 shouldComponentUpdate 来控制子组件是否更新，避免不必要的更新。
   - `getSnapshotBeforeUpdate`
+
     在 render 之后，在组件更新之前调用，返回值将作为 componentDidUpdate 的第三个参数
   - `componentDidUpdate`
+
     在组件更新之后立即调用，首次渲染不会执行
     
 - 卸载
