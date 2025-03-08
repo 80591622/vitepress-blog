@@ -726,6 +726,45 @@ function CustomTextInput(props) {
 
 ![](https://ae01.alicdn.com/kf/Hbb3d522c7afa45d894e583388f1615f4p.jpg)
 
+- 挂载
+  - `constructor`
+
+    在React组件挂载之前被调用，在为React.Component子类实现构造函数时，应在其他语句之前调用 super()
+    > super的作用：将父类的this对象继承给子类
+    react 构造函数仅用于以下两种情况
+    - 初始化state
+    - 绑定事件处理函数
+    
+  - `getDerivedStateFromProps`
+
+    在调用 render 方法之前调用，在初始化和后续都将被调用
+
+    返回值：返回一个对象来更新state，如果返回 null 则不更新任何内容
+  - `render()`
+
+    class 组件中必须实现的方法，用于渲染 dom ，render 方法必须返回一个 react dom
+
+    > 注意： 在 render 中 setState 会触发死循环导致内存崩溃
+  - `componentDidMount`
+
+    在组件挂在后立即被调用，用于发送网络请求、启用事件监听、设置 setState
+- 更新
+  - `shouldComponentUpdate`
+
+    在组件更新之前调用，可以控制组件是否更新，返回 true 时更新，false 时不更新
+    注意： 当父组件更新时，子组件也会更新，即使子组件没有使用到父组件的任何数据，也会更新。
+    可以通过 shouldComponentUpdate 来控制子组件是否更新，避免不必要的更新。
+  - `getSnapshotBeforeUpdate`
+    在 render 之后，在组件更新之前调用，返回值将作为 componentDidUpdate 的第三个参数
+  - `componentDidUpdate`
+    在组件更新之后立即调用，首次渲染不会执行
+    
+- 卸载
+  - `componentWillUnmount`
+    组件即将被卸载或销毁时进行调用
+
+> React从v16.3开始废弃 `componentWillMount` `componentWillReceiveProps` `componentWillUpdate` 三个钩子函数
+
 
 
 
