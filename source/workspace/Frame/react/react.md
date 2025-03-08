@@ -749,6 +749,9 @@ function CustomTextInput(props) {
 
     在组件挂在后立即被调用，用于发送网络请求、启用事件监听、设置 setState
 - 更新
+  - `getDerivedStateFromProps`
+    在组件更新之前调用
+
   - `shouldComponentUpdate`
 
     在组件更新之前调用，可以控制组件是否更新，返回 true 时更新，false 时不更新
@@ -762,6 +765,7 @@ function CustomTextInput(props) {
 - 卸载
   - `componentWillUnmount`
     组件即将被卸载或销毁时进行调用
+    > 取消网络请求、移除监听事件、清理 DOM 元素、清理定时器等操作的好时机
 
 > React从v16.3开始废弃 `componentWillMount` `componentWillReceiveProps` `componentWillUpdate` 三个钩子函数
 
