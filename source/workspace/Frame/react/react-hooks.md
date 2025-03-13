@@ -65,12 +65,6 @@ useStore<br/>
  
 ## useState
 
-| 依赖项 | 副作用执行时机 |
-| --- | --- |
-| 没有依赖项 | 组件初始渲染 + 组件更新时执行 |
-| 空数组依赖项 | 只在初始渲染时执行一次 |
-| 添加特定依赖项 | 组件初始渲染 + 特定依赖项变化时执行 |
-
 
 ```javascript{2}
 //直接传入初始值
@@ -96,6 +90,11 @@ setState(prevState=>prevState+1) //该函数将接收先前的state,并返回一
 ```
 
 ## useEffect
+| 依赖项 | 副作用执行时机 |
+| --- | --- |
+| 没有依赖项 | 组件初始渲染 + 组件更新时执行 |
+| 空数组依赖项 | 只在初始渲染时执行一次 |
+| 添加特定依赖项 | 组件初始渲染 + 特定依赖项变化时执行 |
  
 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`：useEffect Hook 可以表达所有这些(包括 不那么 常见 的场景)的组合。
 

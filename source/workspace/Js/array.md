@@ -227,28 +227,159 @@ Array.prototype.selfFilter = function(callback, context) {
 ```
 
 ## Map + Set + WeakMap + WeakSet
+### 基本信息
+| 数据类型       |   基本定义    |  键的类型  |  值的类型 |
+| :-: | :-: | :-: | :-: |
+| Map       |  有序存储任意类型键值对，可按插入顺序迭代 | 任意类型 | 任意类型 |
+| Set       |  存储唯一值的集合 | 任意类型 | 任意类型且唯一     |
+| WeakMap   |  键值对集合，键为弱引用对象 | 仅对象 | 任意类型 |
+| WeakSet   |  存储唯一对象的集合，对象为弱引用  | 无 | 仅对象  |
+
+### 应用场景
+| 数据类型    |  应用场景  |  
+| :-: | :-: |
+| Map       |  存储任意类型键值对，按序访问，频繁增删查操作 |
+| Set       |  数组去重、检查值存在性、管理唯一数据项 |
+| WeakMap   |  为对象关联元数据、实现对象私有属性和方法 |
+| WeakSet   |  跟踪对象存在性、实现简单对象标记  |
+
+### 常用方法
+| 数据类型    |  应用场景  |  
+| :-: | :-: |
+| Map       |  set(key, value)、get(key)、has(key)、delete(key)、clear()、size |
+| Set       |  add(value)、has(value)、delete(value)、clear()、size |
+| WeakMap   |  set(key, value)、get(key)、has(key)、delete(key) |
+| WeakSet   |  add(value)、has(value)、delete(value)  |
+
+
 
 ```javascript
-// Sets
-let s = new Set();
-s.add("hello").add("goodbye").add("hello");
-s.size === 2;
-s.has("hello") === true;
+// 创建一个 Map 实例
+const myMap = new Map();
 
-// Weak Sets 
-let ws = new WeakSet();
-ws.add({ data: 42 }); //只能是对象（null除外）
+// 创建不同类型的键
+const stringKey = 'name';
+const objectKey = { id: 1 };
+const functionKey = function () { };
 
-// Maps
-let m = new Map();
-m.set("hello", 42);
-m.set(s, 34);
-m.get(s) == 34;
+// 设置键值对
+myMap.set(stringKey, 'John');
+myMap.set(objectKey, 'Object Value');
+myMap.set(functionKey, 'Function Value');
 
-// Weak Maps
-let wm = new WeakMap(); 
-wm.set(s, { extra: 42 });//只接受对象作为键名（null除外）
-wm.size === undefined
+// 获取值
+console.log(myMap.get(stringKey)); // 输出: John
+
+// 检查键是否存在
+console.log(myMap.has(objectKey)); // 输出: true
+
+// 遍历 Map
+myMap.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+});
+
+// 删除键值对
+myMap.delete(functionKey);
+console.log(myMap.has(functionKey)); // 输出: false
+```
+
+```javascript
+// 创建一个 Set 实例
+const mySet = new Set();
+
+// 添加值
+mySet.add(1);
+mySet.add(2);
+mySet.add(3);
+mySet.add(2); // 重复的值会被忽略
+
+// 检查值是否存在
+console.log(mySet.has(3)); // 输出: true
+
+// 获取 Set 的大小
+console.log(mySet.size); // 输出: 3
+
+// 遍历 Set
+mySet.forEach((value) => {
+    console.log(value);
+});
+
+// 删除值
+mySet.delete(2);
+console.log(mySet.has(2)); // 输出: false
+
+// 数组去重
+const array = [1, 2, 2, 3, 4, 4];
+const uniqueArray = [...new Set(array)];
+console.log(uniqueArray); // 输出: [1, 2, 3, 4]
+```
+```javascript
+// 创建一个 WeakMap 实例
+const weakMap = new WeakMap();
+
+// 创建一个对象作为键
+const obj = {};
+
+// 设置键值对
+weakMap.set(obj, 'Secret Data');
+
+// 获取值
+console.log(weakMap.get(obj)); // 输出: Secret Data
+
+// 检查键是否存在
+console.log(weakMap.has(obj)); // 输出: true
+
+// 删除键值对
+weakMap.delete(obj);
+console.log(weakMap.has(obj)); // 输出: false
+
+// 为对象关联私有数据示例
+const privateData = new WeakMap();
+class MyClass {
+    constructor() {
+        privateData.set(this, { value: 42 });
+    }
+    getPrivateValue() {
+        return privateData.get(this).value;
+    }
+}
+
+const instance = new MyClass();
+console.log(instance.getPrivateValue()); // 输出: 42
+```
+
+```javascript
+// 创建一个 WeakSet 实例
+const weakSet = new WeakSet();
+
+// 创建对象
+const obj1 = {};
+const obj2 = {};
+
+// 添加对象到 WeakSet
+weakSet.add(obj1);
+weakSet.add(obj2);
+
+// 检查对象是否存在
+console.log(weakSet.has(obj1)); // 输出: true
+
+// 删除对象
+weakSet.delete(obj2);
+console.log(weakSet.has(obj2)); // 输出: false
+
+// 跟踪对象是否存在示例
+const trackedObjects = new WeakSet();
+function trackObject(obj) {
+    trackedObjects.add(obj);
+}
+function isObjectTracked(obj) {
+    return trackedObjects.has(obj);
+}
+
+const newObj = {};
+trackObject(newObj);
+console.log(isObjectTracked(newObj)); // 输出: true
+
 ```
 <img style="border-radius: 4px;width:49%"  src="https://ae01.alicdn.com/kf/H98fdbfe7a328477cae2506f4f3346bd1G.png">
 
