@@ -552,9 +552,9 @@ const add3 : Fn = (a,b)=>{return a+b }
 
 可以用到`void` 有以下几种情况
 
-1. 函数没写return
-2. 只写了 return， 没有具体的返回值
-3. return 的是 undefined
+>1. `函数没写return`
+>2. `只写了 return， 没有具体的返回值`
+>3. `return 的是 undefined`
 
 
 ```typescript
@@ -599,9 +599,20 @@ function slice (a?: number, b?: number) {
 
 区别：设置了默认值之后，就是可选的了，不写就会使用默认值； 可选的参数一定有值才会跟默认值表现一致。
 
-注意：它们不能一起使用。优先使用默认值
+注意：1. 它们不能一起使用。优先使用默认值  2. 可选参数必须放在必选参数之后，不然会导致语法错误
 
-![image-20220529131037283](https://tva1.sinaimg.cn/large/e6c9d24egy1h2p74bp2raj21ou0k8acr.jpg)
+```js
+function greet(name?: string) {
+    if (name) {
+        console.log(`Hello, ${name}!`);
+    } else 
+        console.log('Hello!');
+    }
+}
+
+greet(); // 输出: Hello!
+greet('John'); // 输出: Hello, John!
+```
 
 ### 对象类型-单独使用
 
@@ -782,17 +793,51 @@ interface Math {
 type 会给一个类型起个新名字。 type 有时和 interface 很像，但是可以作用于原始值（基本类型），联合类型，元组以及其它任何你需要手写的类型。
 
 ```typescript
-type Name = string; // 基本类型
-type NameResolver = () => string; // 函数
-type NameOrResolver = Name | NameResolver; // 联合类型
-function getName(n: NameOrResolver): Name {
-    if (typeof n === 'string') {
-        return n;
-    } else {
-        return n();
-    }
+// 基础类型别名
+type ID = number;
+type UserName = string;
+let userId: ID = 123;
+let name: UserName = "John";
+
+
+// 联合类型别名
+type StringOrNumber = string | number;
+function printValue(value: StringOrNumber) {
+    console.log(value);
 }
-//类型别名常用于联合类型。
+printValue("hello");
+printValue(123);
+
+
+// 交叉类型别名
+interface Person {
+    name: string;
+}
+interface Employee {
+    employeeId: number;
+}
+
+
+type PersonEmployee = Person & Employee;
+let personEmployee: PersonEmployee = {
+    name: "John",
+    employeeId: 123
+};
+
+
+// 元组类型别名
+type Point = [number, number];
+let point: Point = [10, 20];
+
+
+// 函数类型别名
+type MathOperation = (a: number, b: number) => number;
+let add: MathOperation = function (a, b) {
+    return a + b;
+};
+let subtract: MathOperation = function (a, b) {
+    return a - b;
+};
 ```
 
 注意：别名可以是任意的合法字符串，一般首字母大写
@@ -800,11 +845,11 @@ function getName(n: NameOrResolver): Name {
 
 ## type 和 interface的区别
 
-1. type类型别名，可以定义基础类型，元组等
-2. type不可以继承
-3. type不会创建一个真正的新的类名
-4. 类型别名无法被实现implements，而接口可以被派生类实现
-5. 类型别名重名会抛出错误，接口重名是会产生合并
+1. type类型别名，可以定义基础类型，元组等    
+2. type不可以继承  
+3. type不会创建一个真正的新的类名  
+4. 类型别名无法被实现implements，而接口可以被派生类实现  
+5. 类型别名重名会抛出错误，接口重名是会产生合并  
 
 
 ## 字符串字面量类型
