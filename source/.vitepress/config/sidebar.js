@@ -47,7 +47,8 @@ export default {
         { text: "聊一聊前端换肤", link: "/workspace/Js/theme" },
         { text: "JS添加水印功能", link: "/workspace/Js/water-mask" },
         { text: "Axios 获取文件流导出 excel 表格", link: "/workspace/Js/export" },
-        { text: "会用到的插件", link: "/workspace/Project/more" }
+        { text: "会用到的插件", link: "/workspace/Project/more" },
+        { text: "性能优化", link: "/workspace/Project/perf-opt" },
       ]
     },
 

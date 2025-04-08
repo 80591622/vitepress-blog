@@ -296,27 +296,93 @@ export default Counter
 ```
 
 ## useCallback
+用于缓存函数，避免在每次组件渲染时都重新创建函数，从而优化性能  
+- 第一个参数是需要 memoize 的回调函数。  
+- 第二个参数是一个数组，包含了所有该回调函数依赖的值。只有当数组中的值发生变化时，useCallback 才会返回一个新的函数  
 
-返回一个memoized回调`函数`。
+```jsx
+const memoizedCallback = useCallback(
+  () => {
+    doSomething(a, b);
+  },
+  [a, b],
+);
 
-[下面介绍的使用方式](http://file.wkdevhub.cn/workspace/Frame/react/use-hooks.html#usecallback%E7%A4%BA%E4%BE%8B%E4%BD%95%E6%97%B6%E6%9B%B4%E6%96%B0)
+
+
+```
+
+```jsx
+import React, { useState, useCallback } from 'react';
+
+// 使用 React.memo 包裹子组件
+const ChildComponent = React.memo(({ onClick }) => {
+    return <button onClick={onClick}>Click me</button>;
+});
+
+const ParentComponent = () => {
+    const [count, setCount] = useState(0);
+
+    // 使用 useCallback 缓存函数
+    const handleClick = useCallback(() => {
+        setCount(count + 1);
+    }, [count]);
+
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <ChildComponent onClick={handleClick} />
+        </div>
+    );
+};
+
+export default ParentComponent;
+```
 
 
 ## useMemo
 
-返回一个memoized`值`。
+- `第一个参数`：是一个函数，该函数包含需要进行的计算逻辑，并且返回计算结果    
+-  `第二个参数`：是一个依赖项数组，当数组中的某个值发生变化时，useMemo 会重新调用第一个参数中的函数进行计算；如果依赖项数组为空，则 useMemo 只会在组件挂载时计算一次  
 
-useMemo和useCallback很像，唯一不同的就是
+```jsx
+import React, { useState, useMemo } from 'react';
 
-useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-公用的`方法`用`useCallback`,若是直接`渲染值`则用`useMemo`，用`useCallback`的话也是每次都要执行的，但是`useMemo`是直接把值记忆存储了（前面的都是废话，其实都能实现，不过这样更符合习惯）
+const Example = () => {
+    const [filterValue, setFilterValue] = useState(5);
+
+    // 使用 useMemo 进行过滤操作
+    const filteredNumbers = useMemo(() => {
+        return numbers.filter(num => num > filterValue);
+    }, [filterValue]);
+
+    return (
+        <div>
+            <input
+                type="number"
+                value={filterValue}
+                onChange={(e) => setFilterValue(Number(e.target.value))}
+                placeholder="Enter filter value"
+            />
+            <ul>
+                {filteredNumbers.map(num => (
+                    <li key={num}>{num}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default Example;
+```
 
 ## useRef
 
 本质上`useRef`就像是可以在其`.current`属性中保存一个可变值的“盒子”，`useRef(null)返回值`是不可拓展的属性,`.current`可以。
 
-下篇文章介绍如何使用而useRef自己最新的值，或者存储上一次props或者state的值；我们直接声明一个值存储当前的值不好吗，为啥要借助useRef()
+下篇介绍如何使用而useRef自己最新的值，或者存储上一次props或者state的值；我们直接声明一个值存储当前的值不好吗，为啥要借助useRef()
 
 **这是因为它创建的是一个普通Javascript对象。而useRef()和自建一个 {current: ...}对象的唯一区别是，useRef会在每次渲染时返回同一个ref对象。**
 

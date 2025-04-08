@@ -15,6 +15,6 @@
       "@/*": ["source/*"] // 将 @ 开头的路径映射到 source 目录  
     }  
   },  
-  "include": ["source/**/*.ts", "source/**/*.tsx", "source/**/*.vue"],  
+  "include": ["source/**/*", "source/**/*.tsx", "source/**/*.vue", "source/**/*.md"],  
   "exclude": ["node_modules"]  
 }
