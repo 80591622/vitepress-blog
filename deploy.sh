@@ -1,37 +1,49 @@
 #!/usr/bin/env bash
 
-# 开启错误处理
 set -e
 
-# 清除删除旧打包目录
-yarn clean || { echo "清除旧打包目录失败"; exit 1; }
+# ====== 基本配置 ======
+PROJECT_NAME="vitepress-blog"
+DIST_DIR="dist"
 
-# 打包
-yarn build || { echo "打包失败"; exit 1; }
+SERVER_USER="root"
+SERVER_IP="121.40.92.55"
+SERVER_DIR="/home/www/www.wkdevhub.cn"
 
-# 定义打包命令
-if [[ $(uname) == "Darwin" ]]; then
-    # 如果是 macOS 环境，执行该命令
-    tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/dist || { echo "打包失败"; exit 1; }
-else
-    # 如果是其他操作系统（例如 Windows），执行该命令
-    tar -zcvf dist.tar.gz "C:/Users/v-wangke3/Desktop/vitepress-blog/dist" || { echo "打包失败"; exit 1; }
-fi
+ARCHIVE_NAME="dist.tar.gz"
 
-# 上传到服务器（需要输入密码，如果已经进行过私钥配置，则不用），其中/www/wwwroot/www.wkdevhub.cn 为上传文件所在目录
-scp  -r dist.tar.gz root@129.204.108.97:/www/wwwroot/www.wkdevhub.cn || { echo "上传失败"; exit 1; }
+echo "🚀 开始构建项目..."
 
-# 登录到服务器（需要输入密码，如果已经进行过私钥配置，则不用）
-# 服务器环境开启
-ssh root@129.204.108.97 << SSH_COMMANDS
+# 1. 清理 & 构建
+yarn clean
+yarn build
 
-# 进入目标目录
-cd /www/wwwroot/www.wkdevhub.cn || { echo "进入目标目录失败"; exit 1; }
+# 2. 打包 dist（只打包 dist，本地相对路径）
+echo "📦 打包 dist..."
+tar -zcf $ARCHIVE_NAME $DIST_DIR
 
-# 解压
-tar -zxvf dist.tar.gz --strip-components=5 -C dist || { echo "解压失败"; exit 1; }
+# 3. 上传到服务器
+echo "📤 上传到服务器..."
+scp $ARCHIVE_NAME ${SERVER_USER}@${SERVER_IP}:${SERVER_DIR}
 
-# 移除线上压缩文件
-rm -rf dist.tar.gz || { echo "删除线上压缩文件失败"; exit 1; }
+# 4. 远程部署
+echo "🖥 服务器部署中..."
+ssh ${SERVER_USER}@${SERVER_IP} << EOF
 
-SSH_COMMANDS
+set -e
+cd ${SERVER_DIR}
+
+echo "🧹 清理旧 dist..."
+rm -rf dist
+
+echo "📂 解压新 dist..."
+tar -zxf ${ARCHIVE_NAME}
+
+echo "🗑 清理压缩包..."
+rm -f ${ARCHIVE_NAME}
+
+echo "✅ 部署完成"
+
+EOF
+
+echo "🎉 全部完成！"

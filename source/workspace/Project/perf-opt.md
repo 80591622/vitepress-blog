@@ -11,6 +11,98 @@
 7. CLS （布局偏移）：布局偏移情况，重排 reflow
 8. TTFB 首字节到达时间，请求发出后到接收到数据中间的时间
 
+页面加载时间  
+定义：从浏览器开始加载页面到页面完全加载完成（包括所有资源如图片、脚本、样式表等）的时间
+```js
+window.addEventListener('load', function () {
+    const loadTime = performance.now(); 
+    console.log('页面加载时间：' + loadTime + '毫秒');
+});
+```
+
+最大内容绘制时间 （LCP） 
+定义：浏览器渲染页面中最大元素的时间，用于衡量页面的主要内容何时可见
+```js
+// 监听最大内容绘制事件
+new PerformanceObserver((entryList) => {
+    const lcpEntry = entryList.getEntries()[0];
+    console.log('最大内容绘制时间：' + lcpEntry.startTime + '毫秒');
+}).observe({ type: 'largest-contentful-paint', buffered: true });
+
+// 监听首次输入延迟事件
+new PerformanceObserver((entryList) => {
+    const fidEntry = entryList.getEntries()[0];
+    if (fidEntry) {
+        console.log('首次输入延迟: ', fidEntry.processingStart - fidEntry.startTime, '毫秒');
+    }
+}).observe({ type: 'first-input', buffered: true });
+```
+performance.timing 提供了页面加载过程中各个关键时间点的信息  
+```js
+const timing = performance.timing;
+// DNS 查询时间
+const dnsTime = timing.domainLookupEnd - timing.domainLookupStart;
+// TCP 连接时间
+const tcpTime = timing.connectEnd - timing.connectStart;
+// HTTP 请求响应时间
+const requestResponseTime = timing.responseEnd - timing.requestStart;
+// 页面白屏时间
+const whiteScreenTime = timing.responseStart - timing.navigationStart;
+// 页面完全加载时间
+const loadTime = timing.loadEventEnd - timing.navigationStart;
+
+console.log('DNS 查询时间: ', dnsTime);
+console.log('TCP 连接时间: ', tcpTime);
+console.log('HTTP 请求响应时间: ', requestResponseTime);
+console.log('页面白屏时间: ', whiteScreenTime);
+console.log('页面完全加载时间: ', loadTime);
+```
+
+### 导致白屏时间过长的因素
+白屏时间 FP = domLoading - navigationStart   
+App 下的页面加载流程：  
+初始化 webview => 客户端发起请求 => 下载 HTML、js、css 资源 
+=> 解析js执行 => js请求数据 => 服务端处理返回数据 => 客户端解析 Dom 并渲染 => 下载渲染图片 =>  
+1. DNS查询时间过长（每进行一次DNS查询，都要经历手机-移动信号塔-认证DNS服务器）
+    - DNS 走缓存，浏览器提供了DNS预获取的接口，可以在打开浏览器或webview同时进行配置
+    - httpDNS可以正确调度对应区域的服务器ip地址给用户同时还可以避免运营商DNS劫持
+    ```html 
+        <!-- 开启dns预解析功能    -->
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <!-- 强制对s.google.com域名做解析 -->
+        <link rel="dns-prefetch" href="https://s.google.com/" >
+    ```
+    - 客户端侧 —— 可以在启动 App 时
+        同步创建一个肉眼不可见的 WebView
+        将常用的静态资源路径写入这个 WebView 中
+        然后对它做域名解析并放入缓存中
+        这样后面需要使用 WebView 打开真正所需的页面时
+        由于已经做过域名解析了，客户端直接从缓存中获取即可
+        前端请求域名和客户端域名保持一致
+        - 一定时间内（如 1 周）不变的外链
+        - 一些基础框架，多端适配的 JS（如 adapter.js）
+        - 性能统计的 JS（如 perf.js）或者第三方库（如 vue.js）
+        - 基础布局的 CSS 如 base.css 
+
+2. 建立TCP请求链接太慢
+    - 请求阻塞，浏览器为保证访问速度会默认对同一域下的资源保持一定的连接数，请求过多就会阻塞
+    - 浏览器同域名连接数一般是6个，只能6个同时并发，等最先返回请求后，才能进行下一个请求
+    - 域名规划 （通过不同域名，增加请求并行连接数）
+3. 服务器处理请求过慢
+4. 客户端下载、解析、渲染时长过长
+    - 卡顿治理（在性能平台查看卡顿指标后发现页面连续5帧查过50ms，这就属于严重卡顿）   
+    - 问题定位：  
+        1) 数据问题找后端或用数据缓存的方式解决    
+        2) 浏览器的主线程和合成线程调度不合理以及计算耗时操作  
+            ① 红包位置变化时，页面展现时特别卡    
+               - 主线程主要负责运行 javascript ，计算 css 样式，元素布局，然后教给合成线程，合成线程主要负责绘制  
+               - 使用transform代替直接设置margin等操作  
+            ② 在对 DOM 元素增删过程中先在 DocumentFragment 上操作，而不是直接在 DOM 上操作  
+5. 没有做 Gzip 压缩 
+6. 缺乏本地化离线处理
+
+
+
 ### 方案
 
 1. 优化图片， Webp，图片压缩，图片尺寸（在合适的容器内使用合适的尺寸图片）
@@ -45,6 +137,11 @@
 3. 使用高效的状态管理库
    - 使用轻量、高性能的状态管理工具，如 Zustand、Jotai，它们具备更细粒度的状态更新机制。
 4. 避免不必要的状态更新
+   - React.memo 
+   - shouldComponentUpdate
+   - PureComponent
+   - useCallback
+   - useMemo
 
 ## 总结
 
