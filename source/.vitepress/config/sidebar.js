@@ -28,7 +28,7 @@ export default {
         { text: "堆内存 & 栈内存", link: "/workspace/Js/heap_stack" },
         { text: "Fetch和Axios的区别", link: "/workspace/Js/xhr" },
         { text: "JS设计模式探索", link: "/workspace/Js/design-pattern" },
-        { text: "输入URL背后的技术步骤", link: "/workspace/Js/http-base" },
+        { text: "浏览器渲染原理", link: "/workspace/Js/http-base" },
         { text: "原型与原型链", link: "/workspace/Js/extends" },
         { text: "leetCode", link: "/workspace/Project/leetcode" }
       ]

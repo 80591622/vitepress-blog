@@ -3,53 +3,46 @@
 
 **React 的核心思想**
 
-给我一个数据，我根据这个数据生成一个全新的`Virtual DOM`，然后跟我上一次生成的Virtual DOM去 `diff`，得到一个`Patch`，
-然后把这个Patch打到浏览器的DOM上去。完事,并且这里的patch显然`不是完整的虚拟DOM`，
-而是新的虚拟DOM和上一次的虚拟DOM经过`diff`后的`差异化`的部分。
+React 提供声明式的 UI 构建方式：通过描述 UI（元素/虚拟节点）并把数据（state/props）映射到 UI，React 负责高效地把描述渲染到浏览器 DOM。现代 React 的更新由其 reconciliation（调和）算法与 Fiber 调度器驱动，并结合并发特性（Concurrent Rendering）来提升响应性。当前推荐使用函数组件 + Hooks 来组织组件逻辑。
 
-## JSX和createElement
+## JSX 与 createElement
 
-我们在实现一个React组件时可以选择两种编码方式，第一种是使用`JSX`编写：
+我们在实现 React 组件时常用 JSX，也可以直接调用 `React.createElement`。
 
 ```javascript
-class Hello extends Component {
-  render() {
-    return <div>Hello wk</div>;
-  }
-}
-```
-第二种是直接使用`React.createElement`编写：
-
-```javascript
-class Hello extends Component {
-  render() {
-    return React.createElement('div', null, `Hello wk`);
-  }
+// 推荐写法：函数组件（Hook 优先）
+function Hello() {
+  return <div>Hello wk</div>;
 }
 ```
 
-实际上，上面两种写法是等价的，`JSX只是为 React.createElement(component, props, ...children)`方法提供的语法糖。也就是说所有的JSX代码最后都会转换成`React.createElement(...)`，`Babel`帮助我们完成了这个转换的过程。
+```javascript
+// 等价的非 JSX 写法
+function Hello() {
+  return React.createElement('div', null, 'Hello wk');
+}
+```
 
-**注意**：babel在编译时会判断JSX中组件的首字母，当`首字母为小写时`，其被认定为`原生DOM标签`，createElement的第一个变量被编译为字符串；当`首字母为大写时`，其被认定为自定义`组件`，createElement的第一个变量被`编译为对象`,所以组件首字母要大写
+注意：自 React 17 起，引入了新的 JSX 转换（automatic runtime），在大多数构建配置下不再需要显式 `import React from 'react'`。同样，JSX 中首字母小写对应原生元素（如 `div`），首字母大写被视为自定义组件。
 
 
 ## Virtual DOM
 
 ![](https://lsqimg-1257917459.cos-website.ap-beijing.myqcloud.com/blog/%E8%99%9A%E6%8B%9Fdom.png)
 
-冷静对待虚拟dom，他不是一定能够提升页面的性能，如果是首次渲染，Vitrua lDom不具有任何优势，甚至它要进行更多的计算，消耗更多的内存，是因为有diff他才会展现它的优势
+冷静看待 Virtual DOM：首次渲染时 Virtual DOM 并不会自动提高性能，反而会带来额外的内存与计算开销；它的价值主要体现在更新阶段，通过 reconciliation 识别差异并只更新必要的部分可以减少不必要的 DOM 操作。现代 React 还引入了 Fiber 调度器，使渲染过程可中断与调度，从而支持并发渲染和更流畅的用户体验。
 
-### Virtual DOM的存在的意义
+### Virtual DOM 的作用与场景
 
-- Vitrua Dom为React带来了跨平台渲染的能力。以React Native为例子;React根据Vitrual Dom画出相应平台的ui层，只不过不同平台画的姿势不同而已
-- 服务端渲染
-- 函数式编程
+- 跨平台渲染（例如 React Native）——相同的组件描述可以渲染到不同的宿主平台。
+- 服务端渲染与流式 SSR（更好的首屏体验和 SEO）。
+- 支持函数式编程范式与可预测的组件更新（函数组件 + Hooks）。
 
-### Virtual DOM 基本步骤:
+### 渲染与更新的高层流程（简化）
 
-1. 用`js对象来表示DOM树的结构`； 然后用这个树构建一个真正的DOM树，插入到文档中。
-1. 当状态变更的时候，`重新构造一个新的对象`，然后用这个新的树和旧的树作对比，记录`两个树的差异`。 
-1. 把2所记录的差异应用在步骤1所构建的真正的DOM树上，视图就更新了。
+1. 组件 render（函数组件）或 render 方法返回元素描述（虚拟节点）。
+2. React 使用 reconciliation（调和）比较新旧元素树，计算出最小必要更新。Fiber 调度器负责分片执行这些更新，使渲染能被暂停或延后以保持交互流畅。
+3. React 将差异应用到真实 DOM（或其他宿主环境），完成更新。
 
 看看虚拟DOM的真实模样
 
@@ -68,134 +61,126 @@ class Hello extends Component {
 
 ```html
 <body>
-    <div id="app"></div>
+  <div id="app"></div>
 </body>
 <script src="./createElement.js"></script>
 ```
 
 ```javascript
-class React {
-    /**
-     * 创建虚拟dom用的
-     * @param {*} type 标签的类型
-     * @param {*} options props
-     * @param  {...any} arg 子代
-     */
-    static createElement(type, options, ...arg) {
-        // options肯定是一个对象，不管传还是不传
-        options = options || null;
-        //arg是存储上下的参数，即使没有其他的参数，arg也是一个空数组，
-        let obj = {
-            type,
-            key: null,
-            ref: null,
-            props: {}
-        };
-        //key ref
-        ["key", "ref"].forEach(item => {
-            if (item in options) {
-                obj[item] = options[item];
-                delete options[item]
-            }
-        });
-        //处理props
-        obj.props = { ...options };
-        //因为我这用的es6语法，下面的判断没什么作用，用es5的话需要加上
-        let len = arg.length;
-        switch (len) {
-            case 1:
-                obj.props.children = arg[0];
-                break;
-            default:
-                // 拥有多个子节点
-                obj.props.children = arg
-        }
-        return obj;
-    }
-}
+// createElement：构建一个虚拟节点（VDOM）
+// - type: 字符串表示原生元素（如 'div'），也可以是函数表示组件
+// - props: 属性对象（会拆出 key/ref）
+// - children: 0 或多个子节点（支持嵌套数组）
+const createElement = (type, props = {}, ...children) => {
+  const { key = null, ref = null, ...rest } = props || {};
 
-class ReactDom {
-    /**
-     * 将虚拟节点转换成真实的dom节点，最后插入到container容器中
-     * @param {*} objJSX 编译后的虚拟节点
-     * @param {*} container 要渲染到那个容器中
-     * @param {*} callback 回调函数
-     */
-    static render(objJSX, container, callback) {
-        let newEle = ReactDom.createDomElementFromVnode(objJSX)
-        container.appendChild(newEle);
-        callback && callback();
-    }
-    static createDomElementFromVnode(objJSX){
-        let { type, props } = objJSX;
-        objJSX.newEle = document.createElement(type);
-        //设置属性
-        for (let key in props) {
-            if (!props.hasOwnProperty(key)) continue;
-            //className
-            if (key === "className") {
-                objJSX.newEle.setAttribute("class", props["className"]);
-            }
-            //style设置
-            else if (key === "style") {
-                for (let key in props['style']) {
-                    if (props["style"].hasOwnProperty(key)) {
-                        objJSX.newEle["style"][key] = props["style"][key]
-                    }
-                }
-                continue;
-            }
-            //children
-            else if (key === "children") {
-                let children = props['children'];
-                if (children instanceof Array) {
-                    children.forEach(itemChildren => {
-                        ReactDom.handChildren(itemChildren, objJSX.newEle)
-                    });
-                    continue;
-                }
-                ReactDom.handChildren(children, objJSX.newEle);
-                continue;
-            }
-            else {
-                objJSX.newEle.setAttribute(key, props[key]);
-            }
-        }
-        return objJSX.newEle
-    }
-    static handChildren(children, newEle) {
-        //只有一个子节点
-        if (typeof children === "object") {
-            //当前唯一的新对象
-            ReactDom.render(children, newEle)
-        } else {
-            newEle.appendChild(document.createTextNode(children))
-            console.log(newEle)
-        }
-    }
-}
-let styleObj = { color: 'red' };
+  // children 扁平化并去掉 null/undefined，这里用 flat 兼容较简单的嵌套情况
+  const flatChildren = children.flat ? children.flat(Infinity) : [].concat(...children);
+  const filtered = flatChildren.filter(c => c !== null && c !== undefined);
 
-ReactDom.render(
-    React.createElement("div", {
-        id: "box",
-        className: "box",
-        style: styleObj
-      }, React.createElement("h2", {
-        className: "title"
-      }, "\u8FD9\u91CC\u662F\u5934\u90E8"), React.createElement("ul", {
-        className: "newsItem"
-      }, React.createElement("li", {
-        key: "1",
-        style: {
-          color: "#ccc"
-        }
-      }, "\u54C8\u54C8\u54C8"), React.createElement("li", {
-        key: "2"
-      }, "\u5475\u5475\u5475")), "1221"), 
-    window.app
+  // 返回的对象即为简单的虚拟节点表示
+  return { type, key, ref, props: { ...rest, children: filtered } };
+};
+
+// render：把虚拟节点挂载到容器上（这里只做首次渲染）
+const render = (vnode, container) => {
+  container.appendChild(createDom(vnode));
+};
+
+// createDom：把 vnode 转换为真实 DOM 节点
+const createDom = vnode => {
+  // 处理空值和文本节点
+  if (vnode === null || vnode === undefined) return document.createTextNode('');
+  if (typeof vnode === 'string' || typeof vnode === 'number') return document.createTextNode(String(vnode));
+
+  // 支持简化的函数组件（注意：这里没有处理 hooks）
+  if (typeof vnode.type === 'function') {
+    // 调用函数组件获得其渲染结果（vnode）并继续创建 DOM
+    const rendered = vnode.type({ ...vnode.props });
+    return createDom(rendered);
+  }
+
+  // 处理原生元素
+  const el = document.createElement(vnode.type);
+
+  // 设置属性（className -> class，style，事件绑定等）
+  setProps(el, vnode.props);
+
+  // 递归处理子节点：每个 child 都可能是文本、原生元素或组件
+  const children = (vnode.props && vnode.props.children) || [];
+  children.forEach(child => el.appendChild(createDom(child)));
+
+  // 如果传入了 ref 回调，调用它并传入真实 DOM
+  if (typeof vnode.ref === 'function') vnode.ref(el);
+
+  return el;
+};
+
+// setProps：设置元素属性的辅助函数，并处理常见 edge case
+const setProps = (el, props = {}) => {
+  Object.entries(props).forEach(([name, value]) => {
+    if (name === 'children') return; // children 已单独处理
+
+    // className -> class
+    if (name === 'className') el.setAttribute('class', value);
+
+    // style 对象：逐个 key 赋值到 el.style
+    else if (name === 'style' && typeof value === 'object') Object.assign(el.style, value);
+
+    // 事件处理：'onClick' -> 'click'，并且绑定函数
+    else if (name.startsWith('on') && typeof value === 'function') {
+      el.addEventListener(name.slice(2).toLowerCase(), value);
+    }
+
+    // 内联 HTML（危险操作，需要谨慎使用）
+    else if (name === 'dangerouslySetInnerHTML' && value && value.__html) {
+      el.innerHTML = value.__html;
+    }
+
+    // false / null / undefined 表示移除属性
+    else if (value === false || value === null || value === undefined) {
+      el.removeAttribute(name);
+    }
+
+    // 其他普通属性直接设置
+    else {
+      el.setAttribute(name, value);
+    }
+  });
+};
+
+// 使用示例：构建一个简单的节点树并渲染
+const app = createElement(
+  'div',
+  { id: 'box', className: 'box', style: { color: 'red' } },
+  createElement('h2', { className: 'title' }, '这里是头部'),
+  createElement(
+    'ul',
+    { className: 'newsItem' },
+    createElement('li', { key: '1', style: { color: '#ccc' } }, '哈哈哈'),
+    createElement('li', { key: '2' }, '呵呵呵')
+  ),
+  '1221'
 );
+
+// 初始渲染到页面上的 '#app' 元素
+render(app, document.getElementById('app'));
 ```
+
+> 说明：此实现旨在演示如何把虚拟节点转换为真实 DOM，处理了文本节点、函数组件、事件绑定与基本属性。
+
+> 注释说明：
+> - 已注释关键函数（createElement、createDom、setProps、render）以帮助理解流程；
+> - 这个示例只实现了首次渲染，**未实现** diff/reconciliation 算法、key 的移动优化、hooks、生命周期与并发调度等；这些功能属于真实 React 的 reconciler 与 Fiber 调度器的职责。
+> 注：上面是一个演示性的 `ReactDom.render` 实现，用于说明原理。在真实的 React 18+ 项目中，创建根并渲染的推荐方式是使用 `createRoot`：
+>
+> ```javascript
+> import { createRoot } from 'react-dom/client';
+> const root = createRoot(document.getElementById('app'));
+> root.render(<App />);
+> ```
+> 这将启用 React 的并发能力和更新调度能力。
+
 
 然后根据不同的情况，来进行树上节点的增删改的操作。这个过程是分为diff和patch：
 
@@ -203,20 +188,263 @@ ReactDom.render(
 - **patch**：根据不同的差异，进行节点的更新
 
 
-## diff
+### reconciliation（简化示例）
 
-其实React的 virtual dom的性能好也离不开它本身特殊的diff算法。传统的diff算法时间复杂度达到O(n3)，而react的diff算法时间复杂度只是o(n)，react的diff能减少到o(n)依靠的是react diff的三大策略。
+下面给出一个更完整的、可运行的 **简化版 VDOM + reconciler** 实现（参考 React 18 的设计思路）：
+
+- 支持首次 mount、最小化更新（replace / update / remove）、简单的 key 优化（按 key 匹配复用）
+- 支持函数组件与一个非常简化的 `useState`（仅用于教学）
+- 提供 `startTransition` 的低优先级更新模拟（用 setTimeout 表示）
+
+> 注意：这是教学用的精简实现，未包含 React 的大量复杂性（Fiber 调度、并发优先队列、生命周期一致性、Hooks 的完整语义等），但能帮助理解核心思想。
+
+```javascript
+// ====== 简化 VDOM reconciler（教学实现） ======
+// 假设 vnode 结构：{ type, key?, ref?, props: { ... , children: [...] } }
+
+// 工具：判断节点是否不同（类型或 key 或文本变化）
+const changed = (a, b) => {
+  if (a == null && b == null) return false;
+  if (typeof a === 'string' || typeof a === 'number' || typeof b === 'string' || typeof b === 'number') {
+    return String(a) !== String(b);
+  }
+  if (!a || !b) return true;
+  return a.type !== b.type || (a.key != null || b.key != null) && a.key !== b.key;
+};
+
+// createRoot / render API（与 React 18 思路相近）
+function createRoot(container) {
+  let current = null; // 已挂载的树的根节点（mounted node）
+  return {
+    render(nextVnode) {
+      current = reconcile(container, current, nextVnode);
+    }
+  };
+}
+
+// reconcile：把 newVnode 和 oldMounted 对比并在容器上打补丁，返回新的 mounted 节点或 null
+function reconcile(parentDom, oldMounted, newVnode) {
+  // mount
+  if (!oldMounted) {
+    if (newVnode == null) return null;
+    const dom = createDom(newVnode);
+    parentDom.appendChild(dom);
+    const mounted = { vnode: newVnode, dom, children: getChildMounted(dom, newVnode) };
+    return mounted;
+  }
+
+  // unmount
+  if (newVnode == null) {
+    parentDom.removeChild(oldMounted.dom);
+    return null;
+  }
+
+  // replace
+  if (changed(oldMounted.vnode, newVnode)) {
+    const dom = createDom(newVnode);
+    parentDom.replaceChild(dom, oldMounted.dom);
+    const mounted = { vnode: newVnode, dom, children: getChildMounted(dom, newVnode) };
+    return mounted;
+  }
+
+  // update same-type node
+  if (typeof newVnode.type === 'string') {
+    // update props
+    updateProps(oldMounted.dom, oldMounted.vnode.props, newVnode.props);
+
+    // reconcile children with simple key-aware algorithm
+    oldMounted.children = reconcileChildren(oldMounted.dom, oldMounted, newVnode);
+
+    oldMounted.vnode = newVnode;
+    return oldMounted;
+  }
+
+  // component (function)
+  if (typeof newVnode.type === 'function') {
+    // 简化的组件支持：保持组件的 mounted.child 作为组件输出的挂载树
+    const prevChild = oldMounted.child || null;
+    // 执行组件函数以获取子 vnode（注意：这里会触发简化 hooks）
+    const rendered = renderWithHooks(newVnode);
+    const newChildMounted = reconcile(parentDom, prevChild, rendered);
+    oldMounted.child = newChildMounted;
+    oldMounted.dom = newChildMounted ? newChildMounted.dom : null;
+    oldMounted.vnode = newVnode;
+    return oldMounted;
+  }
+
+  return oldMounted;
+}
+
+// reconcileChildren：按 key 做基本复用与更新
+function reconcileChildren(parentDom, parentMounted, newVnode) {
+  const oldChildren = parentMounted.children || [];
+  const newChildren = (newVnode.props && newVnode.props.children) || [];
+
+  // 建立 key -> oldMounted 映射
+  const keyed = new Map();
+  oldChildren.forEach((m, i) => {
+    const k = keyOf(m.vnode, i);
+    keyed.set(k, m);
+  });
+
+  const newMounted = [];
+  newChildren.forEach((ch, i) => {
+    const k = keyOf(ch, i);
+    const old = keyed.get(k) || oldChildren[i] || null;
+    const mounted = reconcile(parentDom, old, ch);
+    if (mounted) {
+      parentDom.appendChild(mounted.dom); // 确保顺序（可能会多次移动，但教学示例接受）
+      newMounted.push(mounted);
+    }
+    keyed.delete(k);
+  });
+
+  // 删除残余旧节点
+  keyed.forEach(m => parentDom.removeChild(m.dom));
+
+  return newMounted;
+}
+
+const keyOf = (vnode, index) => (vnode && vnode.key != null) ? vnode.key : index;
+
+// createDom：把 vnode 转为真实 dom（和之前的实现相同）
+function createDom(vnode) {
+  if (vnode == null) return document.createTextNode('');
+  if (typeof vnode === 'string' || typeof vnode === 'number') return document.createTextNode(String(vnode));
+
+  if (typeof vnode.type === 'function') {
+    // 对于函数组件，直接渲染其返回的 vnode（不处理 hooks 这里会由 renderWithHooks 调用）
+    const rendered = renderWithHooks(vnode);
+    return createDom(rendered);
+  }
+
+  const el = document.createElement(vnode.type);
+  setProps(el, vnode.props);
+  const children = (vnode.props && vnode.props.children) || [];
+  children.forEach(child => el.appendChild(createDom(child)));
+  if (typeof vnode.ref === 'function') vnode.ref(el);
+  return el;
+}
+
+function getChildMounted(dom, vnode) {
+  // 辅助：为原生元素创建 children 的 mounted 表示（第一次 mount 时）
+  if (typeof vnode.type === 'string') {
+    const children = (vnode.props && vnode.props.children) || [];
+    return children.map(child => ({ vnode: child, dom: createDom(child), children: [] }));
+  }
+  return [];
+}
+
+// updateProps：策略性地更新 DOM 属性（增量更新）
+function updateProps(el, oldProps = {}, newProps = {}) {
+  // 删除旧属性
+  Object.keys(oldProps).forEach(name => {
+    if (name === 'children') return;
+    if (!(name in newProps)) el.removeAttribute(name);
+  });
+  // 添加 / 更新
+  Object.entries(newProps).forEach(([name, value]) => {
+    if (name === 'children') return;
+    if (name === 'className') el.setAttribute('class', value);
+    else if (name === 'style' && typeof value === 'object') Object.assign(el.style, value);
+    else if (name.startsWith('on') && typeof value === 'function') {
+      // 简化：直接绑定（未维护可移除的引用）
+      el.addEventListener(name.slice(2).toLowerCase(), value);
+    } else if (name === 'dangerouslySetInnerHTML' && value && value.__html) {
+      el.innerHTML = value.__html;
+    } else if (value === false || value === null || value === undefined) {
+      el.removeAttribute(name);
+    } else {
+      el.setAttribute(name, value);
+    }
+  });
+}
+
+// ===== 简化 Hooks 支持（教学） =====
+let currentComponent = null; // 当前正在渲染的组件挂载节点
+function renderWithHooks(vnode) {
+  const prev = vnode._mounted || { hooks: [], hookIndex: 0 };
+  vnode._mounted = prev; // 绑定挂载信息到 vnode 上，方便下一次渲染复用 hooks
+  prev.hookIndex = 0;
+  currentComponent = prev;
+  const rendered = vnode.type(vnode.props || {});
+  currentComponent = null;
+  return rendered;
+}
+
+function useState(initial) {
+  const comp = currentComponent;
+  const i = comp.hookIndex++;
+  if (comp.hooks[i] === undefined) comp.hooks[i] = typeof initial === 'function' ? initial() : initial;
+  const setState = (v) => {
+    comp.hooks[i] = typeof v === 'function' ? v(comp.hooks[i]) : v;
+    // 触发全局重新渲染（简化：需要持有 app 根与 root 实例，在示例中我们直接重新 render）
+    scheduleRender();
+  };
+  return [comp.hooks[i], setState];
+}
+
+// ===== 简单任务调度 / startTransition（教学） =====
+let pendingRender = null;
+function scheduleRender(lowPriority = false) {
+  if (lowPriority) {
+    // 模拟低优先级更新（不会阻塞用户交互），延后执行
+    clearTimeout(pendingRender);
+    pendingRender = setTimeout(() => root.render(appVnode), 50);
+  } else {
+    // 高优先级立即执行
+    clearTimeout(pendingRender);
+    root.render(appVnode);
+  }
+}
+
+function startTransition(updateFn) {
+  updateFn();
+  scheduleRender(true);
+}
+
+// ===== 使用示例 =====
+// 全局 root + appVnode 仅为教学演示用
+const rootContainer = document.getElementById('app');
+const root = createRoot(rootContainer);
+
+// 一个简单的函数组件，使用 useState 演示交互
+function Counter() {
+  const [n, setN] = useState(0);
+  return createElement('div', null,
+    createElement('p', null, 'Count: ', String(n)),
+    createElement('button', { onClick: () => setN(x => x + 1) }, '++'),
+    createElement('button', { onClick: () => startTransition(() => setN(x => x + 1000)) }, '+1000 (low)')
+  );
+}
+
+// 应用根 vnode
+let appVnode = createElement('div', { id: 'app-root' },
+  createElement('h3', null, '简化版 React 18-like VDOM 示例'),
+  createElement(Counter, null),
+  createElement('ul', null,
+    createElement('li', { key: 'a' }, 'A'),
+    createElement('li', { key: 'b' }, 'B')
+  )
+);
+
+// 首次渲染
+root.render(appVnode);
+```
+
 
 ### 传统diff 对比 react diff
 
 传统的diff算法追求的是“`完全`”以及“`最小`”，而react diff则是放弃了这两种追求：
 在传统的diff算法下，对比前后两个节点，`如果发现节点改变了，会继续去比较节点的子节点，一层一层去对比`。就这样循环递归去进行对比，复杂度就达到了O(n3)，n是树的节点数，想象一下如果这棵树有1000个节点，我们得执行上十亿次比较，这种量级的对比次数，时间基本要用秒来做计数单位了。
 
-### React diff 三大策略
+### React reconciliation 的三大策略
 
-- **tree diff**：Web UI中DOM节点跨层级的移动操作特别少，可以忽略不计。`（DOM结构发生改变-----直接卸载并重新creat）`
-- **component diff**：组件的DOM结构一样-----不会卸载,但是会update
-- **element diff**：所有同一层级的子节点.他们都可以通过key来区分-----同时遵循1.2两点
+React 的调和（reconciliation）是基于启发式的规则来高效比较新旧树，而不是执行一个严格的树形最小编辑序列。主要策略包括：
+
+- **tree diff（层级策略）**：React 假设跨层级的大规模移动很少发生。如果父元素的类型不同，React 通常会卸载旧子树并创建新子树，而不会尝试跨层级的最小移动。
+- **component diff（组件策略）**：同类型组件会尽量复用实例并更新其 props；不同类型的组件则会替换整个子树。函数组件通常配合 `React.memo`、`useMemo` 等优化手段减少不必要的渲染。
+- **element diff（同层策略）**：同一层级的子节点通过 `key` 来辨识身份，从而实现增删改查（插入、删除、移动）的最小化操作。
 
 ![](https://ae01.alicdn.com/kf/H9b1d122f787048f7afc393265e732d28D.png)
 
@@ -233,22 +461,21 @@ React是不会机智的判断出子树仅仅是发生了移动，而是**会直�
 
 ### 组件间的比较（`component diff`）
 
-核心的策略还是看结构是否发生改变。React是基于组件构建应用的，对于组件间的比较所采用的策略也是非常简洁和高效的。
+比较组件时的核心策略是判断组件类型是否一致：
 
-**如果是同一个类型的组件**，则按照原策略进行Virtual DOM比较。<br/>
-**如果不是同一类型的组件**，则将其判断为dirty component，从而替换整个组价下的所有子节点。<br/>
-**如果是同一个类型的组件，有可能经过一轮Virtual DOM比较下来，并没有发生变化**。如果我们能够提前确切知道这一点，那么就可以省下大量的diff运算时间。因此，React允许用户通过shouldComponentUpdate()来判断该组件是否需要进行diff算法分析。
+- **同类组件**：若类型相同，React 会复用组件实例并更新其 props，从而触发重新渲染与调和（render -> reconciliation）。在函数组件中，可以使用 `React.memo`、`useMemo`、`useCallback` 等手段减少不必要的渲染。
+- **不同类型组件**：若类型变化，React 会卸载旧组件及其子树并创建新的子树。
+
+注意：以前类组件常用 `shouldComponentUpdate` 来阻止不必要的更新；在现代 React 中，函数组件配合 `React.memo` 与 Hooks（例如 `useMemo`）能达到类似和更灵活的效果。
 
 ```javascript
-// 对比自定义组件
-function diffComponent(oldNode, newNode) {
-  if (oldNode._component && (oldNode._component.constructor !== newNode.nodeName)) { // 如果新老组件不同, 则直接将新组件替换老组件
-    const newDom = vdomToDom(newNode)
-    oldNode._component.parentNode.insertBefore(newDom, oldNode._component)
-    oldNode._component.parentNode.removeChild(oldNode._component)
+// 简化的伪代码：若类型不同则替换，否则更新 props 并再次 render
+function reconcileComponent(oldNode, newNode) {
+  if (oldNode.type !== newNode.type) {
+    replaceNode(oldNode, instantiate(newNode))
   } else {
-    setProps(oldNode._component, newNode.attributes) // 如果新老组件相同, 则将新组件的 props 赋到老组件上
-    renderComponent(oldNode._component)              // 对获得新 props 前后的老组件做 diff 比较（renderComponent 中调用了 diff）
+    updateProps(oldNode, newNode.props)
+    renderAndReconcileChildren(oldNode)
   }
 }
 ```
@@ -256,11 +483,11 @@ function diffComponent(oldNode, newNode) {
 
 当节点处于同一层级的时候，react diff 提供了三种节点操作：**插入、删除、移动**。
 
-<span style='display: block;text-align: left;'> 操作</span>|<span style='display: block;text-align: left;'> 描述</span>|
---|:--:|:--:|--|
-插入|新节点不存在于老集合当中，即全新的节点，就会执行插入操作|
-移动|新节点在老集合中存在，并且只做了位置上的更新，就会复用之前的节点，做移动操作（依赖于Key）|
-删除|新节点在老集合中存在，但节点做出了更改不能直接复用，做出删除操作|
+| 操作 | 描述 |
+| --- | --- |
+| 插入 | 新节点不存在于老集合当中，即全新的节点，就会执行插入操作。 |
+| 移动 | 新节点在老集合中存在，并且只做了位置上的更新，就会复用之前的节点，做移动操作（依赖于Key）。 |
+| 删除 | 新节点在老集合中不存在，或节点做出了更改无法直接复用，会执行删除操作。 |
 
 ### Key的作用
 
@@ -275,9 +502,9 @@ function diffComponent(oldNode, newNode) {
 
 ![](https://ae01.alicdn.com/kf/H1f3780ed47c947c8b8b9c9a5092a06507.png)
 
-每个节点都加上了唯一的key值，通过这个**Key值发现新老集合里面其实全部都是相同的元素**，只不过位置发生了改变。因此就无需进行节点的插入、删除等操作了，只需要将老集合当中节点的位置进行移动就可以了。React给出的diff结果为：`B、D不做操作，A、C进行移动操作`。react是如何判断谁该移动，谁该不动的呢？
+每个节点都加上了唯一的 `key` 值，通过这个 `key` React 可以识别新老集合中的节点身份，从而判定哪些元素可以复用、哪些需要移动或新增。下面给出一个简化的描述（实际实现属于 reconciler 的实现细节，并可能随 React 版本演进）：
 
-react会去循环整个新的集合：
+React 会遍历新的集合：
 
 ① 从新集合中取到`B`，然后去旧集合中判断是否存在相同的`B`，确认`B`存在后，再去判断是否要移动：
 `B`在旧集合中的`index = 1`，有一个游标叫做`lastindex`。默认`lastindex = 0`，然后会把旧集合的`index和游标作`对比来判断是否需要移动，如果**index < lastindex ，那么就做移动操作**，在这里`B的index = 1`，不满足于 `index < lastindex`,所以就不做移动操作，然后游标lastindex更新，`取(index, lastindex) 的较大值`，这里就是`lastindex = 1`
@@ -313,49 +540,98 @@ react会去循环整个新的集合：
 
 ### 三句箴言
 
-所以经过这么一分析`react diff`的三大策略，我们能够在开发中更加进一步的提高react的渲染效率。
+所以经过这么一分析 `react reconciliation` 的三大策略，我们能够在开发中进一步提高 React 的渲染效率。
 
 - 在开发组件时，保持稳定的 DOM 结构会有助于性能的提升；
-- 使用 `shouldComponentUpdate()`方法节省diff的开销
-- 在开发过程中，尽量减少类似将最后一个节点移动到列表首部的操作，当节点数量过大或更新操作过于频繁时，在一定程度上会影响 React 的渲染性能。
+- 使用 `React.memo`、`useMemo`、`useCallback` 等替代或补充 `shouldComponentUpdate()` 来节省不必要的更新；
+- 在开发过程中，尽量减少将最后一个节点移动到列表首部等对列表进行大量重排的操作，当节点数量过大或更新频繁时会影响渲染性能。
 
-### 为什么不推荐使用index作为Key
+### 现代 React 特性（概览）
 
-看下面这个示例
+- **createRoot（React 18+）**：新的根 API，配合并发特性使用：
 
 ```javascript
-import React, { Component } from 'react';
-class App extends Component {
-   state = {
-      list: [{ id: 1, val: 'A' }, { id: 2, val: 'B' }, { id: 3, val: 'C' }]
-  }
-  click = () => {
-    const { list } = this.state
-    this.setState({
-      list:list.reverse()
-    })
-  }
-  render() {
-    return (
-      <ul>
-        {
-          this.state.list.map((item, index) => {
-            return (
-              <li key={index} >
-                {item.val}
-                <input type="text"></input>
-              </li>
-            )
-          })
-        }
-        <button onClick={this.click}>Reverse</button>
-      </ul>
-    )
-  }
+import { createRoot } from 'react-dom/client';
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
+```
+
+- **Automatic batching**：React 会把多个 state 更新合并在一次渲染中，降低重渲染次数（适用于事件、宏任务、微任务等场景）。
+
+- **startTransition / useTransition**：用于标记低优先级更新，避免阻塞关键交互：
+
+```javascript
+import { startTransition } from 'react';
+startTransition(() => setState(next));
+```
+
+- **Suspense 与串流 SSR**：可以用于等待异步数据或懒加载组件，并与流式服务端渲染协同优化首屏体验。
+
+- **Server Components（可选采用）**：在服务器端执行部分组件逻辑以减少发送到客户端的 JS 体积（依据项目采用情况而定）。
+
+- **Hooks & 新增 API**：`useId`（生成稳定 id）、`useSyncExternalStore`（订阅外部存储）、`useInsertionEffect`（样式库插入时序）等，满足特定场景需要。例如：
+
+```javascript
+import { useId, useTransition } from 'react';
+function Search() {
+  const id = useId();
+  const [isPending, startTransition] = useTransition();
+  // startTransition(() => setQuery(nextQuery)) // 将更新标记为低优先级
 }
 ```
 
-我们在三个输入框里面，依次输入1，2，3，点击Reverse按钮，按照我们的预期，这时候页面应该渲染成3，2，1，但是实际上，顺序依然还是1，2，3，证明数据确实是更新了的。那么为什么会发生这种事情，我们可以分析一下：
+- **Profiler**：`<Profiler onRender={...}>` 用于测量组件渲染性能，便于优化。
+
+- **StrictMode（开发模式）**：在严格模式下，React 会对某些生命周期或渲染进行额外检查（例如在开发环境下可能会执行额外的渲染以帮助发现副作用）。
+
+（详情请参考 React 官方文档以获取最新稳定版的行为与示例。）
+
+### 为什么不推荐使用 `index` 作为 `key`
+
+看下面这个示例（函数组件风格）
+
+```javascript
+import React, { useState } from 'react';
+
+function App() {
+  const [list, setList] = useState([
+    { id: 1, val: 'A' },
+    { id: 2, val: 'B' },
+    { id: 3, val: 'C' }
+  ]);
+
+  const reverse = () => setList(prev => [...prev].reverse());
+
+  return (
+    <div>
+      <ul>
+        {list.map((item, index) => (
+          <li key={index}>
+            {item.val}
+            <input defaultValue="" />
+          </li>
+        ))}
+      </ul>
+      <button onClick={reverse}>Reverse</button>
+    </div>
+  );
+}
+```
+
+如果你在三个输入框中依次输入 1、2、3，然后点击 Reverse，预期页面应显示 3、2、1。但如果使用 `index` 作为 `key`，你往往会发现输入框里的内容没有随项位置一起移动（看起来仍是 1、2、3）。原因是：
+
+- `key` 用于标识元素的“身份”。当 key 不变时（这里都是 0、1、2），React 认为这些项保持不变，会重用已有的 DOM 节点。
+- 当你用 `index` 作 key 并对列表顺序进行变换时，DOM 节点被复用到新的数据上，导致表单元素（尤其是非受控组件）保持了原有的 DOM 状态（例如用户输入），看起来像数据没有正确移动。
+
+正确做法是为列表项使用稳定且唯一的 `id` 作为 `key`：
+
+```javascript
+{list.map(item => (
+  <li key={item.id}>{item.val}<input defaultValue="" /></li>
+))}
+```
+
+这样 React 才能根据 `key` 正确地理解哪些项应该被移动、添加或删除，从而保持 DOM 与数据的一致性。
 
 ![](https://ae01.alicdn.com/kf/H3ecb41d8764e4834b940428652f66478s.png)
 
@@ -431,10 +707,14 @@ function diffChildren(oldChildren, newChildren, index, pathches) {
 
 [详细diff跳转](https://github.com/livoras/simple-virtual-dom/blob/master/lib/diff.js#L5)
 
-## patch
+## patch（简化说明）
 
-因为步骤一所构建的 JavaScript 对象树和render出来真正的DOM树的信息、结构是一样的。
-所以我们可以对那棵DOM树也进行深度优先的遍历，遍历的时候从步骤二生成的patches对象中找出当前遍历的节点差异，然后进行 DOM 操作。
+在本教育性实现中，patch 是将计算出的差异应用到真实 DOM 的过程。实际的 React 架构将渲染分为两个阶段：
+
+- **render（渲染/计算）阶段**：纯计算式地构建/比较新旧元素树（可以中断/调度）。
+- **commit（提交）阶段**：把不可中断的 DOM 变更应用到真实宿主环境，并执行副作用（例如 `useEffect` 中的回调）。
+
+下面给出一个简化的 patch 流程说明，便于理解 DOM 更新的基本思想。
 
 **差异类型**
 
@@ -522,47 +802,9 @@ function applyPatches (node, currentPatches) {
  
 ## 总结
 
-virtual DOM算法主要实现上面步骤的三个函数： `react.createElement`、`diff`、`patch`，然后就可以实际的进行使用了。 
+现代 React 的更新与渲染思路可以概括为：组件返回元素描述（虚拟节点），React 的 reconciler 比较新旧描述并由调度器（Fiber）分配执行，使得只在必要时修改真实 DOM，同时将渲染分为可中断的 render 阶段和不可中断的 commit 阶段来保证交互流畅性与副作用的正确执行。
 
-```javascript
-// 1. 构建虚拟DOM
-let tree = React.createElement("div", {
-  id: "box",
-  className: "box",
-  style: {
-    color: "#ccc"
-  }
-}, 
-React.createElement("h2", {
-   className: "title"
- }, "hhhh222"),
-"divdivdiv"
-)
-
-// 2. 通过虚拟DOM构建真正的DOM
-var root = tree.render()
-
-// 3. 生成新的虚拟DOM
-var newTree = React.createElement("div", {
-  id: "box",
-  className: "box",
-  style: {
-    color: "#ccc"
-  }
-}, 
-React.createElement("h2", {
-   className: "title"
- }, "--hhhh222"),
-"--divdivdiv"
-)
-
-// 4. 比较两棵虚拟DOM树的不同
-var patches = diff(tree, newTree)
-
-// 5. 在真正的DOM元素上应用变更
-patch(root, patches)
-```
-当然这是非常粗糙的实践，实际中还需要处理事件监听等；生成虚拟 DOM 的时候也可以加入 JSX 语法。这些事情都做了的话，就可以构造一个简单的ReactJS了。
+教学性地，可以把实现抽象为 `createElement` -> `diff/reconcile` -> `patch/commit` 三个步骤，但实际的 React 实现更为复杂并包含并发渲染、自动批处理、Suspense、Server Components 等新特性。建议参考 React 官方文档以获取最新稳定版的 API 与最佳实践。
 
 ## 参考文档
 

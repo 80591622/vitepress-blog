@@ -49,6 +49,16 @@ const updateTimeData = () => {
   currentTime.value = getCurrentTime();
 };
 
+/***** 帮助函数：清除首页背景（恢复到默认主题背景） *****/
+const clearHomeBackground = () => {
+  const homeContent = document.querySelector('.VPContent.is-home');
+  if (homeContent) {
+    homeContent.style.background = '';
+  }
+};
+
+let _onGlobalClick = null;
+
 onMounted(() => {
   updateTimeData();
   timeInterval.value = setInterval(updateTimeData, 1000);
@@ -59,7 +69,7 @@ onMounted(() => {
     homeContent.style.background = backgrounds[randomIndex] + ' no-repeat 0 0 / 100% 100%';
   }
 
-  // 获取所有带有 VPButton 类的链接
+  // 获取所有带有 VPButton 类的链接（保留已有逻辑）
   const links = document.querySelectorAll('.VPButton.brand');
   // 遍历所有链接，并为它们添加点击事件监听器
   links.forEach(link => {
@@ -67,9 +77,7 @@ onMounted(() => {
       // 阻止默认的链接跳转行为
       event.preventDefault();
 
-      if (homeContent) {
-        homeContent.style.background = '';
-      }
+      clearHomeBackground();
 
       // 设置 .VPNavBar.home.top 的样式
       const navbar = document.querySelector('.VPNavBar.home.top');
@@ -91,10 +99,30 @@ onMounted(() => {
       // window.location.href = href;
     });
   });
+
+  // 全局点击捕获：如果用户点击的是搜索相关控件或搜索结果，清除背景（避免带图片背景）
+  _onGlobalClick = (e) => {
+    const t = e.target;
+    if (!t || !t.closest) return;
+    // 常见的 DocSearch / Algolia / VitePress 搜索相关选择器
+    const isSearch = !!(
+      t.closest('.DocSearch') ||
+      t.closest('.DocSearch-Button') ||
+      t.closest('.DocSearch-Modal') ||
+      t.closest('.DocSearch-Item') ||
+      t.closest('.algolia-autocomplete') ||
+      t.closest('[role="search"]') ||
+      t.closest('.VPSearch') ||
+      t.closest('.search-box')
+    );
+    if (isSearch) clearHomeBackground();
+  };
+  document.addEventListener('click', _onGlobalClick, true);
 });
 
 onBeforeUnmount(() => {
   clearInterval(timeInterval.value);
+  if (_onGlobalClick) document.removeEventListener('click', _onGlobalClick, true);
 });
 </script>
 
