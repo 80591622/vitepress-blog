@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "wankor Blogscape "
-  # text: "Welcome to Serein's Blogscape "
-  # tagline: This blog is built for VitePress
+  name: "望归客"
+  text: "Welcome to Serein's Blogscape"
+  tagline: This blog is built for VitePress
   # image:
   #   src: /img/avatar.png
   #   alt: VitePress
@@ -24,10 +24,3 @@ features:
     title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
-
-<Layout />
-
-
-
-
-

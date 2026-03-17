@@ -2,7 +2,6 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import Layout from './components/Layout.vue'
 import './style.css'
 
 export default {
@@ -13,6 +12,6 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    app.component('Layout', Layout)
+    // 移除自定义Layout组件注册
   }
 } satisfies Theme
