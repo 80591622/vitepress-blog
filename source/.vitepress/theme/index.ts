@@ -2,16 +2,17 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import Layout from './components/Layout.vue'
 import './style.css'
 
 export default {
   extends: DefaultTheme,
   Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
+    return h(Layout, null, {
+      default: () => h(DefaultTheme.Layout)
     })
   },
   enhanceApp({ app, router, siteData }) {
-    // 移除自定义Layout组件注册
+    app.component('Layout', Layout)
   }
 } satisfies Theme
