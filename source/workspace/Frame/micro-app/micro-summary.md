@@ -175,6 +175,8 @@ module.exports = {
   }
 }
 ```
+## 微前端执行流程
+<img src="/img/micro.png" alt="微前端执行流程" style="width: 280px; height: 800px;">
 
 ## Qiankun 原理
 
