@@ -1,89 +1,63 @@
 # vitepress-blog
-blog
 
-#!/usr/bin/env bash
+个人技术博客，基于 VitePress 构建。
 
-# 开启错误处理
-set -e
+## 开发
 
-# 清除删除旧打包目录
-yarn clean || { echo "清除旧打包目录失败"; exit 1; }
+```bash
+# 安装依赖
+pnpm install
 
-# 打包
-yarn build || { echo "打包失败"; exit 1; }
+# 启动开发服务器
+pnpm dev
 
-# 定义打包命令
-if [[ $(uname) == "Darwin" ]]; then
-    # 如果是 macOS 环境，执行该命令
-    tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/dist || { echo "打包失败"; exit 1; }
-else
-    # 如果是其他操作系统（例如 Windows），执行该命令
-    tar -zcvf dist.tar.gz "C:/Users/v-wangke3/Desktop/vitepress-blog/dist" || { echo "打包失败"; exit 1; }
-fi
+# 构建
+pnpm build
 
-# 上传到服务器（需要输入密码，如果已经进行过私钥配置，则不用），其中/home/wwwapp/www.wkdevhub.cn 为上传文件所在目录
-scp  -r dist.tar.gz root@101.42.135.167:/home/wwwapp/www.wkdevhub.cn || { echo "上传失败"; exit 1; }
+# 预览构建结果
+pnpm preview
+```
 
-# 登录到服务器（需要输入密码，如果已经进行过私钥配置，则不用）
-# 服务器环境开启
-ssh root@101.42.135.167 << SSH_COMMANDS
+## 部署
 
-# 进入目标目录
-cd /home/wwwapp/www.wkdevhub.cn || { echo "进入目标目录失败"; exit 1; }
+项目使用统一的部署脚本，支持 Mac 和 Windows 双平台。
 
-# 解压
-tar -zxvf dist.tar.gz --strip-components=5 -C dist || { echo "解压失败"; exit 1; }
+### 部署配置
 
-# 移除线上压缩文件
-rm -rf dist.tar.gz || { echo "删除线上压缩文件失败"; exit 1; }
+编辑 `scripts/deploy.config.json` 修改服务器配置：
 
-SSH_COMMANDS
+```json
+{
+  "distDir": "dist",
+  "archiveName": "dist.tar.gz",
+  "serverUser": "root",
+  "serverIP": "121.40.92.55",
+  "serverDir": "/home/www/www.wkdev.cn"
+}
+```
 
+### 部署命令
 
+```bash
+# 方式 1：使用 pnpm 命令（推荐）
+pnpm deploy
 
+# 方式 2：直接运行脚本
+node scripts/deploy.js
+```
 
+### 部署流程
 
+1. 清理旧构建文件
+2. 构建项目
+3. 检查 SSH 连接
+4. 压缩 dist 目录
+5. 上传到服务器
+6. 远程解压并部署
+7. 清理本地压缩包
 
+### 前置要求
 
-
-
-#!/usr/bin/env bash
-
-# 清除删除旧打包目录
-yarn clean
-
-# 打包
-yarn build
-
-# 压缩文件，其中 dist为要上传的文件所在目录
-tar -zcvf dist.tar.gz "C:/Users/v-wangke3/Desktop/vitepress-blog/dist"
-
-# tar -zcvf dist.tar.gz  /Users/wangke/Desktop/vitepress-blog/source/.vitepress/dist
-
-# 上传到服务器（需要输入密码，如果已经进行过私钥配置，则不用），其中/home/wwwapp/www.wkdevhub.cn 为上传文件所在目录
-scp  -r dist.tar.gz root@101.42.135.167:/home/wwwapp/www.wkdevhub.cn
-
-# 登录到服务器（需要输入密码，如果已经进行过私钥配置，则不用）
-# 服务器环境开启
-ssh root@101.42.135.167 << EOF
-
-# 进入目标目录
-cd /home/wwwapp/www.wkdevhub.cn
-
-# 解压
-# tar -zxvf dist.tar.gz --strip-components 5
-tar -zxvf dist.tar.gz --strip-components=5 -C dist
-
-
-# 移除线上压缩文件
-rm -rf dist.tar.gz
-
-EOF
-
-# 生成表格
-| 水果        | 价格    |  数量  |
-| --------   | -----:   | :----: |
-| 香蕉        | $1      |   5    |
-| 苹果        | $1      |   6    |
-| 草莓        | $1      |   7    |
-
+- 已配置服务器 SSH 免密登录
+- 本地安装 Node.js 和 pnpm
+- 系统自带 tar、ssh、scp 命令（Windows 10/11 已内置）

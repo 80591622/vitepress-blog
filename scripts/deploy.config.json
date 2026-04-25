@@ -1,0 +1,7 @@
+{
+  "distDir": "dist",
+  "archiveName": "dist.tar.gz",
+  "serverUser": "root",
+  "serverIP": "121.40.92.55",
+  "serverDir": "/home/www/www.wkdev.cn"
+}
