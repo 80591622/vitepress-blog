@@ -1,10 +1,12 @@
 {
-  "dependencies": {
-    "qnpm": "^1.2.9",
-    "yarn": "^1.22.21"
-  },
+  "name": "vitepress-blog",
+  "version": "1.0.0",
+  "description": "A technical blog built with VitePress",
+  "packageManager": "pnpm@9.0.0",
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "rimraf": "^5.0.5",
     "sass": "^1.75.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.10",
@@ -14,7 +16,7 @@
     "dev": "vitepress dev source",
     "build": "vitepress build source",
     "preview": "vitepress preview source",
-    "clean": "rm -rf dist",
-    "deploy": "sh deploy.sh"
+    "clean": "rimraf dist",
+    "deploy": "node scripts/deploy.js"
   }
 }
