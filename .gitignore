@@ -9,6 +9,7 @@ node_modules
 dist
 
 source/.vitepress/cache
+source/.vitepress/.temp
 
 
 

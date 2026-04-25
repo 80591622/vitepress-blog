@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "A technical blog built with VitePress",
   "packageManager": "pnpm@9.0.0",
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "@vitejs/plugin-vue": "^6.0.6",
     "rimraf": "^5.0.5",
     "sass": "^1.75.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.10",
-    "vitepress": "^1.1.0"
+    "vitepress": "^1.1.0",
+    "vue": "^3.5.33"
   },
   "scripts": {
     "dev": "vitepress dev source",

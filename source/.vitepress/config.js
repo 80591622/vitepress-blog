@@ -2,7 +2,6 @@ import search from "./config/search"
 import sidebar from "./config/sidebar"
 import socialLinks from "./config/socialLinks"
 import nav from "./config/nav"
-import algolia from "./config/algolia"
 
 // https://vitepress.dev/reference/site-config
 export default {

@@ -1,20 +1,31 @@
-{  
-  "compilerOptions": {  
-    "target": "esnext",  
-    "module": "esnext",  
-    "moduleResolution": "node",  
-    "jsx": "preserve",  
-    "importHelpers": true,  
-    "esModuleInterop": true,  
-    "allowSyntheticDefaultImports": true,  
-    "sourceMap": true,  
-    "strict": true,  
-    "forceConsistentCasingInFileNames": true,  
-    "baseUrl": ".", // 设置基路径为 tsconfig.json 所在目录  
-    "paths": {  
-      "@/*": ["source/*"] // 将 @ 开头的路径映射到 source 目录  
-    }  
-  },  
-  "include": ["source/**/*", "source/**/*.tsx", "source/**/*.vue", "source/**/*.md"],  
-  "exclude": ["node_modules"]  
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "importHelpers": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node", "vite/client", "vitepress/client"],
+    "paths": {
+      "@/*": ["./source/*"]
+    }
+  },
+  "include": [
+    "source/.vitepress/**/*.ts",
+    "source/.vitepress/**/*.d.ts",
+    "source/**/*.ts",
+    "source/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "source/.vitepress/.temp"
+  ]
 }
