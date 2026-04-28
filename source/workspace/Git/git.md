@@ -153,6 +153,47 @@ git add . //添加冲突处理后的文件
 git rebase --continue  //单加上--continue参数让rebase继续处理 ，无需执行 git-commit 
 //开发完成, 在 master 上用 mergin 合并dev,不会自动产生合并分支的 'commit'
 ```
+```bash
+# 当前位于feature-wk
+# 1. 提交你本地修改的代码
+git add .
+git commit -m "你的提交信息"
+
+# 2. 拉取远程最新的 sit 代码（只下载不合并）
+git fetch origin sit
+
+# 3. 把你的 feature-wk 变基到最新 sit（无合并提交）
+git rebase origin/sit
+
+# 如果 rebase 遇到冲突，解决完冲突后执行
+git add .
+git rebase --continue
+
+# 4. 切到 sit 分支
+git checkout sit
+
+# 5. 拉取 sit 最新（防止别人刚提交）
+git pull --rebase origin sit
+
+# 6. 合并你的 feature-wk（无合并提交！）
+git merge --ff-only feature-wk
+
+# 7. 推送到远程 sit
+git push origin sit
+
+```
+
+```bash
+git add .
+git commit -m "feat: 本次修改内容"
+git fetch origin sit
+git rebase origin/sit
+git checkout sit
+git pull --rebase origin sit
+git merge --ff-only feature-wk
+git push origin sit
+git checkout feature-wk
+```
 
 [](https://imgssl.luxiaoquan.com/FtjtK3w9rjUXEip-hxjzSQhRSCSC?imageView2/2/w/640/interlace/1)
 
