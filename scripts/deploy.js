@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { execFileSync } = require("child_process");
+const { spawnSync } = require("child_process");
 
 const projectRoot = path.resolve(__dirname, "..");
 const configPath = path.join(__dirname, "deploy.config.json");
@@ -127,15 +127,35 @@ function buildScpArgs(serverPort) {
   return args;
 }
 
+function crossSpawn(command, args, options = {}) {
+  // macOS/Linux: 直接执行二进制文件
+  // Windows: 通过 cmd.exe 执行，才能找到 .cmd 脚本（如 pnpm）
+  const isWindows = process.platform === "win32";
+  const finalCommand = isWindows ? process.env.ComSpec || "cmd.exe" : command;
+  const finalArgs = isWindows ? ["/c", command, ...args] : args;
+
+  const result = spawnSync(finalCommand, finalArgs, {
+    cwd: projectRoot,
+    stdio: "inherit",
+    ...options,
+  });
+
+  if (result.error) {
+    throw result.error;
+  }
+
+  if (result.status !== 0) {
+    const err = new Error(`Command failed with exit code ${result.status}`);
+    err.status = result.status;
+    throw err;
+  }
+}
+
 function runCommand(command, args, description, options = {}) {
   log.step(description);
 
   try {
-    execFileSync(command, args, {
-      cwd: projectRoot,
-      stdio: "inherit",
-      ...options,
-    });
+    crossSpawn(command, args, options);
     log.success(`${description}完成`);
   } catch (error) {
     throw new Error(`${description}失败${formatExecError(error)}`);
@@ -147,14 +167,7 @@ function checkSshConnection(config) {
   log.info(`检查 SSH 连接：${target}`);
 
   try {
-    execFileSync(
-      "ssh",
-      [...buildSshArgs(config.serverPort), target, "printf ok"],
-      {
-        cwd: projectRoot,
-        stdio: "inherit",
-      }
-    );
+    crossSpawn("ssh", [...buildSshArgs(config.serverPort), target, "printf ok"]);
     log.success("SSH 连接正常");
   } catch (error) {
     throw new Error(`SSH 连接检查失败${formatExecError(error)}`);

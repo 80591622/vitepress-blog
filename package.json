@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A technical blog built with VitePress",
   "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18.12.0"
+  },
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^6.0.6",

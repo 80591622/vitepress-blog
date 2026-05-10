@@ -21,6 +21,18 @@ export default {
     lineNumbers: true // 显示代码行数
   },
   outDir: "../dist", // 打包输出的目录
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern'
+        }
+      }
+    },
+    build: {
+      chunkSizeWarningLimit: 3000
+    }
+  },
   // titleTemplate: '牧涯前端学习笔记', // 标题后缀
   cleanUrls: false, // url是否带.html后缀
   
