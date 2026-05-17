@@ -164,6 +164,38 @@ function runCommand(command, args, description, options = {}) {
   }
 }
 
+/**
+ * 在 Windows 上把多行脚本塞进 ssh 的「远程参数」常被截断或只执行首行，导致 scp 成功但目录未替换。
+ * 通过 stdin 交给远端 `bash -s` 执行，行为与 macOS/Linux 一致。
+ */
+function runSshBashScript(target, serverPort, scriptBody, description) {
+  log.step(description);
+  const input =
+    (scriptBody.endsWith("\n") ? scriptBody : `${scriptBody}\n`);
+  const result = spawnSync(
+    "ssh",
+    [...buildSshArgs(serverPort), target, "bash", "-s"],
+    {
+      cwd: projectRoot,
+      input,
+      stdio: ["pipe", "inherit", "inherit"],
+      windowsHide: true,
+    }
+  );
+
+  if (result.error) {
+    throw result.error;
+  }
+
+  if (result.status !== 0) {
+    const err = new Error(`Command failed with exit code ${result.status}`);
+    err.status = result.status;
+    throw err;
+  }
+
+  log.success(`${description}完成`);
+}
+
 function checkSshConnection(config) {
   const target = `${config.serverUser}@${config.serverIP}`;
   log.info(`检查 SSH 连接：${target}`);
@@ -265,9 +297,10 @@ function deploy() {
       [...buildScpArgs(config.serverPort), "-C", archivePath, `${target}:${remoteArchivePath}`],
       `📤 上传 ${remoteArchiveName} 到 ${target}`
     );
-    runCommand(
-      "ssh",
-      [...buildSshArgs(config.serverPort), target, buildRemoteDeployScript(config)],
+    runSshBashScript(
+      target,
+      config.serverPort,
+      buildRemoteDeployScript(config),
       `🖥️  在远程服务器部署 ${remoteArchiveName}`
     );
     fs.rmSync(path.resolve(projectRoot, distDir), { recursive: true, force: true });
