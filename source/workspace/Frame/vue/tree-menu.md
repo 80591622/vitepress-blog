@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: tree-menu
+categories:
+  - Frame
+  - vue
+tags:
+  - vue
+---
 
 # 封装树形菜单
 

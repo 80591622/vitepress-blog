@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: reactErr-handle
+categories:
+  - Frame
+  - react
+tags:
+  - react
+---
 # React 错误处理
 在构建应用时，错误是不可避免的。即使采用最佳的代码实践，运行时也可能会出现意外错误，导致应用崩溃。因此，处理错误是非常重要的。本文就来看看如何在 React 中捕获和处理错误，以及更强大的 React 错误处理方式！
 

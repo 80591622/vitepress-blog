@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: toFixed
+categories:
+  - Project
+tags:
+  - Project
+---
 
 # toFixed方法的bug
 

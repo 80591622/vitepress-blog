@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: react-best-practices
+categories:
+  - Frame
+  - react
+tags:
+  - react
+---
 
 # React 最佳实践  
 本文来分享 React 中的 16 种常见反模式和最佳实践。  

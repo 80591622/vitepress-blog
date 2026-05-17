@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: dispatchEvent
+categories:
+  - Js
+tags:
+  - Js
+---
 
 # 自定义事件
 

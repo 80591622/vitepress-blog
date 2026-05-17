@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: string
+categories:
+  - Js
+tags:
+  - Js
+---
 # String的方法简单整理
 ### 常用方法
 

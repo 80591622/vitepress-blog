@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: water-mask
+categories:
+  - Js
+tags:
+  - Js
+---
 # JS添加水印功能
 
 ## 不使用canvas

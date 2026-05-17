@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: problem
+categories:
+  - Frame
+  - vue
+tags:
+  - vue
+---
 
 # 问题验证解析
 

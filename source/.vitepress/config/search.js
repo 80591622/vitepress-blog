@@ -30,13 +30,11 @@ const search = {
     },
     
     _render(src, env, md) {
-      const html = md.render(src, env)
-      if (env.frontmatter?.search === false) return ''
-      // 从搜索中排除页面
-      if (env.relativePath.startsWith('some/path')) return ''
-      // 转换内容——添加锚点
-      if (env.frontmatter?.title) return md.render(`# ${env.frontmatter.title}`) + html
-      return html
+      const html = md.render(src, env);
+      if (env.frontmatter?.search === false) return "";
+      if (env.relativePath.startsWith("some/path")) return "";
+      // 不要前置再渲染 `# title`：正文已有标题时会与 frontmatter.title 生成重复锚点，触发 local search 构建失败
+      return html;
     },
     // 搜索配置
     miniSearch: {

@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: xhr
+categories:
+  - Js
+tags:
+  - Js
+---
 
 
 # Fetch和Axios的区别

@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: export
+categories:
+  - Js
+tags:
+  - Js
+---
 # Axios 获取文件流导出 excel 表格
 
 ## 一、导出excel表格实现的具体思路：

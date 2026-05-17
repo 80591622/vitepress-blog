@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: nginx_base
+categories:
+  - Server
+  - nginx
+tags:
+  - nginx
+---
 
 # Nginx的使用指南
 

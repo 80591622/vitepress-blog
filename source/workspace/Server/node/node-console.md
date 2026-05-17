@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: node-console
+categories:
+  - Server
+  - node
+tags:
+  - node
+---
 
 # 终端实现console输出不同颜色
 

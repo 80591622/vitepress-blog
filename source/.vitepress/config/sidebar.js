@@ -5,7 +5,7 @@ export default {
   "/": [
     {
       text: "Base",
-      collapsed: false, // 初始不折叠
+      collapsed: false,
       items: [
         // { text: "前端知识图谱", link: "/workspace/Js/frontend-map" },
         { text: "技术清单", link: "/workspace/Js/home" },
@@ -36,7 +36,7 @@ export default {
 
     {
       text: "Project",
-      collapsed: true, // 初始不折叠
+      collapsed: true,
       items: [
         { text: "用到的方法", link: "/workspace/Project/method" },
         { text: "简易封装Cookie", link: "/workspace/Project/cookie" },
@@ -47,17 +47,16 @@ export default {
         { text: "聊一聊前端换肤", link: "/workspace/Js/theme" },
         { text: "JS添加水印功能", link: "/workspace/Js/water-mask" },
         { text: "Axios 获取文件流导出 excel 表格", link: "/workspace/Js/export" },
-        { text: "会用到的插件", link: "/workspace/Project/more" },
         { text: "首屏性能优化", link: "/workspace/Project/perf-opt" },
       ]
     },
 
     {
       text: "FE框架",
-      collapsed: true, // 初始不折叠
+      collapsed: true,
       items: [
         {
-          text: "☞ vue",
+          text: "☞ Vue",
           collapsed: false,
           items: [
             { text: "vue基本用法", link: "/workspace/Frame/vue/vue" },
@@ -106,7 +105,7 @@ export default {
         },
 
         {
-          text: '☞ react',
+          text: "☞ React",
           collapsed: true,
           items: [
             {text: "React错误处理",link: "/workspace/Frame/react/reactErr-handle"},
@@ -127,7 +126,7 @@ export default {
         },
 
         {
-          text: '☞ taro',
+          text: "☞ Taro",
           collapsed: true,
           items: [
             {text: "Taro基本用法",link: "/workspace/Frame/taro/taroBase"},
@@ -138,7 +137,7 @@ export default {
         },
 
         {
-          text: '☞ react-native',
+          text: "☞ React Native",
           collapsed: true,
           items: [
             {text: "RN基本用法",link: "/workspace/Frame/react-native/guide"},
@@ -148,7 +147,7 @@ export default {
         },
 
         {
-          text: '☞ Micro-Fe',
+          text: "☞ 微前端",
           collapsed: true,
           items: [
             {text: "微前端方案",link: "/workspace/Frame/micro-app/mic"},
@@ -157,7 +156,7 @@ export default {
         },
 
         {
-          text: '☞ 单元测试',
+          text: "☞ 单元测试",
           collapsed: true,
           items: [
             {text: "单元测试框架Jest学习总结",link: "/workspace/Frame/unit-test/jest"}
@@ -169,10 +168,10 @@ export default {
 
     {
       text: "Server",
-      collapsed: true, // 初始不折叠
+      collapsed: true,
       items: [
         {
-          text: '☞ NodeJS',
+          text: "☞ NodeJS",
           collapsed: false,
           items: [
             { text: "NodeJs的原生方法", link: "/workspace/Server/node/base" },
@@ -184,7 +183,7 @@ export default {
         },
 
         {
-          text: '☞ Mongoose',
+          text: "☞ Mongoose",
           collapsed: true,
           items: [
             { text: "Mongodb安装", link: "/workspace/Server/sql/mongodb" },
@@ -193,7 +192,7 @@ export default {
         },
 
         {
-          text: '☞ Nginx',
+          text: "☞ Nginx",
           collapsed: true,
           items: [
             { text: "Nginx的使用指南", link: "/workspace/Server/nginx/nginx_base" },
@@ -208,7 +207,7 @@ export default {
 
     {
       text: "TypeScript",
-      collapsed: true, // 初始不折叠
+      collapsed: true,
       items: [
         { text: "TypeScript", link: "/workspace/Typescript/ts" },
         { text: "TypeScr 误区", link: "/workspace/Typescript/ts-object-type-interface.md" },
@@ -218,11 +217,17 @@ export default {
     },
 
     {
-      text: "构建工具 ",
-      collapsed: true, // 初始不折叠
+      text: "Plugin",
+      collapsed: true,
+      items: [{ text: "会用到的插件", link: "/workspace/Project/more" }],
+    },
+
+    {
+      text: "构建工具",
+      collapsed: true,
       items: [
         {
-          text: '☞ webpack',
+          text: "☞ webpack",
           collapsed: false,
           items: [
             { text: "Webpack4 配置详解", link: "/workspace/Webpack/webpack" },
@@ -232,7 +237,7 @@ export default {
         },
 
         {
-          text: '☞ gulp',
+          text: "☞ gulp",
           collapsed: true,
           items: [
             { text: "gulp", link: "/workspace/Gulp/base" }
@@ -240,7 +245,7 @@ export default {
         },
 
         {
-          text: '☞ rollup',
+          text: "☞ rollup",
           collapsed: true,
           items: [
             { text: "rollup", link: "/workspace/Rollup/base" }
@@ -248,7 +253,7 @@ export default {
         },
 
         {
-          text: '☞ snowpack',
+          text: "☞ snowpack",
           collapsed: true,
           items: [
             { text: "snowpack", link: "/workspace/Snowpack/base" }
@@ -256,7 +261,7 @@ export default {
         },
 
         {
-          text: '☞ vite',
+          text: "☞ vite",
           collapsed: true,
           items: [
             { text: "vite", link: "/workspace/Vite/base" }
@@ -267,7 +272,7 @@ export default {
 
     {
       text: "Git教程",
-      collapsed: true, // 初始不折叠
+      collapsed: true,
       items: [
         { text: "git基础", link: "/workspace/Git/git" },
         { text: "git恢复上一次的修改", link: "/workspace/Git/git-cherry" },
@@ -278,7 +283,7 @@ export default {
 
     {
       text: "Other",
-      collapsed: true, // 初始不折叠
+      collapsed: true,
       items: [
         { text: "Jenkins自动化部署", link: "/workspace/Jenkins/base" },
         { text: "MAC整理", link: "/tools/mac" },

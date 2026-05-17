@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: pm2
+categories:
+  - Server
+  - node
+tags:
+  - node
+---
 
 
 # Node启动工具

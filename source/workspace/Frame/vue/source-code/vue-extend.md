@@ -1,3 +1,13 @@
+---
+date: 2026-05-10 22:52:36
+title: vue-extend
+categories:
+  - Frame
+  - vue
+  - source-code
+tags:
+  - source-code
+---
 
 # 全局挂载组件之Vue.extend
 

@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: bug
+categories:
+  - Frame
+  - react-native
+tags:
+  - react-native
+---
 
 
 # XCODE模拟器报错修复

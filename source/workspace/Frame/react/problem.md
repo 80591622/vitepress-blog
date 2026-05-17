@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: problem
+categories:
+  - Frame
+  - react
+tags:
+  - react
+---
 # 问题验证解析
 
 ## setState为什么是异步的、什么时候是异步的？

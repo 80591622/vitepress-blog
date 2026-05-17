@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: base
+categories:
+  - Jenkins
+tags:
+  - Jenkins
+---
 
 
 # Jenkins自动化部署

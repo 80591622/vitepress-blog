@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: token
+categories:
+  - Server
+tags:
+  - Server
+---
 
 # 什么是cookie,token和session?它们之间有什么关系？
 

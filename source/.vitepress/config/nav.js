@@ -1,18 +1,42 @@
 // 顶部右上角自定义导航
 
+/** 站点首页绝对地址（风险链接页的 `target` 须经 Teek `isValidURL`，不能用相对路径 `/`） */
+const SITE_HOME = "https://www.wkdev.cn/";
+
 const nav = [
+  { text: "首页", link: "/" },
   {
-    text: 'Useful',
+    text: "功能页",
     items: [
-      {text: 'Vue', link: '/workspace/Frame/vue/vue'},
-      {text: 'React', link: '/workspace/Frame/react/react'},
-      {text: 'Taro', link: '/workspace/Frame/taro/taroBase'},
-      {text: ' 谷歌', link: 'https://google.com'}
-      // { text: '习题', link: '/workspace/Interworkspaces/result' },
-      // { text: '理论', link: '/workspace/Interworkspaces/theory' },
-      // {text: ' 谷歌', link: 'https://google.com'},
-    ]
-  }
-]
+      { text: "归档", link: "/archives" },
+      { text: "清单页", link: "/articleOverview" },
+      {
+        text: "分类",
+        link: "/categories",
+        /** Teek 分类详情为 /categories/xxx，需正则匹配否则下拉项高亮与展开态异常 */
+        activeMatch: "^/categories(/|$)",
+      },
+      {
+        text: "标签",
+        link: "/tags",
+        activeMatch: "^/tags(/|$)",
+      },
+      { text: "登录页", link: "/login" },
+      {
+        text: "风险链接提示",
+        link: `/risk-link?target=${encodeURIComponent(SITE_HOME)}`,
+      },
+    ],
+  },
+  {
+    text: "常用链接",
+    items: [
+      { text: "Vue", link: "/workspace/Frame/vue/vue" },
+      { text: "React", link: "/workspace/Frame/react/react" },
+      { text: "Taro", link: "/workspace/Frame/taro/taroBase" },
+      { text: " 谷歌", link: "https://google.com" },
+    ],
+  },
+];
 
 export default nav;

@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: perf-opt
+categories:
+  - Project
+tags:
+  - Project
+---
 ## 性能优化
 
 ### 首屏加载指标细化

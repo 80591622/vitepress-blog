@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: ws-configure
+categories:
+  - other
+tags:
+  - other
+---
 
 # 配置WS
 

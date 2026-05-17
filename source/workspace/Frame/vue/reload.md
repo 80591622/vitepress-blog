@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: reload
+categories:
+  - Frame
+  - vue
+tags:
+  - vue
+---
 
 
 # 基于Vue的组件局部刷新

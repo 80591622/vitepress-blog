@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: extends
+categories:
+  - Js
+tags:
+  - Js
+---
 
 
 # 原型与原型链

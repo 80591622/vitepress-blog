@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: vue-cli
+categories:
+  - Frame
+  - vue
+tags:
+  - vue
+---
 
 
 # 脚手架vue-cli

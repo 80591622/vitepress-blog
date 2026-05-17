@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: dom_diff
+categories:
+  - Frame
+  - react
+tags:
+  - react
+---
 
 # VirtualDOM
 

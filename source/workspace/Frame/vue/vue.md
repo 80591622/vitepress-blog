@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: vue
+categories:
+  - Frame
+  - vue
+tags:
+  - vue
+---
 # vue基本用法
 
 ## 常用指令

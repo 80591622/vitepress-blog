@@ -1,18 +1,28 @@
-// https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-import Layout from './components/Layout.vue'
-import './style.css'
+import Teek from "vitepress-theme-teek";
+import TeekLayoutProvider from "./components/TeekLayoutProvider.vue";
+
+import "vitepress-theme-teek/index.css";
+import "vitepress-theme-teek/theme-chalk/tk-code-block-mobile.css";
+import "vitepress-theme-teek/theme-chalk/tk-sidebar.css";
+import "vitepress-theme-teek/theme-chalk/tk-nav.css";
+import "vitepress-theme-teek/theme-chalk/tk-aside.css";
+import "vitepress-theme-teek/theme-chalk/tk-doc-h1-gradient.css";
+import "vitepress-theme-teek/theme-chalk/tk-table.css";
+import "vitepress-theme-teek/theme-chalk/tk-mark.css";
+import "vitepress-theme-teek/theme-chalk/tk-blockquote.css";
+import "vitepress-theme-teek/theme-chalk/tk-index-rainbow.css";
+import "vitepress-theme-teek/theme-chalk/tk-banner-desc-gradient.css";
+import "vitepress-theme-teek/theme-chalk/tk-home-card-hover.css";
+import "vitepress-theme-teek/theme-chalk/tk-fade-up-animation.css";
+import "vitepress-theme-teek/theme-chalk/tk-home.css";
+import "vitepress-theme-teek/theme-chalk/tk-home-category-card.css";
+import "vitepress-theme-teek/theme-chalk/tk-home-tag-card.css";
+
+import "./styles/code-bg.scss";
+import "./styles/iframe.scss";
+import "./style.css";
 
 export default {
-  extends: DefaultTheme,
-  Layout: () => {
-    return h(Layout, null, {
-      default: () => h(DefaultTheme.Layout)
-    })
-  },
-  enhanceApp({ app, router, siteData }) {
-    app.component('Layout', Layout)
-  }
-} satisfies Theme
+  extends: Teek,
+  Layout: TeekLayoutProvider,
+};

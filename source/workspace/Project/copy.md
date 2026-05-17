@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: copy
+categories:
+  - Project
+tags:
+  - Project
+---
 
 # 实现JS复制内容到剪贴板
 

@@ -1,10 +1,12 @@
 ---
-abbrlink: '19002663'
+abbrlink: 19002663
 title: computed
-date: 2020-03-17
+date: 2020-03-17 08:00:00
 hidden: true
-categories: 
-- FE框架 
-- Vue
-- 源码分析
+categories:
+  - FE框架
+  - Vue
+  - 源码分析
+tags:
+  - next
 ---

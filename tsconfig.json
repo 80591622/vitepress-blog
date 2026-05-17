@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "allowJs": true,
     "sourceMap": true,
     "importHelpers": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
@@ -19,6 +20,7 @@
   },
   "include": [
     "source/.vitepress/**/*.ts",
+    "source/.vitepress/**/*.vue",
     "source/.vitepress/**/*.d.ts",
     "source/**/*.ts",
     "source/**/*.tsx"

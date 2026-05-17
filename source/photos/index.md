@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: index
+categories:
+  - photos
+tags:
+  - photos
+---
 
 ![1](https://gcore.jsdelivr.net/gh/hzfvictory/cdn@master/newBlog/img/banner/0.jpg)
 ![2](https://gcore.jsdelivr.net/gh/hzfvictory/cdn@master/newBlog/img/banner/1.jpg)

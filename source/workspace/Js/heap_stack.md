@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: heap_stack
+categories:
+  - Js
+tags:
+  - Js
+---
 
 
 # 堆内存 & 栈内存

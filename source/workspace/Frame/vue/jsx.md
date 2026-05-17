@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: jsx
+categories:
+  - Frame
+  - vue
+tags:
+  - vue
+---
 # vue中使用JSX
 
 

@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: nginx_local
+categories:
+  - Server
+  - nginx
+tags:
+  - nginx
+---
 
 # 安装Nginx踩到的坑
 

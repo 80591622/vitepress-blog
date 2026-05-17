@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: webpack
+categories:
+  - Webpack
+tags:
+  - Webpack
+---
 
 # Webpack4 配置详解
 

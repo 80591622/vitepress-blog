@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: base
+categories:
+  - Server
+  - node
+tags:
+  - node
+---
 
 # NodeJs的原生方法
 

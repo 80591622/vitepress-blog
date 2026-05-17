@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: ts-object-type-interface
+categories:
+  - Typescript
+tags:
+  - Typescript
+---
 
 # TypeScr 误区
 

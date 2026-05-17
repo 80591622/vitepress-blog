@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: es6
+categories:
+  - Js
+tags:
+  - Js
+---
 
 
 # ES6-新增特性一览

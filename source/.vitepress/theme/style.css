@@ -1,320 +1,19 @@
 /**
- * Customize default theme styling by overriding CSS variables:
- * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ * 站点级增量样式：避免覆盖 Teek / VitePress 默认布局与代码块主题。
  */
-
-/**
- * Colors
- *
- * Each colors have exact same color scale system with 3 levels of solid
- * colors with different brightness, and 1 soft color.
- * 
- * - `XXX-1`: The most solid color used mainly for colored text. It must
- *   satisfy the contrast ratio against when used on top of `XXX-soft`.
- *
- * - `XXX-2`: The color used mainly for hover state of the button.
- *
- * - `XXX-3`: The color for solid background, such as bg color of the button.
- *   It must satisfy the contrast ratio with pure white (#ffffff) text on
- *   top of it.
- *
- * - `XXX-soft`: The color used for subtle background such as custom container
- *   or badges. It must satisfy the contrast ratio when putting `XXX-1` colors
- *   on top of it.
- *
- *   The soft color must be semi transparent alpha channel. This is crucial
- *   because it allows adding multiple "soft" colors on top of each other
- *   to create a accent, such as when having inline code block inside
- *   custom containers.
- *
- * - `default`: The color used purely for subtle indication without any
- *   special meanings attched to it such as bg color for menu hover state.
- *
- * - `brand`: Used for primary brand colors, such as link text, button with
- *   brand theme, etc.
- *
- * - `tip`: Used to indicate useful information. The default theme uses the
- *   brand color for this by default.
- *
- * - `warning`: Used to indicate warning to the users. Used in custom
- *   container, badges, etc.
- *
- * - `danger`: Used to show error, or dangerous message to the users. Used
- *   in custom container, badges, etc.
- * -------------------------------------------------------------------------- */
-
 :root {
-  --vp-c-default-1: var(--vp-c-gray-1);
-  --vp-c-default-2: var(--vp-c-gray-2);
-  --vp-c-default-3: var(--vp-c-gray-3);
-  --vp-c-default-soft: var(--vp-c-gray-soft);
-
   --vp-c-brand-1: var(--vp-c-indigo-1);
   --vp-c-brand-2: var(--vp-c-indigo-2);
   --vp-c-brand-3: var(--vp-c-indigo-3);
   --vp-c-brand-soft: var(--vp-c-indigo-soft);
-
-  --vp-c-tip-1: var(--vp-c-brand-1);
-  --vp-c-tip-2: var(--vp-c-brand-2);
-  --vp-c-tip-3: var(--vp-c-brand-3);
-  --vp-c-tip-soft: var(--vp-c-brand-soft);
-
-  --vp-c-warning-1: var(--vp-c-yellow-1);
-  --vp-c-warning-2: var(--vp-c-yellow-2);
-  --vp-c-warning-3: var(--vp-c-yellow-3);
-  --vp-c-warning-soft: var(--vp-c-yellow-soft);
-
-  --vp-c-danger-1: var(--vp-c-red-1);
-  --vp-c-danger-2: var(--vp-c-red-2);
-  --vp-c-danger-3: var(--vp-c-red-3);
-  --vp-c-danger-soft: var(--vp-c-red-soft);
 }
 
-/**
- * Component: Button
- * -------------------------------------------------------------------------- */
-
-:root {
-  --vp-button-brand-border: transparent;
-  --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--vp-c-brand-3);
-  --vp-button-brand-hover-border: transparent;
-  --vp-button-brand-hover-text: var(--vp-c-white);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
-  --vp-button-brand-active-border: transparent;
-  --vp-button-brand-active-text: var(--vp-c-white);
-  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+.highlight {
+  color: #d86e89;
+  font-weight: bold;
+  padding: 2px 10px;
+  background-color: var(--vp-c-bg-soft);
 }
-
-/**
- * Component: Home
- * -------------------------------------------------------------------------- */
-
-
-
-/**
- * Component: Custom Block
- * -------------------------------------------------------------------------- */
-
-:root {
-  --vp-custom-block-tip-border: transparent;
-  --vp-custom-block-tip-text: var(--vp-c-text-1);
-  --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
-  --vp-code-block-bg: #1b1b1f; /* 代码块背景色 */
-}
-
-/* 代码块文字颜色 */
-.vp-doc .line-numbers-wrapper {
-  color: #ffffff;
-}
-
-/* 代码块内容颜色 */
-.vp-doc code {
-  color: #e6e6e6;
-}
-
-/* 代码块整体样式 */
-.vp-doc pre {
-  background-color: #1b1b1f !important;
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-/* 黑色模式下的代码块样式 */
-.dark .vp-doc pre {
-  background-color: #0d0d0d !important;
-  border: 1px solid #333;
-}
-
-.dark .vp-doc code {
-  color: #f0f0f0;
-}
-
-.dark .vp-doc .line-numbers-wrapper {
-  color: #888;
-}
-
-/* 代码高亮样式 */
-.vp-doc code.hljs {
-  background: transparent;
-}
-
-.dark .vp-doc code.hljs {
-  color: #f0f0f0;
-}
-
-.VPSidebarItem.level-1.is-active > .item .link > .text {
-  color: #3eaf7c !important;
-  font-weight: 600 !important;
-}
-
-.VPSidebarItem.level-2.is-active > .item .link > .text {
-  color: #3eaf7c !important;
-  font-weight: 600 !important;
-}
-
-.VPSidebarItem.level-3.is-active > .item .link > .text {
-  color: #3eaf7c !important;
-  font-weight: 600 !important;
-}
-
-.VPSidebarItem.level-1.has-active > .item > .link > .text {
-  color: #3eaf7c !important;
-}
-
-.VPSidebarItem.level-2.has-active > .item > .link > .text {
-  color: #3eaf7c !important;
-}
-
-.VPSidebarItem.level-3.has-active > .item > .link > .text {
-  color: #3eaf7c !important;
-}
-
-.VPSidebarItem.level-1.is-link > .item > .link:hover .text {
-  color: #3eaf7c !important;
-}
-
-.VPSidebarItem.level-2.is-link > .item > .link:hover .text {
-  color: #3eaf7c !important;
-}
-
-.VPSidebarItem.level-3.is-link > .item > .link:hover .text {
-  color: #3eaf7c !important;
-}
-
-
-.VPSidebarItem.level-2.is-active > .item > .indicator {
-  background-color: #3eaf7c !important;
-}
-
-.VPSidebarItem.level-3.is-active > .item > .indicator {
-  background-color: #3eaf7c !important;
-}
-
-.outline-marker {
-  background-color: #3eaf7c !important;
-}
-
-.outline-link.active {
-  color: #3eaf7c !important;
-}
-
-/* 页脚样式优化 */
-:root {
-  /* 页脚变量 */
-  --footer-height: 70px;
-  --footer-padding: 12px;
-  --footer-margin-top: 20px;
-  --footer-border-radius: 8px;
-  --footer-font-size: 14px;
-  --footer-backdrop-filter: blur(10px) saturate(180%);
-  --footer-transition: all 0.3s ease;
-}
-
-/* 页脚基础样式 */
-.VPFooter {
-  /* 固定高度 */
-  height: var(--footer-height);
-  /* 布局设置 */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  /* 间距设置 */
-  padding: var(--footer-padding) !important;
-  margin-top: var(--footer-margin-top);
-  /* 视觉样式 */
-  backdrop-filter: var(--footer-backdrop-filter) !important;
-  border-radius: var(--footer-border-radius) var(--footer-border-radius) 0 0;
-  font-size: var(--footer-font-size) !important;
-  transition: var(--footer-transition);
-  
-  /* 链接通用样式 */
-  a {
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* 内容间距 */
-  .message {
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  
-  .copyright {
-    margin-top: 4px;
-  }
-}
-
-/* 白色主题下的页脚样式 */
-.VPFooter {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  border-top: 1px solid #eaeaea !important;
-  
-  .message {
-    color: #333 !important;
-  }
-  
-  .copyright {
-    color: #666 !important;
-  }
-  
-  a {
-    color: var(--vp-c-brand-1) !important;
-  }
-  
-  a:hover {
-    color: var(--vp-c-brand-2) !important;
-  }
-}
-
-/* 暗黑主题下的页脚样式 */
-.dark .VPFooter {
-  background-color: rgba(0, 0, 0, 0.8) !important;
-  border-top: 1px solid #333 !important;
-  
-  .message {
-    color: #f0f0f0 !important;
-  }
-  
-  .copyright {
-    color: #aaa !important;
-  }
-  
-  a {
-    color: var(--vp-c-brand-2) !important;
-  }
-  
-  a:hover {
-    color: var(--vp-c-brand-1) !important;
-  }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .VPFooter {
-    height: auto;
-    min-height: var(--footer-height);
-    padding: 10px !important;
-    font-size: 12px !important;
-  }
-  
-  .VPFooter .message {
-    margin-bottom: 2px;
-  }
-  
-  .VPFooter .copyright {
-    margin-top: 2px;
-  }
-}
-
-
 
 .image-src {
   max-width: 150px !important;
@@ -322,28 +21,445 @@
   border-radius: 50%;
 }
 
-/* .DocSearch-Button {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-} */
-
-
 /**
- * Component: Algolia
- * -------------------------------------------------------------------------- */
-
-.DocSearch {
-  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+ * Teek 登录页：左侧图在主题里默认 width:100% + 固定宽列，小图标会被拉大严重发虚。
+ */
+.tk-login .tk-login__left img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(85vh, 640px);
+  object-fit: contain;
+  object-position: center;
+  image-rendering: auto;
 }
 
+/* 仅右侧表单时居中 */
+.tk-login .tk-login__wrapper:not(:has(.tk-login__left)) {
+  justify-content: center;
+}
 
+.tk-login .tk-login__right__form__btn button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* 去掉 VitePress 默认 blockquote 左侧竖线 */
+.vp-doc blockquote {
+  border-left: none;
+}
 
 /**
- * Global custom styles
- * -------------------------------------------------------------------------- */
- /* 全局定义高亮样式 */
-.highlight {
-  color: #d86e89;
+ * Teek「聚光灯」aside 模式悬停竖条强制关闭。
+ */
+.tk-spotlight-hover__aside::before {
+  content: none;
+  display: none;
+}
+
+/* ==================== 首页 Hero 功能卡：毛玻璃 + hover 对齐 tk-home-card-hover ====================
+ * VPFeature 使用 scoped 纯色背景，需 !important + 写全 color-mix 比例，透明度才稳定生效。
+ */
+.VPHomeFeatures .VPFeature {
+  /* 更低不透明度 + 更强模糊，毛玻璃更明显（仍可透过看到背后底色） */
+  background-color: color-mix(
+    in srgb,
+    var(--vp-c-bg-soft) 26%,
+    transparent 74%
+  ) !important;
+  border: 1px solid
+    color-mix(in srgb, var(--vp-c-divider) 72%, transparent 28%) !important;
+  border-radius: 10px;
+  backdrop-filter: blur(28px) saturate(175%) brightness(1.02) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(175%) brightness(1.02) !important;
+  box-shadow:
+    0 4px 24px color-mix(in srgb, var(--vp-c-bg-elv) 55%, transparent 45%),
+    0 1px 0 color-mix(in srgb, var(--vp-c-text-1) 10%, transparent 90%),
+    inset 0 1px 0 color-mix(in srgb, var(--vp-c-bg-elv) 55%, transparent 45%);
+  transition:
+    border-color 0.25s,
+    background-color 0.25s,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.VPHomeFeatures .VPFeature:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--vp-c-bg-soft) 38%,
+    transparent 62%
+  ) !important;
+  box-shadow: 0 8px 32px var(--vp-c-brand-1);
+  transform: scale(1.02);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 52%, transparent 48%) !important;
+}
+
+.VPHomeFeatures .VPFeature.link:hover {
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 58%, transparent 42%) !important;
+}
+
+.VPHomeFeatures .VPFeature .icon {
+  background-color: color-mix(
+    in srgb,
+    var(--vp-c-default-soft) 38%,
+    transparent 62%
+  ) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--vp-c-text-1) 8%, transparent 92%);
+}
+
+/* ==================== 分类 / 标签页：主布局 ==================== */
+
+/* 主栏文章列表 + 右侧固定宽侧栏 */
+.tk-home--catalog .tk-home__content__info.is-right {
+  flex: 0 0 var(--tk-home-card-width);
+  max-width: var(--tk-home-card-width);
+  min-width: 0;
+}
+
+/*
+ * 左侧文章列表不覆盖 .tk-post-item：使用 Teek 自带 home-post-item +
+ * tk-home-card-hover.css（与 Teek 文档站 tk-plus/home-card-hover 一致）。
+ */
+
+/* ==================== 文章列表：去掉圆点（vp-doc 下 ul 易带出列表样式） ==================== */
+
+.tk-home--catalog .tk-post-list > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tk-home--catalog .tk-post-list > ul > li {
+  list-style: none;
+}
+
+/* ==================== 侧栏卡片（TkPageCard）统一样式 ==================== */
+
+.tk-home--catalog .tk-category .tk-page-card.card,
+.tk-home--catalog .tk-tag .tk-page-card.card {
+  background-color: var(--tk-bg-color-elm, var(--vp-c-bg-soft));
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  box-shadow: var(--tk-card-shadow, var(--vp-shadow-2));
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.tk-home--catalog .tk-category .tk-page-card.card:hover,
+.tk-home--catalog .tk-tag .tk-page-card.card:hover {
+  box-shadow: var(--tk-hover-shadow);
+  transform: scale(1.01);
+}
+
+.tk-home--catalog :deep(.tk-page-card__header .title) {
+  text-decoration: none;
+}
+
+/* ==================== 分类侧栏：改为标签芯片样式（对齐 teek tags 页） ==================== */
+
+/* 容器改为 flex-wrap 布局，覆盖 flx-column */
+.tk-home--catalog .tk-category__list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  margin-top: 5px;
+}
+
+/* 分类项改为 inline-block 芯片 */
+.tk-home--catalog .tk-category__list a {
+  display: inline-block;
+  width: auto;
+  padding: 0 7px;
+  border-radius: 3px;
+  margin: 0 5px 6px;
+  height: 24px;
+  line-height: 24px;
+  font-size: var(--tk-home-font-size-small, 13px);
+  text-align: center;
+  text-decoration: none;
+  border-left: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* 分类项 7 色循环（对齐 teek 标签色板，无可见边框） */
+.tk-home--catalog .tk-category__list a:nth-child(7n+1):not(.active) {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+.tk-home--catalog .tk-category__list a:nth-child(7n+2):not(.active) {
+  background-color: #faf5ff;
+  color: #9333ea;
+}
+.tk-home--catalog .tk-category__list a:nth-child(7n+3):not(.active) {
+  background-color: #fdf2f8;
+  color: #db2777;
+}
+.tk-home--catalog .tk-category__list a:nth-child(7n+4):not(.active) {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+.tk-home--catalog .tk-category__list a:nth-child(7n+5):not(.active) {
+  background-color: #fffbeb;
+  color: #d97706;
+}
+.tk-home--catalog .tk-category__list a:nth-child(7n+6):not(.active) {
+  background-color: #ecfeff;
+  color: #0891b2;
+}
+.tk-home--catalog .tk-category__list a:nth-child(7n+0):not(.active) {
+  background-color: #eef2ff;
+  color: #4f46e5;
+}
+
+/* hover：上浮 + 放大，保持自身色 */
+.tk-home--catalog .tk-category__list a:hover {
+  transform: translateY(-2px) scale(1.05);
+  text-decoration: none;
+}
+
+/* 激活态：投影 + 放大 + 主题色（优先级高于 nth-child） */
+.tk-home--catalog .tk-category__list a.active {
+  box-shadow: 0 5px 10px -5px var(--tk-theme-color, var(--vp-c-brand-1));
+  transform: scale(1.15);
+  background: var(--tk-theme-color, var(--vp-c-brand-1)) !important;
+  color: var(--tk-bg-color, #ffffff) !important;
+  border-color: transparent !important;
+  border-radius: 3px;
+}
+
+.tk-home--catalog .tk-category__list a.active:hover {
+  text-decoration: none;
+}
+
+/* ==================== 标签侧栏：链接无下划线 ==================== */
+
+.tk-home--catalog .tk-tag__list a {
+  text-decoration: none;
+}
+
+.tk-home--catalog .tk-tag__list a:hover {
+  text-decoration: none;
+}
+
+/* 侧栏 "更多" 链接 */
+.tk-home--catalog .tk-tag__list .more:hover,
+.tk-home--catalog .tk-category__list .more:hover {
+  text-decoration: none;
+}
+
+/* ==================== 隐藏侧栏计数数字 ==================== */
+
+/* 标签侧栏右上角数字 */
+.tk-home--catalog .tk-tag__list a .num {
+  display: none;
+}
+
+/* 分类侧栏计数（右侧 span） */
+.tk-home--catalog .tk-category__list a span:not(.sle) {
+  display: none;
+}
+
+/* ==================== 分页组件样式（对齐 teek TkPagination） ==================== */
+
+.tk-home--catalog .tk-post-list__pagination {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination button,
+.tk-home--catalog .tk-post-list__pagination .tk-pager li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg-soft);
+  border: none;
+  border-radius: 2px;
+  padding: 0 4px;
+  margin: 0 4px;
+  cursor: pointer;
+  list-style: none;
+  box-sizing: border-box;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination button:hover,
+.tk-home--catalog .tk-post-list__pagination .tk-pager li:hover {
+  color: var(--tk-theme-color, var(--vp-c-brand-1));
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pager {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pager li.is-active {
+  background-color: var(--tk-theme-color, var(--vp-c-brand-1));
+  color: #ffffff;
   font-weight: bold;
-  padding:2px 10px;
-  background-color: #f7f7f7;
+  cursor: default;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination button:disabled,
+.tk-home--catalog .tk-post-list__pagination .tk-pager li.is-disabled {
+  color: var(--vp-c-text-3);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* 分页跳转输入框 */
+.tk-home--catalog .tk-post-list__pagination .tk-pagination__jump {
+  margin-left: 16px;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination__input {
+  width: 56px;
+  text-align: center;
+  padding: 1px 11px;
+  border-radius: 4px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination__input:hover {
+  border-color: var(--vp-c-border);
+}
+
+.tk-home--catalog .tk-post-list__pagination .tk-pagination__input:focus {
+  border-color: var(--vp-c-brand-2);
+  outline: none;
+}
+
+/* ==================== 通用：链接无下划线、列表无圆点 ==================== */
+
+/* vp-doc 内链接去掉下划线 */
+.tk-home--catalog.vp-doc a {
+  text-decoration: none;
+}
+
+.tk-home--catalog.vp-doc a:hover {
+  text-decoration: none;
+}
+
+/* 确保文章卡片内所有链接无下划线 */
+.tk-home--catalog .tk-post-item a,
+.tk-home--catalog .tk-post-item__left a,
+.tk-home--catalog .tk-post-item__left__title a,
+.tk-home--catalog .tk-post-item__left__excerpt a,
+.tk-home--catalog .tk-post-item__left__meta a {
+  text-decoration: none;
+}
+
+/* 去掉所有列表圆点 */
+.tk-home--catalog ul,
+.tk-home--catalog ol {
+  list-style: none;
+}
+
+.tk-home--catalog ul li::marker,
+.tk-home--catalog ol li::marker {
+  content: none;
+}
+
+.tk-home--catalog ul li,
+.tk-home--catalog ol li {
+  list-style: none;
+}
+
+/* ==================== 深色模式 ==================== */
+
+html.dark .tk-home--catalog .tk-category .tk-page-card.card,
+html.dark .tk-home--catalog .tk-tag .tk-page-card.card {
+  background-color: var(--vp-c-bg-soft);
+  border-color: var(--vp-c-divider);
+}
+
+html.dark .tk-home--catalog .tk-post-list__pagination button,
+html.dark .tk-home--catalog .tk-post-list__pagination .tk-pager li {
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+}
+
+html.dark .tk-home--catalog .tk-post-list__pagination .tk-pager li.is-active {
+  background-color: var(--tk-theme-color, var(--vp-c-brand-1));
+  color: #ffffff;
+}
+
+/* ==================== 移动端适配 ==================== */
+
+@media (max-width: 960px) {
+  .tk-home--catalog .tk-home__content {
+    flex-direction: column;
+  }
+
+  .tk-home--catalog .tk-home__content__post {
+    width: 100%;
+  }
+
+  .tk-home--catalog .tk-home__content__info.is-right {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-top: 24px;
+  }
+
+  /* 侧栏卡片上下排列 */
+  .tk-home--catalog .tk-category.is-page,
+  .tk-home--catalog .tk-tag.is-page {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  /* 分页简化布局 */
+  .tk-home--catalog .tk-post-list__pagination .tk-pagination__jump,
+  .tk-home--catalog .tk-post-list__pagination .tk-pagination__total {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 分页按钮缩小 */
+  .tk-home--catalog .tk-post-list__pagination button,
+  .tk-home--catalog .tk-post-list__pagination .tk-pager li {
+    min-width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    margin: 0 2px;
+    padding: 0 3px;
+  }
+
+  /* 分类/标签芯片在移动端可稍微密集排列 */
+  .tk-home--catalog .tk-category__list a,
+  .tk-home--catalog .tk-tag__list a {
+    margin: 0 3px 5px;
+  }
 }

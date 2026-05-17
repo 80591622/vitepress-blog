@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: theory
+categories:
+  - Interviews
+tags:
+  - Interviews
+---
 
 
 # 理论解答

@@ -1,3 +1,11 @@
+---
+date: 2026-05-10 22:52:36
+title: array
+categories:
+  - Js
+tags:
+  - Js
+---
 
 # Array的方法简单整理
 ## 快速生成一个数组

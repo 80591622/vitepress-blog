@@ -1,3 +1,12 @@
+---
+date: 2026-05-10 22:52:36
+title: template
+categories:
+  - Frame
+  - taro
+tags:
+  - taro
+---
 
 # Node生成模板
 **基于nodejs编写自动生成路由需要的文件**
