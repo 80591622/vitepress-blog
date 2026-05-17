@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
-const { spawnSync } = require("child_process");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { spawnSync } from "child_process";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
 const configPath = path.join(__dirname, "deploy.config.json");
 
