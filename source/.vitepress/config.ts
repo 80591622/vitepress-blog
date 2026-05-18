@@ -1,13 +1,13 @@
 import { defineConfig } from "vitepress";
 import type { DefaultTheme } from "vitepress";
 import { teekConfig } from "./teekConfig";
-import search from "./config/search.js";
-import sidebar from "./config/sidebar.js";
-import socialLinks from "./config/socialLinks.js";
-import nav from "./config/nav.js";
+import { teekViteConfig } from "./teekVite";
+import search from "./config/search";
+import sidebar from "./config/sidebar";
+import socialLinks from "./config/socialLinks";
+import nav from "./config/nav";
 
-const description =
-  "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具";
+const description = "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具";
 
 export default defineConfig({
   extends: teekConfig,
@@ -18,6 +18,10 @@ export default defineConfig({
   lastUpdated: true,
   base: "/",
   cleanUrls: false,
+  /** 功能页放在 source/routes/，通过重写映射到 /archives、/categories 等 URL */
+  rewrites: {
+    "routes/:page.md": ":page.md",
+  },
   outDir: "../dist",
   head: [
     ["link", { rel: "icon", type: "image/x-icon", href: "/img/clock.png" }],
@@ -43,6 +47,7 @@ export default defineConfig({
     },
   },
   vite: {
+    ...teekViteConfig,
     build: {
       chunkSizeWarningLimit: 3000,
     },
@@ -61,7 +66,7 @@ export default defineConfig({
       level: [2, 3],
       label: "本页导航",
     },
-    search: search as DefaultTheme.Config["search"],
+    search,
     socialLinks,
     sidebar,
     nav,

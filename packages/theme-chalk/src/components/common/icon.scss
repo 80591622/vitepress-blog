@@ -1,0 +1,48 @@
+@use "../../mixins/bem" as *;
+@use "../../mixins/function" as *;
+
+@include b(icon) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  font-size: var(--icon-size, inherit);
+  line-height: 1em;
+  color: var(--icon-color, inherit);
+  fill: var(--icon-color, currentColor);
+  transition: color getCssVar("transition-duration");
+
+  &.iconfont {
+    font-size: var(--icon-size, inherit); // 覆盖 iconfont 自带 font-size
+  }
+
+  svg {
+    width: var(--icon-size, 1em);
+    height: var(--icon-size, 1em);
+    vertical-align: middle;
+    fill: currentcolor;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .iconfont {
+    font-size: var(--icon-size, 1em);
+    color: var(--icon-color, inherit);
+  }
+
+  @include is(hover) {
+    &:hover {
+      svg,
+      i {
+        color: var(--icon-color-hover, inherit);
+      }
+      @at-root i#{&} {
+        color: var(--icon-color-hover, inherit);
+      }
+    }
+  }
+}

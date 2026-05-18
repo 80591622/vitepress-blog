@@ -9,13 +9,29 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": true,
     "importHelpers": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["node", "vite/client", "vitepress/client"],
     "paths": {
-      "@/*": ["./source/*"]
+      "@/*": ["./source/*"],
+      "vitepress-theme-teek": ["./packages/teek/index.ts"],
+      "vitepress-theme-teek/config": ["./packages/config/index.ts"],
+      "vitepress-theme-teek/es/version": ["./packages/teek/version.ts"],
+      "@teek/components": ["./packages/components/index.ts"],
+      "@teek/components/*": ["./packages/components/*"],
+      "@teek/composables": ["./packages/composables/index.ts"],
+      "@teek/composables/*": ["./packages/composables/*"],
+      "@teek/config": ["./packages/config/index.ts"],
+      "@teek/config/*": ["./packages/config/*"],
+      "@teek/helper": ["./packages/helper/dist/index.d.ts"],
+      "@teek/locale": ["./packages/locale/index.ts"],
+      "@teek/markdown": ["./packages/markdown/index.ts"],
+      "@teek/markdown/*": ["./packages/markdown/*"],
+      "@teek/static": ["./packages/static/index.ts"],
+      "@teek/static/*": ["./packages/static/*"],
+      "@teek/theme-chalk": ["./packages/theme-chalk/src/index.scss"]
     }
   },
   "include": [
@@ -23,11 +39,10 @@
     "source/.vitepress/**/*.vue",
     "source/.vitepress/**/*.d.ts",
     "source/**/*.ts",
-    "source/**/*.tsx"
+    "source/**/*.tsx",
+    "scripts/**/*.ts",
+    "packages/**/*.ts",
+    "packages/**/*.vue"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "source/.vitepress/.temp"
-  ]
+  "exclude": ["node_modules", "dist", "source/.vitepress/.temp", "plugins/**", "**/build.config.ts"]
 }

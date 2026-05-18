@@ -4,28 +4,78 @@
   "description": "A technical blog built with VitePress",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.7.1",
   "engines": {
     "node": ">=18.12.0"
   },
   "dependencies": {
+    "vitepress-theme-teek": "workspace:*",
+    "@teek/helper": "workspace:*",
+    "@iconify/vue": "catalog:",
+    "@vue/compiler-dom": "catalog:vue",
     "echarts": "^5.6.0",
-    "vitepress-theme-teek": "^1.5.7",
-    "vue": "^3.5.33"
+    "gray-matter": "catalog:",
+    "js-yaml": "catalog:",
+    "markdown-it-container": "catalog:",
+    "vitepress-plugin-auto-frontmatter": "workspace:*",
+    "vitepress-plugin-catalogue": "workspace:*",
+    "vitepress-plugin-doc-analysis": "workspace:*",
+    "vitepress-plugin-file-content-loader": "workspace:*",
+    "vitepress-plugin-md-h1": "workspace:*",
+    "vitepress-plugin-permalink": "workspace:*",
+    "vitepress-plugin-sidebar-resolve": "workspace:*",
+    "vue": "catalog:vue"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "commitizen": "^4.3.1",
+    "cz-git": "^1.12.0",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-vue": "^10.8.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "only-allow": "^1.2.2",
+    "unbuild": "3.6.1",
+    "prettier": "^3.8.1",
     "rimraf": "^5.0.5",
     "sass": "^1.99.0",
-    "typescript": "^5.4.5",
+    "tsx": "^4.19.4",
+    "typescript": "catalog:",
     "vite": "^5.4.21",
-    "vitepress": "^1.6.4"
+    "vitepress": "^1.6.4",
+    "vue-eslint-parser": "^10.4.0"
   },
   "scripts": {
+    "preinstall": "pnpm exec only-allow pnpm",
+    "plugins:build": "pnpm -r --filter \"./plugins/*\" run build",
+    "plugins:stub": "pnpm -r --filter \"./plugins/*\" run stub",
+    "helper:build": "pnpm run -C packages/helper build",
     "dev": "vitepress dev source",
-    "build": "vitepress build source",
+    "build": "pnpm run helper:build && vitepress build source",
     "preview": "vitepress preview source",
     "clean": "rimraf dist",
-    "deploy": "node scripts/deploy.js"
+    "typecheck": "tsc --noEmit && pnpm run typecheck:plugins",
+    "typecheck:plugins": "pnpm -r --filter \"./plugins/*\" run typecheck",
+    "deploy": "tsx scripts/deploy.ts",
+    "lint:lint-staged": "lint-staged -c .husky/lintstagedrc.js",
+    "lint:prettier": "prettier \"**/*.{js,jsx,ts,tsx,vue,css,less,sass,scss,json,md}\" --write --ignore-path .prettierignore",
+    "lint:eslint": "eslint . --fix",
+    "lint": "pnpm run lint:eslint && pnpm run lint:prettier",
+    "prepare": "husky",
+    "cz": "git add . && git-cz",
+    "czp": "git add . && git-cz && git push"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   }
 }

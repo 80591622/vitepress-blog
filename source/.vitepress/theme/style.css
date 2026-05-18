@@ -21,33 +21,6 @@
   border-radius: 50%;
 }
 
-/**
- * Teek 登录页：左侧图在主题里默认 width:100% + 固定宽列，小图标会被拉大严重发虚。
- */
-.tk-login .tk-login__left img {
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: min(85vh, 640px);
-  object-fit: contain;
-  object-position: center;
-  image-rendering: auto;
-}
-
-/* 仅右侧表单时居中 */
-.tk-login .tk-login__wrapper:not(:has(.tk-login__left)) {
-  justify-content: center;
-}
-
-.tk-login .tk-login__right__form__btn button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
 /* 去掉 VitePress 默认 blockquote 左侧竖线 */
 .vp-doc blockquote {
   border-left: none;
@@ -66,13 +39,8 @@
  */
 .VPHomeFeatures .VPFeature {
   /* 更低不透明度 + 更强模糊，毛玻璃更明显（仍可透过看到背后底色） */
-  background-color: color-mix(
-    in srgb,
-    var(--vp-c-bg-soft) 26%,
-    transparent 74%
-  ) !important;
-  border: 1px solid
-    color-mix(in srgb, var(--vp-c-divider) 72%, transparent 28%) !important;
+  background-color: color-mix(in srgb, var(--vp-c-bg-soft) 26%, transparent 74%) !important;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, transparent 28%) !important;
   border-radius: 10px;
   backdrop-filter: blur(28px) saturate(175%) brightness(1.02) !important;
   -webkit-backdrop-filter: blur(28px) saturate(175%) brightness(1.02) !important;
@@ -88,11 +56,7 @@
 }
 
 .VPHomeFeatures .VPFeature:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--vp-c-bg-soft) 38%,
-    transparent 62%
-  ) !important;
+  background-color: color-mix(in srgb, var(--vp-c-bg-soft) 38%, transparent 62%) !important;
   box-shadow: 0 8px 32px var(--vp-c-brand-1);
   transform: scale(1.02);
   border-color: color-mix(in srgb, var(--vp-c-brand-1) 52%, transparent 48%) !important;
@@ -103,11 +67,7 @@
 }
 
 .VPHomeFeatures .VPFeature .icon {
-  background-color: color-mix(
-    in srgb,
-    var(--vp-c-default-soft) 38%,
-    transparent 62%
-  ) !important;
+  background-color: color-mix(in srgb, var(--vp-c-default-soft) 38%, transparent 62%) !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--vp-c-text-1) 8%, transparent 92%);
@@ -147,7 +107,9 @@
   border: 1px solid var(--vp-c-divider);
   border-radius: 10px;
   box-shadow: var(--tk-card-shadow, var(--vp-shadow-2));
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
 
 .tk-home--catalog .tk-category .tk-page-card.card:hover,
@@ -184,38 +146,39 @@
   text-align: center;
   text-decoration: none;
   border-left: none;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background-color 0.3s ease,
     color 0.3s ease;
 }
 
 /* 分类项 7 色循环（对齐 teek 标签色板，无可见边框） */
-.tk-home--catalog .tk-category__list a:nth-child(7n+1):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 1):not(.active) {
   background-color: #eff6ff;
   color: #2563eb;
 }
-.tk-home--catalog .tk-category__list a:nth-child(7n+2):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 2):not(.active) {
   background-color: #faf5ff;
   color: #9333ea;
 }
-.tk-home--catalog .tk-category__list a:nth-child(7n+3):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 3):not(.active) {
   background-color: #fdf2f8;
   color: #db2777;
 }
-.tk-home--catalog .tk-category__list a:nth-child(7n+4):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 4):not(.active) {
   background-color: #ecfdf5;
   color: #059669;
 }
-.tk-home--catalog .tk-category__list a:nth-child(7n+5):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 5):not(.active) {
   background-color: #fffbeb;
   color: #d97706;
 }
-.tk-home--catalog .tk-category__list a:nth-child(7n+6):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 6):not(.active) {
   background-color: #ecfeff;
   color: #0891b2;
 }
-.tk-home--catalog .tk-category__list a:nth-child(7n+0):not(.active) {
+.tk-home--catalog .tk-category__list a:nth-child(7n + 0):not(.active) {
   background-color: #eef2ff;
   color: #4f46e5;
 }
@@ -300,7 +263,9 @@
   cursor: pointer;
   list-style: none;
   box-sizing: border-box;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .tk-home--catalog .tk-post-list__pagination .tk-pagination button:hover,

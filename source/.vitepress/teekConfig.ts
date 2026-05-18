@@ -1,5 +1,5 @@
-import { defineTeekConfig } from "vitepress-theme-teek/config";
-import { version } from "vitepress-theme-teek/es/version";
+import { defineTeekConfig } from "../../packages/config";
+import { version } from "../../packages/teek/version";
 
 export const teekConfig = defineTeekConfig({
   teekHome: false,
@@ -39,18 +39,14 @@ export const teekConfig = defineTeekConfig({
     copiedDone: TkMessage => TkMessage.success("复制成功！"),
   },
   articleShare: { enabled: true },
-  /** 分类 / 标签页文案与路由（对齐 Teek 文档站习惯） */
+  /** 分类 / 标签页路由与文案；标题图标由 Teek 默认注入，勿在 pageTitle 中写 "${svg}" */
   category: {
     path: "/categories",
-    pageTitle: "${icon}全部分类",
-    homeTitle: "${icon}文章分类",
     moreLabel: "更多 ...",
     emptyLabel: "暂无文章分类",
   },
   tag: {
     path: "/tags",
-    pageTitle: "${icon}全部标签",
-    homeTitle: "${icon}热门标签",
     moreLabel: "更多 ...",
     emptyLabel: "暂无标签",
   },
@@ -69,7 +65,7 @@ export const teekConfig = defineTeekConfig({
     permalink: false,
     /**
      * 关闭按目录自动生成的侧栏。否则插件会覆盖 themeConfig.sidebar，出现 Analysis/Css/Frame 等目录树且与手写层级不一致。
-     * 侧栏使用 ./config/sidebar.js 全量维护。
+     * 侧栏使用 ./config/sidebar.ts 全量维护。
      */
     sidebar: false,
     autoFrontmatter: true,
@@ -77,15 +73,7 @@ export const teekConfig = defineTeekConfig({
       permalink: false,
       categories: true,
       globOptions: {
-        ignore: [
-          "**/index.md",
-          "**/categories.md",
-          "**/tags.md",
-          "**/archives.md",
-          "**/articleOverview.md",
-          "**/login.md",
-          "**/risk-link.md",
-        ],
+        ignore: ["**/index.md", "**/routes/*.md"],
       },
       transform(merged, fileInfo) {
         const rel = fileInfo.relativePath.replace(/\\/g, "/");

@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "@teek/markdown",
+  "description": "Markdown parser for Teek, include markdown plugin",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@teek/config": "workspace:*",
+    "@teek/helper": "workspace:*",
+    "js-yaml": "catalog:",
+    "markdown-it-container": "catalog:"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "catalog:",
+    "@types/markdown-it": "catalog:",
+    "@types/markdown-it-container": "catalog:",
+    "vitepress": "catalog:"
+  }
+}

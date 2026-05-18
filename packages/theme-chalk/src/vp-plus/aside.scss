@@ -1,0 +1,18 @@
+@use "../mixins/function" as *;
+
+/* 右侧目栏录文字悬停和激活样式 */
+.VPDoc {
+  .aside .aside-container .outline-link {
+    transition:
+      color getCssVar("transition-duration"),
+      transform getCssVar("transition-duration");
+
+    &:hover {
+      transform: translate(4px);
+    }
+
+    &.active {
+      color: getCssVar("theme-color");
+    }
+  }
+}
