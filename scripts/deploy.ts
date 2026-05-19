@@ -200,57 +200,17 @@ function checkSshConnection(config: DeployConfig & { serverPort: string }): void
   }
 }
 
-function buildRemoteDeployScript(config: DeployConfig & { serverPort: string }): string {
+function buildRemoteDeployEnv(config: DeployConfig & { serverPort: string }): string {
   const timestamp = Date.now();
-  const releaseDir = `.deploy-release-${timestamp}`;
-  const backupDir = `.deploy-backup-${timestamp}`;
   const remoteArchiveName = path.posix.basename(config.archiveName.replace(/\\/g, "/"));
   const remoteTargetPath = validateRelativePath(config.distDir, "distDir");
-  const remoteTargetParent = path.posix.dirname(remoteTargetPath);
 
   return [
-    "set -e",
-    `cd ${quotePosix(config.serverDir)}`,
-    `release_dir=${quotePosix(releaseDir)}`,
-    `backup_dir=${quotePosix(backupDir)}`,
-    `archive_name=${quotePosix(remoteArchiveName)}`,
-    `target_path=${quotePosix(remoteTargetPath)}`,
-    `target_parent=${quotePosix(remoteTargetParent)}`,
-    "cleanup() {",
-    '  rm -rf "$release_dir" "$backup_dir"',
-    '  rm -f "$archive_name"',
-    "}",
-    "rollback() {",
-    "  status=$?",
-    '  if [ "$status" -ne 0 ] && [ -e "$backup_dir" ] && [ ! -e "$target_path" ]; then',
-    '    if [ "$target_parent" != "." ]; then',
-    '      mkdir -p "$target_parent"',
-    "    fi",
-    '    mv "$backup_dir" "$target_path"',
-    "  fi",
-    "  cleanup",
-    '  exit "$status"',
-    "}",
-    "trap rollback EXIT",
-    'rm -rf "$release_dir" "$backup_dir"',
-    'mkdir -p "$release_dir"',
-    'tar -zxf "$archive_name" -C "$release_dir"',
-    'if [ ! -e "$release_dir/$target_path" ]; then',
-    '  echo "未找到解压后的目标目录：$release_dir/$target_path" >&2',
-    "  exit 1",
-    "fi",
-    'if [ "$target_parent" != "." ]; then',
-    '  mkdir -p "$target_parent"',
-    "fi",
-    'if [ -e "$target_path" ]; then',
-    '  mv "$target_path" "$backup_dir"',
-    "fi",
-    'mv "$release_dir/$target_path" "$target_path"',
-    'rm -rf "$backup_dir"',
-    'rm -rf "$release_dir"',
-    'rm -f "$archive_name"',
-    "trap - EXIT",
-  ].join("\n");
+    `DEPLOY_SERVER_DIR=${quotePosix(config.serverDir)}`,
+    `DEPLOY_TARGET_PATH=${quotePosix(remoteTargetPath)}`,
+    `DEPLOY_ARCHIVE_NAME=${quotePosix(remoteArchiveName)}`,
+    `DEPLOY_TIMESTAMP=${quotePosix(String(timestamp))}`,
+  ].join(" ");
 }
 
 function deploy(): void {
@@ -286,10 +246,11 @@ function deploy(): void {
       [...buildScpArgs(config.serverPort), "-C", archivePath, `${target}:${remoteArchivePath}`],
       `📤 上传 ${remoteArchiveName} 到 ${target}`
     );
+    const remoteDeployScript = fs.readFileSync(path.join(__dirname, "remote-deploy.sh"), "utf8");
     runSshBashScript(
       target,
       config.serverPort,
-      buildRemoteDeployScript(config),
+      `${buildRemoteDeployEnv(config)}\n${remoteDeployScript}`,
       `🖥️  在远程服务器部署 ${remoteArchiveName}`
     );
     fs.rmSync(path.resolve(projectRoot, distDir), {

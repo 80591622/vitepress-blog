@@ -1,0 +1,8 @@
+{
+  "distDir": "dist",
+  "archiveName": "dist.tar.gz",
+  "serverUser": "root",
+  "serverIP": "your-server-ip",
+  "serverDir": "/home/www/your-site",
+  "serverPort": 22
+}

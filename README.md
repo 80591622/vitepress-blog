@@ -127,3 +127,35 @@ pnpm exec tsx scripts/deploy.ts
 - 已配置服务器 SSH 免密登录
 - 本地安装 Node.js（>= 18.12）和 pnpm
 - 系统自带 `tar`、`ssh`、`scp` 命令（Windows 10/11 已内置）
+
+## CI/CD（GitHub Actions）
+
+推送或合并到 `master` 时，会自动执行 **CI**（代码检查与构建）；在仓库配置了部署密钥后，还会执行 **CD**（构建并 SSH 部署到服务器）。
+
+| Workflow | 触发时机 | 说明 |
+| --- | --- | --- |
+| [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) | `push` / `pull_request` → `master` | ESLint、Typecheck、`pnpm build` |
+| [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) | `push` → `master` 或手动 `workflow_dispatch` | 构建后上传 `dist.tar.gz` 并在服务器解压部署 |
+
+### 配置 GitHub Secrets
+
+在仓库 **Settings → Secrets and variables → Actions** 中新增：
+
+| Secret | 说明 | 示例 |
+| --- | --- | --- |
+| `DEPLOY_SSH_KEY` | 部署用私钥（完整 PEM，含首尾行） | `-----BEGIN OPENSSH PRIVATE KEY-----` … |
+| `DEPLOY_HOST` | 服务器 IP 或域名 | `121.40.92.55` |
+| `DEPLOY_USER` | SSH 用户名 | `root` |
+| `DEPLOY_DIR` | 站点根目录（与 `deploy.config.json` 的 `serverDir` 一致） | `/home/www/www.wkdev.cn` |
+| `DEPLOY_PORT` | SSH 端口（可选，默认 22） | `22` |
+
+未配置 `DEPLOY_SSH_KEY` 时，Deploy 工作流会自动跳过，仅 CI 仍会运行。
+
+### 本地模拟 CI
+
+```bash
+pnpm install
+pnpm exec eslint . --max-warnings 0
+pnpm run typecheck
+pnpm run build
+```
