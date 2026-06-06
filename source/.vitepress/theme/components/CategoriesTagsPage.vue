@@ -8,6 +8,7 @@ import {
   postDataUpdateSymbol,
   type TkHomePostInstance,
 } from "vitepress-theme-teek";
+import CalendarCard from "./CalendarCard.vue";
 
 const { frontmatter } = useData();
 
@@ -36,6 +37,7 @@ provide(postDataUpdateSymbol, () => {
       <div class="tk-home__content__info is-right">
         <TkHomeCardCategory v-if="isCategoriesPage" :categories-page="true" />
         <TkHomeCardTag v-else :tags-page="true" />
+        <CalendarCard />
       </div>
     </div>
   </div>

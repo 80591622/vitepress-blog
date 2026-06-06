@@ -13,6 +13,15 @@
   flex: 0 0 var(--tk-home-card-width);
   max-width: var(--tk-home-card-width);
   min-width: 0;
+  /* 底部留白避免被右下角浮动按钮遮盖 */
+  padding-bottom: 120px;
+}
+
+/* 禁用分类卡片自身的 sticky，防止遮盖下方日历卡片 */
+.tk-home--categories .tk-category.is-page {
+  position: static !important;
+  max-height: none !important;
+  overflow-y: visible !important;
 }
 
 /* 文章列表：去掉圆点 */
@@ -39,6 +48,23 @@
 
 .tk-home--categories .tk-category .tk-page-card.card:hover,
 .tk-home--categories .tk-tag .tk-page-card.card:hover {
+  box-shadow: 0 8px 32px var(--vp-c-brand-1) !important;
+  transform: scale(1.02) !important;
+}
+
+/* 日历卡片 */
+.tk-home--categories .tk-page-card.card.tk-calendar-card {
+  margin-top: 20px;
+  background-color: var(--tk-bg-color-elm, var(--vp-c-bg-soft));
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  box-shadow: var(--tk-card-shadow, var(--vp-shadow-2));
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.tk-home--categories .tk-page-card.card.tk-calendar-card:hover {
   box-shadow: 0 8px 32px var(--vp-c-brand-1) !important;
   transform: scale(1.02) !important;
 }
@@ -268,7 +294,8 @@
 .tk-home--categories .tk-post-item-list,
 .tk-home--categories .tk-post-item-card,
 .tk-home--categories .tk-category .tk-page-card.card,
-.tk-home--categories .tk-tag .tk-page-card.card {
+.tk-home--categories .tk-tag .tk-page-card.card,
+.tk-home--categories .tk-page-card.card.tk-calendar-card {
   margin-bottom: 15px;
   border-radius: 10px;
   transition:
@@ -283,7 +310,8 @@
 }
 
 /* 深色模式 */
-html.dark .tk-home--categories .tk-category .tk-page-card.card {
+html.dark .tk-home--categories .tk-category .tk-page-card.card,
+html.dark .tk-home--categories .tk-page-card.card.tk-calendar-card {
   background-color: var(--vp-c-bg-soft);
   border-color: var(--vp-c-divider);
 }

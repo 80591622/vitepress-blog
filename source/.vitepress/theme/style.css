@@ -85,6 +85,15 @@
   flex: 0 0 var(--tk-home-card-width);
   max-width: var(--tk-home-card-width);
   min-width: 0;
+  /* 底部留白避免被右下角浮动按钮遮盖 */
+  padding-bottom: 120px;
+}
+
+/* 禁用标签卡片自身的 sticky，防止遮盖下方日历卡片 */
+.tk-home--catalog .tk-tag.is-page {
+  position: static !important;
+  max-height: none !important;
+  overflow-y: visible !important;
 }
 
 /*
@@ -94,20 +103,21 @@
 
 /* ==================== 文章列表：去掉圆点（vp-doc 下 ul 易带出列表样式） ==================== */
 
-.tk-home--catalog .tk-post-list > ul {
+.tk-home--catalog .tk-post > ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.tk-home--catalog .tk-post-list > ul > li {
+.tk-home--catalog .tk-post > ul > li {
   list-style: none;
 }
 
 /* ==================== 侧栏卡片（TkPageCard）统一样式 ==================== */
 
 .tk-home--catalog .tk-category .tk-page-card.card,
-.tk-home--catalog .tk-tag .tk-page-card.card {
+.tk-home--catalog .tk-tag .tk-page-card.card,
+.tk-home--catalog .tk-page-card.card.tk-calendar-card {
   background-color: var(--tk-bg-color-elm, var(--vp-c-bg-soft));
   border: 1px solid var(--vp-c-divider);
   border-radius: 10px;
@@ -118,9 +128,15 @@
 }
 
 .tk-home--catalog .tk-category .tk-page-card.card:hover,
-.tk-home--catalog .tk-tag .tk-page-card.card:hover {
+.tk-home--catalog .tk-tag .tk-page-card.card:hover,
+.tk-home--catalog .tk-page-card.card.tk-calendar-card:hover {
   box-shadow: 0 8px 32px var(--vp-c-brand-1) !important;
   transform: scale(1.02) !important;
+}
+
+/* 日历卡片上方间距（与 categories 页对齐） */
+.tk-home--catalog .tk-page-card.card.tk-calendar-card {
+  margin-top: 20px;
 }
 
 .tk-home--catalog :deep(.tk-page-card__header .title) {
@@ -238,20 +254,20 @@
 
 /* ==================== 分页组件样式（对齐 teek TkPagination） ==================== */
 
-.tk-home--catalog .tk-post-list__pagination {
+.tk-home--catalog .tk-post__pagination {
   margin-top: 24px;
   margin-bottom: 16px;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination {
+.tk-home--catalog .tk-post__pagination .tk-pagination {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination button,
-.tk-home--catalog .tk-post-list__pagination .tk-pager li {
+.tk-home--catalog .tk-post__pagination .tk-pagination button,
+.tk-home--catalog .tk-post__pagination .tk-pager li {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -273,12 +289,12 @@
     background-color 0.2s ease;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination button:hover,
-.tk-home--catalog .tk-post-list__pagination .tk-pager li:hover {
+.tk-home--catalog .tk-post__pagination .tk-pagination button:hover,
+.tk-home--catalog .tk-post__pagination .tk-pager li:hover {
   color: var(--tk-theme-color, var(--vp-c-brand-1));
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pager {
+.tk-home--catalog .tk-post__pagination .tk-pager {
   display: flex;
   align-items: center;
   list-style: none;
@@ -286,28 +302,28 @@
   margin: 0;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pager li.is-active {
+.tk-home--catalog .tk-post__pagination .tk-pager li.is-active {
   background-color: var(--tk-theme-color, var(--vp-c-brand-1));
   color: #ffffff;
   font-weight: bold;
   cursor: default;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination button:disabled,
-.tk-home--catalog .tk-post-list__pagination .tk-pager li.is-disabled {
+.tk-home--catalog .tk-post__pagination .tk-pagination button:disabled,
+.tk-home--catalog .tk-post__pagination .tk-pager li.is-disabled {
   color: var(--vp-c-text-3);
   cursor: not-allowed;
   opacity: 0.5;
 }
 
 /* 分页跳转输入框 */
-.tk-home--catalog .tk-post-list__pagination .tk-pagination__jump {
+.tk-home--catalog .tk-post__pagination .tk-pagination__jump {
   margin-left: 16px;
   color: var(--vp-c-text-2);
   font-size: 14px;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination__input {
+.tk-home--catalog .tk-post__pagination .tk-pagination__input {
   width: 56px;
   text-align: center;
   padding: 1px 11px;
@@ -319,11 +335,11 @@
   box-sizing: border-box;
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination__input:hover {
+.tk-home--catalog .tk-post__pagination .tk-pagination__input:hover {
   border-color: var(--vp-c-border);
 }
 
-.tk-home--catalog .tk-post-list__pagination .tk-pagination__input:focus {
+.tk-home--catalog .tk-post__pagination .tk-pagination__input:focus {
   border-color: var(--vp-c-brand-2);
   outline: none;
 }
@@ -385,7 +401,8 @@
 .tk-home--catalog .tk-post-item-list,
 .tk-home--catalog .tk-post-item-card,
 .tk-home--catalog .tk-category .tk-page-card.card,
-.tk-home--catalog .tk-tag .tk-page-card.card {
+.tk-home--catalog .tk-tag .tk-page-card.card,
+.tk-home--catalog .tk-page-card.card.tk-calendar-card {
   margin-bottom: 15px;
   border-radius: 10px;
   transition:
@@ -402,18 +419,19 @@
 /* ==================== 深色模式 ==================== */
 
 html.dark .tk-home--catalog .tk-category .tk-page-card.card,
-html.dark .tk-home--catalog .tk-tag .tk-page-card.card {
+html.dark .tk-home--catalog .tk-tag .tk-page-card.card,
+html.dark .tk-home--catalog .tk-page-card.card.tk-calendar-card {
   background-color: var(--vp-c-bg-soft);
   border-color: var(--vp-c-divider);
 }
 
-html.dark .tk-home--catalog .tk-post-list__pagination button,
-html.dark .tk-home--catalog .tk-post-list__pagination .tk-pager li {
+html.dark .tk-home--catalog .tk-post__pagination button,
+html.dark .tk-home--catalog .tk-post__pagination .tk-pager li {
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-1);
 }
 
-html.dark .tk-home--catalog .tk-post-list__pagination .tk-pager li.is-active {
+html.dark .tk-home--catalog .tk-post__pagination .tk-pager li.is-active {
   background-color: var(--tk-theme-color, var(--vp-c-brand-1));
   color: #ffffff;
 }
@@ -444,16 +462,16 @@ html.dark .tk-home--catalog .tk-post-list__pagination .tk-pager li.is-active {
   }
 
   /* 分页简化布局 */
-  .tk-home--catalog .tk-post-list__pagination .tk-pagination__jump,
-  .tk-home--catalog .tk-post-list__pagination .tk-pagination__total {
+  .tk-home--catalog .tk-post__pagination .tk-pagination__jump,
+  .tk-home--catalog .tk-post__pagination .tk-pagination__total {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
   /* 分页按钮缩小 */
-  .tk-home--catalog .tk-post-list__pagination button,
-  .tk-home--catalog .tk-post-list__pagination .tk-pager li {
+  .tk-home--catalog .tk-post__pagination button,
+  .tk-home--catalog .tk-post__pagination .tk-pager li {
     min-width: 24px;
     height: 24px;
     line-height: 24px;
