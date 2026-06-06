@@ -246,7 +246,8 @@ function deploy(): void {
       [...buildScpArgs(config.serverPort), "-C", archivePath, `${target}:${remoteArchivePath}`],
       `📤 上传 ${remoteArchiveName} 到 ${target}`
     );
-    const remoteDeployScript = fs.readFileSync(path.join(__dirname, "remote-deploy.sh"), "utf8");
+    // 归一化为 LF，避免 Windows 检出 CRLF 导致远端 bash 报 set: pipefail: invalid option
+    const remoteDeployScript = fs.readFileSync(path.join(__dirname, "remote-deploy.sh"), "utf8").replace(/\r\n/g, "\n");
     runSshBashScript(
       target,
       config.serverPort,

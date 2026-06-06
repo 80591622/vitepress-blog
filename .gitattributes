@@ -1,0 +1,2 @@
+# Shell scripts use LF so remote bash (SSH deploy) works on Windows and Mac checkouts.
+*.sh text eol=lf

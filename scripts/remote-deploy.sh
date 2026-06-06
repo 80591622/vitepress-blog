@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 在遠端伺服器執行：解壓並原子替換 dist 目錄（由 deploy.ts 透過 SSH 呼叫）
+# 在远端服务器执行：解压并原子替换 dist 目录（由 deploy.ts 透过 SSH 调用）
 set -euo pipefail
 
 : "${DEPLOY_SERVER_DIR:?DEPLOY_SERVER_DIR is required}"
@@ -39,7 +39,7 @@ mkdir -p "$release_dir"
 tar -zxf "$archive_name" -C "$release_dir"
 
 if [ ! -e "$release_dir/$target_path" ]; then
-  echo "未找到解壓後的目標目錄：$release_dir/$target_path" >&2
+  echo "未找到解压后的目标目录：$release_dir/$target_path" >&2
   exit 1
 fi
 
