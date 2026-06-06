@@ -109,7 +109,9 @@ $namespace: error-page;
   font-weight: 500;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(46, 92, 246, 0.25);
-  transition: background-color 0.2s ease, transform 0.15s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
 
   &:hover {
     background-color: var(--err-btn-hover);

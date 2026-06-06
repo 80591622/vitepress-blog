@@ -1,11 +1,9 @@
 import { defineTeekConfig } from "../../packages/config";
 import { version } from "../../packages/teek/version";
+import { themeLayoutFlags } from "./config/themeFlags";
 
 export const teekConfig = defineTeekConfig({
-  teekHome: false,
-  vpHome: true,
-  /** 关闭博客首页右侧卡片列（精选/分类/标签等），避免与 VitePress 官方首页布局错位 */
-  homeCardListPosition: false,
+  ...themeLayoutFlags,
   /** 关闭侧栏边缘折叠按钮（双箭头），避免与正文之间的干扰线视觉 */
   sidebarTrigger: false,
   /** 聚光灯默认用「底部高亮」，避免出现 aside 模式下的左侧品牌色竖条 */
@@ -39,6 +37,10 @@ export const teekConfig = defineTeekConfig({
     copiedDone: TkMessage => TkMessage.success("复制成功！"),
   },
   articleShare: { enabled: true },
+  /** 点击站内外链时跳转风险提示页（/risk-link），功能页导航不直接暴露该页 */
+  riskLink: {
+    enabled: true,
+  },
   /** 分类 / 标签页路由与文案；标题图标由 Teek 默认注入，勿在 pageTitle 中写 "${svg}" */
   category: {
     path: "/categories",
@@ -72,8 +74,9 @@ export const teekConfig = defineTeekConfig({
     autoFrontmatterOption: {
       permalink: false,
       categories: true,
+      recoverTransform: false,
       globOptions: {
-        ignore: ["**/index.md", "**/routes/*.md"],
+        ignore: ["**/index.md", "**/routes/*.md", "**/tag/**", "**/todos/**"],
       },
       transform(merged, fileInfo) {
         const rel = fileInfo.relativePath.replace(/\\/g, "/");
@@ -98,7 +101,14 @@ export const teekConfig = defineTeekConfig({
           }
         }
 
-        return Object.keys(out).length ? out : undefined;
+        if (!Object.keys(out).length) return undefined;
+
+        const diff: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(out)) {
+          const current = merged[key];
+          if (JSON.stringify(current) !== JSON.stringify(value)) diff[key] = value;
+        }
+        return Object.keys(diff).length ? diff : undefined;
       },
     },
   },

@@ -1,11 +1,13 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-07-15 21:12:57"
 title: water-mask
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2025-08-21T21:12:57.218Z"
 ---
+
 # JS添加水印功能
 
 ## 不使用canvas
@@ -69,18 +71,16 @@ watermark('username');
 </style>
 ```
 
-
-
 ## 使用canvas
 
 ```javascript
 // watermark.js
 let waterMarkDOM;
 export default function createWaterMark(text) {
-  let getIdEle = (ele) => document.getElementById(ele);
-  if (waterMarkDOM) waterMarkDOM.remove()
+  let getIdEle = ele => document.getElementById(ele);
+  if (waterMarkDOM) waterMarkDOM.remove();
   if (!text) {
-    return getIdEle('__water-mark') && document.head.removeChild(document.getElementById('__water-mark'));
+    return getIdEle("__water-mark") && document.head.removeChild(document.getElementById("__water-mark"));
   }
 
   let width = window.parseInt(document.body.clientWidth);
@@ -88,30 +88,30 @@ export default function createWaterMark(text) {
   let fontFamily = window.getComputedStyle(document.body)["font-family"];
 
   // canvas
-  let canvas = document.createElement('canvas')
-  canvas.width = canvasWidth // 每个水印的宽高
+  let canvas = document.createElement("canvas");
+  canvas.width = canvasWidth; // 每个水印的宽高
   canvas.height = 150;
-  let ctx = canvas.getContext('2d')
+  let ctx = canvas.getContext("2d");
   ctx.font = `18px ${fontFamily}`;
-  ctx.fillStyle = 'rgba(8, 8, 8, 0.1)'
+  ctx.fillStyle = "rgba(8, 8, 8, 0.1)";
   ctx.rotate(-0.29);
-  ctx.fillText(text, 0, 80)
+  ctx.fillText(text, 0, 80);
 
-  let src = canvas.toDataURL('image/png')
+  let src = canvas.toDataURL("image/png");
 
   // 添加dom
   const fragment = document.createDocumentFragment();
-  waterMarkDOM = document.createElement('div')
-  waterMarkDOM.id = 'water-mark';
+  waterMarkDOM = document.createElement("div");
+  waterMarkDOM.id = "water-mark";
   fragment.appendChild(waterMarkDOM);
-  
+
   if (!getIdEle(waterMarkDOM.id)) {
-    getIdEle('main') ? getIdEle('main').appendChild(fragment) : console.error('水印加载失败');
+    getIdEle("main") ? getIdEle("main").appendChild(fragment) : console.error("水印加载失败");
   }
 
   // 处理样式
   let style = document.createElement("style");
-  style.id = '__water-mark';
+  style.id = "__water-mark";
   let innerHTML = `#water-mark:before{
         content: "";
         width: 100%;
@@ -126,8 +126,8 @@ export default function createWaterMark(text) {
         background-position: 102.5px 102.5px, 0px 0px;
         background-image: url("${src}");
     }`;
-  style.innerHTML = innerHTML
-  let styleEle = document.getElementById('__water-mark')
+  style.innerHTML = innerHTML;
+  let styleEle = document.getElementById("__water-mark");
 
   if (styleEle) {
     styleEle.innerHTML = innerHTML;
@@ -137,18 +137,14 @@ export default function createWaterMark(text) {
 }
 
 // index.html
-<div id='main'>
-	// 会在这个里面添加
-</div>
+<div id="main">// 会在这个里面添加</div>;
 // 这里最好添加定时器，防止获取不到内部的dom
 this.$nextTick(() => {
   watermark(val);
-})
+});
 ```
 
 切记 `canvas.toDataURL('image/png')` 只能是png这种透明的、jpeg是不行的(部分带有背景色，遮挡页面内容),或者谷歌下可以使用 `image/webp` 体积更小、解码快、性能更好。
-
-
 
 ## 优化
 
@@ -160,11 +156,11 @@ this.$nextTick(() => {
 let waterMarkDOM, observer;
 export default function createWaterMark(text) {
   // 停止监控
-  observer && observer.disconnect()
-  let getIdEle = (ele) => document.getElementById(ele);
-  if (waterMarkDOM) waterMarkDOM.remove()
+  observer && observer.disconnect();
+  let getIdEle = ele => document.getElementById(ele);
+  if (waterMarkDOM) waterMarkDOM.remove();
   if (!text) {
-    return getIdEle('__water-mark') && document.head.removeChild(document.getElementById('__water-mark'));
+    return getIdEle("__water-mark") && document.head.removeChild(document.getElementById("__water-mark"));
   }
 
   let clientWidth = document.body.clientWidth || document.body.offsetWidth;
@@ -173,29 +169,29 @@ export default function createWaterMark(text) {
   let fontFamily = window.getComputedStyle(document.body)["font-family"];
 
   // canvas
-  let canvas = document.createElement('canvas')
-  canvas.width = canvasWidth // 每个水印的宽高
+  let canvas = document.createElement("canvas");
+  canvas.width = canvasWidth; // 每个水印的宽高
   canvas.height = 150;
-  let ctx = canvas.getContext('2d')
+  let ctx = canvas.getContext("2d");
   ctx.font = `18px ${fontFamily}`;
-  ctx.fillStyle = 'rgba(8, 8, 8, 0.08)'
+  ctx.fillStyle = "rgba(8, 8, 8, 0.08)";
   ctx.rotate(-0.29);
-  ctx.fillText(text, 0, 80)
+  ctx.fillText(text, 0, 80);
 
-  let src = canvas.toDataURL('image/webp') 
+  let src = canvas.toDataURL("image/webp");
 
   // 添加dom
   const fragment = document.createDocumentFragment();
-  waterMarkDOM = document.createElement('div')
-  waterMarkDOM.id = 'water-mark';
+  waterMarkDOM = document.createElement("div");
+  waterMarkDOM.id = "water-mark";
   fragment.appendChild(waterMarkDOM);
   if (!getIdEle(waterMarkDOM.id)) {
-    getIdEle('main') ? getIdEle('main').appendChild(fragment) : console.error('水印加载失败');
+    getIdEle("main") ? getIdEle("main").appendChild(fragment) : console.error("水印加载失败");
   }
 
   // 处理样式
   let style = document.createElement("style");
-  style.id = '__water-mark';
+  style.id = "__water-mark";
   let innerHTML = `#water-mark:before{
         content: "";
         width: 100%;
@@ -210,8 +206,8 @@ export default function createWaterMark(text) {
         background-position: 102.5px 102.5px, 0px 0px;
         background-image: url("${src}");
     }`;
-  style.innerHTML = innerHTML
-  let styleEle = document.getElementById('__water-mark')
+  style.innerHTML = innerHTML;
+  let styleEle = document.getElementById("__water-mark");
 
   if (styleEle) {
     styleEle.innerHTML = innerHTML;
@@ -220,75 +216,73 @@ export default function createWaterMark(text) {
   }
 
   // 禁止修改水印节点
-  let targetNode = document.querySelector('#water-mark')
-  let main = document.querySelector('#main')
- 
+  let targetNode = document.querySelector("#water-mark");
+  let main = document.querySelector("#main");
+
   const resetDom = () => {
-    targetNode.remove()
+    targetNode.remove();
     createWaterMark(text);
-  }
-    
+  };
+
   let config = {
     childList: true,
     attributes: true,
     characterData: true,
     subtree: true,
     attributeOldValue: true,
-    characterDataOldValue: true
-  }
+    characterDataOldValue: true,
+  };
 
   const mutationCallback = mutationList => {
     for (let mutation of mutationList) {
       // 遍历当前 dom 是否编辑了 主要针对是 attr 的修改  、  优化性能 只针对 water-mark 的 dom 监控 针对当前dom的内部信息
-      if (mutation.oldValue === 'water-mark' || mutation.target.id === 'water-mark') {
-        resetDom()
+      if (mutation.oldValue === "water-mark" || mutation.target.id === "water-mark") {
+        resetDom();
         break;
       }
       // 防止直接干掉当前 dom
       for (let item of mutation.removedNodes) {
-        if (item.id === 'water-mark') {
-          resetDom()
-          break
+        if (item.id === "water-mark") {
+          resetDom();
+          break;
         }
       }
     }
-  }
- // firefox和chrome早期版本中带有前缀  
- let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+  };
+  // firefox和chrome早期版本中带有前缀
+  let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
   // 创建 MutationObserver 实例
-  observer = new MutationObserver(mutationCallback)
+  observer = new MutationObserver(mutationCallback);
   // 开始监控目标节点
-  observer.observe(main, config)
+  observer.observe(main, config);
 }
 ```
 
 到此已经能防止开发者操作你的dom,但是还有一个问题是，我当前为了页面简洁把css添加到了head里面，而且css的检测功能并不完善（在控制台可以动态不勾选），所以就要把当前的样式放到标签上了。
 
 ```javascript
-  // 添加dom 、样式
-  const fragment = document.createDocumentFragment();
-  waterMarkDOM = document.createElement('div')
-  waterMarkDOM.id = 'water-mark';
+// 添加dom 、样式
+const fragment = document.createDocumentFragment();
+waterMarkDOM = document.createElement("div");
+waterMarkDOM.id = "water-mark";
 
-  waterMarkDOM.style.height = '100%'
-  waterMarkDOM.style.width = '100%'
-  waterMarkDOM.style.position = 'fixed'
-  waterMarkDOM.style.zIndex = '9999'
-  waterMarkDOM.style.top = '0'
-  waterMarkDOM.style.left = '0'
-  waterMarkDOM.style.overflow = 'hidden'
-  waterMarkDOM.style.pointerEvents = 'none'
-  waterMarkDOM.style.backgroundRepeat = 'repeat, repeat'
-  waterMarkDOM.style.backgroundPosition = '102.5px 102.5px, 0px 0px'
-  waterMarkDOM.style.backgroundImage = 'URL(' + src + ')'
+waterMarkDOM.style.height = "100%";
+waterMarkDOM.style.width = "100%";
+waterMarkDOM.style.position = "fixed";
+waterMarkDOM.style.zIndex = "9999";
+waterMarkDOM.style.top = "0";
+waterMarkDOM.style.left = "0";
+waterMarkDOM.style.overflow = "hidden";
+waterMarkDOM.style.pointerEvents = "none";
+waterMarkDOM.style.backgroundRepeat = "repeat, repeat";
+waterMarkDOM.style.backgroundPosition = "102.5px 102.5px, 0px 0px";
+waterMarkDOM.style.backgroundImage = "URL(" + src + ")";
 ```
 
 大致就是把之前的 head 的样式删除，添加到标签上就ok了。
 
 本插件已发布npm,有兴趣的小伙伴可以[点击跳转](https://www.npmjs.com/package/watermark-webp)，查看更加完善的解析示例。
-
-
 
 ## 扩展题外知识
 
@@ -319,14 +313,17 @@ element.style.cssText=”width:20px;height:20px;border:solid 1px red;”;
 
 但是，这样会有一个问题，会把原有的cssText清掉，比如原来的style中有’display:none;’，那么执行完上面的JS后，display就被删掉了。
 为了解决这个问题，可以采用cssText累加的方法：
+
 ```javascript
 Element.style.cssText += ‘width:100px;height:100px;top:100px;left:100px;’
 ```
+
 因此，上面cssText累加的方法在IE中是无效的。
 
 最后，可以在前面添加一个分号来解决这个问题：
+
 ```javascript
 Element.style.cssText += ‘;width:100px;height:100px;top:100px;left:100px;’
 ```
-再进一步，如果前面有样式表文件写着 div { text-decoration:underline; }，这个会被覆盖吗？不会！因为它不是直接作用于 HTML 元素的 style 属性。
 
+再进一步，如果前面有样式表文件写着 div { text-decoration:underline; }，这个会被覆盖吗？不会！因为它不是直接作用于 HTML 元素的 style 属性。

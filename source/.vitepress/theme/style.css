@@ -325,6 +325,23 @@
 
 /* ==================== 通用：链接无下划线、列表无圆点 ==================== */
 
+/* 文章清单页：分类目录、表格标题等全部无下划线（覆盖 .vp-doc a 默认样式） */
+.tk-article-overview .tk-doc.vp-doc a,
+.tk-article-page.tk-article-overview .tk-doc.vp-doc a {
+  text-decoration: none !important;
+  text-underline-offset: unset;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.tk-article-overview .tk-doc.vp-doc a:hover,
+.tk-article-overview .tk-doc.vp-doc a:focus,
+.tk-article-page.tk-article-overview .tk-doc.vp-doc a:hover,
+.tk-article-page.tk-article-overview .tk-doc.vp-doc a:focus {
+  text-decoration: none !important;
+  border-bottom: none;
+}
+
 /* vp-doc 内链接去掉下划线 */
 .tk-home--catalog.vp-doc a {
   text-decoration: none;

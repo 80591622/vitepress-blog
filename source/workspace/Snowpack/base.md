@@ -1,21 +1,18 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-12-04 17:42:46"
 title: base
 categories:
   - Snowpack
 tags:
   - Snowpack
+lastUpdated: "2026-03-16T17:42:46.516Z"
 ---
 
 # snowpack
 
-
 [github 18k](https://github.com/snowpackjs/snowpack)
 
-
-## 放弃 webpack 使用 snowpack 构建 vue2 
-
-
+## 放弃 webpack 使用 snowpack 构建 vue2
 
 vue不建议使用snowpack ，直接使用vite
 
@@ -34,7 +31,7 @@ module.exports = {
       "@snowpack/plugin-webpack",
       {
         manifest: true,
-        extendConfig: (config) => {
+        extendConfig: config => {
           config.plugins.push(
             // 生产模式  下面 plugins 为了测试
             new ProgressBarPlugin(),
@@ -45,7 +42,7 @@ module.exports = {
               threshold: 10240, // 大于 10 kb 的文件启用压缩
               minRatio: 0.8, // 压缩比率大于等于0.8时不进行压缩
               deleteOriginalpublic: false, // 是否删除压缩前的文件，默认false
-            }),
+            })
           );
           console.log(1212, config);
           return config;
@@ -64,7 +61,8 @@ module.exports = {
     ...process.env, // 环境变量
     API_URL: "api.google.com",
   },
-  alias: { // 别名
+  alias: {
+    // 别名
     vue: "vue/dist/vue.esm.js",
     src: "./src",
     "@": "./src",
@@ -86,7 +84,7 @@ module.exports = {
 │   │   │   └── common.css
 │   │   └── images
 │   │       ├── logo.svg
-│   │       └── logo.svg.proxy.js 
+│   │       └── logo.svg.proxy.js
 │   └── main.js
 ├── _snowpack // _snowpack 会识别当前引入的包，打包到一块
 │   ├── env.js
@@ -110,20 +108,16 @@ module.exports = {
 └── logo.svg
 ```
 
-
-
 _ snowpack _ 文件夹里面包含的是snowpack脚手架自身包含的：其中env.js 是环境变量的配置文件，文件带hmr的项目热更新的配置文件。
 _ dist _ 里面包含的页面应用到的js,css 等其他资源文件，就是app.vue里面的东西。
 
 ## 不足
 
-- vue2热加载不兼容，官方非常微妙的表明了一点*Vue（仅适用于HMR）*，这意味着Vue不支持*快速刷新*（仅完全重新加载） 
-- 使用了 ESM 不支持require，报错  `require is not defined`
+- vue2热加载不兼容，官方非常微妙的表明了一点*Vue（仅适用于HMR）*，这意味着Vue不支持*快速刷新*（仅完全重新加载）
+- 使用了 ESM 不支持require，报错 `require is not defined`
 
-- 页面报错后  hmr就会大概率失效
+- 页面报错后 hmr就会大概率失效
 - 引入ui 库 会报出静态资源404的问题
-
-
 
 ## 参考文档
 

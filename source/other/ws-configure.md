@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-07-26 10:06:23"
 title: ws-configure
 categories:
   - other
 tags:
   - other
+lastUpdated: "2022-09-10T10:06:23.982Z"
 ---
 
 # 配置WS
@@ -33,7 +34,7 @@ tags:
 
 ![](https://ae01.alicdn.com/kf/Ha11bf52407204bc496b2b54e4ba314eeM.jpg)
 
-## 配置当前项目的 eslint 
+## 配置当前项目的 eslint
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yl18g6y7j214q0u040n.jpg)
 

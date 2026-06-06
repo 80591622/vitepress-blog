@@ -1,8 +1,5 @@
 import type { DefaultTheme } from "vitepress";
 
-/** 站点首页绝对地址（风险链接页的 `target` 须经 Teek `isValidURL`，不能用相对路径 `/`） */
-const SITE_HOME = "https://www.wkdev.cn/";
-
 const nav: DefaultTheme.NavItem[] = [
   { text: "首页", link: "/" },
   {
@@ -20,10 +17,6 @@ const nav: DefaultTheme.NavItem[] = [
         text: "标签",
         link: "/tags",
         activeMatch: "^/tags(/|$)",
-      },
-      {
-        text: "风险链接提示",
-        link: `/risk-link?target=${encodeURIComponent(SITE_HOME)}`,
       },
     ],
   },

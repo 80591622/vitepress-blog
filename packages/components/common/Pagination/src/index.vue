@@ -1,6 +1,6 @@
 <script setup lang="ts" name="Pagination">
 import type { PaginationProps, PaginationEmits, LayoutKey } from "./pagination";
-import { computed, h, provide, watch, useSlots, VNode } from "vue";
+import { computed, provide, watch } from "vue";
 import { useNamespace } from "@teek/composables";
 import { arrowLeftIcon, arrowRightIcon } from "@teek/static";
 import { paginationKey } from "./pagination";
@@ -25,8 +25,6 @@ const props = withDefaults(defineProps<PaginationProps>(), {
 const emit = defineEmits<PaginationEmits>();
 
 const ns = useNamespace("pagination");
-
-const slots = useSlots() as any;
 
 const currentPageModel = defineModel<number>("currentPage", { type: Number, default: 1 });
 const pageSizeModel = defineModel<number>("pageSize", { type: Number, default: 10 });
@@ -84,13 +82,6 @@ const handleCurrentChange = (val: number) => {
   emit("current-change", currentPageModel.value);
 };
 
-const addClass = (element: any, cls: string) => {
-  if (element) {
-    if (!element.props) element.props = {};
-    element.props.class = [element.props.class, cls].join(" ");
-  }
-};
-
 provide(paginationKey, {
   pageCount: pageCountBridge,
   disabled: computed(() => props.disabled),
@@ -99,71 +90,115 @@ provide(paginationKey, {
   handleSizeChange,
 });
 
-const components = computed(() => {
-  if (!props.layout) return [];
-  if (props.hideOnSinglePage && pageCountBridge.value <= 1) return [];
-  const components = props.layout.split(",").map((item: string) => item.trim()) as LayoutKey[];
-  const rootChildren: Array<VNode | VNode[] | null> = [];
-  const rightWrapperChildren: Array<VNode | VNode[] | null> = [];
-  const rightWrapperRoot = h("div", { class: ns.e("right-wrapper") }, rightWrapperChildren);
+const layoutSections = computed(() => {
+  if (!props.layout) return null;
+  if (props.hideOnSinglePage && pageCountBridge.value <= 1) return null;
 
-  let haveRightWrapper = false;
+  const parts = props.layout.split(",").map(item => item.trim()) as LayoutKey[];
+  const separatorIndex = parts.indexOf("->");
+  const left = separatorIndex === -1 ? parts : parts.slice(0, separatorIndex);
+  const right = separatorIndex === -1 ? [] : parts.slice(separatorIndex + 1);
 
-  components.forEach(c => {
-    if (c === "->") {
-      haveRightWrapper = true;
-      return;
-    }
-    if (!haveRightWrapper) rootChildren.push(componentMap.value[c]);
-    else rightWrapperChildren.push(componentMap.value[c]);
-  });
-
-  addClass(rootChildren[0], ns.is("first"));
-  addClass(rootChildren[rootChildren.length - 1], ns.is("last"));
-
-  if (rightWrapperChildren.length > 0) {
-    addClass(rightWrapperChildren[0], ns.is("first"));
-    addClass(rightWrapperChildren[rightWrapperChildren.length - 1], ns.is("last"));
-
-    rootChildren.push(rightWrapperRoot);
-  }
-
-  return rootChildren;
+  return { left, right };
 });
 
-const componentMap = computed(() => ({
-  prev: h(Prev, {
-    disabled: props.disabled,
-    currentPage: currentPageModel.value,
-    prevText: props.prevText,
-    prevIcon: props.prevIcon,
-    onClick: prev,
-  }),
-  jumper: h(Jumper, {
-    size: props.size,
-  }),
-  pager: h(Pager, {
-    currentPage: currentPageModel.value,
-    pageCount: pageCountBridge.value,
-    pagerCount: props.pagerCount,
-    onChange: handleCurrentChange,
-    disabled: props.disabled,
-  }),
-  next: h(Next, {
-    disabled: props.disabled,
-    currentPage: currentPageModel.value,
-    pageCount: pageCountBridge.value,
-    nextText: props.nextText,
-    nextIcon: props.nextIcon,
-    onClick: next,
-  }),
-  slot: slots?.default?.() ?? null,
-  total: h(Total, { total: isAbsent(props.total) ? 0 : props.total }),
-}));
+const getLeftItemClass = (index: number, leftTotal: number, hasRight: boolean) => ({
+  [ns.is("first")]: index === 0,
+  [ns.is("last")]: !hasRight && index === leftTotal - 1,
+});
+
+const getRightItemClass = (index: number, rightTotal: number) => ({
+  [ns.is("first")]: index === 0,
+  [ns.is("last")]: index === rightTotal - 1,
+});
 </script>
 
 <template>
-  <div :class="[ns.b(), ns.is('background', background), ns.m(size)]">
-    <component v-for="component in components" :key="component" :is="component" />
+  <div v-if="layoutSections" :class="[ns.b(), ns.is('background', background), ns.m(size)]">
+    <template v-for="(item, index) in layoutSections.left" :key="`left-${item}-${index}`">
+      <Prev
+        v-if="item === 'prev'"
+        :disabled="disabled"
+        :current-page="currentPageModel"
+        :prev-text="prevText"
+        :prev-icon="prevIcon"
+        :class="getLeftItemClass(index, layoutSections.left.length, layoutSections.right.length > 0)"
+        @click="prev"
+      />
+      <Pager
+        v-else-if="item === 'pager'"
+        :current-page="currentPageModel"
+        :page-count="pageCountBridge"
+        :pager-count="pagerCount"
+        :disabled="disabled"
+        :class="getLeftItemClass(index, layoutSections.left.length, layoutSections.right.length > 0)"
+        @change="handleCurrentChange"
+      />
+      <Next
+        v-else-if="item === 'next'"
+        :disabled="disabled"
+        :current-page="currentPageModel"
+        :page-count="pageCountBridge"
+        :next-text="nextText"
+        :next-icon="nextIcon"
+        :class="getLeftItemClass(index, layoutSections.left.length, layoutSections.right.length > 0)"
+        @click="next"
+      />
+      <Jumper
+        v-else-if="item === 'jumper'"
+        :size="size"
+        :class="getLeftItemClass(index, layoutSections.left.length, layoutSections.right.length > 0)"
+      />
+      <Total
+        v-else-if="item === 'total'"
+        :total="isAbsent(total) ? 0 : total"
+        :class="getLeftItemClass(index, layoutSections.left.length, layoutSections.right.length > 0)"
+      />
+      <slot v-else-if="item === 'slot'" />
+    </template>
+
+    <div v-if="layoutSections.right.length" :class="ns.e('right-wrapper')">
+      <template v-for="(item, index) in layoutSections.right" :key="`right-${item}-${index}`">
+        <Prev
+          v-if="item === 'prev'"
+          :disabled="disabled"
+          :current-page="currentPageModel"
+          :prev-text="prevText"
+          :prev-icon="prevIcon"
+          :class="getRightItemClass(index, layoutSections.right.length)"
+          @click="prev"
+        />
+        <Pager
+          v-else-if="item === 'pager'"
+          :current-page="currentPageModel"
+          :page-count="pageCountBridge"
+          :pager-count="pagerCount"
+          :disabled="disabled"
+          :class="getRightItemClass(index, layoutSections.right.length)"
+          @change="handleCurrentChange"
+        />
+        <Next
+          v-else-if="item === 'next'"
+          :disabled="disabled"
+          :current-page="currentPageModel"
+          :page-count="pageCountBridge"
+          :next-text="nextText"
+          :next-icon="nextIcon"
+          :class="getRightItemClass(index, layoutSections.right.length)"
+          @click="next"
+        />
+        <Jumper
+          v-else-if="item === 'jumper'"
+          :size="size"
+          :class="getRightItemClass(index, layoutSections.right.length)"
+        />
+        <Total
+          v-else-if="item === 'total'"
+          :total="isAbsent(total) ? 0 : total"
+          :class="getRightItemClass(index, layoutSections.right.length)"
+        />
+        <slot v-else-if="item === 'slot'" />
+      </template>
+    </div>
   </div>
 </template>

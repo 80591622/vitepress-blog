@@ -1,16 +1,17 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-08-25 06:24:37"
 title: list
 categories:
   - Interviews
 tags:
   - Interviews
+lastUpdated: "2020-11-21T06:24:37.416Z"
 ---
-
 
 # 面试清单
 
 ## 一
+
 ```text
 数组去重的方法有哪些？
 如何判断左右小括号是否全部匹配。如 ( ( ))()((((()))))
@@ -53,8 +54,8 @@ set和map的区别
 浏览器解析javascript的词法是怎样的
 ```
 
-
 ## 二
+
 ```text
 js 中 module 的了解
 写一个单例模式
@@ -142,6 +143,7 @@ Function.prototype.bind 的实现
 ```
 
 ## 三
+
 ```text
 一道 setTimeout/Promise 输出顺序问题的题
 什么是事件循环
@@ -204,8 +206,8 @@ rpc 与 rest 相比有什么优势与劣势
 如何设计一个消息队列，要注意什么地方
 ```
 
-
 ## 四
+
 ```text
 弹性布局使用场景
 bfc
@@ -227,6 +229,7 @@ git 工作流
 ```
 
 ## 五
+
 ```text
 事件委托
 深浅拷贝的区别
@@ -248,6 +251,7 @@ Vue与React的区别
 ```
 
 ## 六
+
 ```text
 输入url到页面渲染展示
 DNS如何解析
@@ -301,6 +305,7 @@ typescript优势，为何收到推崇
 - 控制台报 Warning:Autoprefixer applies control comment to whole block, not to next rules.
 
 意思是让单行(而不是块)的规则需要用 autoprefixer: ignore next
+
 ```css
 /* autoprefixer: off */
 -webkit-box-orient: vertical;
@@ -309,9 +314,10 @@ typescript优势，为何收到推崇
 /* autoprefixer: ignore next */
 -webkit-box-orient: vertical
 ```
+
 - 路由缓存的问题
 - 但双击同时存在的问题
-- 循环map,判断data.length，需要加上>0或者直接取反 
+- 循环map,判断data.length，需要加上>0或者直接取反
 - hooks不同步的更新问题
 - BrowserRouter上线刷新304问题，nginx重定向
 - 本地代理和服务器反向代理
@@ -323,6 +329,7 @@ typescript优势，为何收到推崇
 - setState为什么是异步的、什么时候是异步的？
 
 **优化**
+
 - 长列表使用（虚拟化长列表react-window 和 react-virtualized ）
 - ReactDOM.createPortal(child,container);
 - 不可变数据
@@ -330,5 +337,6 @@ typescript优势，为何收到推崇
 - PureComponent
 
 **新的api**
+
 - context
-- lazy  suspense
+- lazy suspense

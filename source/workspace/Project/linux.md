@@ -1,63 +1,62 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-11-17 17:40:04"
 title: linux
 categories:
   - Project
 tags:
   - Project
+lastUpdated: "2023-11-26T17:40:04.283Z"
 ---
-
-
 
 # shell & ssh
 
 ## 日常用到的Shell命令
 
-| 命令名      |  功能描述     |
-| ---        |    ---      |
- clear | 清除屏幕或窗口内容 |
-env | 显示当前所有设置过的环境变量 |
-date | 显示系统的当前日期和时间 |
-cal | 显示日历 |
-vi 修改文件 |      dd删除一行 A编辑选中的最后一行代码 ，
-:set nu |  加索引
-touch  |  创建文件
-mkdir |   创建文件夹
-du -ha [文件名称] |   查看目录/文件占用空间大小
-ls -lh  | 看文件大小
-ll  |  等价 ls -al
-netstat -nltp | grep 443 | 查看端口号
-mv  | 修改文件名 移动文件 mv  index.html  .bash_profile
-cat  |  查看内容
-sudo vim /etc/hosts |  ws破解
-ssh -p 2289 root@182.92.117.162 | 登录ssh
-chattr +i .user.ini |  重新恢复文件不可更动属性
-chmod -R 777 pet_07 | 赋权限
-r：可读<br/>w：可写<br/>x：可执行<br/><br/>-rw------- (600) -- 只有属主有读写权限。<br/>-rw-r--r-- (644) -- 只有属主有读写权限；而属组用户和其他用户只有读权限。<br/>-rwx------ (700) -- 只有属主有读、写、执行权限。<br/>**-rwxr-xr-x (755) -- 属主有读、写、执行权限；别的用户组只有读、执行权限。**<br/>-rwx--x--x (711) -- 属主有读、写、执行权限；而属组用户和其他用户只有执行权限。<br/>-rw-rw-rw- (666) -- 所有用户都有文件读、写权限。这种做法不可取。<br/>-rwxrwxrwx (777) -- 所有用户都有读、写、执行权限。更不可取的做法。<br/> | 参数解释
-sudo chown -R $(whoami) or【你的用户名】  /Users/wk/Desktop/projectSvelte | 更改某个目录或文件的用户名和用户组
-yarn version --new-version 1.0.0 | 更改版本号
-curl http://www.wkdevhub.cn:8000/banner | http命令行工具
-ping www.wkdevhub.cn | ping  
-kill -9 PID |  杀死这个进程
-npx browser-sync start -s . -f . | 静态页面动态刷新
-browser-sync start --server --files . | 静态页面动态刷新
-rm -rf node_modules/.cache/babel-loader  |  umi的bug
-nginx -s reload  |  重启nginx
-tar -czvf dist.tar.gz dist  |  dist 压缩
-tar -xzvf dist.tar.gz  |  解压
--c: 建立压缩档案<br/>-x：解压<br/>-z：有gzip属性的<br/>-v：显示所有过程<br/>-r：向压缩归档文件末尾追加文件<br/>-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。<br/>  | 参数解释
-find / -name jenkins |  查看安装目录
-sed -i '' "s/666/777/g" config | 修改文字 666换成777
+| 命令名                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 功能描述                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- | ---------- |
+| clear                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 清除屏幕或窗口内容                              |
+| env                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 显示当前所有设置过的环境变量                    |
+| date                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 显示系统的当前日期和时间                        |
+| cal                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 显示日历                                        |
+| vi 修改文件                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | dd删除一行 A编辑选中的最后一行代码 ，           |
+| :set nu                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | 加索引                                          |
+| touch                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 创建文件                                        |
+| mkdir                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 创建文件夹                                      |
+| du -ha [文件名称]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 查看目录/文件占用空间大小                       |
+| ls -lh                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 看文件大小                                      |
+| ll                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | 等价 ls -al                                     |
+| netstat -nltp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | grep 443                                        | 查看端口号 |
+| mv                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | 修改文件名 移动文件 mv index.html .bash_profile |
+| cat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 查看内容                                        |
+| sudo vim /etc/hosts                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | ws破解                                          |
+| ssh -p 2289 root@182.92.117.162                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 登录ssh                                         |
+| chattr +i .user.ini                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 重新恢复文件不可更动属性                        |
+| chmod -R 777 pet_07                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 赋权限                                          |
+| r：可读<br/>w：可写<br/>x：可执行<br/><br/>-rw------- (600) -- 只有属主有读写权限。<br/>-rw-r--r-- (644) -- 只有属主有读写权限；而属组用户和其他用户只有读权限。<br/>-rwx------ (700) -- 只有属主有读、写、执行权限。<br/>**-rwxr-xr-x (755) -- 属主有读、写、执行权限；别的用户组只有读、执行权限。**<br/>-rwx--x--x (711) -- 属主有读、写、执行权限；而属组用户和其他用户只有执行权限。<br/>-rw-rw-rw- (666) -- 所有用户都有文件读、写权限。这种做法不可取。<br/>-rwxrwxrwx (777) -- 所有用户都有读、写、执行权限。更不可取的做法。<br/> | 参数解释                                        |
+| sudo chown -R $(whoami) or【你的用户名】 /Users/wk/Desktop/projectSvelte                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 更改某个目录或文件的用户名和用户组              |
+| yarn version --new-version 1.0.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 更改版本号                                      |
+| curl http://www.wkdevhub.cn:8000/banner                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | http命令行工具                                  |
+| ping www.wkdevhub.cn                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | ping                                            |
+| kill -9 PID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 杀死这个进程                                    |
+| npx browser-sync start -s . -f .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 静态页面动态刷新                                |
+| browser-sync start --server --files .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 静态页面动态刷新                                |
+| rm -rf node_modules/.cache/babel-loader                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | umi的bug                                        |
+| nginx -s reload                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 重启nginx                                       |
+| tar -czvf dist.tar.gz dist                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | dist 压缩                                       |
+| tar -xzvf dist.tar.gz                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 解压                                            |
+| -c: 建立压缩档案<br/>-x：解压<br/>-z：有gzip属性的<br/>-v：显示所有过程<br/>-r：向压缩归档文件末尾追加文件<br/>-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。<br/>                                                                                                                                                                                                                                                                                                                                                     | 参数解释                                        |
+| find / -name jenkins                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 查看安装目录                                    |
+| sed -i '' "s/666/777/g" config                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | 修改文字 666换成777                             |
 
 `看一共写了多少代码`
 
-find . "(" -name "*.vue" -or -name "*.jsx" -or -name "*.tsx" -or -name "*.css" -or -name "*.less" -or -name "*.scss" -or -name "*.js" -or -name "*.ts" ")" -print | xargs wc -l
+find . "(" -name "_.vue" -or -name "_.jsx" -or -name "_.tsx" -or -name "_.css" -or -name "_.less" -or -name "_.scss" -or -name "_.js" -or -name "_.ts" ")" -print | xargs wc -l
 
 ## 添加环境变量
 
 - 临时有效
   - export PATH=$(pwd)/bin:$PATH
-- 软连接  /usr/local/bin/就是环境变量目录
+- 软连接 /usr/local/bin/就是环境变量目录
   - ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/
 - 用户主目录下的.bashrc 或.profile文件（推荐）
   - export PATH=/Users/wk/mongodb/bin:$PATH
@@ -69,17 +68,17 @@ find . "(" -name "*.vue" -or -name "*.jsx" -or -name "*.tsx" -or -name "*.css" -
 
 从需要被注释的第一行开始，将光标移动到行首，
 
-按下  `Ctrl + v`
+按下 `Ctrl + v`
 
 接着按下`方向键`下，一直移动到需要被注释的最后一行，
 
 这时可以看到，这些需要被注释的行的行首第一个字符已经全部被选中
 
-然后按下  `Shift + i`，批量插入，
+然后按下 `Shift + i`，批量插入，
 
-这时光标会跳到第一行的行首，不用管，继续按下`Shift + 3`，也就是  `#`键
+这时光标会跳到第一行的行首，不用管，继续按下`Shift + 3`，也就是 `#`键
 
-最后按下  `Esc` 键，就可以看到刚才被选中的行的行首都会加多一个`#`号
+最后按下 `Esc` 键，就可以看到刚才被选中的行的行首都会加多一个`#`号
 
 批量注释完毕
 
@@ -101,7 +100,7 @@ find . "(" -name "*.vue" -or -name "*.jsx" -or -name "*.tsx" -or -name "*.css" -
 
 ## Shell编程
 
-``` bash
+```bash
 # run: sh depoly.sh 123 123
 # 变量定义
 str='test' # 注意赋值不需要空格
@@ -181,7 +180,6 @@ It is also possible that a host key has just been changed.
 
 然后后再次建立新的连接，即可获得新的公钥。
 
-
 ## 关于sshpass使用举例
 
 `使用-p参数指定登录密码`
@@ -194,7 +192,7 @@ $ sshpass -p password ssh username@host
 $ sshpass -p password ssh username@host <cmd>
 
 # 通过scp上传文件
-$ sshpass -p password scp local_file root@host:remote_file 
+$ sshpass -p password scp local_file root@host:remote_file
 
 # 通过scp下载文件
 $ sshpass -p password scp root@host:remote_file local_file
@@ -204,16 +202,16 @@ $ sshpass -p password scp root@host:remote_file local_file
 
 ```bash{2,5}
 #把本地的source.txt文件拷贝到192.168.0.10机器上的/home/work目录下
-scp /home/work/source.txt root@192.168.0.10:/home/work/ 
+scp /home/work/source.txt root@192.168.0.10:/home/work/
 
 #把120.79.229.197机器上的wk.gif文件拷贝到本地的/Users/zhenfeng/tempData/目录下
-scp root@120.79.229.197:/tmp/wk.gif /Users/zhenfeng/tempData/  
+scp root@120.79.229.197:/tmp/wk.gif /Users/zhenfeng/tempData/
 
 #把192.168.0.10机器上的source.txt文件拷贝到192.168.0.11机器的/home/work目录下
-scp root@192.168.0.10:/home/work/source.txt root@192.168.0.11:/home/work/ 
+scp root@192.168.0.10:/home/work/source.txt root@192.168.0.11:/home/work/
 
 #拷贝文件夹，加-r参数
-scp -r /home/work/sourcedir root@192.168.0.10:/home/work/ 
+scp -r /home/work/sourcedir root@192.168.0.10:/home/work/
 ```
 
 ## 脚本
@@ -233,7 +231,6 @@ ab -c 10 -n 100 https://www.xxxxx.com
 ```
 
 参数释义 总共请求100次 一次请求10个 post文件 请求头信息 地址
-
 
 **对相关参数进行说明：**
 
@@ -263,7 +260,6 @@ ab -c 10 -n 100 https://www.xxxxx.com
     -e 输出结果信息到CSV格式的文件中。
     -r 指定接收到错误信息时不退出程序。
     -h 显示用法信息，其实就是ab -help。
-
 
 ```bash
 [root@hadoop ab]# ab -c 10 -n 100 https://ah2.zhangyue.com/zybk/subscribe/talk?actId=949
@@ -320,7 +316,7 @@ Percentage of the requests served within a certain time (ms)
 
 `启动jenkins`<br/>
 java -jar jenkins.war --httpPort=8081
- 
+
 `如果想要在linux后台一直运行，则要开始加nohup，在末尾加&号`<br/>
 nohup java -jar jenkins.war --httpPort=8081 &
 
@@ -345,4 +341,4 @@ ps -aux|grep jenkins
 
 **查看使用某端口的进程**<br/>
 `lsof -i:3000` <br/>
-kill -9  [pid]
+kill -9 [pid]

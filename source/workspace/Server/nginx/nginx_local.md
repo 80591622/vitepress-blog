@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-03-23 08:44:09"
 title: nginx_local
 categories:
   - Server
   - nginx
 tags:
   - nginx
+lastUpdated: "2020-07-13T08:44:09.442Z"
 ---
 
 # 安装Nginx踩到的坑
@@ -20,7 +21,7 @@ tags:
 #安装
 wget wget http://nginx.org/download/nginx-1.18.0.tar.gz
 
-#解压  
+#解压
 tar -xzvf nginx-1.18.0.tar.gz
 
 #进入nginx目录
@@ -76,17 +77,18 @@ vi nginx.service
 [Unit]
 Description=nginx
 After=network.target
-  
+
 [Service]
 Type=forking
 ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
 ExecReload=/usr/local/nginx/sbin/nginx -s reload
 ExecStop=/usr/local/nginx/sbin/nginx -s quit
 PrivateTmp=true
-  
+
 [Install]
 WantedBy=multi-user.target
 ```
+
 启动nginx服务(此时需要先用ps查看nginx进程是否已存在，若已存在，则服务会启动失败。启动服务前必须先将nginx进程kill掉)：
 
 ```nginx
@@ -102,6 +104,7 @@ systemctl enable nginx
 ![](https://tva1.sinaimg.cn/large/008i3skNly1gw8vqjjkg7j31bw0f2gom.jpg)
 
 查看服务状态：
+
 ```nginx
 systemctl status nginx
 ```

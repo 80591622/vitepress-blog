@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-04-20 22:17:21"
 title: toFixed
 categories:
   - Project
 tags:
   - Project
+lastUpdated: "2021-08-01T22:17:21.915Z"
 ---
 
 # toFixed方法的bug
@@ -15,44 +16,42 @@ tags:
 **IE**
 
 ```javascript
-0.6 .toFixed(0); // 0
-1.6 .toFixed(0); // 2
+(0.6).toFixed(0); // 0
+(1.6).toFixed(0); // 2
 
-
-( 0.035 ).toFixed( 2 ); // 0.04
-( 0.045 ).toFixed( 2 ); // 0.05
+(0.035).toFixed(2); // 0.04
+(0.045).toFixed(2); // 0.05
 ```
 
 **Chrome**
 
 ```javascript
-0.6 .toFixed(0); // 1
-1.6 .toFixed(0); // 2
+(0.6).toFixed(0); // 1
+(1.6).toFixed(0); // 2
 
-( 0.035 ).toFixed( 2 ); // 0.04
-( 0.045 ).toFixed( 2 ); // 0.04
+(0.035).toFixed(2); // 0.04
+(0.045).toFixed(2); // 0.04
 ```
 
 结论 ：**toFixed()函数靠不住，如果有需要精确控制的情况，特别是`金钱`的计算时，还是自己写个方法比较好。** 比如：
 
 ```javascript
-
 /**
  * 保留两位小数
  * @param val 需要进行操作的数字
  */
-export const returnFloat = (val) => {
-    let value = Math.round(parseFloat(val) * 100) / 100;
-    let xsd = value.toString().split(".");
-    if (xsd.length === 1) {
-        value = value.toString() + ".00";
-        return value;
+export const returnFloat = val => {
+  let value = Math.round(parseFloat(val) * 100) / 100;
+  let xsd = value.toString().split(".");
+  if (xsd.length === 1) {
+    value = value.toString() + ".00";
+    return value;
+  }
+  if (xsd.length > 1) {
+    if (xsd[1].length < 2) {
+      value = value.toString() + "0";
     }
-    if (xsd.length > 1) {
-        if (xsd[1].length < 2) {
-            value = value.toString() + "0";
-        }
-        return value;
-    }
+    return value;
+  }
 };
 ```

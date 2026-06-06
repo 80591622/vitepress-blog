@@ -1,62 +1,63 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-03-03 23:10:35"
 title: react
 categories:
   - Frame
   - react
 tags:
   - react
+lastUpdated: "2023-04-03T23:10:35.304Z"
 ---
-
 
 # React基本用法
 
 ## 路由传递参数
 
 ```javascript
-<Link to={{
-        pathname:"/",
-        search:"?lx=1",
-        hash:"#AA",
-        state: {id: id} 
-    }} exact >
-     首页
- </Link>
-     
+<Link
+  to={{
+    pathname: "/",
+    search: "?lx=1",
+    hash: "#AA",
+    state: { id: id },
+  }}
+  exact
+>
+  首页
+</Link>
 ```
-- 1.问号传参  基于location来完成处理  **let {data, location: {`search`}} = this.props** 
-- 2.地址栏传参基于match的params来完成处理 **let {data, match: {`params`}} = this.prop** 
-- 3.Link传参 循环进来的，此参数传参在浏览器看不见  **let {data, location: {`state`}} = this.props** 
+
+- 1.问号传参 基于location来完成处理 **let {data, location: {`search`}} = this.props**
+- 2.地址栏传参基于match的params来完成处理 **let {data, match: {`params`}} = this.prop**
+- 3.Link传参 循环进来的，此参数传参在浏览器看不见 **let {data, location: {`state`}} = this.props**
 
 - 参数解析（问号传参）
 
 ```javascript
 //两种方式都行
 const utils = {
-   queryURLParameter(url) {
-        let regParam = /([^?&=#]+)=?([^?&=#]+)?/ig,
-            obj = {};
-        url.replace(regParam, (...arg) => {
-            obj[arg[1]] = arg[2];
-        });
-        return obj;
-   },
-   queryStringToJson(queryString) {
-        if (queryString.indexOf('?') > -1) {
-            queryString = queryString.split('?')[1]
-        }
-        const pairs = queryString.split('&');
-        const result = {};
-        pairs.forEach(pair => {
-            pair = pair.split('=');
-            result[pair[0]] = decodeURIComponent(pair[1] || '')
-        });
-        return result
-   }
-        
+  queryURLParameter(url) {
+    let regParam = /([^?&=#]+)=?([^?&=#]+)?/gi,
+      obj = {};
+    url.replace(regParam, (...arg) => {
+      obj[arg[1]] = arg[2];
+    });
+    return obj;
+  },
+  queryStringToJson(queryString) {
+    if (queryString.indexOf("?") > -1) {
+      queryString = queryString.split("?")[1];
+    }
+    const pairs = queryString.split("&");
+    const result = {};
+    pairs.forEach(pair => {
+      pair = pair.split("=");
+      result[pair[0]] = decodeURIComponent(pair[1] || "");
+    });
+    return result;
+  },
 };
 export default utils;
-
 ```
 
 ## 发起 AJAX 请求
@@ -68,6 +69,7 @@ export default utils;
 - React16 调和算法`Fiber`会通过开始或停止渲染的方式优化应用性能，其会影响到 `componentWillMount 的触发次数`。对于 componentWillMount 这个生命周期函数的调用次数会变得不确定，React 可能会多次频繁调用 componentWillMount
 
 ## PropTypes
+
 `JavaScript 是弱类型语言，所以请尽量声明 propTypes 对 props 进行校验，以减少不必要的问题。`
 
 **`内置的 prop type 有：`**
@@ -100,6 +102,7 @@ static propTypes = {
 };
 
 ```
+
 [查看更多](https://zh-hans.reactjs.org/docs/typechecking-with-proptypes.html)
 
 ## Hooks为何能使用const 在下面声明的函数
@@ -107,24 +110,24 @@ static propTypes = {
 ```javascript
 //思想
 (function () {
-   function b() {
-      return a;
-   }
+  function b() {
+    return a;
+  }
 
   const a = 1;
   return b();
 })();
 ```
 
-
 ## 组件传递参数
+
 ```javascript
 //父
 <List onItem={(item) => this.onItem(item)}/>
 //子
 {list.map((item, index) => {
   return (
-    <div className={styles.item} key={index}    
+    <div className={styles.item} key={index}
      onClick={() => this.props.onItem(item)}>
    )
 }
@@ -134,19 +137,23 @@ static propTypes = {
 //子
 {list.map((item, index) => {
   return (
-    <div className={styles.item} key={index}    
+    <div className={styles.item} key={index}
      onClick={() => this.props.onItem(item)}>
    )
 }
 ```
+
 ## PureComponent原理
 
 ```javascript
 shouldComponentUpdate: (nextProps = {}, nextState = {}) => {
-  const thisProps = this.props || {}, thisState = this.state || {};
+  const thisProps = this.props || {},
+    thisState = this.state || {};
 
-  if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
-      Object.keys(thisState).length !== Object.keys(nextState).length) {
+  if (
+    Object.keys(thisProps).length !== Object.keys(nextProps).length ||
+    Object.keys(thisState).length !== Object.keys(nextState).length
+  ) {
     return true;
   }
 
@@ -162,49 +169,50 @@ shouldComponentUpdate: (nextProps = {}, nextState = {}) => {
     }
   }
   return false;
-}
+};
 ```
-
 
 ## 缓存路由
 
 [网址](https://juejin.im/post/5cef73a3e51d4510926a7aeb)
-```javascript
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import {matchPath} from 'react-router';
-import {Route} from 'react-router-dom';
+```javascript
+import React from "react";
+import PropTypes from "prop-types";
+import { matchPath } from "react-router";
+import { Route } from "react-router-dom";
 
 class RouteCache extends React.Component {
-
   static propTypes = {
-    include: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.array
-    ])
+    include: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   };
 
   cache = {}; //缓存已加载过的组件
 
   render() {
-    const {children, include = []} = this.props;
+    const { children, include = [] } = this.props;
 
     return React.Children.map(children, child => {
-      if (React.isValidElement(child)) { // 验证是否为是react element
-        const {path} = child.props;
-        const match = matchPath(location.pathname, {...child.props, path});
+      if (React.isValidElement(child)) {
+        // 验证是否为是react element
+        const { path } = child.props;
+        const match = matchPath(location.pathname, { ...child.props, path });
 
         if (match && (include === true || include.includes(path))) {
           //如果匹配，则将对应path的computedMatch属性加入cache对象里
           //当include为true时，缓存全部组件，当include为数组时缓存对应组件
-          this.cache[path] = {computedMatch: match};
+          this.cache[path] = { computedMatch: match };
         }
 
         //可以在computedMatch里追加入一个display属性，可以在路由组件的props.match拿到
-        const cloneProps = this.cache[path] && Object.assign(this.cache[path].computedMatch, {display: match ? 'block' : 'none'});
+        const cloneProps =
+          this.cache[path] && Object.assign(this.cache[path].computedMatch, { display: match ? "block" : "none" });
 
-        return <div style={{display: match ? 'block' : 'none'}}>{React.cloneElement(child, {computedMatch: cloneProps})}</div>;
+        return (
+          <div style={{ display: match ? "block" : "none" }}>
+            {React.cloneElement(child, { computedMatch: cloneProps })}
+          </div>
+        );
       }
 
       return null;
@@ -213,25 +221,23 @@ class RouteCache extends React.Component {
 }
 
 // 使用
-<RouteCache include={['/login', '/home']}>
+<RouteCache include={["/login", "/home"]}>
   <Route path="/login" component={Login} />
   <Route path="/home" component={App} />
-</RouteCache>
-
+</RouteCache>;
 ```
 
 ## 获取实际的DOM
 
 ```javascript
-ReactDOM.findDOMNode(this.sildeWrapper).clientWidth;   //废弃  改用ref
+ReactDOM.findDOMNode(this.sildeWrapper).clientWidth; //废弃  改用ref
 ```
 
 ## 添加DOM
 
 ```javascript
-<div dangerouslySetInnerHTML={{__html: '<p>123</p>'}} />
+<div dangerouslySetInnerHTML={{ __html: "<p>123</p>" }} />
 ```
-
 
 ## React.memo
 
@@ -248,11 +254,7 @@ const MemoPowerList = memo(PowerList, (prevProps, nextProps) => prevProps.data =
 ## React.createElement
 
 ```javascript
-React.createElement(
-  type,
-  {props},
-  [...children]
-)
+React.createElement(type, { props }, [...children]);
 ```
 
 ```javascript{8,9,10,11,12}
@@ -276,15 +278,10 @@ React.createElement(
 新的子元素将取代现有的子元素， `key`和`ref`将被保留
 
 ```javascript
-React.cloneElement(
-  element,
-  {props},
-  [...children]
-)
+React.cloneElement(element, { props }, [...children]);
 ```
 
 **适用于** 父组件是`独立`的，子组件是`独立`的， 父组件数据改变，想要通知子组件，或者子组件想要改父组件的数据(也是通过回调)
-
 
 ```javascript{14,15,16,17,18,19,20,21}
 import React, {Fragment, Component, useState, useEffect} from 'react';
@@ -390,92 +387,108 @@ export default f;
 不知道这个功能之前可能这样实现
 
 ```javascript
-import React from 'react';
-const Cat = ({mouse}) => {
-    return (
-        <img src="https://ae01.alicdn.com/kf/H62563fe1dc6447aca248634b671b7a59W.png"
-             style={{position: 'absolute', left: mouse.x, top: mouse.y}} alt={''}/>
-    );
+import React from "react";
+const Cat = ({ mouse }) => {
+  return (
+    <img
+      src="https://ae01.alicdn.com/kf/H62563fe1dc6447aca248634b671b7a59W.png"
+      style={{ position: "absolute", left: mouse.x, top: mouse.y }}
+      alt={""}
+    />
+  );
 };
 class Mouse extends React.Component {
-    state = {x: 0, y: 0};
-    handleMouseMove = (event) => {
-        this.setState({
-            x: event.clientX,
-            y: event.clientY
-        }, () => {
-            this.props.render(this.state) //在这里传给父组件
-        });
-    };
-    render() {
-        return (
-            <div style={{height: '100vh'}} onMouseMove={this.handleMouseMove}>
-                <h1>移动鼠标</h1>
-                <p>当前的鼠标定位 (X:{this.state.x}, Y:{this.state.y})</p>
-                {/*TODO:组件在里面渲染*/}
-                {this.props.children}  
-                
-                {/*TODO:这种方式简单*/}
-                {/*{*/}
-                {/*    React.Children.map(this.props.children, (item, index) => {*/}
-                {/*        return React.cloneElement(item,*/}
-                {/*            {*/}
-                {/*                mouse: this.state*/}
-                {/*            },*/}
-                {/*        )*/}
-                {/*    })*/}
-                {/*}*/}
-            </div>
-        );
-    }
+  state = { x: 0, y: 0 };
+  handleMouseMove = event => {
+    this.setState(
+      {
+        x: event.clientX,
+        y: event.clientY,
+      },
+      () => {
+        this.props.render(this.state); //在这里传给父组件
+      }
+    );
+  };
+  render() {
+    return (
+      <div style={{ height: "100vh" }} onMouseMove={this.handleMouseMove}>
+        <h1>移动鼠标</h1>
+        <p>
+          当前的鼠标定位 (X:{this.state.x}, Y:{this.state.y})
+        </p>
+        {/*TODO:组件在里面渲染*/}
+        {this.props.children}
+
+        {/*TODO:这种方式简单*/}
+        {/*{*/}
+        {/*    React.Children.map(this.props.children, (item, index) => {*/}
+        {/*        return React.cloneElement(item,*/}
+        {/*            {*/}
+        {/*                mouse: this.state*/}
+        {/*            },*/}
+        {/*        )*/}
+        {/*    })*/}
+        {/*}*/}
+      </div>
+    );
+  }
 }
 class Index extends React.Component {
-    state = { mouse: {} };  //交给他们的父级来出来，然后重新state,把值传进来
-    render() {
-        const {mouse} = this.state;
-        return (
-            <Mouse render={(item) => {
-                this.setState({mouse: item})
-            }}>
-                <Cat mouse={mouse}/>
-            </Mouse>
-        );
-    }
+  state = { mouse: {} }; //交给他们的父级来出来，然后重新state,把值传进来
+  render() {
+    const { mouse } = this.state;
+    return (
+      <Mouse
+        render={item => {
+          this.setState({ mouse: item });
+        }}
+      >
+        <Cat mouse={mouse} />
+      </Mouse>
+    );
+  }
 }
 export default Index;
 ```
 
 现在可以这么实现
+
 ```javascript
-import React from 'react';
-const Cat = ({mouse}) => {
-    return (
-        <img src="https://ae01.alicdn.com/kf/H62563fe1dc6447aca248634b671b7a59W.png"
-             style={{position: 'absolute', left: mouse.x, top: mouse.y}} alt={''}/>
-    );
+import React from "react";
+const Cat = ({ mouse }) => {
+  return (
+    <img
+      src="https://ae01.alicdn.com/kf/H62563fe1dc6447aca248634b671b7a59W.png"
+      style={{ position: "absolute", left: mouse.x, top: mouse.y }}
+      alt={""}
+    />
+  );
 };
 class Mouse extends React.Component {
-    state = {x: 0, y: 0};
-    handleMouseMove = (event) => {
-        this.setState({
-            x: event.clientX,
-            y: event.clientY
-        });
-    };
-    render() {
-        return (
-            <div style={{height: '100vh'}} onMouseMove={this.handleMouseMove}>
-                <h1>移动鼠标</h1>
-                <p>当前的鼠标定位 (X:{this.state.x}, Y:{this.state.y})</p>
-                {/*TODO:在render里面执行的这个方法，不仅仅是执行当前这个函数还把函数在这里渲染出来了*/}
-                {this.props.render(this.state)}
-            </div>
-        );
-    }
+  state = { x: 0, y: 0 };
+  handleMouseMove = event => {
+    this.setState({
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+  render() {
+    return (
+      <div style={{ height: "100vh" }} onMouseMove={this.handleMouseMove}>
+        <h1>移动鼠标</h1>
+        <p>
+          当前的鼠标定位 (X:{this.state.x}, Y:{this.state.y})
+        </p>
+        {/*TODO:在render里面执行的这个方法，不仅仅是执行当前这个函数还把函数在这里渲染出来了*/}
+        {this.props.render(this.state)}
+      </div>
+    );
+  }
 }
 const Index = () => {
-    const catRender=(item)=><Cat mouse={item}/>;
-    return (<Mouse render={catRender}/>);
+  const catRender = item => <Cat mouse={item} />;
+  return <Mouse render={catRender} />;
 };
 export default Index;
 ```
@@ -501,8 +514,6 @@ export default Index;
 - 异步代码（例如 `setTimeout` 或 `requestAnimationFrame` 回调函数）
 - 服务端渲染
 - 它自身抛出来的错误（并非它的子组件）
-
-
 
 **只有 class 组件才可以成为错误边界组件**
 
@@ -536,14 +547,14 @@ class ErrorBoundary extends React.Component {
       return <h1>Something went wrong.</h1>;
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 ```
 
 ## Code Splitting
 
-**import()**  
+**import()**
 
 适用于函数
 
@@ -564,9 +575,11 @@ function Index() {
 }
 export default Index;
 ```
+
 **React.lazy**
 
 适用于组件 目前不支持服务端渲染
+
 ```javascript{1,4}
 const Foo = React.lazy(() => import('../components/Foo'));
 render() {
@@ -577,6 +590,7 @@ render() {
         )
 }
 ```
+
 `React.lazy 目前只支持默认导出（default exports)` 你可以创建一个中间模块，来重新导出为默认模块
 
 ```javascript
@@ -594,8 +608,7 @@ const A = lazy(() => import("./middle"));
 </Suspense>
 ```
 
-
-## React.StrictMode 
+## React.StrictMode
 
 开发模式会调用多次
 
@@ -620,6 +633,7 @@ function ExampleApplication() {
 ```
 
 **StrictMode 目前有助于：**
+
 - 识别不安全的生命周期
 - 关于使用过时字符串 ref API 的警告（React.createRef();）
 - 关于使用废弃的 findDOMNode 方法的警告（貌似没有）
@@ -635,11 +649,9 @@ class 组件的生命周期方法 getDerivedStateFromProps
 函数组件中 useState，useMemo 或者 useReducer 中的函数
 当 React 发现在重复调用这些方法时出现了内存泄漏、无限循环或者其他奇怪的表现时会在控制台输出错误，以供程序员快速定位错误。
 
-
 简单来说就是我们在使用 hooks 或者在某些生命周期函数中不应该使用有副作用的代码。在开发模式的 StrictMode 下，React 会帮助我们发现这些不好的代码并给予提示。
 
 StrictMode 的这个重复调用的特性只使用于开发模式，在生产模式下不会触发多次调用。
-
 
 ## ref(非受控)
 
@@ -647,14 +659,15 @@ React的ref有4种用法：
 
 - 字符串(已废弃)
 - 回调函数
+
 ```javascript
 //获取子组件的dom节点
 function CustomTextInput(props) {
-    return (
-        <div>
-            <input ref={props.inputRef} />
-        </div>
-    );
+  return (
+    <div>
+      <input ref={props.inputRef} />
+    </div>
+  );
 }
 
 function Parent(props) {
@@ -667,42 +680,38 @@ function Parent(props) {
 
 class Grandparent extends React.Component {
   render() {
-    return (
-      <Parent
-        inputRef={el => this.inputElement = el}
-      />
-    );
+    return <Parent inputRef={el => (this.inputElement = el)} />;
   }
 }
 ```
+
 - **React.createRef()** （React16.3提供,无状态的组件也可以使用）
 
 - Hooks **useRef()** 用法类似createRef()
 
 ```javascript
 const Example = () => {
-    let inputRef = useRef(null);
-    useEffect(() => {
-        inputRef.current.focus();
-    }, []);
-    return (
-        <input type="text" ref={inputRef}/>
-    )
+  let inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  return <input type="text" ref={inputRef} />;
 };
 ```
+
 ```javascript
 //类组件
-class Child extends React.Component{
-    constructor(props){
-        super(props);
-        this.myRef=React.createRef();
-    }
-    componentDidMount(){
-        console.log(this.myRef.current);
-    }
-    render(){
-        return <input ref={this.myRef}/>
-    }
+class Child extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+  componentDidMount() {
+    console.log(this.myRef.current);
+  }
+  render() {
+    return <input ref={this.myRef} />;
+  }
 }
 
 //无状态组件
@@ -716,20 +725,15 @@ function CustomTextInput(props) {
 
   return (
     <div>
-      <input
-        type="text"
-        ref={textInput} />
+      <input type="text" ref={textInput} />
 
-      <input
-        type="button"
-        value="Focus the text input"
-        onClick={handleClick}
-      />
+      <input type="button" value="Focus the text input" onClick={handleClick} />
     </div>
   );
 }
 ```
-- `React.forwardRef()`  同样是React 16.3版本后提供的，可以用来创建子组件，以传递ref。
+
+- `React.forwardRef()` 同样是React 16.3版本后提供的，可以用来创建子组件，以传递ref。
 
 ## React生命周期
 
@@ -739,24 +743,28 @@ function CustomTextInput(props) {
   - `constructor`
 
     在React组件挂载之前被调用，在为React.Component子类实现构造函数时，应在其他语句之前调用 super()
+
     > super的作用：将父类的this对象继承给子类
-    react 构造函数仅用于以下两种情况
+    > react 构造函数仅用于以下两种情况
     - 初始化state
     - 绑定事件处理函数
-    
+
   - `getDerivedStateFromProps`
 
     在调用 render 方法之前调用，在初始化和后续都将被调用
 
     返回值：返回一个对象来更新state，如果返回 null 则不更新任何内容
+
   - `render()`
 
     class 组件中必须实现的方法，用于渲染 dom ，render 方法必须返回一个 react dom
 
     > 注意： 在 render 中 setState 会触发死循环导致内存崩溃
+
   - `componentDidMount`
 
     在组件挂在后立即被调用，用于发送网络请求、启用事件监听、设置 setState
+
 - 更新
   - `getDerivedStateFromProps`
     在组件更新之前调用
@@ -764,15 +772,18 @@ function CustomTextInput(props) {
   - `shouldComponentUpdate`
 
     在组件更新之前调用，可以控制组件是否更新，返回 true 时更新，false 时不更新
+
     > 注意： 当父组件更新时，子组件也会更新，即使子组件没有使用到父组件的任何数据，也会更新。
-    可以通过 shouldComponentUpdate 来控制子组件是否更新，避免不必要的更新。
+    > 可以通过 shouldComponentUpdate 来控制子组件是否更新，避免不必要的更新。
+
   - `getSnapshotBeforeUpdate`
 
     在 render 之后，在组件更新之前调用，返回值将作为 componentDidUpdate 的第三个参数
+
   - `componentDidUpdate`
 
     在组件更新之后立即调用，首次渲染不会执行
-    
+
 - 卸载
   - `componentWillUnmount`
     组件即将被卸载或销毁时进行调用
@@ -780,94 +791,93 @@ function CustomTextInput(props) {
 
 > React从v16.3开始废弃 `componentWillMount` `componentWillReceiveProps` `componentWillUpdate` 三个钩子函数
 
-
-
-
 ## 极简 React 入门配置
 
 https://kentcdodds.com/blog/super-simple-start-to-react
 
 ```javascript
 <html>
-<body>
-<div id="root"></div>
-<script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
-<script type="text/babel">
-  const {PureComponent} = React;
-  // 也可以是函数式 
-  class App extends PureComponent {
-    render = () => {
-      return (
-        <div>
-          <h1>watermark-webp</h1>
-        </div>
-      )
-    }
-  };
-  ReactDOM.render(<App />, document.getElementById('root'))
-</script>
-</body>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+      const {PureComponent} = React; // 也可以是函数式 class App extends PureComponent{" "}
+      {
+        (render = () => {
+          return (
+            <div>
+              <h1>watermark-webp</h1>
+            </div>
+          );
+        })
+      }
+      ; ReactDOM.render(
+      <App />, document.getElementById('root'))
+    </script>
+  </body>
 </html>
 ```
 
-
-## antd 
+## antd
 
 ```css
-@import '~antd/es/style/themes/default.less';
+@import "~antd/es/style/themes/default.less";
 
 @pro-header-hover-bg: rgba(0, 0, 0, 0.025);
 ```
 
 ```javascript
 //获取from里面的数据集合
- this.props.form.getFieldsValue()
+this.props.form.getFieldsValue();
 //重置from输入的内容，（参数不传默认是所有的）
-this.props.form.resetFields('search_product_name');
+this.props.form.resetFields("search_product_name");
 //抛出错误
 this.props.form.setFields({
-   name: {
-      value: val,
-        errors: [new Error('forbid ha')],
-    },
+  name: {
+    value: val,
+    errors: [new Error("forbid ha")],
+  },
 });
 //设置from的值
 this.props.form.setFieldsValue({
-   points: 1212121,
+  points: 1212121,
 });
 /*
-* 提交数据滚动到该位置
-* 参数1 只捕捉该字段的数据
-* 参数2 定义 validateFieldsAndScroll 的滚动行为
-* 参数3 获取数据，错误捕获
-*/
-form.validateFieldsAndScroll( 
-   ['user', 'password'],
-    {
-      scroll: {
-           offsetTop: 60
-       }
-   },(err, fieldsValue) => {
-        if(err)return false;
-   }     
-)
-//自定义输入框额格式 
-{getFieldDecorator('user', {
+ * 提交数据滚动到该位置
+ * 参数1 只捕捉该字段的数据
+ * 参数2 定义 validateFieldsAndScroll 的滚动行为
+ * 参数3 获取数据，错误捕获
+ */
+form.validateFieldsAndScroll(
+  ["user", "password"],
+  {
+    scroll: {
+      offsetTop: 60,
+    },
+  },
+  (err, fieldsValue) => {
+    if (err) return false;
+  }
+);
+//自定义输入框额格式
+{
+  getFieldDecorator("user", {
     rules: [
-    {required: true, message: '必填'},
-    {
+      { required: true, message: "必填" },
+      {
         validator: (rule, value, callback) => {
-            if ('不符合') {
-                callback('不符合')
-            }
-            callback()
-        }
-    }
+          if ("不符合") {
+            callback("不符合");
+          }
+          callback();
+        },
+      },
     ],
-    initialValue: ''
-})(<Input/>)}
+    initialValue: "",
+  })(<Input />);
+}
 ```
 
 ## 定义环境变量
@@ -880,22 +890,23 @@ new webpack.DefinePlugin({
     ENV: JSON.stringify(process.env.ENV), // 可以设置环境变量在页面直接使用
 }),
 ```
+
 react 默认测试环境 NODE_ENV为`development`，正式为`production`
 
 ## dva & effects
 
 ```javascript
 //全局执行model
-window.g_app 
+window.g_app
 
 //effects基本用法
 *add(action,{put,call,select}){
     yield call(delay,1000);//yield 调用一个delay的方法，返回一个promise,会等待在这里。等待到promise变成完成态
     yield fork(delay,1000);//yield 调用一个delay的方法，返回一个promise,直接执行不会堵塞
-    
+
     yield put({type:'counter/minus'});//put派发一个动作,相当于dispatch;注意： put 也是阻塞 effect
     let state = yield select(state=>state.counter);  //获取store的数据相当于 store.getState()
-    
+
     let {push} = routerRedux;//dva封装的router-redux，dva的核心库没有这个方法。
     yield put(push(action.to));
 }

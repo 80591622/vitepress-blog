@@ -1,14 +1,15 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-05-16 01:10:45"
 title: jsx
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2025-07-09T01:10:45.360Z"
 ---
-# vue中使用JSX
 
+# vue中使用JSX
 
 ## vue中使用JSX
 
@@ -119,48 +120,40 @@ render() {
 ```javascript
 // 父组件：parent.jsx
 <child
-    scopedSlots={{
-        default: props => {
-            return (
-                <div style="line-height: 30px;">
-                    {props.info.title}
-                </div>
-            );
-        },
-        other: props => {
-            return (
-                <div style="line-height: 30px;">
-                    {props.info.title}
-                </div>
-            );
-        }
-    }}
-/>
+  scopedSlots={{
+    default: props => {
+      return <div style="line-height: 30px;">{props.info.title}</div>;
+    },
+    other: props => {
+      return <div style="line-height: 30px;">{props.info.title}</div>;
+    },
+  }}
+/>;
 // 子组件：child.jsx
 export default {
-    data() {
-        return {
-            info: {
-                title: "标题一"
-            },
-            info2: {
-                title: "标题二"
-            }
-        };
-    },
-    render() {
-        return (
-            <div>
-                {this.$scopedSlots.default({
-                    info: this.info
-                })}
+  data() {
+    return {
+      info: {
+        title: "标题一",
+      },
+      info2: {
+        title: "标题二",
+      },
+    };
+  },
+  render() {
+    return (
+      <div>
+        {this.$scopedSlots.default({
+          info: this.info,
+        })}
 
-                {this.$scopedSlots.other({
-                    info: this.info2
-                })}
-            </div>
-        );
-    }
+        {this.$scopedSlots.other({
+          info: this.info2,
+        })}
+      </div>
+    );
+  },
 };
 ```
 
@@ -191,7 +184,7 @@ render (createElement) {
 v-model 实际上就是一个语法糖。
 
 ```javascript
-<Component v-model='test'></Component>
+<Component v-model="test"></Component>
 ```
 
 等价于
@@ -204,10 +197,11 @@ v-model 实际上就是一个语法糖。
 
 ```javascript
 <component
-  value={ this.test }
-  onInput={ val => { this.test = val } }
->
-</component>
+  value={this.test}
+  onInput={val => {
+    this.test = val;
+  }}
+></component>
 ```
 
 **配置 v-model**
@@ -227,9 +221,9 @@ babel7以上 访问[https://github.com/vuejs/jsx](https://github.com/vuejs/jsx)
 等价于
 
 ```javascript
-<component  visible={dialogFormVisible}
-            {...{on: {'update:visible': this.handelVisible}}}/>
+<component visible={dialogFormVisible} {...{ on: { "update:visible": this.handelVisible } }} />
 ```
+
 其实会被拓展为
 
 ```javascript
@@ -279,7 +273,7 @@ render (createElement) {
 }
 ```
 
-## 用好jsx需要知道的**
+## 用好jsx需要知道的\*\*
 
 ```vue
 render (h) {
@@ -305,10 +299,10 @@ render (h) {
       props: { // 组件的参数
         msg: 'hi'
       },
-      attrs: { 
+      attrs: {
         id: 'foo'
       },
-      domProps: { 
+      domProps: {
         innerHTML: 'bar'
       },
       on: { // 一些事件
@@ -339,21 +333,21 @@ render (h) {
 <div
   {...{
     attrs: {
-      id: 'foo',
+      id: "foo",
     },
     domProps: {
-      innerHTML: 'bar'
+      innerHTML: "bar",
     },
     class: {
       foo: true,
-      bar: false
+      bar: false,
     },
     style: {
-      color: 'red',
-      fontSize: '14px'
+      color: "red",
+      fontSize: "14px",
     },
     on: {
-      click: this.clickHandler
+      click: this.clickHandler,
     },
   }}
 />
@@ -375,13 +369,13 @@ export default {
     Props,
     Event,
     SlotDemo: Slot,
-    BigProps
+    BigProps,
   },
   data: () => {
     return {
       name: "",
       type: "success",
-      bigPropsName: "Hello world!"
+      bigPropsName: "Hello world!",
     };
   },
   methods: {
@@ -402,7 +396,7 @@ export default {
     },
     getItem(props) {
       return [<p>{`item slot-scope ${JSON.stringify(props)}`}</p>];
-    }
+    },
   },
   render() {
     const {
@@ -414,20 +408,20 @@ export default {
       getDefault,
       getTitle,
       getItem,
-      handleBigPropChange
+      handleBigPropChange,
     } = this;
     const slotDemoProps = {
       scopedSlots: {
         item(props) {
           return `item slot-scope ${JSON.stringify(props)}`;
-        }
+        },
       },
-      props: {}
+      props: {},
     };
     const bigProps = {
       props: {
-        onChange: handleBigPropChange
-      }
+        onChange: handleBigPropChange,
+      },
     };
     return (
       <div>
@@ -466,7 +460,7 @@ export default {
         </a-tabs>
       </div>
     );
-  }
+  },
 };
 </script>
 ```
@@ -479,26 +473,26 @@ export default {
   components: {
     VNodes: {
       functional: true,
-      render: (h, ctx) => ctx.props.vnodes
-    }
+      render: (h, ctx) => ctx.props.vnodes,
+    },
   },
   props: {
     name: String,
     onChange: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     slotDefault: Array,
     slotTitle: Array,
     slotScopeItem: {
       type: Function,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     handleChange() {
       this.onChange("Hello vue!");
-    }
+    },
   },
   render() {
     const { name, handleChange, slotDefault, slotTitle, slotScopeItem } = this;
@@ -515,7 +509,7 @@ export default {
         {slotScopeItem({ value: "vue" })}
       </div>
     );
-  }
+  },
 };
 </script>
 ```
@@ -526,7 +520,7 @@ export default {
 export default {
   name: "EventDemo",
   props: {
-    name: String
+    name: String,
   },
   methods: {
     handleChange(e) {
@@ -540,7 +534,7 @@ export default {
       if (stop) {
         e.stopPropagation();
       }
-    }
+    },
   },
   render() {
     const { name, handleChange, handleDivClick, handleClick } = this;
@@ -557,7 +551,7 @@ export default {
         </div>
       </div>
     );
-  }
+  },
 };
 </script>
 ```
@@ -572,24 +566,24 @@ export default {
   props: {
     name: String,
     type: {
-      validator: function(value) {
+      validator: function (value) {
         // 这个值必须匹配下列字符串中的一个
         return ["success", "warning", "danger"].includes(value);
-      }
+      },
     },
     list: {
       type: Array,
       // 对象或数组默认值必须从一个工厂函数获取
-      default: () => []
+      default: () => [],
     },
     isVisible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     onChange: {
       type: Function,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     handleClick() {
@@ -598,7 +592,7 @@ export default {
 
       // 可以，还可以更好
       this.onChange(this.type === "success" ? "warning" : "success");
-    }
+    },
   },
   render() {
     const { name, type, list, isVisible, handleClick } = this;
@@ -615,7 +609,7 @@ export default {
         <button onClick={handleClick}>change type</button>
       </div>
     );
-  }
+  },
 };
 </script>
 ```
@@ -634,15 +628,14 @@ export default {
         {$scopedSlots.item({ value: "vue" })}
       </div>
     );
-  }
+  },
 };
 </script>
 ```
 
 感觉看起来还是没有react的顺眼
 
-
-## 基于类react的编码格式 
+## 基于类react的编码格式
 
 [基于类的Vue组件](https://cn.vuejs.org/v2/guide/typescript.html#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6)
 
@@ -654,7 +647,7 @@ export default {
 @Component (完全继承于vue-class-component)
 @Emit
 @Inject
-@Provice    
+@Provice
 @Prop
 @Watch
 @Model
@@ -762,29 +755,29 @@ var vm = new Vue({
 
 ```javascript
 // public/mixins/mixin.js
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import Vue from "vue";
+import Component from "vue-class-component";
 
 // 你可以想声明一个组件一样声明一个 mixin
 @Component
 export default class MyMixin extends Vue {
   // 这个里面可以抽离一些公共逻辑
-  mixinValue = 'Hello'
+  mixinValue = "Hello";
 }
 ```
 
 ```javascript
 // import Component, { mixins } from 'vue-class-component'
-import {Component, Mixins} from 'vue-property-decorator';
-import MyMixin from '@/mixins/mixin'
+import { Component, Mixins } from "vue-property-decorator";
+import MyMixin from "@/mixins/mixin";
 
 // 使用 `mixins` 帮助函数，而不是 `Vue`.
 // `mixins` 可以获取任何数量的参数
 
 @Component
 export class MyComp extends Mixins(MyMixin) {
-  created () {
-    console.log(this.mixinValue) // -> Hello
+  created() {
+    console.log(this.mixinValue); // -> Hello
   }
 }
 ```
@@ -829,33 +822,33 @@ class MyComp extends Vue {
 
 ```javascript
 // class-component-hooks.js
-import Component from 'vue-class-component'
+import Component from "vue-class-component";
 
 // 通过这些钩子的名称来注册它们
 Component.registerHooks([
-  'beforeRouteEnter',
-  'beforeRouteLeave',
-  'beforeRouteUpdate' // for vue-router 2.2+
-])
+  "beforeRouteEnter",
+  "beforeRouteLeave",
+  "beforeRouteUpdate", // for vue-router 2.2+
+]);
 ```
 
 ```javascript
 // MyComp.js
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import Vue from "vue";
+import Component from "vue-class-component";
 
 @Component
 class MyComp extends Vue {
-  // class 组件现在可以处理 beforeRouteEnter 钩子和 
+  // class 组件现在可以处理 beforeRouteEnter 钩子和
   // beforeRouteLeave 钩子作为 Vue Router 钩子
-  beforeRouteEnter (to, from, next) {
-    console.log('beforeRouteEnter')
-    next() // 需要调用这个来确认导航
+  beforeRouteEnter(to, from, next) {
+    console.log("beforeRouteEnter");
+    next(); // 需要调用这个来确认导航
   }
 
-  beforeRouteLeave (to, from, next) {
-    console.log('beforeRouteLeave')
-    next() // 需要调用这个来确认导航
+  beforeRouteLeave(to, from, next) {
+    console.log("beforeRouteLeave");
+    next(); // 需要调用这个来确认导航
   }
 }
 ```
@@ -866,17 +859,17 @@ class MyComp extends Vue {
 // main.js
 
 // 确保在引入任何组件之前注册
-import './class-component-hooks'
+import "./class-component-hooks";
 
-import Vue from 'vue'
-import MyComp from './MyComp'
+import Vue from "vue";
+import MyComp from "./MyComp";
 
 new Vue({
-  el: '#app',
+  el: "#app",
   components: {
-    MyComp
-  }
-})
+    MyComp,
+  },
+});
 ```
 
 这种乍一看跟react的编码格式很像，但是代码压缩后文件太大，
@@ -918,7 +911,7 @@ Mixins (继承vue-class-component中的mixins)
 @Prop({default: '默认的title', type: [String, Number]}) public readonly title!: string;
 ```
 
-这里 `!是必选的`  ` ?可选参数`, !告诉TypeScript我这里一定有值,实践感觉并没有ts的类型检验，仅仅编辑器有提示，代码正常运行
+这里 `!是必选的` ` ?可选参数`, !告诉TypeScript我这里一定有值,实践感觉并没有ts的类型检验，仅仅编辑器有提示，代码正常运行
 
 下面这种写法，能少用@Prop,我的代码运行的时候，在父组件中必须是`x-xx`,类型的，在子组件`xXx`，即可使用，不然没办法打包。
 
@@ -960,12 +953,12 @@ public onMsgChane(val: string, oldVal: string) {
 
 ```typescript
 //定义要混合的类 mixins.ts
-import Vue from 'vue';
-import  Component  from 'vue-class-component';
+import Vue from "vue";
+import Component from "vue-class-component";
 
-@Component  // 一定要用Component修饰
+@Component // 一定要用Component修饰
 export default class myMixins extends Vue {
-    value: string = "Hello"
+  value: string = "Hello";
 }
 ```
 
@@ -987,31 +980,31 @@ export class myComponent extends mixins(myMixins) {
 
 ```typescript
 // mixins.ts
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component } from "vue-property-decorator";
 // 这里是ts的类型声明，建议直接写在 type/global.d.ts
-declare module 'vue/types/vue' {
-    interface Vue {
-        value: string;
-    }
+declare module "vue/types/vue" {
+  interface Vue {
+    value: string;
+  }
 }
 
 @Component
 export default class myMixins extends Vue {
-    value: string = 'Hello'
+  value: string = "Hello";
 }
 ```
 
 ```typescript
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import myMixins from 'mixins.ts';
+import { Vue, Component, Prop } from "vue-property-decorator";
+import myMixins from "mixins.ts";
 
 @Component({
-    mixins: [myMixins]
+  mixins: [myMixins],
 })
-export default class myComponent extends Vue{
-    created(){
-        console.log(this.value) // => Hello
-    }
+export default class myComponent extends Vue {
+  created() {
+    console.log(this.value); // => Hello
+  }
 }
 ```
 
@@ -1019,6 +1012,7 @@ export default class myComponent extends Vue{
 
 - 在使用ui框架的时候，@都用 on- 代替
 - el-popconfirm 在 table 里面不能直接使用
+
 ```html
 // 在table里面不能直接使用
 <template>
@@ -1028,7 +1022,7 @@ export default class myComponent extends Vue{
   <el-button slot="reference">删除</el-button>
 </el-popconfirm>
 </template>
- 
+
 // 这种可以
 <el-popconfirm
    icon="el-icon-info"
@@ -1089,8 +1083,8 @@ export default class myComponent extends Vue{
 - v-model不能使用解构出来的，解构默认是只读属性的
 - 箭头函数慎用，当前的this是类的实例，temp中的this是Vue的实例, （可使用bind解决传值）
 - tsx写的组件，传递性需要是 x-xxx 如 zy-props={}
-   - tsx引入tsx，如果不使用@Component装饰器的话，（PascalCase）传递性需要是 x-xxx 如 zy-props={}，大驼峰，使用@Component正常（kebab-case）
-   - tsx引入.vue的，如果不使用@Component装饰器的话，默认开发环境是没事的，打包报错，使用@Component正常 
+  - tsx引入tsx，如果不使用@Component装饰器的话，（PascalCase）传递性需要是 x-xxx 如 zy-props={}，大驼峰，使用@Component正常（kebab-case）
+  - tsx引入.vue的，如果不使用@Component装饰器的话，默认开发环境是没事的，打包报错，使用@Component正常
 
 - 一些事件，在tsx中不能直接用v-model,需要用onChange方法获取值
 

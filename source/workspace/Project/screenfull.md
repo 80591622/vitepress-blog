@@ -1,13 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-09-10 09:34:30"
 title: screenfull
 categories:
   - Project
 tags:
   - Project
+lastUpdated: "2020-12-07T09:34:30.717Z"
 ---
-
-
 
 # 全屏实现方案
 
@@ -30,7 +29,7 @@ tags:
         //全屏
         function fullScreen(){
             var el = document.documentElement;
-            var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;      
+            var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
                 if(typeof rfs != "undefined" && rfs) {
                     rfs.call(el);
                 };
@@ -38,18 +37,18 @@ tags:
         }
         //退出全屏
         function exitScreen(){
-            if (document.exitFullscreen) {  
-                document.exitFullscreen();  
-            }  
-            else if (document.mozCancelFullScreen) {  
-                document.mozCancelFullScreen();  
-            }  
-            else if (document.webkitCancelFullScreen) {  
-                document.webkitCancelFullScreen();  
-            }  
-            else if (document.msExitFullscreen) {  
-                document.msExitFullscreen();  
-            } 
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
+            else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
             if(typeof cfs != "undefined" && cfs) {
                 cfs.call(el);
             }

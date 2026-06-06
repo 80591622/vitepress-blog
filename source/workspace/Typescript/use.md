@@ -1,12 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-06-01 17:37:44"
 title: use
 categories:
   - Typescript
 tags:
   - Typescript
+lastUpdated: "2025-09-10T17:37:44.907Z"
 ---
-
 
 # 使用指南（antdp）
 
@@ -24,9 +24,8 @@ interface IProps {
 }
 
 (e: React.FormEvent)=>{}
-    
-```
 
+```
 
 **d.ts**
 
@@ -165,9 +164,7 @@ export function connect(
 
 ```
 
-
 **model**
-
 
 ```javascript
 import { Reducer } from 'redux';
@@ -311,7 +308,6 @@ const GlobalModel: GlobalModelType = {
 export default GlobalModel;
 
 ```
-
 
 **connect**
 

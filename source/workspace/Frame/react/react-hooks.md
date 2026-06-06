@@ -1,30 +1,29 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-01-24 09:48:09"
 title: react-hooks
 categories:
   - Frame
   - react
 tags:
   - react
+lastUpdated: "2021-03-27T09:48:09.203Z"
 ---
 
-
 # Hooks
- 
+
 ## Hook的规则
- 
+
 - 只在最顶层使用 Hook
-    - 不要在`循环`，`条件`或`嵌套函数`中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们。遵守这条规则，你就能确保 Hook 在每一次渲染中都按照同样的 <strong>`顺序`</strong> 被调用。这让 React 能够在多次的 useState 和 useEffect 调用之间保持 hook 状态的正确。
-- 只在 React 函数中调用 Hook     
-    - 在 React 的函数组件中调用 Hook
-    - 在自定义 Hook 中调用其他 Hook
-       - **在类中使用报错警告** 「Hooks can only be called inside the body of a function component」
-    
+  - 不要在`循环`，`条件`或`嵌套函数`中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们。遵守这条规则，你就能确保 Hook 在每一次渲染中都按照同样的 <strong>`顺序`</strong> 被调用。这让 React 能够在多次的 useState 和 useEffect 调用之间保持 hook 状态的正确。
+- 只在 React 函数中调用 Hook
+  - 在 React 的函数组件中调用 Hook
+  - 在自定义 Hook 中调用其他 Hook
+    - **在类中使用报错警告** 「Hooks can only be called inside the body of a function component」
 
 ## 使用Hooks的好处
 
 **1.class 学习成本高**<br/>
-生命周期，this指向啥的，hooks只要会usestate   useeffect差不多能解决所有问题<br/>
+生命周期，this指向啥的，hooks只要会usestate useeffect差不多能解决所有问题<br/>
 **2.class业务逻辑分散**<br/>
 定时器，dom2事件啥的一定要在componentWillUnMount 去卸载。而是用hooks就非常聚合了，直接返回函数里面清楚就可以了<br/>
 **3.class逻辑复用困难**<br/>
@@ -33,7 +32,6 @@ hooks最有优势的就数她的逻辑复用能力了<br/>
 比如一个列表渲染，class每次都要写数据请求，下拉加载，上拉刷新重置分页，loading展示，而在hooks里直接自定义一个hooks就可以做到全部的列表加载逻辑公用<br/>
 **4.** class 打包时无法对 class 的属性方法进行优化，而使用 hooks 则可以将代码压缩到极致。<br/>
 **5.** 最直接的就是业务变更的时候不需要再把函数式组件变成class了
-
 
 **缺点**<br/>
 形成太多闭包，容易导致内存泄漏<br/>
@@ -48,32 +46,26 @@ useFrom<br/>
 useTable<br/>
 useStore<br/>
 
-
 真正说服我使用 react hooks 的，是 react blog 里面提到的，使用 class component 打包时无法对 class 的属性方法进行优化，而**使用 hooks 则可以将代码压缩到极致**。<br/>
 有人会说 hooks 是趋势是未来啥的，但是，实际上，hooks 比 class 复杂和难理解多了，而且随着业务逻辑的增长，一个 function 里面将会写出越来越多的代码，
 越来越复杂，让你无法维护。而实际上，在运行时，两则的差别不是特别大，都没有性能上的优劣。<br/>
 
-
-
-    
 ## Hooks的方法
- 
-| 钩子名 | 作用 |
-| --- | --- |
-| `useState` | 初始化和设置状态 |
-| `useEffect` | `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 的结合体，可监听 `useState` 定义值的变化 |
-| `useContext` | 定义一个全局的对象，类似 `context` |
-| `useReducer` | 可以增强函数，提供类似 Redux 的功能 |
-| `useCallback` | 具有记忆作用，共有两个参数。第一个参数为一个匿名函数，即想要创建的函数体；第二个参数为一个数组，里面的每一项是用来判断是否需要重新创建函数体的变量。如果传入的变量值保持不变，返回记忆结果；如果任何一项改变，则返回新的结果 |
-| `useMemo` | 作用和传入参数与 `useCallback` 一致，不过 `useCallback` 返回函数，`useMemo` 返回值 |
-| `useRef` | 获取 `ref` 属性对应的 DOM |
-| `useImperativeMethods` | 自定义使用 `ref` 时公开给父组件的实例值 |
-| `useLayoutEffect` | 作用与 `useEffect` 相同，但在所有 DOM 改变后同步触发 |
-| `useDebugValue` | 可用于在 React 开发者工具中显示自定义 hook 的标签 |
- 
- 
-## useState
 
+| 钩子名                 | 作用                                                                                                                                                                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useState`             | 初始化和设置状态                                                                                                                                                                                                             |
+| `useEffect`            | `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 的结合体，可监听 `useState` 定义值的变化                                                                                                                 |
+| `useContext`           | 定义一个全局的对象，类似 `context`                                                                                                                                                                                           |
+| `useReducer`           | 可以增强函数，提供类似 Redux 的功能                                                                                                                                                                                          |
+| `useCallback`          | 具有记忆作用，共有两个参数。第一个参数为一个匿名函数，即想要创建的函数体；第二个参数为一个数组，里面的每一项是用来判断是否需要重新创建函数体的变量。如果传入的变量值保持不变，返回记忆结果；如果任何一项改变，则返回新的结果 |
+| `useMemo`              | 作用和传入参数与 `useCallback` 一致，不过 `useCallback` 返回函数，`useMemo` 返回值                                                                                                                                           |
+| `useRef`               | 获取 `ref` 属性对应的 DOM                                                                                                                                                                                                    |
+| `useImperativeMethods` | 自定义使用 `ref` 时公开给父组件的实例值                                                                                                                                                                                      |
+| `useLayoutEffect`      | 作用与 `useEffect` 相同，但在所有 DOM 改变后同步触发                                                                                                                                                                         |
+| `useDebugValue`        | 可用于在 React 开发者工具中显示自定义 hook 的标签                                                                                                                                                                            |
+
+## useState
 
 ```javascript{2}
 //直接传入初始值
@@ -81,7 +73,7 @@ const [state, setState] = useState(initialState);
 
 //传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用
 const [state, setState] = useState(() => {
-  const initialState = ff(props); 
+  const initialState = ff(props);
   return initialState;
 });
 ```
@@ -94,21 +86,21 @@ const [state, setState] = useState(() => {
 - 赋值的时候简单，多个需要克隆下，把不变的存储下来
 
 ```javascript
-setState(state+1);  //直接从初始值里面获取
-setState(prevState=>prevState+1) //该函数将接收先前的state,并返回一个更新后的值
+setState(state + 1); //直接从初始值里面获取
+setState(prevState => prevState + 1); //该函数将接收先前的state,并返回一个更新后的值
 ```
 
 ## useEffect
-| 依赖项 | 副作用执行时机 |
-| --- | --- |
-| 没有依赖项 | 组件初始渲染 + 组件更新时执行 |
-| 空数组依赖项 | 只在初始渲染时执行一次 |
+
+| 依赖项         | 副作用执行时机                      |
+| -------------- | ----------------------------------- |
+| 没有依赖项     | 组件初始渲染 + 组件更新时执行       |
+| 空数组依赖项   | 只在初始渲染时执行一次              |
 | 添加特定依赖项 | 组件初始渲染 + 特定依赖项变化时执行 |
- 
+
 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`：useEffect Hook 可以表达所有这些(包括 不那么 常见 的场景)的组合。
 
 默认情况下，effect 将在每轮`渲染结束后执行`，但你可以选择让它 在只有`某些值改变`的时候 才执行。
-
 
 ```javascript{8}
 function Counter() {
@@ -116,13 +108,14 @@ function Counter() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCount(c => c + 1); 
+      setCount(c => c + 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, []); 
+  }, []);
   return <h1>{count}</h1>;
 }
 ```
+
 为防止内存泄漏，清除函数会在组件卸载前执行。另外，如果组件多次渲染（通常如此），则在执行下一个 effect 之前，`上一个 effect 就已被清除`。看下个栗子：
 
 ```javascript{5,6,7,8,9,10,15,16,17,18}
@@ -190,13 +183,12 @@ export default Example
 
 ![](https://ae01.alicdn.com/kf/H9d109cbe0722447baf4ef132fa24268fE.gif)
 
-
 [官方建议effect使用的方法声明在其内部](http://file.wkdevhub.cn/workspace/Frame/react/use-hooks.html#useeffect%E5%9C%A8%E5%A4%96%E9%9D%A2%E5%A3%B0%E6%98%8E%E5%87%BD%E6%95%B0')
 
 ## useContext
- 
+
 React16中更新了Context API，Context主要用于爷孙组件的传值问题，新的Context API使用订阅发布者模式方式实现在爷孙组件中传值
- 
+
 React Hooks出现之后也对Context API出了响应的Hook useContext。同样也是解传值的问题
 
 ```javascript{11}
@@ -208,7 +200,7 @@ const stateContext = createContext('default');
 >
     <ContextComponent/>
 </stateContext.Provider>
-//子组件 
+//子组件
 const ContextComponent = () => {
     const value = useContext(stateContext);
     return (
@@ -226,10 +218,10 @@ const ContextComponent = () => {
 <img src='/img/redux.jpeg'/>
 
 为了职责清晰，数据流向明确，Redux 把整个数据修改的流程分成了三个核心概念：
+
 1. state：一个对象，存放着我们管理的数据状态。
 2. action：一个对象，用来描述你想怎么改数据。
 3. reducer：一个函数，根据 action 的描述生成一个新的 state 。
-
 
 看到`useReducer`,肯定会想到Redux，没错它和Redux的工作方式是一样的。useReducer的出现是useState的替代方案，能够让我们更好的管理状态。
 
@@ -305,83 +297,78 @@ export default Counter
 ```
 
 ## useCallback
-用于缓存函数，避免在每次组件渲染时都重新创建函数，从而优化性能  
-- 第一个参数是需要 memoize 的回调函数。  
-- 第二个参数是一个数组，包含了所有该回调函数依赖的值。只有当数组中的值发生变化时，useCallback 才会返回一个新的函数  
+
+用于缓存函数，避免在每次组件渲染时都重新创建函数，从而优化性能
+
+- 第一个参数是需要 memoize 的回调函数。
+- 第二个参数是一个数组，包含了所有该回调函数依赖的值。只有当数组中的值发生变化时，useCallback 才会返回一个新的函数
 
 ```jsx
-const memoizedCallback = useCallback(
-  () => {
-    doSomething(a, b);
-  },
-  [a, b],
-);
-
-
-
+const memoizedCallback = useCallback(() => {
+  doSomething(a, b);
+}, [a, b]);
 ```
 
 ```jsx
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from "react";
 
 // 使用 React.memo 包裹子组件
 const ChildComponent = React.memo(({ onClick }) => {
-    return <button onClick={onClick}>Click me</button>;
+  return <button onClick={onClick}>Click me</button>;
 });
 
 const ParentComponent = () => {
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-    // 使用 useCallback 缓存函数
-    const handleClick = useCallback(() => {
-        setCount(count + 1);
-    }, [count]);
+  // 使用 useCallback 缓存函数
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
 
-    return (
-        <div>
-            <p>Count: {count}</p>
-            <ChildComponent onClick={handleClick} />
-        </div>
-    );
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <ChildComponent onClick={handleClick} />
+    </div>
+  );
 };
 
 export default ParentComponent;
 ```
 
-
 ## useMemo
 
-- `第一个参数`：是一个函数，该函数包含需要进行的计算逻辑，并且返回计算结果    
--  `第二个参数`：是一个依赖项数组，当数组中的某个值发生变化时，useMemo 会重新调用第一个参数中的函数进行计算；如果依赖项数组为空，则 useMemo 只会在组件挂载时计算一次  
+- `第一个参数`：是一个函数，该函数包含需要进行的计算逻辑，并且返回计算结果
+- `第二个参数`：是一个依赖项数组，当数组中的某个值发生变化时，useMemo 会重新调用第一个参数中的函数进行计算；如果依赖项数组为空，则 useMemo 只会在组件挂载时计算一次
 
 ```jsx
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const Example = () => {
-    const [filterValue, setFilterValue] = useState(5);
+  const [filterValue, setFilterValue] = useState(5);
 
-    // 使用 useMemo 进行过滤操作
-    const filteredNumbers = useMemo(() => {
-        return numbers.filter(num => num > filterValue);
-    }, [filterValue]);
+  // 使用 useMemo 进行过滤操作
+  const filteredNumbers = useMemo(() => {
+    return numbers.filter(num => num > filterValue);
+  }, [filterValue]);
 
-    return (
-        <div>
-            <input
-                type="number"
-                value={filterValue}
-                onChange={(e) => setFilterValue(Number(e.target.value))}
-                placeholder="Enter filter value"
-            />
-            <ul>
-                {filteredNumbers.map(num => (
-                    <li key={num}>{num}</li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div>
+      <input
+        type="number"
+        value={filterValue}
+        onChange={e => setFilterValue(Number(e.target.value))}
+        placeholder="Enter filter value"
+      />
+      <ul>
+        {filteredNumbers.map(num => (
+          <li key={num}>{num}</li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Example;
@@ -411,17 +398,15 @@ const Example = () => {
 export default Example
 ```
 
-
 ## useImperativeHandle
 
 ```javascript
-useImperativeHandle(ref, createHandle, [deps])
+useImperativeHandle(ref, createHandle, [deps]);
 ```
 
 `useImperativeHandle`可以让你在使用 ref 时`自定义`暴露给父组件的实例值。在大多数情况下，应当避免使用 ref 这样的命令式代码。`useImperativeHandle` 应当与 `forwardRef` 一起使用
 
 就是说：当我们使用父组件把ref传递给子组件的时候，这个Hooks允许在子组件中把自定义实例附加到父组件传过来的ref上，有利于父组件控制子组件。
-
 
 ```javascript{11,12,14,13,15,16,17,18,19,20,24,30,31,35}
 import React, {
@@ -464,6 +449,7 @@ const Example = () => {
 };
 export default Example
 ```
+
 ![](https://ae01.alicdn.com/kf/H3eab0df2695d4654a1f9e9a9b1f20edem.png)
 
 ## useLayoutEffect
@@ -477,70 +463,71 @@ export default Example
 useDebugValue 可用于在 React 开发者工具中显示自定义 hook 的标签。
 
 ## 自定义 Hook 必须以 use 开头吗？
- 
+
 必须如此。这个约定非常重要。不遵循的话，由于无法判断某个函数是否包含对其内部 Hook 的调用，React 将无法自动检查你的 Hook 是否违反了 Hook 的[规则](https://react.docschina.org/docs/hooks-rules.html)。
- 
+
 ```javascript
 const useWinResize = () => {
- const [size, setSize] = useState({
-     width: document.documentElement.clientWidth,
-     height: document.documentElement.clientHeight
- });
- const resize = useCallback(() => {
-     setSize({
-     width: document.documentElement.clientWidth,
-     height: document.documentElement.clientHeight
- })
- }, [])
- useEffect(() => {
-     window.addEventListener('resize', resize);
-     return () => window.removeEventListener('resize', resize);
- }, []);
- return size;
-}
+  const [size, setSize] = useState({
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+  });
+  const resize = useCallback(() => {
+    setSize({
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+    });
+  }, []);
+  useEffect(() => {
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  return size;
+};
 
 //使用
 const Home = () => {
- const {width, height} = useWinResize();
+  const { width, height } = useWinResize();
 
- return <div>
-         <p>width: {width}</p>
-         <p>height: {height}</p>
-  </div>;
+  return (
+    <div>
+      <p>width: {width}</p>
+      <p>height: {height}</p>
+    </div>
+  );
 };
 ```
-
 
 ## 面试题示例
 
 ```javascript
-import React, {Fragment, useState, useEffect, useRef, useCallback} from "react";
+import React, { Fragment, useState, useEffect, useRef, useCallback } from "react";
 const useInterval = (callback, delay) => {
-    useEffect(() => {
-        if (delay !== null) {
-            let id = setInterval(callback, delay);
-            return () => clearInterval(id);
-        }
-    }, [delay]);
+  useEffect(() => {
+    if (delay !== null) {
+      let id = setInterval(callback, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 };
 function Home() {
-    const [count, setCount] = useState(0);
-    const [diff, setDiff] = useState(500);
-    useInterval(() => {
-        setCount(count + 1);
-    }, diff);
-    return (
-        <Fragment>
-            <p> count: {count} </p>
-            <p> diff: {diff}ms </p>
-            <p>
-                <button onClick={() => setDiff(diff - 50)}> 加快50ms</button>
-                <button onClick={() => setDiff(diff + 50)}> 减慢50ms</button>
-            </p>
-        </Fragment>
-    );
+  const [count, setCount] = useState(0);
+  const [diff, setDiff] = useState(500);
+  useInterval(() => {
+    setCount(count + 1);
+  }, diff);
+  return (
+    <Fragment>
+      <p> count: {count} </p>
+      <p> diff: {diff}ms </p>
+      <p>
+        <button onClick={() => setDiff(diff - 50)}> 加快50ms</button>
+        <button onClick={() => setDiff(diff + 50)}> 减慢50ms</button>
+      </p>
+    </Fragment>
+  );
 }
-export default Home
+export default Home;
 ```
 
 可是这段运行后很奇怪，页面从0到1后，就再也不变了，console.log(count)的输出表明代码并没有卡死，那么问题出在哪儿了？<br/>
@@ -551,35 +538,39 @@ useEffect()Hook也「丢弃」上一次渲染结果，它会清除上一次effec
 两种方法:【一种是把count存起来，一种是把定时器里面的函数存起来】
 
 ```javascript
-import React, {Fragment, useState, useEffect, useRef, useCallback} from "react";
+import React, { Fragment, useState, useEffect, useRef, useCallback } from "react";
 const useInterval = (callback, delay, val) => {
-    const saveCallback = useRef();
-    useEffect(() => {
-        saveCallback.current = val
-    },[val]);
-    useEffect(() => {
-        if (delay !== null) {
-            let id = setInterval(() => callback(saveCallback.current), delay);
-            return () => clearInterval(id);
-        }
-    }, [delay]);
+  const saveCallback = useRef();
+  useEffect(() => {
+    saveCallback.current = val;
+  }, [val]);
+  useEffect(() => {
+    if (delay !== null) {
+      let id = setInterval(() => callback(saveCallback.current), delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 };
 function Home() {
-    const [count, setCount] = useState(0);
-    const [diff, setDiff] = useState(500);
-    useInterval((val) => {
-        setCount(val + 1);
-    }, diff, count);
-    return (
-        <Fragment>
-            <p> count: {count} </p>
-            <p> diff: {diff}ms </p>
-            <p>
-                <button onClick={() => setDiff(diff - 50)}> 加快50ms</button>
-                <button onClick={() => setDiff(diff + 50)}> 减慢50ms</button>
-            </p>
-        </Fragment>
-    );
+  const [count, setCount] = useState(0);
+  const [diff, setDiff] = useState(500);
+  useInterval(
+    val => {
+      setCount(val + 1);
+    },
+    diff,
+    count
+  );
+  return (
+    <Fragment>
+      <p> count: {count} </p>
+      <p> diff: {diff}ms </p>
+      <p>
+        <button onClick={() => setDiff(diff - 50)}> 加快50ms</button>
+        <button onClick={() => setDiff(diff + 50)}> 减慢50ms</button>
+      </p>
+    </Fragment>
+  );
 }
 // const useInterval = (callback, delay) => {
 //     const saveCallback = useRef();
@@ -601,8 +592,7 @@ function Home() {
 //     }, [delay]);
 // };
 
-export default Home
-
+export default Home;
 ```
 
 ## `Hooks FAQ`
@@ -622,6 +612,7 @@ function Example({ someProp }) {
   }, []); // 🔴 这样不安全（它调用的 `doSomething` 函数使用了 `someProp`）
 }
 ```
+
 要记住 effect 外部的函数使用了哪些 props 和 state 很难。这也是为什么 通常你会想要在 effect 内部 去声明它所需要的函数。 这样就能容易的看出那个 effect 依赖了组件作用域中的哪些值：
 
 ```javascript
@@ -647,31 +638,33 @@ function Example({ someProp }) {
 ## 如何获取上一轮的 props 或 state
 
 ```javascript
-import React, {Fragment, useState, useEffect, useRef} from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 
 function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    console.log(1)
-    return ref.current;
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  console.log(1);
+  return ref.current;
 }
 
 function Example() {
-    const [count, setCount] = useState(0);
-    const prevCount = usePrevious(count);
-    //此时prevCount是上一次的effect的调用，内部已经改变,只是没有重新渲染
-    console.log(2)  //先渲染后执行这个effect
-    return <>
-        <h1>Now: {count}, before: {prevCount}</h1>
-        <div onClick={() => setCount((val) => val + 1)}>
-            点击加一
-        </div>
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
+  //此时prevCount是上一次的effect的调用，内部已经改变,只是没有重新渲染
+  console.log(2); //先渲染后执行这个effect
+  return (
+    <>
+      <h1>
+        Now: {count}, before: {prevCount}
+      </h1>
+      <div onClick={() => setCount(val => val + 1)}>点击加一</div>
     </>
+  );
 }
 
-export default Example
+export default Example;
 ```
 
 ![](https://ae01.alicdn.com/kf/Hd6588fe44428462c90a0d7ee879c5948a.gif)
@@ -753,7 +746,7 @@ function Example() {
     // useEffect(() => {
     //      setWidth(inputEl.current.getBoundingClientRect().width);
     // });
-          
+
     let ref = useCallback(node => {
         if (node !== null) {
             setWidth(node.getBoundingClientRect().width);
@@ -768,6 +761,7 @@ function Example() {
 }
 export default Example
 ```
+
 这里我们没有选择使用`useRef`，用的ref的回调函数，因为当ref是一个对象时它并不会把当前ref的值的变化通知到我们，最终还是要借助effect来实现「代码如上」
 
 **抽离出来**
@@ -866,6 +860,7 @@ function Example({ a, b }) {
 }
 export default Example
 ```
+
 `注意这种方式在循环中是无效的`
 
 ## 如何向下传递回调？
@@ -888,6 +883,7 @@ function TodosApp() {
   );
 }
 ```
+
 ```javascript{3,6}
 function DeepTree(props) {
   // 如果我们想要执行一个 action，我们可以从 context 中获取 dispatch。
@@ -909,29 +905,28 @@ function DeepTree(props) {
 
 ```javascript
 const useDataApi = (initialUrl, initialData) => {
-    
-    const [data, setData] = useState(initialData);
-    const [url, setUrl] = useState(initialUrl);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+  const [data, setData] = useState(initialData);
+  const [url, setUrl] = useState(initialUrl);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsError(false);
-            setIsLoading(true);
-            try {
-                const result = await fetch(url).then(response => response.json());
-                // const result = await axios.get(url);
-                setData(result);
-            } catch (error) {
-                setIsError(true);
-                setData(initialData);
-            }
-            setIsLoading(false);
-        };
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const result = await fetch(url).then(response => response.json());
+        // const result = await axios.get(url);
+        setData(result);
+      } catch (error) {
+        setIsError(true);
+        setData(initialData);
+      }
+      setIsLoading(false);
+    };
     fetchData();
-    }, [url]);
-    return [{data, isLoading, isError}, setUrl];
+  }, [url]);
+  return [{ data, isLoading, isError }, setUrl];
 };
 ```
 
@@ -941,30 +936,30 @@ const useDataApi = (initialUrl, initialData) => {
 
 ```javascript
 var _state;
-function useState(initialValue){
-    _state = _state || initialValue;
-    function setState(newState){
-        _state = newState;
-        render()
-    }
-    return [_state,setState]
+function useState(initialValue) {
+  _state = _state || initialValue;
+  function setState(newState) {
+    _state = newState;
+    render();
+  }
+  return [_state, setState];
 }
 ```
 
-setState第一个参数可以使函数，当为函数的时候，参数为当前的_state
+setState第一个参数可以使函数，当为函数的时候，参数为当前的\_state
 
 ```js
 var _state;
-function useState(initialValue){
-    _state = _state || initialValue;
-    function setState(fun){
-        _state = fun(_state) || _state
-        render()
-    }
-    return [_state,setState]
+function useState(initialValue) {
+  _state = _state || initialValue;
+  function setState(fun) {
+    _state = fun(_state) || _state;
+    render();
+  }
+  return [_state, setState];
 }
 
-setCount(state=>state+1)
+setCount(state => state + 1);
 ```
 
 ```javascript
@@ -1023,9 +1018,9 @@ let _deps; // _deps 记录 useEffect 上一次的 依赖
 
 function useEffect(callback, depArray) {
   const hasNoDeps = !depArray; // 如果 dependencies 不存在
-  const hasChangedDeps = (_deps
+  const hasChangedDeps = _deps
     ? !depArray.every((el, i) => el === _deps[i]) // 两次的 dependencies 是否完全相等
-    : true);
+    : true;
   /* 如果 dependencies 不存在，或者 dependencies 有变化*/
   if (hasNoDeps || hasChangedDeps) {
     callback();
@@ -1060,9 +1055,7 @@ function useState(initialValue) {
 function useEffect(callback, depArray) {
   const hasNoDeps = !depArray;
   const deps = memoizedState[cursor];
-  const hasChangedDeps = (deps
-    ? !depArray.every((el, i) => el === deps[i])
-    : true);
+  const hasChangedDeps = deps ? !depArray.every((el, i) => el === deps[i]) : true;
   if (hasNoDeps || hasChangedDeps) {
     callback();
     memoizedState[cursor] = depArray;

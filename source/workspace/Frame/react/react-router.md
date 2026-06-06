@@ -1,13 +1,13 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-01-06 15:44:02"
 title: react-router
 categories:
   - Frame
   - react
 tags:
   - react
+lastUpdated: "2022-02-06T15:44:02.059Z"
 ---
-
 
 # Router原理
 
@@ -27,32 +27,30 @@ react-router 还用到了 `history` 库，这个库主要是对 `hash` 路由、
 **看一个示例：**
 
 ```javascript
-const App=()=> {
-  let [UI, setUI] = useState('Login');
+const App = () => {
+  let [UI, setUI] = useState("Login");
   let onClickLogin = () => {
-    setUI('Login')
-  }
+    setUI("Login");
+  };
   let onClickRegister = () => {
-    setUI('Register') 
-  }
+    setUI("Register");
+  };
   let showUI = () => {
-    switch(UI) {
-      case 'Login':
-        return <Login/>
-      case 'Register':
-        return <Register/>
+    switch (UI) {
+      case "Login":
+        return <Login />;
+      case "Register":
+        return <Register />;
     }
-  }
+  };
   return (
     <div className="App">
       <button onClick={onClickLogin}>Login</button>
       <button onClick={onClickRegister}>Register</button>
-      <div>
-          {showUI()}
-      </div>
+      <div>{showUI()}</div>
     </div>
   );
-}
+};
 ```
 
 这个其实就是路由的雏形了，每个页面对应着一个组件，然后在不同状态下去切换 。
@@ -62,38 +60,36 @@ const App=()=> {
 当然我们更希望看到的是,`不同 url -> 不同页面 -> 不同组件`
 
 ```javascript
-const App=()=> {
+const App = () => {
   // 进入页面时，先初始化当前 url 对应的组件名
-  let hash = window.location.hash
-  let initUI = hash === '#login' ? 'login' : 'register'
+  let hash = window.location.hash;
+  let initUI = hash === "#login" ? "login" : "register";
 
   let [UI, setUI] = useState(initUI);
   let onClickLogin = () => {
-    setUI('login')
-    window.location.hash = 'login'
-  }
+    setUI("login");
+    window.location.hash = "login";
+  };
   let onClickRegister = () => {
-    setUI('register') 
-    window.location.hash = 'register'
-  }
+    setUI("register");
+    window.location.hash = "register";
+  };
   let showUI = () => {
-    switch(UI) {
-      case 'login':
-        return <Login/>
-      case 'register':
-        return <Register/>
+    switch (UI) {
+      case "login":
+        return <Login />;
+      case "register":
+        return <Register />;
     }
-  }
+  };
   return (
     <div className="App">
       <button onClick={onClickLogin}>Login</button>
       <button onClick={onClickRegister}>Register</button>
-      <div>
-          {showUI()}
-      </div>
+      <div>{showUI()}</div>
     </div>
   );
-}
+};
 ```
 
 这样其实已经满足我们的要求了，如果我在地址栏里输入 `localhost:8080/#login`，就会显示` <Login/>`。但是这个 “#” 符号不太好看，如果输入 `localhost:8080/login` 就完美了。
@@ -105,38 +101,36 @@ const App=()=> {
 需要注意的是调用`history.pushState()`或`history.replaceState()`不会触发**popstate**事件。只有在做出浏览器动作时，才会触发该事件，如用户点击浏览器的回退按钮（或者在Javascript代码中调用history.back()或者history.forward()方法）
 
 ```javascript
-const App=()=> {
+const App = () => {
   // 进入页面时，先初始化当前 url 对应的组件名
-  let pathname = window.location.pathname
-  let initUI = pathname === '/login' ? 'login' : 'register'
+  let pathname = window.location.pathname;
+  let initUI = pathname === "/login" ? "login" : "register";
 
   let [UI, setUI] = useState(initUI);
   let onClickLogin = () => {
-    setUI('login')
-    window.history.pushState(null, '', '/login')
-  }
+    setUI("login");
+    window.history.pushState(null, "", "/login");
+  };
   let onClickRegister = () => {
-    setUI('register') 
-    window.history.pushState(null, '', '/register')
-  }
+    setUI("register");
+    window.history.pushState(null, "", "/register");
+  };
   let showUI = () => {
-    switch(UI) {
-      case 'login':
-        return <Login/>
-      case 'register':
-        return <Register/>
+    switch (UI) {
+      case "login":
+        return <Login />;
+      case "register":
+        return <Register />;
     }
-  }
+  };
   return (
     <div className="App">
       <button onClick={onClickLogin}>Login</button>
       <button onClick={onClickRegister}>Register</button>
-      <div>
-          {showUI()}
-      </div>
+      <div>{showUI()}</div>
     </div>
   );
-}
+};
 ```
 
 到此，一个 `Router` 就已经被我们实现了。当然这个 `Router` 功能不多，不过这就是 `Vue Router` 和 `React Router` 的思想，他们是基于此来开发更多的功能而已。
@@ -147,12 +141,12 @@ const App=()=> {
 - `HashRouter` 和上面的一样，只是使用的是url的hash部分，比如：window.location.hash。
 - `MemoryRouter`， 就是没有URL的情况,在某些环境（比如React Native）下，根本没有URL，只能靠Memory默默记住就好。
 - `StaticRouter` 在服务器端渲染方案中很有用，因此位置永远不会发生实际变化
- 
- **BrowserRouter**
- 
+
+  **BrowserRouter**
+
 ```javascript
 import React, { useState } from "react";
-  
+
 let set; // 保存setUrl，因为监听事件咱们值加入一次，所以放外面
 function popstate(e) {
   set(window.location.pathname);
@@ -160,7 +154,7 @@ function popstate(e) {
 // 创建context
 export const RouterContext = React.createContext(window.location.pathname);
 
-export default function({ children }) {
+export default function ({ children }) {
   const [url, setUrl] = useState(window.location.pathname);
   set = setUrl;
 
@@ -168,11 +162,11 @@ export default function({ children }) {
 
   const router = {
     history: {
-      push: function(url, state, title) {
+      push: function (url, state, title) {
         window.history.pushState(state, title, url);
         setUrl(url);
       },
-      replace: function(url, state, title) {
+      replace: function (url, state, title) {
         window.history.replaceState(state, title, url);
         setUrl(url);
       },
@@ -180,14 +174,12 @@ export default function({ children }) {
       go: window.history.go,
       goBack: window.history.back,
       goForward: window.history.forward,
-      length: window.history.length
+      length: window.history.length,
     },
-    url: url
+    url: url,
   };
 
-  return (
-    <RouterContext.Provider value={router}>{children}</RouterContext.Provider>
-  );
+  return <RouterContext.Provider value={router}>{children}</RouterContext.Provider>;
 }
 ```
 
@@ -207,7 +199,7 @@ function Route({ component, path }) {
   const { history, url } = useContext(RouterContext);
   const match = {
     path,
-    url
+    url,
   };
   const Component = component;
   return url === path && <Component history={history} match={match} />;
@@ -221,12 +213,14 @@ export default Route;
 重定向路由：from 是从哪个组件来，to 表示要定向到哪里。
 
 ```javascript
-<Redirect from={'/'} exact to={'/home/index'}/>;
-<Redirect from={'/*'} exact to={'/404'}/>;
+<Redirect from={"/"} exact to={"/home/index"} />;
+<Redirect from={"/*"} exact to={"/404"} />;
 ```
-###  exact
+
+### exact
 
 1.exact是Route下的一个属性，react路由会匹配到所有能匹配到的路由组件，exact能够使得路由的匹配更严格一些。
+
 ```javascript
 <Route path='/' component={Home} />
 <Route path='/page' component={Page}>
@@ -239,23 +233,27 @@ export default Route;
 2.Switch 只会渲染第一次匹配的路由，为了防止书写顺序要配合exact一块使用
 
 ```javascript
-import { Switch, Route } from 'react-router'
+import { Switch, Route } from "react-router";
 
-<Switch>  //匹配到一个路由后，后面的就不要再匹配了
-  <Route exact path="/" component={Home}/>
-  <Route path="/:aa" render={() => <div>aa</div>}/>
-</Switch>
+<Switch>
+  {" "}
+  //匹配到一个路由后，后面的就不要再匹配了
+  <Route exact path="/" component={Home} />
+  <Route path="/:aa" render={() => <div>aa</div>} />
+</Switch>;
 ```
 
 ### Link组件后路由系统中到底发生了哪些变化
 
 ```javascript
-<Link to={{
-  pathname: '/me',
-  search: '?sort=asc',
-  hash: '#hash',
-  state: { fromHome: true }
-}} />
+<Link
+  to={{
+    pathname: "/me",
+    search: "?sort=asc",
+    hash: "#hash",
+    state: { fromHome: true },
+  }}
+/>
 ```
 
 `Link` 组件最终会渲染为 `HTML` 标签 `<a>`，它的 `to、query、hash`属性会被组合在一起并渲染为 `href` 属性。虽然 `Link` 被渲染为超链接，但在内部实现上使用脚本`拦截了浏览器的默认行为`，然后调用了`history.pushState`方法
@@ -299,46 +297,46 @@ export default Link;
 
 ```javascript
 class Router {
-    constructor(){
-        this.routers = []  //存放我们的路由配置
-    }
-    add(route,callback){
-        this.routers.push({
-            path:route,
-            render:callback
-        })
-    }
-    listen(callback){
-        window.onhashchange = this.hashChange(callback);   //监听onhashchange方法
-        this.hashChange(callback)()  //首次进入页面的时候没有触发hashchange，必须要就单独调用一下
-    }
-    hashChange(callback){
-        let self = this
-        return function () {
-            let hash = location.hash
-            console.log(hash)
-            for(let i=0;i<self.routers.length;i++){
-                let route = self.routers[i]
-                if(hash===route.path){
-                    callback(route.render())
-                    return
-                }
-            }
+  constructor() {
+    this.routers = []; //存放我们的路由配置
+  }
+  add(route, callback) {
+    this.routers.push({
+      path: route,
+      render: callback,
+    });
+  }
+  listen(callback) {
+    window.onhashchange = this.hashChange(callback); //监听onhashchange方法
+    this.hashChange(callback)(); //首次进入页面的时候没有触发hashchange，必须要就单独调用一下
+  }
+  hashChange(callback) {
+    let self = this;
+    return function () {
+      let hash = location.hash;
+      console.log(hash);
+      for (let i = 0; i < self.routers.length; i++) {
+        let route = self.routers[i];
+        if (hash === route.path) {
+          callback(route.render());
+          return;
         }
-    }
+      }
+    };
+  }
 }
 //使用
-let router = new Router()
-router.add('#index',()=>{
-    return '<h1>这是首页内容</h1>'
-})
-router.add('#news',()=>{
-    return  '<h1>这是新闻内容</h1>'
-})
-router.listen((renderHtml)=>{
-    let app = document.getElementById('app')
-    app.innerHTML = renderHtml
-})
+let router = new Router();
+router.add("#index", () => {
+  return "<h1>这是首页内容</h1>";
+});
+router.add("#news", () => {
+  return "<h1>这是新闻内容</h1>";
+});
+router.listen(renderHtml => {
+  let app = document.getElementById("app");
+  app.innerHTML = renderHtml;
+});
 ```
 
 **HISTORY**
@@ -379,7 +377,6 @@ history 模式
 memory 模式
 该模式就是将路由存在一个对象里，在URL里看不到对应的路径，适用于手机端，但使用很少
 ```
-
 
 ## 参考文档
 

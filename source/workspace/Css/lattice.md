@@ -1,49 +1,50 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-05-21 08:39:22"
 title: lattice
 categories:
   - Css
 tags:
   - Css
+lastUpdated: "2021-07-04T08:39:22.334Z"
 ---
 
-
 # CSS九宫格布局实现
-
 
 **基本的布局**
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover"
+    />
     <title></title>
     <style>
-        .box {
-            background: #e4f7fd61;
-            border: 2px solid #0786ada1;
-            border-radius: 8px;
-        }
-        ul {
-            padding: 0;
-            margin: 0;
-        }
-        .box li {
-            list-style: none;
-            text-align: center;
-            line-height: 200px;
-            background: rgba(146, 203, 230, 0.65);
-            border-radius: 8px;
-        }
+      .box {
+        background: #e4f7fd61;
+        border: 2px solid #0786ada1;
+        border-radius: 8px;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+      }
+      .box li {
+        list-style: none;
+        text-align: center;
+        line-height: 200px;
+        background: rgba(146, 203, 230, 0.65);
+        border-radius: 8px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<div class="box">
-    <ul class="flex grid">
+  <body>
+    <div class="box">
+      <ul class="flex grid">
         <li>1</li>
         <li>2</li>
         <li>3</li>
@@ -53,12 +54,11 @@ tags:
         <li>7</li>
         <li>8</li>
         <li>9</li>
-    </ul>
-</div>
-</body>
+      </ul>
+    </div>
+  </body>
 </html>
 ```
-
 
 ### margin负值实现
 
@@ -69,29 +69,29 @@ tags:
 
 ```css
 .box {
-    width: 940px;
+  width: 940px;
 }
 
 ul {
-    margin-right: -20px;
-    margin-bottom: -20px;  
+  margin-right: -20px;
+  margin-bottom: -20px;
 }
 
 ul:after {
-    content: '';
-    display: block;
-    height: 0;
-    width: 0;
-    clear: both;
-    visibility: hidden;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  clear: both;
+  visibility: hidden;
 }
 
 .box li {
-    float: left;
-    width: 300px;
-    height: 200px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+  float: left;
+  width: 300px;
+  height: 200px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 ```
 
@@ -116,29 +116,30 @@ ul:after {
 ### grid布局
 
 ```css
- .grid {
-    display: grid;
-    grid-template-rows: 100px 100px 100px;
-    grid-template-columns: 100px 100px 100px;
+.grid {
+  display: grid;
+  grid-template-rows: 100px 100px 100px;
+  grid-template-columns: 100px 100px 100px;
 }
 
 .grid > li {
-    margin-top: 4px;
-    margin-left: 4px;
-    box-sizing: border-box;
-    list-style: none;
-    line-height: 100px;
-    text-align: center;
-    border: 4px solid #ccc;
-    background: #6a8bad;
+  margin-top: 4px;
+  margin-left: 4px;
+  box-sizing: border-box;
+  list-style: none;
+  line-height: 100px;
+  text-align: center;
+  border: 4px solid #ccc;
+  background: #6a8bad;
 }
-.grid > li:hover{
-    border-color: red;
-    position: relative;
-    transition: all 500ms;
-    /*z-index:-2;*/
+.grid > li:hover {
+  border-color: red;
+  position: relative;
+  transition: all 500ms;
+  /*z-index:-2;*/
 }
 ```
+
 这里有一个地方需要注意，就是不要再给li子项设置宽度和高度。
 该grid布局中，也可以在hover时添加z-index:2;来提高叠加等级,不然没办法展示全部
 
@@ -146,27 +147,27 @@ ul:after {
 
 ```css
 .flex {
-    display: flex;
-    width: 312px;
-    flex-wrap: wrap;
-    margin: -4px 0 0 -4px;
+  display: flex;
+  width: 312px;
+  flex-wrap: wrap;
+  margin: -4px 0 0 -4px;
 }
 
 .flex > li {
-    box-sizing: border-box;
-    height: 100px;
-    width: 100px;
-    margin-left: 4px;
-    margin-top: 4px;
-    line-height: 100px;
-    text-align: center;
-    list-style: none;
-    background: rgba(146, 203, 230, 0.65);
+  box-sizing: border-box;
+  height: 100px;
+  width: 100px;
+  margin-left: 4px;
+  margin-top: 4px;
+  line-height: 100px;
+  text-align: center;
+  list-style: none;
+  background: rgba(146, 203, 230, 0.65);
 }
 
 .flex > li:hover {
-    background: red;
-    position: relative;
-    /*z-index:2;*/
+  background: red;
+  position: relative;
+  /*z-index:2;*/
 }
 ```

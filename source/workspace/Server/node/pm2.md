@@ -1,13 +1,13 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-09-13 05:33:10"
 title: pm2
 categories:
   - Server
   - node
 tags:
   - node
+lastUpdated: "2023-11-06T05:33:10.107Z"
 ---
-
 
 # Node启动工具
 
@@ -16,21 +16,24 @@ tags:
 **开发环境用**
 
 ##### 下载
-yarn global add  nodemon
+
+yarn global add nodemon
 
 ##### 启动
+
 nodemon app.js
 
 ### pm2
 
 ##### 下载
-yarn global add  pm2
+
+yarn global add pm2
 
 ##### 常用命令
 
 ```nginx
 $ pm2 start app.js              # 启动app.js应用程序
-$ pm2 start app.js -i 4         # cluster mode 模式启动4个app.js的应用实例    
+$ pm2 start app.js -i 4         # cluster mode 模式启动4个app.js的应用实例
 $ pm2 start app.js --name="api" # 启动应用程序并命名为 "api"
 $ pm2 start app.js --watch      # 当文件变化时自动重启应用
 $ pm2 list  / pm2 ls            # 列表 PM2 启动的所有的应用程序
@@ -50,5 +53,3 @@ cd /root/.pm2/logs
 
 pm2 log id
 ```
-
-

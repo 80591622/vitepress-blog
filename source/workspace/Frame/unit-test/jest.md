@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-07-30 12:54:34"
 title: jest
 categories:
   - Frame
   - unit-test
 tags:
   - unit-test
+lastUpdated: "2022-10-14T12:54:34.503Z"
 ---
 
 # 单元测试框架Jest学习总结
@@ -18,15 +19,13 @@ yarn add mocha chai -D
 `Jest`<br/>
 yarn add jest -D
 
-
-
 ## 适合场景
+
 - 业务比较复杂
 - 公司非常注重代码质量，想尽一切办法杜绝线上出bug
 - 需要长期维护的项目。它们需要测试来保障代码可维护性、功能的稳定性
 - 被多次复用的部分，比如一些通用组件和库函数。因为多处复用，更要保障质量
 - 开源项目
-
 
 ## 首先安装需要的包
 
@@ -38,39 +37,34 @@ yarn add jest vue-jest babel-jest @vue/test-utils @types/jest -D
 
 注意版本号之间兼容性问题
 
-
-
 ### 让Jest支持ES6语法
 
 ```javascript
 // .babelrc
-"@babel/preset-env",
-   {
-   "targets": {
-     "browsers": [
-       "chrome >= 50"
-     ],
-     "node": "current" 
-   },
-   "modules": "auto" // 不能为true 
- }
+("@babel/preset-env",
+  {
+    targets: {
+      browsers: ["chrome >= 50"],
+      node: "current",
+    },
+    modules: "auto", // 不能为true
+  });
 ```
 
-
- 
 ## 测试的步骤
 
 - 写测试说明，针对你的每条测试说明测试了什么功能，预期结果是什么。
 - 写测试主体，通常是 输入 -> 输出。
 - 判断测试结果，拿输出和预期做对比。如果输出和预期相符，则测试通过。反之，不通过。
 
-**yarn add jest @types/jest  babel-jest babel-core babel-preset-env regenerator-runtime -D**
+**yarn add jest @types/jest babel-jest babel-core babel-preset-env regenerator-runtime -D**
 
 Jest本身是不支持es6的，但是在react中已经配置好babel等，可以直接使用ES6的语法特性进行单元测试
 
 **使用方式**
+
 ```javascript
-expect(1).not.toBe(2)//判断不等
+expect(1).not.toBe(2); //判断不等
 ```
 
 `toBe()` 绝对相等<br/>
@@ -83,14 +77,13 @@ expect(1).not.toBe(2)//判断不等
 `toBeFalsy()`匹配任何if语句为假<br/>
 `toBeCloseTo(0.3)` 浮点数判断相等<br/>
 
- **数字匹配器**<br/>
+**数字匹配器**<br/>
 `toBeGreaterThan()`大于<br/>
 `toBeGreaterThanOrEqual()`大于或者等于<br/>
 `toBeLessThan()`小于<br/>
 `toBeLessThanOrEqual()`小于或等于<br/>
 
 ## package里面关于jest的配置
-
 
 ```javascript
 //package.json
@@ -102,7 +95,7 @@ expect(1).not.toBe(2)//判断不等
 },
 "jest": {
    "collectCoverage":true,  //查看覆盖的文件  `可以直接输入 jest --coverage 生成测试覆盖率报告`
-   "collectCoverageFrom": [ //哪些文件需要收集覆盖率信息 
+   "collectCoverageFrom": [ //哪些文件需要收集覆盖率信息
      "src/**/*.{js,jsx,ts,tsx}",
      "!src/**/*.d.ts"
    ],
@@ -126,7 +119,7 @@ expect(1).not.toBe(2)//判断不等
      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
      "^.+\\.module\\.(css|sass|scss|less)$"
    ],
-   "moduleNameMapper": { 
+   "moduleNameMapper": {
      "^react-native$": "react-native-web",
      "^.+\\.module\\.(css|sass|scss|less)$": "identity-obj-proxy", //css module的问题
      "^@(.*)$": "<rootDir>/src$1" //jest的别名设置
@@ -186,91 +179,86 @@ module.exports = {
 
 专业术语里，把describe包含的块叫做suite，把it/test包含的块叫做specification，也简称为spec，在一个suite里面可以包含多个数量的spec，但是也要注意结构化语义化。
 
-
 ## 示例
 
 编写测试文件时遵循的命名规范：`测试文件的文件名` = `被测试模块名` + .test.js
 
 ```javascript
 //function.js
-import axios from 'axios';
+import axios from "axios";
 export default {
-    fetchUser() {
-        return axios.get('http://jsonplaceholder.typicode.com/users/1')
-            .then(res => res.data)
-            .catch(error => console.log(error));
-    },
-    sum(a, b) {
-        return a + b;
-    }
-}
+  fetchUser() {
+    return axios
+      .get("http://jsonplaceholder.typicode.com/users/1")
+      .then(res => res.data)
+      .catch(error => console.log(error));
+  },
+  sum(a, b) {
+    return a + b;
+  },
+};
 //function.test.js
-import functions from '../src/functions';
-test('fetchUser() 可以请求到一个含有name属性值为Leanne Graham的对象', () => {
-    expect.assertions(1);
-    return functions.fetchUser()
-        .then(data => {
-            expect(data.name).toBe('Leanne Graham');
-        });
+import functions from "../src/functions";
+test("fetchUser() 可以请求到一个含有name属性值为Leanne Graham的对象", () => {
+  expect.assertions(1);
+  return functions.fetchUser().then(data => {
+    expect(data.name).toBe("Leanne Graham");
+  });
 });
-it('fetchUser() 可以请求到一个含有name属性值为Leanne Graham的对象  async -- await', async () => {
-    expect.assertions(1);
-    const data = await functions.fetchUser();
+it("fetchUser() 可以请求到一个含有name属性值为Leanne Graham的对象  async -- await", async () => {
+  expect.assertions(1);
+  const data = await functions.fetchUser();
 
-    expect(data.name).toBe('Leanne Graham');
-
+  expect(data.name).toBe("Leanne Graham");
 });
-describe('加法函数测试', () => {
-    it('1加2应该等于3', () => {
-        expect(functions.sum(1, 2)).toBe(3);
-    });
+describe("加法函数测试", () => {
+  it("1加2应该等于3", () => {
+    expect(functions.sum(1, 2)).toBe(3);
+  });
 });
-test('sum(2 + 2) 等于 4', () => {
-    expect(functions.sum(2, 2)).toBe(4);
+test("sum(2 + 2) 等于 4", () => {
+  expect(functions.sum(2, 2)).toBe(4);
 });
-test('sum(2 + 2) 等于 4', () => {
-    expect(functions.sum(2, 2)).not.toBe(1008611);
+test("sum(2 + 2) 等于 4", () => {
+  expect(functions.sum(2, 2)).not.toBe(1008611);
 });
-test('there is no I in team', () => {
-    expect('team').not.toMatch(/I/);
+test("there is no I in team", () => {
+  expect("team").not.toMatch(/I/);
 });
-test('but there is a “stop” in Christoph', () => {
-    expect('Christoph').toMatch(/stop/);
+test("but there is a “stop” in Christoph", () => {
+  expect("Christoph").toMatch(/stop/);
 });
-test('测试浮点数是否相等', () => {
-    expect(0.003 + 0.01).toBeCloseTo(0.013);  //这里不能使用toBe
+test("测试浮点数是否相等", () => {
+  expect(0.003 + 0.01).toBeCloseTo(0.013); //这里不能使用toBe
 });
-test('对象判断是否相等', () => {
-    expect({test: "11111"}).toEqual({test: "11111"}); //
+test("对象判断是否相等", () => {
+  expect({ test: "11111" }).toEqual({ test: "11111" }); //
 });
-
 
 describe("筛选数组", () => {
-    test("it should filter by a search term (link)", () => {
-        const input = [
-            {id: 1, url: "https://www.url1.dev"},
-            {id: 2, url: "https://www.url2.dev"},
-            {id: 3, url: "https://www.link3.dev"}
-        ];
+  test("it should filter by a search term (link)", () => {
+    const input = [
+      { id: 1, url: "https://www.url1.dev" },
+      { id: 2, url: "https://www.url2.dev" },
+      { id: 3, url: "https://www.link3.dev" },
+    ];
 
-        const output = [{id: 3, url: "https://www.link3.dev"}];
+    const output = [{ id: 3, url: "https://www.link3.dev" }];
 
-        expect(filterByTerm(input, "link")).toEqual(output);
+    expect(filterByTerm(input, "link")).toEqual(output);
 
-        expect(filterByTerm(input, "LINK")).toEqual(output);
-    });
+    expect(filterByTerm(input, "LINK")).toEqual(output);
+  });
 });
 
 function filterByTerm(inputArr, searchTerm) {
-    const regex = new RegExp(searchTerm, "i");
-    const a = inputArr.filter(function (arrayElement) {
-        return arrayElement.url.match(regex);
-    });
-    console.log(a);
-    return a
+  const regex = new RegExp(searchTerm, "i");
+  const a = inputArr.filter(function (arrayElement) {
+    return arrayElement.url.match(regex);
+  });
+  console.log(a);
+  return a;
 }
-
-
 ```
 
 ### vue中的测试案例
@@ -281,7 +269,7 @@ function filterByTerm(inputArr, searchTerm) {
   <div>
     <slot></slot>
   </div>
-</template>
+</template>;
 
 // test.spec.js
 import { shallowMount, mount } from "@vue/test-utils";
@@ -296,7 +284,7 @@ describe("test.vue", () => {
   });
 
   it("设置slot", () => {
-    return Vue.nextTick().then(function() {
+    return Vue.nextTick().then(function () {
       expect(wrapper.text()).toBe("测试案例");
     });
   });
@@ -305,10 +293,9 @@ describe("test.vue", () => {
 
 ### 未完待续...
 
-
 ## 参考文档
 
-[*ReactTestUtils](https://zh-hans.reactjs.org/docs/test-utils.html)
+[\*ReactTestUtils](https://zh-hans.reactjs.org/docs/test-utils.html)
 
 [参考文档](https://segmentfault.com/a/1190000020387433)
 

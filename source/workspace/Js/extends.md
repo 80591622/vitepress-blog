@@ -1,15 +1,14 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-12-09 11:06:44"
 title: extends
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2023-12-18T11:06:44.578Z"
 ---
 
-
 # 原型与原型链
-
 
 ## 原型与原型链
 
@@ -20,16 +19,16 @@ tags:
 我们先看一段代码:
 
 ```js
-function Person(name){     
-    this.name = name;
+function Person(name) {
+  this.name = name;
 }
 
-Person.prototype.sayName = function(welcome) {     
-	console.log(welcome, this.name);
-}
+Person.prototype.sayName = function (welcome) {
+  console.log(welcome, this.name);
+};
 
-var person1 = new Person('Smiley');     
-person1.sayName('Hello');        
+var person1 = new Person("Smiley");
+person1.sayName("Hello");
 ```
 
 在执行这段代码之前，有个东西是一直存在的，就是有些人所说的“原型的原型”。如下图所示，我们用圆形代表function，用方形代表object:
@@ -46,15 +45,13 @@ person1.sayName('Hello');
 
 ![img](https://pic2.zhimg.com/80/v2-30fce0fbe78cf4b2bb1c8a060dc28751_1440w.jpg)
 
-Person与Person.prototype之间的关系，与Object和Object.prototype类似，不同的是，Person.prototype会通过__proto__指向Object.prototype。
+Person与Person.prototype之间的关系，与Object和Object.prototype类似，不同的是，Person.prototype会通过**proto**指向Object.prototype。
 
 接下来看第5行代码：我们在Person.prototype上面添加一个sayName方法，如上图所示，Person.prototype这个方块中有sayName方法。
 
 ### new调用构造器
 
 使用new这个关键字的时候，JS编译器会做四件事情：
-
-
 
 ```javascript
 //1.创建了一个全新的对象。
@@ -64,33 +61,32 @@ Person与Person.prototype之间的关系，与Object和Object.prototype类似，
 
 //new运算符的执行过程，实现一个new
 function realizeNew(con, ...args) {
-    let obj = {};
-    obj.__proto__ = con.prototype;
-    let ret = con.apply(obj, args);
-    
-    return typeof ret === 'object' && ret !== null ? ret : obj;
+  let obj = {};
+  obj.__proto__ = con.prototype;
+  let ret = con.apply(obj, args);
+
+  return typeof ret === "object" && ret !== null ? ret : obj;
 }
 
 //举列
-function Person(name,age){
-    this.name=name;  /*属性*/
-    this.age=age;
-    this.run=function(){  /*实例方法*/
-        alert(this.name+'在运动');
-    }
-}    
-realizeNew(Person,'小明',20)
+function Person(name, age) {
+  this.name = name; /*属性*/
+  this.age = age;
+  this.run = function () {
+    /*实例方法*/
+    alert(this.name + "在运动");
+  };
+}
+realizeNew(Person, "小明", 20);
 ```
-
-
 
 ![img](https://pic4.zhimg.com/80/v2-109c6159bd3523658b1f5bfc48acc47f_1440w.jpg)
 
-如上图所示，我们先创建一个person1的空对象，然后把person1通过__proto__指向原型对象，指向构造函数中的代码，person1就获得了一个叫做name的属性，最后返回。
+如上图所示，我们先创建一个person1的空对象，然后把person1通过**proto**指向原型对象，指向构造函数中的代码，person1就获得了一个叫做name的属性，最后返回。
 
 我们最后运行第10行代码：person1.sayName('Hello');
 
-person1上有sayName这个方法么？没有，那么就顺着person1的__proto__向上找，找到Person.prototype。Person.prototype上面有sayName方法么？有的，那么执行这个方法。这个方法内部使用了this.name，那么这个this的指向是什么么？我们需要看sayName的call site，是person1调用的sayName，隐式调用，this就指向person1，而person1的name就是Smiley。
+person1上有sayName这个方法么？没有，那么就顺着person1的**proto**向上找，找到Person.prototype。Person.prototype上面有sayName方法么？有的，那么执行这个方法。这个方法内部使用了this.name，那么这个this的指向是什么么？我们需要看sayName的call site，是person1调用的sayName，隐式调用，this就指向person1，而person1的name就是Smiley。
 
 是不是觉得很神奇，最后调用时候使用的属性和方法都是我们希望使用的那个，person1.sayName('Hello')看似很容易理解，JS初学者都能很容易说出最后输出结果，但是这其中的过程，恐怕只有理解了原型和原型链才能真正说明白。
 
@@ -103,92 +99,86 @@ console.log(person1.__proto__ === Person.prototype);
 
 我们再也不用死记硬背这个关系了，而是通过上面的图直接可以推到出来。
 
-
-
 console.log(person1.constructor)是什么的呢？
 
-
-## es5的几种继承方式 
+## es5的几种继承方式
 
 ### 对象冒充实现继承
 
 ```javascript
-function Person(){
-    this.name='张三';  /*属性*/
-    this.age=20;
-    this.run=function(){  /*实例方法*/
-        alert(this.name+'在运动');
-    }
-
-}      
-Person.prototype.sex="男";
-Person.prototype.work=function(){
-     alert(this.name+'在工作');
-
+function Person() {
+  this.name = "张三"; /*属性*/
+  this.age = 20;
+  this.run = function () {
+    /*实例方法*/
+    alert(this.name + "在运动");
+  };
 }
+Person.prototype.sex = "男";
+Person.prototype.work = function () {
+  alert(this.name + "在工作");
+};
 
 //Web类 继承Person类   对象冒充的组合继承模式
-function Web(){
-    Person.call(this);    /*对象冒充实现继承*/
+function Web() {
+  Person.call(this); /*对象冒充实现继承*/
 }
-var w=new Web();
+var w = new Web();
 // w.run();  //**对象冒充可以继承构造函数里面的属性和方法**
 
-w.work();  //对象冒充可以继承构造函数里面的属性和方法   但是没法继承原型链上面的属性和方法
-
+w.work(); //对象冒充可以继承构造函数里面的属性和方法   但是没法继承原型链上面的属性和方法
 ```
+
 ### 原型链实现继承
 
 ```javascript
-function Person(name,age){
-    this.name='张三';  /*属性*/
-    this.age=20;
-    this.run=function(){  /*实例方法*/
-        alert(this.name+'在运动');
-    }
-}      
-Person.prototype.sex="男";
-Person.prototype.work=function(){
-     alert(this.name+'在工作');
+function Person(name, age) {
+  this.name = "张三"; /*属性*/
+  this.age = 20;
+  this.run = function () {
+    /*实例方法*/
+    alert(this.name + "在运动");
+  };
 }
+Person.prototype.sex = "男";
+Person.prototype.work = function () {
+  alert(this.name + "在工作");
+};
 
 //Web类 继承Person类   原型链+对象冒充的组合继承模式
-function Web(name,age){    
-}
+function Web(name, age) {}
 
-Web.prototype=new Person();   //原型链实现继承
-var w=new Web();
+Web.prototype = new Person(); //原型链实现继承
+var w = new Web();
 //原型链实现继承:可以继承构造函数里面的属性和方法 也可以继承原型链上面的属性和方法
 //w.run();
 
 w.work();
- //缺点是实例化子类的时候没法给父类传参
-        
+//缺点是实例化子类的时候没法给父类传参
 ```
 
 ### 原型链+对象冒充的组合继承模式
 
 ```javascript
-function Person(name,age){
-        this.name=name;  /*属性*/
-        this.age=age;
-        this.run=function(){  /*实例方法*/
-            alert(this.name+'在运动');
-        }
-
-}      
-Person.prototype.sex="男";
-Person.prototype.work=function(){
-        alert(this.name+'在工作');
-
-}   
-function Web(name,age){
-    Person.call(this,name,age);   //对象冒充继承   实例化子类可以给父类传参
+function Person(name, age) {
+  this.name = name; /*属性*/
+  this.age = age;
+  this.run = function () {
+    /*实例方法*/
+    alert(this.name + "在运动");
+  };
+}
+Person.prototype.sex = "男";
+Person.prototype.work = function () {
+  alert(this.name + "在工作");
+};
+function Web(name, age) {
+  Person.call(this, name, age); //对象冒充继承   实例化子类可以给父类传参
 }
 
-Web.prototype=new Person();//上面已经继承了构函数的方法 ， 这里new 一个会重新继承构造函数的方法 ，所以这里可以直接 -> Web.prototype=Person.prototype;
+Web.prototype = new Person(); //上面已经继承了构函数的方法 ， 这里new 一个会重新继承构造函数的方法 ，所以这里可以直接 -> Web.prototype=Person.prototype;
 
-var w=new Web('赵四',20);   
+var w = new Web("赵四", 20);
 
 // w.run();
 w.work();
@@ -199,6 +189,7 @@ w.work();
 ### class实现继承源码
 
 `ES6`
+
 ```javascript
 class B {
   constructor(props) {
@@ -208,7 +199,7 @@ class B {
 class A extends B {
   constructor() {
     // 向父类传参
-    super({ name: 'B' });
+    super({ name: "B" });
     // this 必须在 super() 下面使用
     console.log(this);
   }
@@ -216,6 +207,7 @@ class A extends B {
 ```
 
 `ES5`
+
 ```javascript
 function __extends(child, parent) {
   // 修改对象原型
@@ -227,30 +219,25 @@ function __extends(child, parent) {
     this.constructor = child;
   }
   // 原型继承，继承父类原型属性，但是无法向父类构造函数传参
-  child.prototype =
-    parent === null
-      ? Object.create(parent)
-      : ((__.prototype = parent.prototype), new __());
+  child.prototype = parent === null ? Object.create(parent) : ((__.prototype = parent.prototype), new __());
 }
 var B = (function () {
-    function B(props) {
-        this.name = props.name;
-    }
-    return B;
-}());
+  function B(props) {
+    this.name = props.name;
+  }
+  return B;
+})();
 var A = (function (_super) {
-    __extends(A, _super);
-    function A() {
-        var _this = _super.call(this, { name: 'B' }) || this; // // 向父类传参
-        // this 必须在 super() 下面使用
-        console.log(_this);
-        return _this;
-    }
-    return A;
-}(B));
+  __extends(A, _super);
+  function A() {
+    var _this = _super.call(this, { name: "B" }) || this; // // 向父类传参
+    // this 必须在 super() 下面使用
+    console.log(_this);
+    return _this;
+  }
+  return A;
+})(B);
 ```
-
-
 
 ### ES5/ES6 的继承除了写法以外还有什么区别？
 
@@ -269,8 +256,6 @@ class Foo {
   }
 }
 ```
-
-
 
 2. class 声明内部会启用严格模式。
 
@@ -296,10 +281,10 @@ const foo = new Foo();
 function Bar() {
   this.bar = 42;
 }
-Bar.answer = function() {
+Bar.answer = function () {
   return 42;
 };
-Bar.prototype.print = function() {
+Bar.prototype.print = function () {
   console.log(this.bar);
 };
 const barKeys = Object.keys(Bar); // ['answer']
@@ -326,7 +311,7 @@ const fooProtoKeys = Object.keys(Foo.prototype); // []
 function Bar() {
   this.bar = 42;
 }
-Bar.prototype.print = function() {
+Bar.prototype.print = function () {
   console.log(this.bar);
 };
 
@@ -345,8 +330,6 @@ const foo = new Foo();
 const fooPrint = new foo.print(); // TypeError: foo.print is not a constructor
 ```
 
-
-
 5. 必须使用 new 调用 class。
 
 ```javascript
@@ -363,26 +346,23 @@ class Foo {
 const foo = Foo(); // TypeError: Class constructor Foo cannot be invoked without 'new'
 ```
 
-
-
 6. class 内部无法重写类名。
 
 ```javascript
 function Bar() {
-  Bar = 'Baz'; // it's ok
+  Bar = "Baz"; // it's ok
   this.bar = 42;
 }
 const bar = new Bar();
 // Bar: 'Baz'
-// bar: Bar {bar: 42}  
+// bar: Bar {bar: 42}
 
 class Foo {
   constructor() {
     this.foo = 42;
-    Foo = 'Fol'; // TypeError: Assignment to constant variable
+    Foo = "Fol"; // TypeError: Assignment to constant variable
   }
 }
 const foo = new Foo();
-Foo = 'Fol'; // it's ok
+Foo = "Fol"; // it's ok
 ```
-

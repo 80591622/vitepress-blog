@@ -1,13 +1,13 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2024-05-01 08:25:42"
 title: base
 categories:
   - Frame
   - react-native
 tags:
   - react-native
+lastUpdated: "2024-05-17T08:25:42.690Z"
 ---
-
 
 # RN IOS环境搭建
 
@@ -23,6 +23,7 @@ sudo gem update --system
 ERROR:  While executing gem ... (Errno::EPERM)
     Operation not permitted @ rb_sysopen - /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/gem
 ```
+
 则执行
 sudo gem install -n /usr/local/bin cocoapods
 
@@ -48,6 +49,7 @@ https://gems.ruby-china.com
 终端输入：sudo gem install cocoapods
 
 如果出现：
+
 ```javascript
  While executing gem ... (Gem::FilePermissionError)
     You don't have write permissions for the /usr/bin directory.
@@ -74,7 +76,6 @@ master
 - Path: /Users/leiming/.cocoapods/repos/master
 ```
 
-
 ## fatal: unable to access 'https://chromium.googlesource.com/webm/libwebp/'解决方法
 
 ::: danger
@@ -91,7 +92,7 @@ fatal: unable to access 'https://chromium.googlesource.com/webm/libwebp/': Faile
 
 Finder -> 前往文件夹 (⇧⌘G) -> ~/.cocoapods/repos/master/Specs/1/9/2/libwebp
 
-选择最新版本   进入 libwebp.podspec.json 
+选择最新版本 进入 libwebp.podspec.json
 
 把https://chromium.googlesource.com/webm/libwebp 替换为 https://github.com/webmproject/libwebp.git 并保存
 

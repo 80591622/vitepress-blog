@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-05-03 07:04:40"
 title: lnmp
 categories:
   - Server
 tags:
   - Server
+lastUpdated: "2022-06-27T07:04:40.530Z"
 ---
 
 # 云服务器配置
@@ -31,16 +32,14 @@ lnmp vhost list
 lnmp vhost del
 ```
 
-
-
 ### LNMP相关软件安装目录
 
 ```nginx
 # Nginx 目录
 /usr/local/nginx/
-# 默认网站目录 : 0.9版本为 
+# 默认网站目录 : 0.9版本为
 /home/wwwroot/
-#1.0及以后版本为 
+#1.0及以后版本为
 /home/wwwroot/default/
 # Nginx日志目录
 /home/wwwlogs/
@@ -56,12 +55,15 @@ lnmp vhost del
 # MySQL配置文件
 /etc/my.cnf
 ```
+
 ## 修改linux root@后面的别名
+
 ```nginx
 vi /etc/hostname  # 重启服务器
 ```
 
-##  Operation Not Permitted 错误问题
+## Operation Not Permitted 错误问题
+
 ```nginx
 chattr -i [name]
 rm -rf [name]
@@ -72,7 +74,6 @@ rm -rf [name]
 使用 nvm 安装多版本的 node
 
 nvm（Node Version Manager）是 Node.js 的版本管理软件，使您可以轻松在 Node.js 各个版本间进行切换。适用于长期做 node 开发的人员或有快速更新 node 版本、快速切换 node 版本的场景。
-
 
 确保安装 git ，没有 git 执行 `yum install git` 安装 git
 
@@ -89,11 +90,11 @@ echo ". ~/.nvm/nvm.sh" >> /etc/profile
 source /etc/profile
 ```
 
-3. 安装 node 
+3. 安装 node
 
 安装版本 nvm install v12.14.1
 
-列出已安装版本  nvm ls
+列出已安装版本 nvm ls
 
 测试版本号 node -v
 

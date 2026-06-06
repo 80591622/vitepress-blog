@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-08-21 00:30:42"
 title: tsConfig
 categories:
   - Typescript
 tags:
   - Typescript
+lastUpdated: "2021-10-27T00:30:42.924Z"
 ---
 
 # tsconfig了解一下

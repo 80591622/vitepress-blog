@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 在遠端伺服器執行：解壓並原子替換 dist 目錄（由 deploy.ts / GitHub Actions 透過 SSH 呼叫）
+# 在遠端伺服器執行：解壓並原子替換 dist 目錄（由 deploy.ts 透過 SSH 呼叫）
 set -euo pipefail
 
 : "${DEPLOY_SERVER_DIR:?DEPLOY_SERVER_DIR is required}"

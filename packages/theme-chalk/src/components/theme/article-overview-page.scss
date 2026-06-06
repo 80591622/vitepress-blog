@@ -1,14 +1,70 @@
 @use "../../mixins/bem" as *;
 @use "../../mixins/config" as *;
 
+@mixin overview-link-plain {
+  text-decoration: none;
+  text-underline-offset: unset;
+  border-bottom: none;
+  box-shadow: none;
+  background-image: none;
+
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &:active {
+    text-decoration: none;
+    border-bottom: none;
+    box-shadow: none;
+    background-image: none;
+  }
+}
+
 @include b(article-overview) {
   h2 {
     padding-top: 0;
     padding-bottom: 16px;
     border-top: none;
     border-bottom: 1px solid var(--vp-c-divider);
+
     .header-anchor {
-      top: 0px;
+      top: 0;
+    }
+  }
+
+  // ArticlePage 使用 ns.join('doc') => tk-doc，非 tk-article-page__doc
+  .#{$namespace}-doc.vp-doc {
+    a {
+      @include overview-link-plain;
+      color: var(--vp-c-brand-1);
+
+      &:hover {
+        color: var(--vp-c-brand-2);
+      }
+    }
+  }
+
+  @include e(category-link) {
+    @include overview-link-plain;
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--vp-c-brand-1);
+
+    &:hover {
+      color: var(--vp-c-brand-2);
+    }
+  }
+
+  @include e(title-link) {
+    @include overview-link-plain;
+    color: var(--vp-c-brand-1);
+
+    &:hover {
+      color: var(--vp-c-brand-2);
+    }
+
+    a {
+      @include overview-link-plain;
+      color: inherit;
     }
   }
 }

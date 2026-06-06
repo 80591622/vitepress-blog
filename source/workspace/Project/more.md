@@ -1,13 +1,14 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-05-06 11:26:28"
 title: more
 categories:
   - Project
 tags:
   - Project
+lastUpdated: "2021-06-23T11:26:28.399Z"
 ---
-# 会用到的插件
 
+# 会用到的插件
 
 - [animate.css](https://github.com/daneden/animate.css)
 - [骨架屏](https://github.com/buildo/react-placeholder)
@@ -16,22 +17,21 @@ tags:
 - [GraphQL](http://graphql.cn/learn/)
 
 - 移动端滚动
-   - [better-scroll](https://github.com/ustbhuangyi/better-scroll)强大
-   - [zscroller](https://github.com/yiminghe/zscroller) antm内置的
-   - [scroller](https://zynga.github.io/scroller) zscroller就是基于这个
-   
+  - [better-scroll](https://github.com/ustbhuangyi/better-scroll)强大
+  - [zscroller](https://github.com/yiminghe/zscroller) antm内置的
+  - [scroller](https://zynga.github.io/scroller) zscroller就是基于这个
 - [高阶函数](https://tylermcginnis.com/react-higher-order-components/)
 - [webpack](https://juejin.im/post/5c1a506d5188253ff1477d6f?utm_source=gold_browser_extension)
 
 - [typescript](http://www.typescriptlang.org/play/index.html)
 - [vConsole](https://github.com/Tencent/vConsole/blob/dev/README_CN.md) 它是微信团队开源的一个轻量、可拓展、针对手机网页的前端开发者调试面板，
-    - 主要操作可以查看官方[文档](https://github.com/Tencent/vConsole),它有一下特性：
-    - 查看console日志
-    - 查看网络请求
-    - 查看element结构
-    - 查看Cookies和localStorage
-    - 手动执行JS命令行
-    - 自定义插件
+  - 主要操作可以查看官方[文档](https://github.com/Tencent/vConsole),它有一下特性：
+  - 查看console日志
+  - 查看网络请求
+  - 查看element结构
+  - 查看Cookies和localStorage
+  - 手动执行JS命令行
+  - 自定义插件
 - [移动端查看大图](https://github.com/dimsemenov/PhotoSwipe)
 - [cropper组件，用于图片上传裁剪](http://fengyuanchen.github.io/cropper/)
 

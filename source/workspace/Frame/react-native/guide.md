@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2024-11-04 07:36:17"
 title: guide
 categories:
   - Frame
   - react-native
 tags:
   - react-native
+lastUpdated: "2025-01-12T07:36:17.814Z"
 ---
 
 # RN基本用法
@@ -18,17 +19,16 @@ tags:
 import { Platform } from 'react-native';
 JSON.stringify(Platform)
 
-{"OS":"android","Version":25,"is Testing":false} 
+{"OS":"android","Version":25,"is Testing":false}
 
 ```
 
 ## RN样式
-```javascript
-const {height, width} = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-  
-});
+```javascript
+const { height, width } = Dimensions.get("window");
+
+const styles = StyleSheet.create({});
 ```
 
 ```css
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
  //边框
  borderColor: '#F4F4F4',
  borderWidth: 1,
- 
- //圆角       
+
+ //圆角
  borderTopLeftRadius: 20,
  borderTopRightRadius: 20,
  borderBottomRightRadius: 20,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 ```javascript
 //没有任何视觉反馈,只支持一个子节点（不能没有子节点也不能多于一个),如果你希望包含多个子组件，可以用一个View来包装它们。
  <TouchableWithoutFeedback onPress={() => {}}/>
- 
+
 //封装的视图的不透明度会降低,默认为0.2
 <TouchableOpacity
  style={styles.button}
@@ -80,92 +80,88 @@ const styles = StyleSheet.create({
 </TouchableHighlight>
 ```
 
-##  输入框
+## 输入框
 
 [textinput](https://reactnative.cn/docs/textinput/)
+
 ```javascript
 <TextInput
-     style={styles.postTitle}
-     autoFocus
-     multiline
-     underlineColorAndroid='transparent'
-     placeholder='欢迎您的意见和建议…'
-     placeholderTextColor='#9B9B9B'
-     value={note}
-     onChangeText={setPostTitle}
-/>
+  style={styles.postTitle}
+  autoFocus
+  multiline
+  underlineColorAndroid="transparent"
+  placeholder="欢迎您的意见和建议…"
+  placeholderTextColor="#9B9B9B"
+  value={note}
+  onChangeText={setPostTitle}
+/>;
 
 //居顶显示
-textAlignVertical: 'top'
+textAlignVertical: "top";
 ```
 
 ## 获取盒子的位置信息
 
 ```javascript
- layout = () => {
-    const handle = findNodeHandle(this.progressBar);
+layout = () => {
+  const handle = findNodeHandle(this.progressBar);
 
-    new Promise((resolve) => {
-        UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
-            resolve({
-                x,
-                y,
-                width,
-                height,
-                pageX,
-                pageY
-            });
-        });
-    }).then((val) => {
-        console.log(val);
-    })
+  new Promise(resolve => {
+    UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
+      resolve({
+        x,
+        y,
+        width,
+        height,
+        pageX,
+        pageY,
+      });
+    });
+  }).then(val => {
+    console.log(val);
+  });
 };
-    
 
-<View ref={(c) => {
-   this.progressBar = c
-}} onLayout={this.layout} />
-                
+<View
+  ref={c => {
+    this.progressBar = c;
+  }}
+  onLayout={this.layout}
+/>;
 ```
-
 
 ## 页面通信
 
 **方法一:callback函数刷新**
 
 ```javascript
-
 //接收页面
-_onPressBack=()=>{
-    this.props.navigation.navigate('list',{
-        refresh:()=>{
-         this._refresh();
-        },
-    })
+_onPressBack = () => {
+  this.props.navigation.navigate("list", {
+    refresh: () => {
+      this._refresh();
+    },
+  });
 };
-_refresh=()=>{
-    console.log('refresh')
-    alert('刷新哈!')
+_refresh = () => {
+  console.log("refresh");
+  alert("刷新哈!");
 };
-    
 
 <TouchableOpacity onPress={this._onPressBack} activeOpacity={0.8}>
-    <FastImage source={backIcon} style={styles.backIcon}/>
-</TouchableOpacity>
-
-
+  <FastImage source={backIcon} style={styles.backIcon} />
+</TouchableOpacity>;
 
 //发送页面
 
-const goBack=()=>{
-     this.props.navigation.goBack();
-     this.props.navigation.state.params.refresh();
+const goBack = () => {
+  this.props.navigation.goBack();
+  this.props.navigation.state.params.refresh();
 };
 
 <TouchableOpacity onPress={goBack} activeOpacity={0.8}>
-    <FastImage source={backIcon} style={styles.backIcon}/>
-</TouchableOpacity>
-
+  <FastImage source={backIcon} style={styles.backIcon} />
+</TouchableOpacity>;
 ```
 
 **方法二:发送通知DeviceEventEmitter刷新**
@@ -209,30 +205,25 @@ const goBack=()=>{
 
 ```
 
-
-
 ## RN插件
 
 ```javascript
-import {TabView} from "react-native-tab-view";    //tab切换组件
+import { TabView } from "react-native-tab-view"; //tab切换组件
 ```
+
 ```javascript
-import LinearGradient from 'react-native-linear-gradient'    //渐变色插件
+import LinearGradient from "react-native-linear-gradient"; //渐变色插件
 
-<LinearGradient
-  colors={['#FE6E50', '#FF4542']}
-  start={{x: 0, y: 0}}
-  end={{x: 1, y: 0}}
->
+<LinearGradient colors={["#FE6E50", "#FF4542"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
   <Text style={styles.sure_text}>---</Text>
-</LinearGradient>
-```             
-   
-```javascript          
-import FastImage from "react-native-fast-image";   //图片的组件
+</LinearGradient>;
+```
 
-<FastImage source={本地?本地:{uri:url}} style={styles.img}/>
-``` 
+```javascript
+import FastImage from "react-native-fast-image"; //图片的组件
+
+<FastImage source={本地 ? 本地 : { uri: url }} style={styles.img} />;
+```
 
 ```javascript
 import DeviceInfo from 'react-native-device-info'; //获取设备的信息
@@ -280,20 +271,20 @@ async componentWillMount() {
 ```
 
 ```javascript
-import {BoxShadow,BorderShadow} from 'react-native-shadow'     //解决安卓阴影
+import { BoxShadow, BorderShadow } from "react-native-shadow"; //解决安卓阴影
 ```
 
 ```javascript
-import ProgressBar from 'react-native-progress/Bar'; //进度条
+import ProgressBar from "react-native-progress/Bar"; //进度条
 
 <ProgressBar
-    color={'red'}
-    animated={true}
-    width={width}
-    height={2}
-    borderWidth={0}
-    progress={progress} //0-1
-/>
+  color={"red"}
+  animated={true}
+  width={width}
+  height={2}
+  borderWidth={0}
+  progress={progress} //0-1
+/>;
 ```
 
 ```javascript
@@ -317,32 +308,34 @@ navigation.dispatch(resetAction);
 
 ```
 
-##  屏蔽黄屏
- 
+## 屏蔽黄屏
+
 ```javascript
-import { YellowBox} from 'react-native'
+import { YellowBox } from "react-native";
 
 YellowBox.ignoreWarnings([
-    'Warning: isMounted(...) is deprecated',
-    'Module RCTImageLoader requires main queue setup',
-    'Module RNFetchBlob requires main queue setup',
-    'Module AudioRecorderManager requires main queue setup',
-    'Module RCTVideoManager requires main queue setup',
-    'Class RCTCxxModule was not exported',
-    'RCTBridge required dispatch_sync to load RCTDevLoadingView.',
-    'Require cycle:'
+  "Warning: isMounted(...) is deprecated",
+  "Module RCTImageLoader requires main queue setup",
+  "Module RNFetchBlob requires main queue setup",
+  "Module AudioRecorderManager requires main queue setup",
+  "Module RCTVideoManager requires main queue setup",
+  "Class RCTCxxModule was not exported",
+  "RCTBridge required dispatch_sync to load RCTDevLoadingView.",
+  "Require cycle:",
 ]);
 ```
 
 ## 阻止安卓快速双击退出应用
 
 **需求**
+
 - 需要监听安卓的返回键，点击安卓返回键的时候可以正常返回
 - 但是当在tabs的几个页面中按返回键做如下的几个处理
-   - 如果在首页tab，那么在连续点击两次返回键后退出应用
-   - 在其他tab，按返回键不做处理
+  - 如果在首页tab，那么在连续点击两次返回键后退出应用
+  - 在其他tab，按返回键不做处理
 
 **app.js**
+
 ```javascript
 import {
   Platform,
@@ -367,24 +360,25 @@ import {
   onAndroidBackPress = () => {
     console.log(store.dataFixStore.route)
     const {route} = store.dataFixStore;
- 
+
     if (route != 'Home') {
       return true;//true 表示返回上一页
     }else {
       if (this.lastBackPressed && this.lastBackPressed + 500 >= Date.now()) {
-          return false;       
+          return false;
        }
         //最近0.5秒内按过back键，可以退出应用。
       this.lastBackPressed = Date.now();
       return true;
     }
   }
-  
+
 ```
+
 **Home.jsx**
 
 ```javascript
-return  
+return
     <View>
         <NavigationEvents
             onDidFocus={ ()=>{
@@ -396,7 +390,7 @@ return
                     }
                  });
               }}
-            />    
+            />
    </View>
 )
 
@@ -424,7 +418,7 @@ const RootStackNavigator = StackNavigator(
     }
   }
 );
- 
+
 // 禁用某个页面的手势
 static navigationOptions = {
      ...

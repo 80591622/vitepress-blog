@@ -1,56 +1,54 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-03-14 21:51:50"
 title: method
 categories:
   - Project
 tags:
   - Project
+lastUpdated: "2021-05-11T21:51:50.614Z"
 ---
 
-
 # 用到的方法
-
 
 ## 获取给定范围的随机数
 
 ```javascript
-export const  getRand= (min, max)=> {
-    let range = max - min + 1;
-    return Math.floor(Math.random() * range + min);
-}
-
+export const getRand = (min, max) => {
+  let range = max - min + 1;
+  return Math.floor(Math.random() * range + min);
+};
 ```
 
 ## 吸顶
 
 ```javascript
 //titleFixed是className的名字
-let offsetTop =[dom].getBoundingClientRect().top;
+let offsetTop = [dom].getBoundingClientRect().top;
 
 if (offsetTop < 0) {
-    this.titleFixed = true
+  this.titleFixed = true;
 } else {
-    this.titleFixed = false
+  this.titleFixed = false;
 }
 //改成三元
-(offsetTop < 0) ? this. titleFixed = true : this. titleFixed = false;
+offsetTop < 0 ? (this.titleFixed = true) : (this.titleFixed = false);
 //我们发现条件块里面的赋值情况是布尔值，所以可以更简单
-this. titleFixed = offsetTop < 0;
+this.titleFixed = offsetTop < 0;
 
 //原生js获取到顶部-左侧的距离
-function getOffset(obj, direction){
-	let offsetL = 0;
-	let offsetT = 0;
-	while( obj !== window. document.body && obj !== null ){
-		offsetL += obj.offsetLeft;
-		offsetT += obj.offsetTop;
-		obj = obj.offsetParent;
-	}
-	if(direction === 'left'){
-	    return offsetL;
-	}else {
-	   return offsetT
-	};
+function getOffset(obj, direction) {
+  let offsetL = 0;
+  let offsetT = 0;
+  while (obj !== window.document.body && obj !== null) {
+    offsetL += obj.offsetLeft;
+    offsetT += obj.offsetTop;
+    obj = obj.offsetParent;
+  }
+  if (direction === "left") {
+    return offsetL;
+  } else {
+    return offsetT;
+  }
 }
 ```
 
@@ -63,12 +61,12 @@ function getOffset(obj, direction){
  * @param is_global 是否全部去除空格
  */
 export const trim = (str, is_global) => {
-    let result;
-    result = str.replace(/(^\s+)|(\s+$)/g, "");
-    if (is_global.toLowerCase() === "g") {
-        result = result.replace(/\s/g, "");
-    }
-    return result;
+  let result;
+  result = str.replace(/(^\s+)|(\s+$)/g, "");
+  if (is_global.toLowerCase() === "g") {
+    result = result.replace(/\s/g, "");
+  }
+  return result;
 };
 ```
 
@@ -79,7 +77,7 @@ export const trim = (str, is_global) => {
 let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 
 // 匹配身份证号码
-let reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
 
 // 匹配中文
 let reg = /^[\u4e00-\u9fa5]*$/;
@@ -87,33 +85,33 @@ let reg = /^[\u4e00-\u9fa5]*$/;
 //匹配手机号
 let reg = /^1\d{10}$/;
 
-//匹配括号里面的文字 
-let reg =/\(([^)]*)\)/g
+//匹配括号里面的文字
+let reg = /\(([^)]*)\)/g;
 
 //匹配千分位
-let reg =/^(-)?\d{1,3}(,\d{3})*(.\d+)?$/
+let reg = /^(-)?\d{1,3}(,\d{3})*(.\d+)?$/;
 ```
 
 ## 单击和双击同时存在
 
 ```javascript
- dbJumpHome = () => {
-    if (this.clickTimer) {
-        window.clearTimeout(this.clickTimer);
-        this.clickTimer = null;
-    }
-    //执行代码
+dbJumpHome = () => {
+  if (this.clickTimer) {
+    window.clearTimeout(this.clickTimer);
+    this.clickTimer = null;
+  }
+  //执行代码
 };
 
 jumpTo = () => {
-    if (this.clickTimer) {
-        window.clearTimeout(this.clickTimer);
-        this.clickTimer = null;
-    }
+  if (this.clickTimer) {
+    window.clearTimeout(this.clickTimer);
+    this.clickTimer = null;
+  }
 
-    this.clickTimer = window.setTimeout(() => {
-        //执行代码
-    }, 200);
+  this.clickTimer = window.setTimeout(() => {
+    //执行代码
+  }, 200);
 };
 ```
 
@@ -136,47 +134,56 @@ axios.all([queryWxapps(scenicid()['id']), queryWxapps(scenicid()['id']), queryWx
 
 ```javascript
 //解决ios键盘弹起取消后留空白的现象
-;(/iphone|ipod|ipad/i.test(navigator.appVersion)) && document.addEventListener('blur', (e) => {
-// 这里加了个类型判断，因为a等元素也会触发blur事件
-if (
-  ['input', 'textarea'].includes(e.target.localName)
-) {
-  // document.body.scrollIntoViewIfNeeded();
-  // document.activeElement.scrollIntoViewIfNeeded();
-  document.body.scrollIntoView(true);
-}
-
-}, true);
+/iphone|ipod|ipad/i.test(navigator.appVersion) &&
+  document.addEventListener(
+    "blur",
+    e => {
+      // 这里加了个类型判断，因为a等元素也会触发blur事件
+      if (["input", "textarea"].includes(e.target.localName)) {
+        // document.body.scrollIntoViewIfNeeded();
+        // document.activeElement.scrollIntoViewIfNeeded();
+        document.body.scrollIntoView(true);
+      }
+    },
+    true
+  );
 ```
 
 ## 获取滚动条的高度
 
 ```javascript
-function ScollPostion() {//滚动条位置
-let t, l, w, h;
-    if (document.documentElement && document.documentElement.scrollTop) {
-        t = document.documentElement.scrollTop;
-        l = document.documentElement.scrollLeft;
-        w = document.documentElement.scrollWidth;
-        h = document.documentElement.scrollHeight;
-    } else if (document.body) {
-        t = document.body.scrollTop;
-        l = document.body.scrollLeft;
-        w = document.body.scrollWidth;
-        h = document.body.scrollHeight;
-    }
- return { top: t, left: l, width: w, height: h };
+function ScollPostion() {
+  //滚动条位置
+  let t, l, w, h;
+  if (document.documentElement && document.documentElement.scrollTop) {
+    t = document.documentElement.scrollTop;
+    l = document.documentElement.scrollLeft;
+    w = document.documentElement.scrollWidth;
+    h = document.documentElement.scrollHeight;
+  } else if (document.body) {
+    t = document.body.scrollTop;
+    l = document.body.scrollLeft;
+    w = document.body.scrollWidth;
+    h = document.body.scrollHeight;
+  }
+  return { top: t, left: l, width: w, height: h };
 }
-
 
 window.pageYOffset == window.scrollY; // 总是返回 true
 var supportPageOffset = window.pageXOffset !== undefined;
 // document.compatMode;　　//可以用来判断是否声明了DTD; 值为"BackCompat"：未声明DTD;    值为"CSS1Compat"：已声明DTD;
-var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+var isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
 
-var x = supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft;
-var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
-
+var x = supportPageOffset
+  ? window.pageXOffset
+  : isCSS1Compat
+    ? document.documentElement.scrollLeft
+    : document.body.scrollLeft;
+var y = supportPageOffset
+  ? window.pageYOffset
+  : isCSS1Compat
+    ? document.documentElement.scrollTop
+    : document.body.scrollTop;
 ```
 
 ## URL的编码解码
@@ -184,40 +191,41 @@ var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documen
 ```javascript
 //编码
 //;/?:@&=+$,# 这些用于分隔 URI 组件的标点符号,会被十六进制的转义序列替换
-encodeURIComponent(URIstring)
-encodeURIComponent(",/?:@&=+$#")//%2C%2F%3F%3A%40%26%3D%2B%24%23
+encodeURIComponent(URIstring);
+encodeURIComponent(",/?:@&=+$#"); //%2C%2F%3F%3A%40%26%3D%2B%24%23
 
 //解码
-decodeURIComponent(URIstring)
-decodeURIComponent("%2C%2F%3F%3A%40%26%3D%2B%24%23")//,/?:@&=+$#
+decodeURIComponent(URIstring);
+decodeURIComponent("%2C%2F%3F%3A%40%26%3D%2B%24%23"); //,/?:@&=+$#
 ```
 
 ## 获取图片的原始尺寸
 
 ```js
 function getImgNaturalDimensions(oImg, callback) {
-　　var nWidth, nHeight;
-　　if (!oImg.naturalWidth) { // 现代浏览器
+  var nWidth, nHeight;
+  if (!oImg.naturalWidth) {
+    // 现代浏览器
 
-　　　　nWidth = oImg.naturalWidth;
-　　　　nHeight = oImg.naturalHeight;
-　　　　callback({w: nWidth, h:nHeight});
+    nWidth = oImg.naturalWidth;
+    nHeight = oImg.naturalHeight;
+    callback({ w: nWidth, h: nHeight });
+  } else {
+    // IE6/7/8
+    var nImg = new Image();
 
-　　} else { // IE6/7/8
-　　　　var nImg = new Image();
-
-        nImg.onload = function() {
-             var nWidth = nImg.width,
-                 nHeight = nImg.height;
-           callback({w: nWidth, h:nHeight});
-　　　　}
-　　　　nImg.src = oImg.src;
-　　}
+    nImg.onload = function () {
+      var nWidth = nImg.width,
+        nHeight = nImg.height;
+      callback({ w: nWidth, h: nHeight });
+    };
+    nImg.src = oImg.src;
+  }
 }
 // 使用
 var img = document.getElementById("oImg");
-getImgNaturalDimensions(img, function(dimensions){
-　　console.log(dimensions.w);
+getImgNaturalDimensions(img, function (dimensions) {
+  console.log(dimensions.w);
 });
 ```
 
@@ -249,37 +257,42 @@ img {
 一个个添加效率低，服务端返回的尺寸也不清晰，我们可以封装一个方法，帮助我们自动添加
 
 ```javascript
-export const readImageSize = (imgUrl) => new Promise((resolve, reject) => {
-  const img = new Image()
+export const readImageSize = imgUrl =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
 
-  img.src = imgUrl
+    img.src = imgUrl;
 
-  img.onload = () => {
-    resolve({
-      width: img.naturalWidth || img.width,
-      height: img.naturalHeight || img.height,
-    })
-  }
+    img.onload = () => {
+      resolve({
+        width: img.naturalWidth || img.width,
+        height: img.naturalHeight || img.height,
+      });
+    };
 
-  img.onerror = reject
-})
+    img.onerror = reject;
+  });
 ```
 
 然后拿到 img 的链接，动态添加，:width="xxxx" 、 :height="xxxx"
 
 ```javascript
 // templateObj 数据源
-export const  fillImageSizes = (templateObj) => {
-  return Promise.all(Object.keys(templateObj).map((key) => {
-    const item = templateObj[key]
-    if (item.width && item.height) {
-        return
-    }
+export const fillImageSizes = templateObj => {
+  return Promise.all(
+    Object.keys(templateObj).map(key => {
+      const item = templateObj[key];
+      if (item.width && item.height) {
+        return;
+      }
 
-    return readImageSize(this.templateImgUrl(key)).then(({ width, height }) => {
-        Object.assign(item, { width, height })
-    }, () => {
+      return readImageSize(this.templateImgUrl(key)).then(
+        ({ width, height }) => {
+          Object.assign(item, { width, height });
+        },
+        () => {}
+      );
     })
-  }))
-}
+  );
+};
 ```

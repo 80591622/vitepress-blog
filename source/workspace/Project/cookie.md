@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-04-27 14:09:10"
 title: cookie
 categories:
   - Project
 tags:
   - Project
+lastUpdated: "2021-05-25T14:09:10.894Z"
 ---
 
 # 简易封装Cookie
@@ -13,26 +14,24 @@ Cookie不仅仅有名字和值两个属性，还有域（domain）、路径（pa
 一般我们设置cookie的方法是用一个同样名字、一个值。这时就一定要搞清楚你要设置的cookie的域和路径，否则就会产生问题。
 
 ```javascript
-
 /**
  * 生成过期时间
  *
  * @param {Number|Infinity} day 过期天数 默认 Infinity
  */
 export function generateExpires(day) {
-    const getDay = day || Infinity;
-    const getNow = new Date();
+  const getDay = day || Infinity;
+  const getNow = new Date();
 
-    const getYearNumber = getNow.getFullYear();
-    const getMonthNumber = getNow.getMonth() + 1;
-    const getDateNumber = getNow.getDate();
+  const getYearNumber = getNow.getFullYear();
+  const getMonthNumber = getNow.getMonth() + 1;
+  const getDateNumber = getNow.getDate();
 
-    const getFullToday = `${getYearNumber}/${getMonthNumber}/${getDateNumber}`; // 只能用斜杠 不然有bug
+  const getFullToday = `${getYearNumber}/${getMonthNumber}/${getDateNumber}`; // 只能用斜杠 不然有bug
 
+  getNow.setTime(new Date(getFullToday).getTime() + getDay * 24 * 60 * 60 * 1000);
 
-    getNow.setTime(new Date(getFullToday).getTime() + (getDay * 24 * 60 * 60 * 1000));
-
-    return getNow;
+  return getNow;
 }
 
 /**
@@ -43,9 +42,8 @@ export function generateExpires(day) {
  * @param {Number} expires 过期时间
  */
 export function setCookie(name, value, expires = generateExpires(Infinity)) {
-    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
+  document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
 }
-
 
 /**
  * 获取 Cookie
@@ -53,14 +51,14 @@ export function setCookie(name, value, expires = generateExpires(Infinity)) {
  * @param {String} name 名
  */
 export function getCookie(name) {
-    const cname = `${name}=`;
-    const Cookie = document.cookie.split(';');
-    for (let i = 0; i < Cookie.length; i += 1) {
-        let item = Cookie[i];
-        while (item.charAt(0) === ' ') item = item.substring(1);
-        if (item.indexOf(cname) === 0) return item.substring(cname.length, item.length);
-    }
-    return '';
+  const cname = `${name}=`;
+  const Cookie = document.cookie.split(";");
+  for (let i = 0; i < Cookie.length; i += 1) {
+    let item = Cookie[i];
+    while (item.charAt(0) === " ") item = item.substring(1);
+    if (item.indexOf(cname) === 0) return item.substring(cname.length, item.length);
+  }
+  return "";
 }
 
 /**
@@ -68,21 +66,19 @@ export function getCookie(name) {
  * @param {string} name 名
  */
 export function removeCookie(name) {
-    try {
-        if (!name) throw Error('请输入Cookie名');
+  try {
+    if (!name) throw Error("请输入Cookie名");
 
-        const expires = new Date();
-        expires.setTime(expires.getTime() - 1);
+    const expires = new Date();
+    expires.setTime(expires.getTime() - 1);
 
-        const value = getCookie(name);
+    const value = getCookie(name);
 
-        if (value != null) {
-            setCookie(name, value, expires);
-        }
-    }catch (e) {
-        console.log(e);
+    if (value != null) {
+      setCookie(name, value, expires);
     }
+  } catch (e) {
+    console.log(e);
+  }
 }
-
-
 ```

@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-07-26 17:16:17"
 title: babel_polyfill
 categories:
   - Webpack
 tags:
   - Webpack
+lastUpdated: "2023-11-21T17:16:17.479Z"
 ---
 
 # Babel-polyfill
@@ -34,17 +35,19 @@ stage-2 - Draft: initial spec.
 stage-3 - Candidate: complete spec and initial browser implementations.
 stage-4 - Finished: will be added to the next yearly release.
 ```
-	
-stage 是向下兼容  0>1>2>3>4 所包含的插件数量依次减少
+
+stage 是向下兼容 0>1>2>3>4 所包含的插件数量依次减少
 
 polyfill 有三种：
+
 ```javascript{2}
 babel-runtime
 babel-plugin-transform-runtime(推荐-默认依赖于babel-runtime)
 babel-polyfill
-````
+```
+
 因为babel编译es6到es5的过程中，babel-plugin-transform-runtime这个插件会自动polyfill es5不支持的特性，<br/>
-这些polyfill包就是在babel-runtime这个包里 core-js 、regenerator等  polyfill。<br/>
+这些polyfill包就是在babel-runtime这个包里 core-js 、regenerator等 polyfill。<br/>
 babel-runtime和 babel-plugin-transform-runtime的区别是，相当一前者是手动挡而后者是自动挡，每当要转译一个api时都要手动加上require('babel-runtime')，<br/>
 而babel-plugin-transform-runtime会由工具自动添加，主要的功能是为api提供沙箱的垫片方案，不会污染全局的api，因此适合用在第三方的开发产品中。<br/>
 
@@ -66,7 +69,6 @@ babel-runtime和 babel-plugin-transform-runtime的区别是，相当一前者是
 
 这个包是一个纯运行时的包，不是babel插件。它的作用是直接改写全局变量，从而让运行环境支持经过present-env转码后的代码
 
-
 ```js
 [
   '@babel/preset-env',
@@ -80,11 +82,11 @@ babel-runtime和 babel-plugin-transform-runtime的区别是，相当一前者是
 
 ```js
 function test() {
-  new Promise()
+  new Promise();
 }
-test()
-const arr = [1,2,3,4].map(item => item * item)
-console.log(arr)
+test();
+const arr = [1, 2, 3, 4].map(item => item * item);
+console.log(arr);
 ```
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h26ym1lcfhj20te0g8jsq.jpg)
@@ -94,7 +96,6 @@ console.log(arr)
 ## @babel/plugin-transform-runtime
 
 在webpack中，**babel-plugin-transform-runtime 实际上是依赖babel-runtime** <br/>
-
 
 - 它有两个作用：
   - 将preset-env所产生的helpers函数提出到一个独立文件中，从而减少代码量
@@ -109,17 +110,17 @@ console.log(arr)
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h26yo5knxaj21k20u0n0w.jpg)
 
-
 ## babel7中 corejs 和 corejs2 的区别
 
 最近在给项目升级babel7，有一些改变但是变化不大,在升级中发现 babel7 变化挺大的，包括插件和包。
-其中一项功能特别赞，就是  @babel/preset-env  中的  useBuiltIns  选项，如果你设置了  usage ，babel 编绎的时候就不用整个 polyfills , 只加载你使用 polyfills，这样就可以减少包的大小。
+其中一项功能特别赞，就是 @babel/preset-env 中的 useBuiltIns 选项，如果你设置了 usage ，babel 编绎的时候就不用整个 polyfills , 只加载你使用 polyfills，这样就可以减少包的大小。
 在使用 babel 中还想减少代码，就需要引入 babel 的运行时：
 
 ```js
 yarn add @babel/plugin-transform-runtime -D
 yarn add @babel/runtime
 ```
+
 需要注意的是：
 
 1. `两个包引入的范围不一样：一个在开发时引入，一个在运行时引入。`
@@ -128,18 +129,19 @@ yarn add @babel/runtime
 在 plugin-transform-runtime 中有一个 corejs 很奇怪，可以设置成 false 或者 2。这是为什么这样？<br/>
 大家知道 corejs 是一个给低版本的浏览器提供接口的库，如 Promise, map, set 等。<br/>
 在 babel 中你设置成 false 或者不设置，就是引入的是 corejs 中的库，而且在全局中引入，也就是说侵入了全局的变量。可以观察以下的代码：
+
 ```javascript
 // 这是你写的代码
 function sleep(ms) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve()
-    }, ms)
-  })
+      resolve();
+    }, ms);
+  });
 }
 // babel 编绎成的代码
-"use strict";
-require("core-js/modules/es6.promise");  // 这里可以看出是全局引入
+("use strict");
+require("core-js/modules/es6.promise"); // 这里可以看出是全局引入
 function sleep(ms) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
@@ -148,7 +150,9 @@ function sleep(ms) {
   });
 }
 ```
+
 如果你的全局有一个引入，防止引入的库影响全局，那你就需要引把 corejs 设置成2。下面就是设真置成2，编绎成的代码：
+
 ```javascript
 "use strict";
 var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
@@ -161,19 +165,19 @@ function sleep(ms) {
   });
 }
 ```
-可以从编绎出的代码看到，Promise 代码变成了一个独立的变量 _promise，不会影响全局的 Promise。<br/>
+
+可以从编绎出的代码看到，Promise 代码变成了一个独立的变量 \_promise，不会影响全局的 Promise。<br/>
 这样的好处是，引入的库者自己引入了一个变量，这样如果你引入的第三方库会对 Promise 进行一些自定义操作，这样就可以避免第三方库报错。<br/>
 还要注意一点是： 如果你设置了 corejs2，那你就需要加入下面的库:
 
-| corejs选项         | 安装命令                            | 包含的文件                                |
-|--------------------|-------------------------------------|-------------------------------------------|
-| false              | `yarn add @babel/runtime`           | helpers、regenerator                      |
-| 2                  | `yarn add @babel/runtime-corejs2`   | core-js、helpers、regenerator             |
-| 3                  | `yarn add @babel/runtime-corejs3`   | 还支持实例属性（例如[].includes)            |
-
-
+| corejs选项 | 安装命令                          | 包含的文件                       |
+| ---------- | --------------------------------- | -------------------------------- |
+| false      | `yarn add @babel/runtime`         | helpers、regenerator             |
+| 2          | `yarn add @babel/runtime-corejs2` | core-js、helpers、regenerator    |
+| 3          | `yarn add @babel/runtime-corejs3` | 还支持实例属性（例如[].includes) |
 
 ## 参考文档：<br/>
+
 [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env/)
 
 [babel-plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime)
@@ -208,7 +212,6 @@ babel-polyfill则是通过改写全局prototype的方式实现，比较适合单
     regenerator  仅仅是引用regenerator-runtime这个npm包
 ```
 
-
 ## 库项目
 
 @babel/preset-env 拥有根据 useBuiltIns 参数的多种polyfill实现，优点是覆盖面比较全（entry）， 缺点是会污染全局， 推荐在业务项目中使用
@@ -216,6 +219,3 @@ babel-polyfill则是通过改写全局prototype的方式实现，比较适合单
 库类项目推荐使用 `@babel/plugin-transform-runtime`，因为库项目通常会面临另一个问题。如果我们直接导入 core-js 作 polyfill 的话，像 `Promise`，`Set`，`Map` 这样的全局对象就会被覆盖。对于一般的应用而言，问题不大；但如果是库，你无法预期其它开发者会在什么情况下使用你的库，很可能他的目标平台都支持这些新语法元素，不希望转译污染。
 
 此时，使用 `@babel/plugin-transform-runtime` 可以让 babel 在转译时使用沙箱垫片和代码复用， 避免帮助函数重复 inject 过多的问题， 该方式的优点是不会污染全局
-
-
-

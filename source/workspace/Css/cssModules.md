@@ -1,26 +1,25 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-12-28 13:00:16"
 title: cssModules
 categories:
   - Css
 tags:
   - Css
+lastUpdated: "2023-03-03T13:00:16.359Z"
 ---
-
 
 # css的模块化
 
 `1`. 关于less使用建议
 
     1、过渡的嵌套会导致很多问题发生，使代码变得更复杂，而且太过依赖于HTML结构，这样后面要覆盖样式需要依赖于"!important"，而这种方式又是我们尽量避免使用的一种
-    
+
     2、嵌套层级不应该超过三层
-    
+
     3、嵌套层级编译出来的CSS，要确保其简洁，可重用
-    
+
     4、使用嵌套很有意义，但并不意味着无限级的嵌套
-    
-    
+
 `2`.这玩意的好处
 
     解决CSS中的全局作用域问题。说白了就是解决不同页面样式冲突的问题
@@ -28,7 +27,6 @@ tags:
     很方便的按需加载
 
 `3`.启用css modules 只需在webpack中使用css-loader，下面为less中使用
-
 
     `使用cssmodules后改变css,浏览器会自动刷新,因为他是基于对象的，之前直接写less的时候，需要手动的`
 
@@ -57,10 +55,7 @@ tags:
 
 ```
 
-
-
-`4`.	在智慧社区里面使用：
-    1. 对于局部css   采用[name]. module.[less | css]，
+`4`. 在智慧社区里面使用：1. 对于局部css 采用[name]. module.[less | css]，
 
 ```javascript
 
@@ -110,16 +105,15 @@ use: [
 
 ```css
 /* 定义多个全局样式 */
-	:global {
-	  .link {
-	    color: green;
-	  }
-	  .box {
-	    color: yellow;
-	  }
-	}
+:global {
+  .link {
+    color: green;
+  }
+  .box {
+    color: yellow;
+  }
+}
 ```
-
 
     3. 对于组件的引入
 
@@ -141,22 +135,20 @@ import styles from './Button.css';
 buttonElem.outerHTML = `<button class=${styles.normal}>Submit</button>`
 ```
 
-
-
-
     4.css modules的局限：
     1.class名必须是驼峰形式，否则不能正常在js里使用 styles.table 来引用 对此的解决方法
-  
+
 ```css
  className={styles['tree-component-header']
 
 ```
+
     2.由于css模块化是默认，当你希望使用正常的全局css时，需要通过:local 和 :global 切换，不方便
     3.所有的 className 都必须使用 {style.className} 的形式
 
 
     5.composes 关键词
-    
+
 ```javascript
   //css
     .serif-font {
@@ -169,12 +161,12 @@ buttonElem.outerHTML = `<button class=${styles.normal}>Submit</button>`
     }}
    //组件
    import styles from "./type.css";
-   element.innerHTML = 
+   element.innerHTML =
    `
        <h1 class={styles.display}>
            This is a heading
        </h1>`
-       
+
    //浏览器
    <h1 class="_type__display_0980340 _type_serif_404840">
        This is a heading
@@ -199,7 +191,7 @@ buttonElem.outerHTML = `<button class=${styles.normal}>Submit</button>`
   ),
   sideEffects: true
  }
-            
+
 ```
 
 详情看：

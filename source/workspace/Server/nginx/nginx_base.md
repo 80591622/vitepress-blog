@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-10-14 15:12:10"
 title: nginx_base
 categories:
   - Server
   - nginx
 tags:
   - nginx
+lastUpdated: "2023-02-09T15:12:10.405Z"
 ---
 
 # Nginx的使用指南
@@ -13,7 +14,6 @@ tags:
 ## 基础配置
 
 [nginx基本配置与参数说明](http://www.nginx.cn/76.html)
-
 
 ```nginx{63,64,65,66,67,68,69,88,89,90,91,92,114,115,116,117}
 #运行用户
@@ -32,9 +32,9 @@ worker_processes  1;
 events {
     #epoll是多路复用IO(I/O Multiplexing)中的一种方式,
     #仅用于linux2.6以上内核,可以大大提高nginx的性能
-    use   epoll; 
+    use   epoll;
 
-    #单个后台worker process进程的最大并发链接数    
+    #单个后台worker process进程的最大并发链接数
     worker_connections  1024;
 
     # 并发总数是 worker_processes 和 worker_connections 的乘积
@@ -140,11 +140,8 @@ http {
 
 ## 负载均衡（反向代理）
 
-
 1.用户输入`http://test-openai.com` 时，访问`80`端口<br/>
-2.nginx监听到80端口`被访问`，匹配到的`/`路径，被反向代理到`http://dramatic-offical-website`<br/>
-3.`dramatic-offical-website`集群管理着一堆机器地址，从而实现负载均衡。<br/>
-4.如果匹配到`http://test-openai.com/images/` 路径，则直接映射`/data`下的文件<br/>
+2.nginx监听到80端口`被访问`，匹配到的`/`路径，被反向代理到`http://dramatic-offical-website`<br/> 3.`dramatic-offical-website`集群管理着一堆机器地址，从而实现负载均衡。<br/> 4.如果匹配到`http://test-openai.com/images/` 路径，则直接映射`/data`下的文件<br/>
 
 ```nginx
 # 虚拟主机配置
@@ -191,6 +188,7 @@ location /api {
 ### `Pragma`
 
 `Pragma`有两个字段`Pragma`和`Expires`。Pragma的值为no-cache时，表示禁用缓存，Expires的值是一个GMT时间，表示该缓存的有效时间。
+
 ```nginx
 location ~ .*\.(css|js|swf|php|htm|html )$ {
 	add_header Cache-Control max-age=10;
@@ -221,7 +219,6 @@ location ~ .*\.(js|css)$ {
 
 而对于协商缓存来说，要判断缓存是否能使用，需要通过发起请求，带着与缓存相关的字段，到服务器去做过期判断后，才能通过相应的内容做出相应的操作。（是回去拿缓存的资源，还是拿这次服务器返回的资源）
 
-
 ### `Last-Modified/If-Modified-Since`
 
 `Last-Modified`：标示这个`响应`资源的最后修改时间。web服务器在响应请求时，告诉浏览器资源的最后修改时间。<br/>
@@ -238,6 +235,7 @@ last_modified = res.headers['Last-Modified']
 # 修改headers
 headers['If-Unmodified-Since'] = last_modified
 ```
+
 ### `ETag/If-None-Match`
 
 ::: tip 为什么要有etag？
@@ -252,7 +250,6 @@ headers['If-Unmodified-Since'] = last_modified
 
 `If-None-Match`：告诉服务器如果一致，返回状态码304，不一致则返回资源<br/>
 `If-Match`：告诉服务器如果不一致，返回状态码412
-
 
 ```nginx
  location ~* ^.+\.(css|js|txt|xml|swf|wav)$ {
@@ -272,7 +269,6 @@ headers['If-Unmodified-Since'] = last_modified
 - 分布式系统尽量关闭掉ETag(每台机器生成的ETag都会不一样）；
 - 京东页面的资源请求，返回的repsones header就只有Last-Modified，没有ETag：
 
-
 ### 用户行为
 
 F5刷新那个可以去火狐看看
@@ -291,7 +287,6 @@ F5刷新那个可以去火狐看看
 如果线上遇到小的问题特别急，源码又不在身边，需要登录服务器改代码，也尽可能的不直接修改js或者css里面的代码，
 这样在强缓存时间内或者用户刷新页面并不会请求到真正的请求数据，会直接使用本地的缓存，浏览器强制刷新会解决此问题，但是在手机端就gg了，
 好的办法就是直接把文件名称，加一些hash值，然后在对应的页面修改下，这样就能拿到真正的资源了。（上一家公司遇到的坑）
-
 
 ## 404 转发到兜底页面
 

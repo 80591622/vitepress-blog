@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2026-05-27 01:35:05"
 title: error-handler
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2026-06-06T23:59:59.000Z"
 ---
 
 # 错误机制
@@ -184,41 +185,43 @@ function logError(err, vm, info) {
 
 ```js
 // koa2
-router.post('/errorMsg/', function(ctx) {
-    let error = ctx.request.body;; // 获取前端传过来的报错对象
-    let url = error.scriptURI; // 压缩文件路径
-    if (url) {
-        // map文件路径  vue的官方不建议上传 .map 文件，说是容易看到很多源码，react何尝不是呢
-        // 所以可以直接传递给服务器当前的 .map 文件
-        let fileUrl = url.slice(url.indexOf('client/')) + '.map'; 
-        // 解析sourceMap
-        let smc = new sourceMap.SourceMapConsumer(fs.readFileSync(resolve('../' + fileUrl), 'utf8')); // 返回一个promise对象
-        smc.then(function(result) {
-            // 解析原始报错数据
-            let ret = result.originalPositionFor({
-                line: error.lineNo, // 压缩后的行号
-                column: error.columnNo // 压缩后的列号
-            });
-            let url = ''; // 上报地址
-            // 将异常上报至后台
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    errorMessage: error.errorMessage, // 报错信息
-                    source: ret.source, // 报错文件路径
-                    line: ret.line, // 报错文件行号
-                    column: ret.column, // 报错文件列号
-                    stack: error.stack // 报错堆栈
-                })
-            }).then(function(response) {
-                return response.json();
-            }).then(function(json) {
-                res.json(json);
-            });
+router.post("/errorMsg/", function (ctx) {
+  let error = ctx.request.body; // 获取前端传过来的报错对象
+  let url = error.scriptURI; // 压缩文件路径
+  if (url) {
+    // map文件路径  vue的官方不建议上传 .map 文件，说是容易看到很多源码，react何尝不是呢
+    // 所以可以直接传递给服务器当前的 .map 文件
+    let fileUrl = url.slice(url.indexOf("client/")) + ".map";
+    // 解析sourceMap
+    let smc = new sourceMap.SourceMapConsumer(fs.readFileSync(resolve("../" + fileUrl), "utf8")); // 返回一个promise对象
+    smc.then(function (result) {
+      // 解析原始报错数据
+      let ret = result.originalPositionFor({
+        line: error.lineNo, // 压缩后的行号
+        column: error.columnNo, // 压缩后的列号
+      });
+      let url = ""; // 上报地址
+      // 将异常上报至后台
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          errorMessage: error.errorMessage, // 报错信息
+          source: ret.source, // 报错文件路径
+          line: ret.line, // 报错文件行号
+          column: ret.column, // 报错文件列号
+          stack: error.stack, // 报错堆栈
+        }),
+      })
+        .then(function (response) {
+          return response.json();
         })
-    }
+        .then(function (json) {
+          res.json(json);
+        });
+    });
+  }
 });
 ```

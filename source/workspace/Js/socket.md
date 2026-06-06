@@ -1,15 +1,14 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-10-15 07:22:15"
 title: socket
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2021-01-30T07:22:15.013Z"
 ---
 
-
 # WebSocket & socket.io
-
 
 **前言**
 
@@ -24,12 +23,11 @@ tags:
 代码实现也最简单，就是利用 XHR ， 通过 setInterval 定时向后端发送请求，以获取最新的数据
 
 ```javascript
-setInterval(function() {
-  fetch(url).then((res) => {
-      // success code
-  })
+setInterval(function () {
+  fetch(url).then(res => {
+    // success code
+  });
 }, 3000);
-
 ```
 
 - 优点：实现简单。
@@ -42,22 +40,19 @@ setInterval(function() {
 客户端JavaScript响应处理函数会在处理完服务器返回的信息后，再次发出请求，重新建立连接。
 
 ```javascript
-function queryData(){
-    fetch(url).then((res) => {
-        queryData()
-    })
+function queryData() {
+  fetch(url).then(res => {
+    queryData();
+  });
 }
 ```
 
 - 优点：比 Polling 做了优化，有较好的时效性。
 - 缺点：保持连接挂起会消耗资源，服务器没有返回有效数据，程序超时。
 
-
-
 轮询与长轮询都是基于HTTP的，两者本身存在着缺陷:`轮询需要更快的处理速度；长轮询则更要求处理并发的能力`;
 两者都是“被动型服务器”的体现:服务器不会主动推送信息，而是在客户端发送ajax请求后进行返回的响应。
 而理想的模型是"在服务器端数据有了变化后，可以主动推送给客户端",这种"主动型"服务器是解决这类问题的很好的方案。Web Sockets就是这样的方案。
-
 
 ## WebSocket
 
@@ -80,13 +75,13 @@ import React,{useEffect} from "react";
 
 
 const Index = (props) => {
-    
+
     useEffect(()=>{
     ws = new WebSocket('ws://localhost:9000');
     // 监听连接成功
     ws.onopen = () => {
         console.log('连接服务端WebSocket成功');
-        
+
         ws.send(JSON.stringify(msgData));	// send 方法给服务端发送消息
     };
 
@@ -107,7 +102,7 @@ const Index = (props) => {
         console.log('连接关闭');
     };
     },[])
-    
+
     return ();
 };
 
@@ -128,14 +123,13 @@ export default Index;
 
 ```javascript
 setInterval(() => {
-    ws.send('这是一条心跳包消息');
-}, 60000)
+  ws.send("这是一条心跳包消息");
+}, 60000);
 ```
 
 <img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="/img/socket.webp">
 
 其中`绿色`箭头表示`发出`的消息，`红色`箭头表示`收到`的消息。
-
 
 ## Socket.IO
 
@@ -144,24 +138,23 @@ setInterval(() => {
 - 多路传输/多种数据格式传输（这个和websocket特性一样)
 - 广播机制（这个用法在开发上还是很方便的，开发同学不需要做太多额外的工作，broadcast函数即可，不用像自己实现websocket服务端一样要做topic和连接管理及并发推送的处理）
 
-
 Socket.io允许你触发或响应自定义的事件，除了connect，message，disconnect这些事件的名字不能使用之外，你可以触发任何`自定义`的事件名称。
 
 ### 建立连接
 
 ```javascript
 const query = {
-    admin_id: adminid().id,
-    scenic_id: scenicid().id
+  admin_id: adminid().id,
+  scenic_id: scenicid().id,
 };
 this.socket = io(scenicAnalysis, {
-    transports: ['websocket', 'xhr-polling', 'jsonp-polling'],
-    query
+  transports: ["websocket", "xhr-polling", "jsonp-polling"],
+  query,
 });
- 
-this.socket.on('connect', () => {
-    const {id} = this.socket;
-    console.log('连接成功,', id);
+
+this.socket.on("connect", () => {
+  const { id } = this.socket;
+  console.log("连接成功,", id);
 });
 ```
 
@@ -169,11 +162,11 @@ this.socket.on('connect', () => {
 
 ```javascript
 //发送数据
- this.socket.emit(`一般是后端定义的字段`, data);
+this.socket.emit(`一般是后端定义的字段`, data);
 
 //接收数据
-this.socket.on(`一般是后端定义的字段`, (data) => {
-     console.log(data);
+this.socket.on(`一般是后端定义的字段`, data => {
+  console.log(data);
 });
 ```
 
@@ -190,7 +183,6 @@ this.socket.on('disconnect', (msg: any) => console.log(msg));
 this.socket.on('error', (err: any) => console.log('error', new Error(err)))
 ```
 
-
 ## 适用场景
 
 只从两个方面分析：
@@ -199,10 +191,8 @@ this.socket.on('error', (err: any) => console.log('error', new Error(err)))
 
 **灵活性:** 个人觉得websocket的灵活性更高一些，不管是前端还是后端，可以做更多的设计与优化，比如连接管理，容错重连，用户认证等，至少在提升技术能力上还是很有帮助。
 
-
 ## 参考文章
 
 [基于 socket.io 快速实现一个实时通讯应用](https://juejin.im/post/5cbd154be51d456e442ff348)
 
 [engine.io 原理详解](https://blog.csdn.net/u013243347/article/details/86661778)
-

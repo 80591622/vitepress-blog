@@ -1,16 +1,14 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-07-24 05:43:34"
 title: es6
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2021-09-27T05:43:34.431Z"
 ---
 
-
 # ES6-新增特性一览
-
-
 
 ## 1. let/const取代var
 
@@ -26,48 +24,48 @@ tags:
 
 ## 7. 扩展
 
-* 字符串填充（padStart 和 padEnd）
+- 字符串填充（padStart 和 padEnd）
 
-* Array
-    * Array.from()
-    * Array.of()
-    * Array.copyWithin()
-    * Array.find()
-    * Array.findIndex()
-    * Array.fill()
-    * Array.includes()<sup>`ES7`</sup>
-* Object
-    * Object.keys()
-    * Object.values()<sup>`ES8`</sup>
-    * Object.entries()<sup>`ES8`</sup>
-    * Object.assign()
-    * Object. is()
+- Array
+  - Array.from()
+  - Array.of()
+  - Array.copyWithin()
+  - Array.find()
+  - Array.findIndex()
+  - Array.fill()
+  - Array.includes()<sup>`ES7`</sup>
+- Object
+  - Object.keys()
+  - Object.values()<sup>`ES8`</sup>
+  - Object.entries()<sup>`ES8`</sup>
+  - Object.assign()
+  - Object. is()
 
 ## 8. 异步
-* [Promise](https://github.com/lukehoban/es6features#promises)
-    * Promise.prototype.then
-    * Promise.prototype.catch
-    * Promise.prototype.finally<sup>`ES9`</sup>
-    * Promise.all()
-    * Promise.rece()
-* [Iterator](https://github.com/lukehoban/es6features#iterators--forof)
-    * Iterator接口
-    * for of
-* [Generator](https://github.com/lukehoban/es6features#generators)
-    * yield*
-* async/await<sup>`ES8`</sup>
 
+- [Promise](https://github.com/lukehoban/es6features#promises)
+  - Promise.prototype.then
+  - Promise.prototype.catch
+  - Promise.prototype.finally<sup>`ES9`</sup>
+  - Promise.all()
+  - Promise.rece()
+- [Iterator](https://github.com/lukehoban/es6features#iterators--forof)
+  - Iterator接口
+  - for of
+- [Generator](https://github.com/lukehoban/es6features#generators)
+  - yield\*
+- async/await<sup>`ES8`</sup>
 
 ## 9. Class类
 
-* class
-* extends
-* decorator<sup>`ES7`</sup>
+- class
+- extends
+- decorator<sup>`ES7`</sup>
 
 ## 10. Module
 
-* import
-* export
+- import
+- export
 
 ```javascript
 // export default 方式
@@ -89,10 +87,10 @@ import 'modules';
 
 ## 参考文档
 
-* [司徒正美](https://zhuanlan.zhihu.com/p/87699079)
+- [司徒正美](https://zhuanlan.zhihu.com/p/87699079)
 
-* [es6features](https://github.com/lukehoban/es6features)
+- [es6features](https://github.com/lukehoban/es6features)
 
-* [Finished Proposals](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+- [Finished Proposals](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
 
-* [ryf es6 reference](http://es6.ruanyifeng.com/#docs/reference)
+- [ryf es6 reference](http://es6.ruanyifeng.com/#docs/reference)

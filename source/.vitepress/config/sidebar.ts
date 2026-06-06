@@ -86,9 +86,9 @@ const sidebar: DefaultTheme.Sidebar = {
               items: [
                 { text: "vue3.0源码分析-1", link: "/workspace/Frame/vue/next/reactivity" },
                 { text: "Vue3.0源码分析-2", link: "/workspace/Frame/vue/vue-next" },
-                { text: "Vue之JSX封装搜索头部", link: "/workspace/Frame/vue/error-handler" },
-                { text: "封装树形菜单", link: "/workspace/Frame/vue/source-code/keep-alive" },
-                { text: "基于Vue的组件局部刷新", link: "/workspace/Frame/vue/source-code/vue-extend" },
+                { text: "错误机制", link: "/workspace/Frame/vue/error-handler" },
+                { text: "keep-alive源码分析", link: "/workspace/Frame/vue/source-code/keep-alive" },
+                { text: "全局挂载组件之Vue.extend", link: "/workspace/Frame/vue/source-code/vue-extend" },
               ],
             },
             {
@@ -202,7 +202,7 @@ const sidebar: DefaultTheme.Sidebar = {
       collapsed: true,
       items: [
         { text: "TypeScript", link: "/workspace/Typescript/ts" },
-        { text: "TypeScr 误区", link: "/workspace/Typescript/ts-object-type-interface.md" },
+        { text: "TypeScr 误区", link: "/workspace/Typescript/ts-object-type-interface" },
         { text: "tsconfig了解一下", link: "/workspace/Typescript/tsConfig" },
         // { text: "", link: "workspace/Typescript/use" },
       ],

@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-10-19 12:12:37"
 title: dispatchEvent
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2023-02-01T12:12:37.975Z"
 ---
 
 # 自定义事件
@@ -25,26 +26,21 @@ tags:
 | MouseEvents | MouseEvent | initMouseEvent() |
 | UIEvents    | UIEvent    | initUIEvent()    |
 
-
-
 ## initEvent()
 
 `initEvent()`方法用于初始化通过`DocumentEvent`接口创建的Event的值。
 
 支持三个参数：`initEvent(eventName, canBubble, preventDefault)`
- 分别表示：
+分别表示：
 
 - 事件名称
 - 是否可以冒泡
 - 是否阻止事件的默认操作
 
-
-
 ## dispatchEvent()
 
 `dispatchEvent()`就是触发执行了，`dom.dispatchEvent(eventObject)`
- 参数`eventObject`表示事件对象，是`createEvent()`方法返回的创建的`Event`对象。
-
+参数`eventObject`表示事件对象，是`createEvent()`方法返回的创建的`Event`对象。
 
 ```javascript
 /*TODO: 基于浏览器原生事件做通信*/
@@ -53,11 +49,10 @@ window.evt = document.createEvent("HTMLEvents");
 // 初始化
 window.evt.initEvent("handleData", false, false);
 // 监听
-document.addEventListener('handleData', this.handelData, false);
+document.addEventListener("handleData", this.handelData, false);
 // 触发事件
 document.dispatchEvent(ev);
 ```
-
 
 ## Event (单向)
 
@@ -79,22 +74,18 @@ const ev = new Event("look", {"bubbles":true, "cancelable":false});
 
 // 监听事件
 document.addEventListener('look', function (e) { ... }, false);
-    
+
 // 触发事件
 document.dispatchEvent(ev);
 // 事件可以在任何元素触发，不仅仅是document
 myDiv.dispatchEvent(ev);
 ```
 
-
-
 ## CustomEvent（多向）
 
 [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)
 
 `CustomEvent` 可以创建一个更高度自定义事件，还可以附带一些数据，具体用法如下：
-
-
 
 ```javascript
 var myEvent = new CustomEvent(eventname, options);
@@ -108,10 +99,8 @@ var myEvent = new CustomEvent(eventname, options);
 }
 ```
 
-
-
 ```javascript
-// 父应用 
+// 父应用
 export default {
    mounted() {
       function createEvent(params, eventName = 'look') {

@@ -1,14 +1,16 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-03-11 05:04:07"
 title: template
 categories:
   - Frame
   - taro
 tags:
   - taro
+lastUpdated: "2022-04-21T05:04:07.996Z"
 ---
 
 # Node生成模板
+
 **基于nodejs编写自动生成路由需要的文件**
 
 ```javascript
@@ -16,24 +18,23 @@ tags:
  * pages模版快速生成脚本,执行命令 npm run tep `文件名`
  */
 
-const fs = require('fs');
+const fs = require("fs");
 
 const dirName = process.argv[2];
 
 if (!dirName) {
-    console.log('文件夹名称不能为空！');
-    console.log('示例：yarn template goodMenu/test');
-    process.exit(0);
+  console.log("文件夹名称不能为空！");
+  console.log("示例：yarn template goodMenu/test");
+  process.exit(0);
 }
 
-
 function titleCase(str) {
-    const array = str.toLowerCase().split(' ');
-    for (let i = 0; i < array.length; i++) {
-        array[i] = array[i][0].toUpperCase() + array[i].substring(1, array[i].length);
-    }
-    const string = array.join(' ');
-    return string;
+  const array = str.toLowerCase().split(" ");
+  for (let i = 0; i < array.length; i++) {
+    array[i] = array[i][0].toUpperCase() + array[i].substring(1, array[i].length);
+  }
+  const string = array.join(" ");
+  return string;
 }
 
 // 页面模版
@@ -123,19 +124,15 @@ export const queryShopList = (id) => {
 };
 `;
 
-
 fs.mkdirSync(`./src/pages/${dirName}`); // mkdir $1
 process.chdir(`./src/pages/${dirName}`); // cd $1
 
-fs.writeFileSync('index.js', indexTep);
-fs.writeFileSync('index.less', lessTep);
-fs.writeFileSync('model.js', modelTep);
-fs.writeFileSync('service.js', serviceTep);
+fs.writeFileSync("index.js", indexTep);
+fs.writeFileSync("index.less", lessTep);
+fs.writeFileSync("model.js", modelTep);
+fs.writeFileSync("service.js", serviceTep);
 
 console.log(`模版${dirName}已创建,请手动增加models`);
 
 process.exit(0);
-
-
-
 ```

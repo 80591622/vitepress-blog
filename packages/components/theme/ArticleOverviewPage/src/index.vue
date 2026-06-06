@@ -6,7 +6,6 @@ import { formatDate } from "@teek/helper";
 import { useNamespace, useLocale } from "@teek/composables";
 import { usePosts, useTeekConfig } from "@teek/components/theme/ConfigProvider";
 import { TkArticlePage } from "@teek/components/common/ArticlePage";
-import { createDynamicComponent } from "@teek/components/theme/ArticleTitle";
 
 defineOptions({ name: "ArticleOverviewPage" });
 
@@ -22,6 +21,9 @@ const categoryConfig = getTeekConfigRef<Required<Category>>("category", {
 
 const categories = computed(() => posts.value.groupPosts.categories);
 const eachFileWords = computed<DocDocAnalysisFileInfo[]>(() => theme.value.docAnalysisInfo?.eachFileWords || []);
+
+const OVERVIEW_EXCLUDED_CATEGORIES = new Set(["photos"]);
+const isOverviewArticle = (url: string) => !url.replace(/\\/g, "/").includes("/photos/");
 
 // 分类页链接
 const categoriesPageLink = computed(() => {
@@ -39,26 +41,25 @@ const getFileWords = (url: string) => {
 };
 
 const enhancedCategories = computed(() => {
-  return (
-    Object.entries(categories.value)
-      .map(([key, items]) => ({
-        name: key,
-        data:
-          (items as any[]).map(item => {
-            const wordsInfo = getFileWords(item.url);
-            return {
-              ...item,
-              wordCount: wordsInfo?.wordCount || "-",
-              readingTime: wordsInfo?.readingTime || "-",
-            };
-          }) || [],
-      }))
-      // 获取每个目录的第一篇文章发布时间，然后进行排序，发布时间越晚，优先级越高
-      .sort(
-        (a, b) =>
-          new Date(b.data[b.data.length - 1].date).getTime() - new Date(a.data[a.data.length - 1].date).getTime()
-      )
-  );
+  return Object.entries(categories.value)
+    .filter(([key]) => !OVERVIEW_EXCLUDED_CATEGORIES.has(key))
+    .map(([key, items]) => ({
+      name: key,
+      data: (items as any[])
+        .filter(item => isOverviewArticle(item.url))
+        .map(item => {
+          const wordsInfo = getFileWords(item.url);
+          return {
+            ...item,
+            wordCount: wordsInfo?.wordCount || "-",
+            readingTime: wordsInfo?.readingTime || "-",
+          };
+        }),
+    }))
+    .filter(item => item.data.length > 0)
+    .sort(
+      (a, b) => new Date(b.data[b.data.length - 1].date).getTime() - new Date(a.data[a.data.length - 1].date).getTime()
+    );
 });
 
 const formatPublishDate = (date?: string) => {
@@ -88,7 +89,11 @@ const formatPublishDate = (date?: string) => {
         />
       </h2>
 
-      <a :href="`${categoriesPageLink}?category=${item.name}`" :aria-describedby="`overview-title`">
+      <a
+        :class="ns.e('category-link')"
+        :href="`${categoriesPageLink}?category=${item.name}`"
+        :aria-describedby="`overview-title`"
+      >
         {{ item.name }} {{ t("tk.articleOverview.category") }}
       </a>
       <table :aria-describedby="`overview-title`">
@@ -105,8 +110,8 @@ const formatPublishDate = (date?: string) => {
           <tr v-for="data in item.data" :key="data.url">
             <td>{{ item.name }}</td>
             <td>
-              <a :href="data.url && withBase(data.url)" :aria-label="data.title">
-                <component v-if="data.title" :is="createDynamicComponent(data.title)" />
+              <a :class="ns.e('title-link')" :href="data.url && withBase(data.url)" :aria-label="data.title">
+                <span v-if="data.title">{{ data.title }}</span>
               </a>
             </td>
             <td>{{ formatPublishDate(data.date) }}</td>

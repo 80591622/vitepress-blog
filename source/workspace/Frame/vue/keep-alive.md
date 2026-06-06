@@ -1,16 +1,15 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-10-29 13:31:06"
 title: keep-alive
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2021-11-22T13:31:06.423Z"
 ---
 
-
 # 使用keepAlive遇到的坑
-
 
 ## 介绍
 
@@ -21,7 +20,7 @@ tags:
 使用 `keep-alive`的话会增加两个钩子函数， `activated` 和 `deactivated`
 
 下面的文章我是`keep-alive`配合`vue-router`一块使用的，当前`keep-alive`也可以缓存单个组件，在这里就不多赘述。
- 
+
 ## include和exclude
 
 `include` 和 `exclude` prop 允许组件有条件地缓存。二者都可以用`逗号分隔字符串`、`正则表达式`或一个`数组`来表示详细健文档
@@ -44,16 +43,16 @@ tags:
      changeStoreIncludes() {
        this.$store.commit('changeIncludes', 'tableLists');
      }
-   }  
+   }
  }
-</script>  
+</script>
 
 // vuex
 mutations: {
 	changeIncludes(state, payload) {
 	  state.includes = payload
-	} 
-}	
+	}
+}
 ```
 
 ## include和exclude无效问题
@@ -62,25 +61,23 @@ mutations: {
 
 ```javascript
 export default {
- name:'TableList', // include 或 exclude所使用的name
- data () {
-  return {}
+  name: "TableList", // include 或 exclude所使用的name
+  data() {
+    return {};
   },
-}
+};
 ```
 
 ## 直接使用v-if做区分
 
 ```html
 <transition enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
-     <keep-alive>
-          <router-view v-if="$route.meta.keepAlive">
-          </router-view>
-      </keep-alive>
+  <keep-alive>
+    <router-view v-if="$route.meta.keepAlive"></router-view>
+  </keep-alive>
 </transition>
 <transition enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
-     <router-view v-if="!$route.meta.keepAlive">
-       </router-view>
+  <router-view v-if="!$route.meta.keepAlive"></router-view>
 </transition>
 ```
 
@@ -93,11 +90,15 @@ export default {
 位置公用的问题，当前列表页跳转到详情页面的时候，使用路由回到列表也时候，会出现位置公用的情况。（如果使用浏览器的回退方式，不会出现位置公用的情况。）
 
 > **对于这个位置公用的情况，我是一头雾水，期待大佬解答** 🤝，有几点要说的不知对错，待求证。
+>
 > - **多页面**
+>
 > 1. 如果有数据请求的话，浏览器将会把页面置顶？
 > 2. 如果是静态页面的话，浏览器会滚到你之前滚动的地方？
 > 3. 上面仅仅是使用的浏览器的跳转行为，如果使用href或者路由封装一些方法，则都会置顶？
+>
 > - **求证上面 🤝**
+>
 > 4. 基于SPA模式开发，所以页面仅有一个，实现页面切换是利用哈希与组件的映射关系，vue-router是通过哈希来模拟完整的url，但是对于页面来说仍是一个url，所以在任何一个组件滚动页面，切换到其他组件的时候，页面仍保持滚动之前的状态，这就是出现位置公用的情况.
 
 **问题2：**
@@ -154,7 +155,6 @@ scrollBehavior(to, from, savedPosition) {
 
 ## 实现返回不刷新、其他菜单进入刷新
 
-
 ### 实现方式一
 
 ```javascript
@@ -180,6 +180,7 @@ scrollBehavior(to, from, savedPosition) {
    component: () => import('../views/table-detail.vue'),
  }
 ```
+
 方式一和方式二都是基于上面这两个代码段。
 
 在要缓存的列表页添加下面的代码
@@ -202,8 +203,9 @@ beforeRouteLeave(to, from, next) {
   next()
 }
 ```
+
 完成上面的代码后，`A->B->A`正常，然后当`A->C->A->B->A `发现列表页A不会再缓存了，每次都是新的页面。谷歌后的方法是若不是第一次进入就强制刷新一次缓存页面。
-**`this.$destroy()`**  调用`distory`之后不能再缓存该组件 而且会不断进入这个页面后重复生成多个虚拟dom.
+**`this.$destroy()`** 调用`distory`之后不能再缓存该组件 而且会不断进入这个页面后重复生成多个虚拟dom.
 
 继续完善，在`main.js`中使用router.afterEach((to,from)=>{})
 
@@ -211,28 +213,28 @@ beforeRouteLeave(to, from, next) {
 // 原理是如果不是从详情页进来的页面，都需要刷新，否则不能缓存
 router.afterEach((to, from) => {
   // 如果当前页面刷新或者从详情也进来，就要执行下面代码，防止执行销毁方法导致不能缓存
-  if (from.name && from.name !== 'table-detail' && to.name === 'table-list') {
-    let isRefresh = sessionStorage.getItem('isRefresh')
-    if (isRefresh === '0') {
-      setTimeout(() => {// 这里必须是异步的，不然不能跳转
-        window.location.reload()
-      })
-      sessionStorage.setItem('isRefresh', null)
+  if (from.name && from.name !== "table-detail" && to.name === "table-list") {
+    let isRefresh = sessionStorage.getItem("isRefresh");
+    if (isRefresh === "0") {
+      setTimeout(() => {
+        // 这里必须是异步的，不然不能跳转
+        window.location.reload();
+      });
+      sessionStorage.setItem("isRefresh", null);
     } else {
-      sessionStorage.setItem('isRefresh', '0')
+      sessionStorage.setItem("isRefresh", "0");
     }
-  } else if (from.name === 'table-list' && to.name === 'table-detail') {
-    sessionStorage.setItem('isRefresh', null)
+  } else if (from.name === "table-list" && to.name === "table-detail") {
+    sessionStorage.setItem("isRefresh", null);
   } else {
-    sessionStorage.setItem('isRefresh', '0')
+    sessionStorage.setItem("isRefresh", "0");
   }
-})
+});
 ```
 
 我不知道谷歌出来的解决方案为什么都在详情页刷新，这样的问题就是用户第一次跳转到详情页，再回到列表页是没有缓存的功能，第二次就会正常，但是客户很可能就会执行这一次操作；
 
 这种解决方式太过原始，用户体验太差，而且需要缓存多个页面就不太好控制，不建议用这个方法
-
 
 ### 实现方式二
 
@@ -256,10 +258,10 @@ router.afterEach((to, from) => {
         delete resetData.column  // 我在这里操作的原因是因为，我通过上面获取的数据里面，用到函数返回的形式，展示为undefined  {cb: this.jumpEdit} 展示为 {cb: this.undefined},具体原因未知
 
         Object.assign(this.$data, resetData) // 重置data
-        this.isRouterAlive = false // 通过v-if不展示当前页面 
-        this.$nextTick(function () { 
+        this.isRouterAlive = false // 通过v-if不展示当前页面
+        this.$nextTick(function () {
           window.scroll(0, 0) // 页面置顶，不要再下面的定时器里面使用，有顿挫感
-          this.isRouterAlive = true // 通过v-if展示当前页面 
+          this.isRouterAlive = true // 通过v-if展示当前页面
         })
         setTimeout(() => {
           this.queryList() // 异步获取数据，跟我的项目组件有关，你们可以直接在上面获取就OK
@@ -300,7 +302,7 @@ activated() {
     setTimeout(() => {
       this.queryList()
     })
-  } else if (this.$route.meta.isRefresh === false) { 
+  } else if (this.$route.meta.isRefresh === false) {
     // this.$route.meta.isRefresh在路由里面我并没有设置，默认是undefined，当他为false的时候，说明他从别的页面进来了，这个时候让他请求下数据
     this.queryList()
   }
@@ -320,7 +322,6 @@ beforeRouteEnter(to, from, next) {
 
 最后可以把这些代码抽离成一个`mixins`,然后编写一个刷新的组件，哪里用在哪里调取下,[也可以看这篇文章](/2020/06/15/workspace/Frame/vue/reload/)。
 
-
 ### 实现方式三
 
 这种用 `keep-alive` 提供的 `include` 和 `exclude `,然后配合vuex实现动态控制。
@@ -338,18 +339,19 @@ beforeRouteEnter(to, from, next) {
 
 ```javascript
 // 获取vuex的数据
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 export default {
-  computed: {// 在computed中动态监控
-     ...mapGetters(['includes']),
-   },
+  computed: {
+    // 在computed中动态监控
+    ...mapGetters(["includes"]),
+  },
   methods: {
-     changeStore() {
-       // 改变vue的数据，在这用不到
-       this.$store.commit('change', 'tableLists')
-     }
-   }
-}
+    changeStore() {
+      // 改变vue的数据，在这用不到
+      this.$store.commit("change", "tableLists");
+    },
+  },
+};
 ```
 
 **Vuex**
@@ -357,21 +359,21 @@ export default {
 ```javascript
 const keepalive = {
   state: {
-    includes: ['tableLists']
+    includes: ["tableLists"],
   },
   mutations: {
     change(state, payload) {
-      state.includes = payload
+      state.includes = payload;
     },
   },
   getters: {
     includes(state) {
-      return state.includes
-    }
-  }
+      return state.includes;
+    },
+  },
 };
 
-export default keepalive
+export default keepalive;
 ```
 
 **列表页的部分代码**
@@ -393,7 +395,7 @@ beforeRouteEnter(to, from, next) {
 },
 beforeRouteLeave(to, from, next) {
   // 这里可以统一在 scrollBehavior 处理就好了（建议在这里添加 = 参考下面）
-  from.meta.scrollTop = document.documentElement.scrollTop; 
+  from.meta.scrollTop = document.documentElement.scrollTop;
   if (to.name !== 'table-detail') {
     // 如果不是跳转到详情页面，就穿个空数组，这里不能用 '' 默认是所有的都缓存
     this.$store.commit('change', []);
@@ -449,7 +451,6 @@ scrollBehavior(to, from, savedPosition) {
 1. 每个组件内部添加 {name:xx}
 2. 若将include设置空 ' ' 每个页面都将会缓存
 3. exclude的优先级高于include 使用exclude后
-
 
 ## 参考文档
 

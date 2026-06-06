@@ -1,22 +1,23 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2026-01-13 04:59:12"
 title: base
 categories:
   - Jenkins
 tags:
   - Jenkins
+lastUpdated: "2026-03-11T04:59:12.784Z"
 ---
-
 
 # Jenkins自动化部署
 
 **Jenkins学习记录**
 
 学前了解：
+
 ```bash
 linux  shell
 jenkins
-jdk tomcat 
+jdk tomcat
 Java Development Kit是整个Java核心，包括Java运行环境、Java工具和Java基础类库。JDK作为JAVA开发的环境，不管做JAVA开发还是做安卓开发，都必须在电脑上安装JDK
 tomcat:由Apache组织提供的一种Web服务器,提供对jsp和Servlet的支持。它是一种轻量级的javaWeb容器(服务器),也是当前应用最广的JavaWeb服务器(免费)
 
@@ -26,17 +27,15 @@ git github
 docker
 ```
 
-
-
 ## Why Jenkins
 
 `是业界流行开源的持续集成的工具，广泛用于项目开发，具有自动化构建，测试，部署等功能`
 
- CI 持续集成
- 
- CD 持续部署
-      
- <img src='/img/jenkins.jpeg'/> 
+CI 持续集成
+
+CD 持续部署
+
+ <img src='/img/jenkins.jpeg'/>
 
 ## 配置jdk安装Java环境
 
@@ -86,11 +85,12 @@ docker ps -a
 docker start  [name]
 
 ```
+
 ### 如果是wget 安装的话
 
 `启动jenkins`<br/>
 java -jar jenkins.war --httpPort=8081
- 
+
 `如果想要在linux后台一直运行，则要开始加nohup，在末尾加&号`<br/>
 nohup java -jar jenkins.war --httpPort=8081 &
 
@@ -120,7 +120,7 @@ Generic Webhook Trigger  //web触发器
 
 Publish Over SSH  //通过ssh部署服务器
 
-nvm wrapper   //提供node环境 
+nvm wrapper   //提供node环境
 
 Role-based Authorization Strategy//增加用户的权限管理
 
@@ -135,17 +135,17 @@ Role-based Authorization Strategy//增加用户的权限管理
 示例：我从官方下载gitlab-plugin插件到本地，然后导入到jenkins中。
 
 在jenkins`插件管理->高级`选择上传插件进行安装。
-       
+
 <img src='/img/plugin.png'/>
 
-
 ## 关闭防火墙
+
 ```bash
 设置开机启用防火墙：systemctl enable firewalld.service
 设置开机禁用防火墙：systemctl disable firewalld.service
 启动防火墙：systemctl start firewalld
 关闭防火墙：systemctl stop firewalld.service
-检查防火墙状态：systemctl status firewalld 
+检查防火墙状态：systemctl status firewalld
 ```
 
 ## 添加项目
@@ -164,7 +164,7 @@ Role-based Authorization Strategy//增加用户的权限管理
 
 <img src='/img/webhooks.png'/>
 
-`http://JENKINS_URL/generic-webhook-trigger/invoke` 
+`http://JENKINS_URL/generic-webhook-trigger/invoke`
 
 JENKINS_URL格式为 `用户名:token@ip:8080`
 
@@ -179,7 +179,7 @@ http://admin:1108c27bdd32e70d8ba6ba7893bcf57450@120.79.229.197:8080/generic-webh
 ## 触发
 
 手动触发，查看日志是否成功<br/>
-代码默认目录,在控制台查看  cd /var/lib/jenkins/workspace/[name]
+代码默认目录,在控制台查看 cd /var/lib/jenkins/workspace/[name]
 
 也可以Git提交一版代码触发看是否成功
 
@@ -193,7 +193,7 @@ http://admin:1108c27bdd32e70d8ba6ba7893bcf57450@120.79.229.197:8080/generic-webh
 ```bash
 echo $GIT_BRANCH
 npm config set registry https://registry.npm.taobao.org
-npm install -g yarn 
+npm install -g yarn
 yarn config set registry https://registry.npm.taobao.org
 yarn install
 yarn global add @tarojs/cli@1.3.14
@@ -241,9 +241,7 @@ ssh-copy-id 120.79.229.197
 
 > 优化jenkins运行内存 vim /etc/sysconfig/jenkins
 
-
 ## Jenkins权限设置错误
-
 
 ### 修改config.xml
 
@@ -256,7 +254,7 @@ ssh-copy-id 120.79.229.197
 删除以下内容：
 
 ```javascript
-<authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy"> 
+<authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
   ...
 </authorizationStrategy>
 
@@ -272,11 +270,9 @@ service jenkins restart
 
 **再次访问Jenkins后，首先要设置登录认证。**
 
-
 <img src='/img/security.png'/>
-       
 
-## Jenkins调优 
+## Jenkins调优
 
 ```bash
 # 查看物理CPU个数
@@ -305,8 +301,8 @@ pm2 start /home/admin/wangyiyunServer/app.js --name='wangyiyunServer'
 
 ```js
 service jenkins stop
- 
+
 yum clean all
- 
+
 yum -y remove jenkins
 ```

@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-05-15 07:25:49"
 title: taroBase
 categories:
   - Frame
   - taro
 tags:
   - taro
+lastUpdated: "2025-07-31T07:25:49.811Z"
 ---
 
 # Taro基本用法
@@ -70,13 +71,13 @@ onTabItemTap(res) {
 }
 
 //监听用户下拉刷新事件
-onPullDownRefresh() 
+onPullDownRefresh()
 需要在全局配置的 window 选项中或页面配置中开启 enablePullDownRefresh
 Taro.startPullDownRefresh()//触发下拉刷新
 Taro.stopPullDownRefresh()  //停止当前页面的下拉刷新
 
 //上拉加载
-onReachBottom()  
+onReachBottom()
 可以在全局配置的 window 选项中或页面配置中设置触发距离 onReachBottomDistance
 
 //监听用户滑动页面事件
@@ -141,6 +142,7 @@ Taro.hideNavigationBarLoading(); // close
 ```
 
 ## 路由功能
+
 ```javascript
 // 跳转到目的页面，打开新页面
 Taro.navigateTo({
@@ -226,10 +228,10 @@ export default class MyPage extends Component {
 }
 ```
 
-
 ## 使用taro注意事项
 
 `1.必须声明 Taro 和组件`
+
 ```tex
 即使变量 View 没有被调用，但也必须从 @tarojs/components 中引入声明。变量 Taro 也是一个必须引入声明的变量，因为我们在编译期和运行时会依赖这个变量做一些特殊处理。**当你引入了其他组件时，一定要使用，不要出现没有使用的变量**。
 
@@ -238,6 +240,7 @@ export default class MyPage extends Component {
 ```
 
 `2.首字母大写与驼峰式命名`
+
 ```tex
 <home_page message="Hello World!" />  //不支持
 <Home_Page message="Hello World!" />  //支持
@@ -245,6 +248,7 @@ export default class MyPage extends Component {
 ```
 
 `3.JavaScript 表达式`
+
 ```tex
 不能在包含 JSX 元素的 map 循环中使用 if 表达式;
 解决方案:尽量在 map 循环中使用条件表达式或逻辑表达式。
@@ -259,35 +263,43 @@ render () {
     return <View id={id} title={title} />
 }
 ```
+
 `4.JS 编码必须用单引号`
+
 ```tex
 在 Taro 中，JS 代码里必须书写单引号，特别是 JSX 中，如果出现双引号，可能会导致编译错误。
 ```
+
 `5.组件传递函数属性名以 on 开头`
+
 ```javascript
 //在 v1.3.0-beta.0 之后，自定义组件间的事件传递可以不用 on 开头，但内置组件的事件依然是以 on 开头的，为了一致性我们仍然推荐你以 on 开头命名你的事件。
 
 // 在 Taro 中，父组件要往子组件传递函数，属性名必须以 on 开头
 class Parent extends Component {
-  handleEvent () {}
-  render () {
-    return (
-      <Custom onTrigger={this.handleEvent}></Custom>
-    )
+  handleEvent() {}
+  render() {
+    return <Custom onTrigger={this.handleEvent}></Custom>;
   }
 }
 ```
+
 `6.小程序端不要在组件中打印传入的函数`
 `7.小程序端不要在组件中打印 this.props.children`
 `8.小程序端不要将在模板中用到的数据设置为 undefined`
+
 ```javascript
 由于小程序不支持将 data 中任何一项的 value 设为 undefined ，在 setState 的时候也请避免这么用。你可以使用 null 来替代。
 ```
+
 `9.组件 state 与 props 里字段重名的问题`
+
 ```tex
 不要在 state 与 props 上用同名的字段，因为这些字段在微信小程序中都会挂在 data 上。
 ```
+
 `10.小程序中页面生命周期 componentWillMount 不一致问题`
+
 ```javascript
 //由于微信小程序里页面在 onLoad 时才能拿到页面的路由参数，而页面 onLoad 前组件都已经 attached 了。因此页面的 componentWillMount 可能会与预期不太一致。例如：
 // 错误写法
@@ -310,7 +322,9 @@ render () {
 }
 //对于不需要等到页面 willMount 之后取路由参数的页面则没有任何影响。
 ```
+
 `11.环境变量 process.env 的使用`
+
 ```javascript
 // 错误写法，不支持
 const { NODE_ENV = 'development' } = process.env
@@ -321,13 +335,16 @@ if (NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'development') {
 }
 ```
+
 `12.要添加包裹的元素`
+
 ```javascript
-const Block = (props) =>  props.children
-const Block = (props) => <div>{props.children}</div>  // ✅
+const Block = props => props.children;
+const Block = props => <div>{props.children}</div>; // ✅
 ```
 
 `13.小程序`
+
 ```tex
 若使用 微信小程序预览模式 ，则需下载并使用微信开发者工具添加项目进行预览，此时需要注意微信开发者工具的项目设置
 需要设置关闭 ES6 转 ES5 功能，开启可能报错
@@ -336,13 +353,14 @@ const Block = (props) => <div>{props.children}</div>  // ✅
 ```
 
 ## 组件
-> 跟react 基本保持一致
 
+> 跟react 基本保持一致
 
 **使用 `this.$componentType` 来判断当前 `Taro.Component` 是页面还是组件**
 `this.$componentType` 可能取值分别为 `PAGE` 和` COMPONEN`T，开发者可以根据此变量的取值分别采取不同逻辑。
 
 `使用 PropTypes 检查类型`
+
 ```javascript
 随着应用日渐庞大，你可以通过类型检查捕获大量错误。要检查组件的属性，你需要配置特殊的 propTypes 属性：
 
@@ -363,19 +381,21 @@ Greeting.propTypes = {
 };
 ```
 
-## 事件处理 
+## 事件处理
 
 `使用匿名函数` 自 v1.2.9 开始支持
 <br/>
 `柯里化` 自 v1.3.0-beta.1 开始支持
+
 ```javascript
-handleClick = (index) => (e) => {
-    e.stopPropagation()
-    this.setState({
-      currentIndex: index
-    })
-  }
+handleClick = index => e => {
+  e.stopPropagation();
+  this.setState({
+    currentIndex: index,
+  });
+};
 ```
+
 `函数式组件`
 
 ```javascript
@@ -383,21 +403,22 @@ const App = () => {
   const [c1, setC1] = useState(0);
   const [c3, setC3] = useState(0);
 
-  const increment = c => c + 1
+  const increment = c => c + 1;
 
   // 只有 useCallback 对应的 c1的值改变时，才会返回新的函数
   const increment1 = useCallback(() => setC1(increment), [c1]);
- 
 
-  return (<View>
-    <Text> Counter 1 is {c1} </Text>
-	<Text> Counter 3 is {c3} </Text>
+  return (
     <View>
-      <Button onClick={increment1}>Increment Counter 1</Button>
-      <Button onClick={() => setC3(increment)}>Increment Counter 3</Button>
+      <Text> Counter 1 is {c1} </Text>
+      <Text> Counter 3 is {c3} </Text>
+      <View>
+        <Button onClick={increment1}>Increment Counter 1</Button>
+        <Button onClick={() => setC3(increment)}>Increment Counter 3</Button>
+      </View>
     </View>
-  </View>)
-}
+  );
+};
 ```
 
 `任何组件的事件传递都要以 on 开头` 在 v1.3.0-beta.0 之后，自定义组件间的事件传递可以不用 on 开头，但内置组件的事件依然是以 on 开头的，为了一致性我们仍然推荐你以 on 开头命名你的事件。
@@ -408,54 +429,57 @@ const App = () => {
 `逻辑运算符 &&`
 `三元运算符（条件表达式）`
 `枚举条件渲染` 第一次看到，感觉还挺好玩的
+
 ```javascript
-function Loading (props) {
-  const { loadingText, LOADING_STATUS, loadingStatus, onRetry } = props
+function Loading(props) {
+  const { loadingText, LOADING_STATUS, loadingStatus, onRetry } = props;
   return (
-    <View className='loading-status'>
+    <View className="loading-status">
       {
         {
-          'loading': loadingText,
-          'fail': <View onClick={onRetry}> 加载失败, 点击重试 </View>,
-          'no-more': '没有更多了'
+          loading: loadingText,
+          fail: <View onClick={onRetry}> 加载失败, 点击重试 </View>,
+          "no-more": "没有更多了",
         }[loadingStatus] /** loadingStatus 是 `loading`、`fail`、`no-more`  其中一种状态 **/
       }
     </View>
-  )
+  );
 }
 ```
 
 ## Refs 引用
 
-`使用字符串创建 ref`  此方法在react中已经废弃
+`使用字符串创建 ref` 此方法在react中已经废弃
+
 ```javascript
 class MyComponent extends Component {
-  componentDidMount () {
+  componentDidMount() {
     // 如果 ref 的是小程序原生组件，那只有在 didMount 生命周期之后才能通过
     // this.refs.input 访问到小程序原生组件
-    if (process.env.TARO_ENV === 'weapp') {
+    if (process.env.TARO_ENV === "weapp") {
       // 这里 this.refs.input 访问的时候通过 `wx.createSeletorQuery` 取到的小程序原生组件
-    } else if (process.env.TARO_ENV === 'h5') {
+    } else if (process.env.TARO_ENV === "h5") {
       // 这里 this.refs.input 访问到的是 `@tarojs/components` 的 `Input` 组件实例
     }
   }
 
-  render () {
-    return <Input ref='input' />
+  render() {
+    return <Input ref="input" />;
   }
 }
 ```
 
-`通过函数创建 ref`  **Taro推荐使用**
+`通过函数创建 ref` **Taro推荐使用**
 
 ```javascript
 class MyComponent extends Component {
-  refCat = (node) => this.cat = node // `this.cat` 会变成 `Cat` 组件实例的引用
-  render () {
-    return <Cat ref={this.refCat} />
+  refCat = node => (this.cat = node); // `this.cat` 会变成 `Cat` 组件实例的引用
+  render() {
+    return <Cat ref={this.refCat} />;
   }
 }
 ```
+
 `通过 createRef 创建 ref`
 
 ```javascript
@@ -469,6 +493,7 @@ class MyComponent extends Component {
   }
 }
 ```
+
 ## 内置环境变量
 
 ```javascript
@@ -485,9 +510,10 @@ render () {
   )
 }
 ```
+
 **统一接口的多端文件**
 
-内置环境变量虽然可以解决大部分跨端的问题，但是会让代码中充斥着逻辑判断的代码，影响代码的可维护性，而且也让代码变得愈发丑陋，为了解决这种问题, 开发者可以通过将文件修改成原 `文件名 + 端类型` 的命名形式 
+内置环境变量虽然可以解决大部分跨端的问题，但是会让代码中充斥着逻辑判断的代码，影响代码的可维护性，而且也让代码变得愈发丑陋，为了解决这种问题, 开发者可以通过将文件修改成原 `文件名 + 端类型` 的命名形式
 
 **多端组件 👍**
 
@@ -501,9 +527,9 @@ test.swan.js 文件，这是 Test 组件的 百度小程序 版本
 而我们使用 Test 组件的时候，引用的方式依然和之前保持一致，import 的是不带端类型的文件名，在编译的时候会自动识别并添加端类型后缀
 
 ```javascript
-import Test from '../../components/test'
+import Test from "../../components/test";
 
-<Test argA={1} argA={2} />
+<Test argA={1} argA={2} />;
 ```
 
 ## 小程序原生作用域获取
@@ -511,128 +537,128 @@ import Test from '../../components/test'
 `this.$scope`
 
 ## 通用配置
+
 ```javascript
 const config = {
   // 项目名称
-  projectName: 'kj',
+  projectName: "kj",
   // 项目创建日期
-  date: '2018-6-8',
+  date: "2018-6-8",
   // 设计稿尺寸
   designWidth: 750,
   // 项目源码目录
-  sourceRoot: 'src',
+  sourceRoot: "src",
   // 项目产出目录
-  outputRoot: 'dist',
+  outputRoot: "dist",
   // 通用插件配置
   plugins: {
     babel: {
       sourceMap: true,
-      presets: ['env'],
-      plugins: ['transform-class-properties', 'transform-decorators-legacy', 'transform-object-rest-spread']
-    }
+      presets: ["env"],
+      plugins: ["transform-class-properties", "transform-decorators-legacy", "transform-object-rest-spread"],
+    },
   },
   // 全局变量设置
   defineConstants: {},
   // 文件 copy 配置
   copy: {
-    patterns: [
-    ],
-    options: {
-    }
+    patterns: [],
+    options: {},
   },
   // 小程序端专用配置
   weapp: {
     module: {
       postcss: {
         autoprefixer: {
-          enable: true
+          enable: true,
         },
         // 小程序端样式引用本地资源内联配置
         url: {
           enable: true,
           config: {
-            limit: 10240
-          }
-        }
-      }
+            limit: 10240,
+          },
+        },
+      },
     },
     // 替换 JSX 中的属性名，参考：
     // https://github.com/NervJS/taro/issues/2077
-    jsxAttributeNameReplace: {}
+    jsxAttributeNameReplace: {},
   },
   // H5 端专用配置
   h5: {
-    publicPath: '/',
-    staticDirectory: 'static',
+    publicPath: "/",
+    staticDirectory: "static",
     output: {
-        filename: 'js/[name].[hash:8].js',
-        chunkFilename: 'js/[name].[chunkhash:8].js'
+      filename: "js/[name].[hash:8].js",
+      chunkFilename: "js/[name].[chunkhash:8].js",
     },
     miniCssExtractPluginOption: {
-        filename: 'css/[name].[hash:8].css',
-        chunkFilename: 'css/[name].[chunkhash:8].css'
+      filename: "css/[name].[hash:8].css",
+      chunkFilename: "css/[name].[chunkhash:8].css",
     },
     imageUrlLoaderOption: {
-        limit: 5000,
-        name: 'static/images/[name].[hash:8].[ext]'
+      limit: 5000,
+      name: "static/images/[name].[hash:8].[ext]",
     },
     module: {
       postcss: {
         autoprefixer: {
-          enable: true
-        }
-      }
+          enable: true,
+        },
+      },
     },
     //修改url的路径
     router: {
-      mode: 'browser',
+      mode: "browser",
       customRoutes: {
-        '/pages/login/index': '/login',
-        '/pages/functionArea/index': '/functionArea',
-        '/pages/personCenter/index': '/personCenter',
-        '/pages/message/index': '/message',
-        '/pages/ticketCode/index':'/ticketCode',
-        '/pages/ticketList/index':'/ticketList',
-        '/pages/activityCode/index':'/activityCode',
-        '/pages/activityList/index':'/activityList',
-        '/pages/activityVerify/index':'/activityVerify',
-        '/pages/analysis/index':Analysis,
-        '/pages/feedBack/index':'/feedBack',
-        '/pages/set/index':'/set',
-        '/pages/scenicList/index':'/scenicList',
-        '/pages/selectPosition/index':'/selectPosition',
-        '/pages/selectActivity/index':'/selectActivity',
-        '/pages/codeResult/index':'/codeResult',
-       }
+        "/pages/login/index": "/login",
+        "/pages/functionArea/index": "/functionArea",
+        "/pages/personCenter/index": "/personCenter",
+        "/pages/message/index": "/message",
+        "/pages/ticketCode/index": "/ticketCode",
+        "/pages/ticketList/index": "/ticketList",
+        "/pages/activityCode/index": "/activityCode",
+        "/pages/activityList/index": "/activityList",
+        "/pages/activityVerify/index": "/activityVerify",
+        "/pages/analysis/index": Analysis,
+        "/pages/feedBack/index": "/feedBack",
+        "/pages/set/index": "/set",
+        "/pages/scenicList/index": "/scenicList",
+        "/pages/selectPosition/index": "/selectPosition",
+        "/pages/selectActivity/index": "/selectActivity",
+        "/pages/codeResult/index": "/codeResult",
+      },
     },
     // 自定义 Webpack 配置
     webpackChain: {},
-     devServer: {
-      "proxy": {
+    devServer: {
+      proxy: {
         "/api": {
-          "target": "https://www.v2ex.com/api/",
-          "changeOrigin": true,
-          "secure": false,
-          "pathRewrite": { "^/api": "" }
-        }
+          target: "https://www.v2ex.com/api/",
+          changeOrigin: true,
+          secure: false,
+          pathRewrite: { "^/api": "" },
+        },
       },
-    }
-  }
+    },
+  },
 };
 
-module.exports = function(merge) {
-  if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'));
+module.exports = function (merge) {
+  if (process.env.NODE_ENV === "development") {
+    return merge({}, config, require("./dev"));
   }
-  return merge({}, config, require('./prod'));
+  return merge({}, config, require("./prod"));
 };
-
 ```
 
 ## 编译配置详情
+
 > config目录下面的index
 
 **defineConstants**
+
 ```bash
 用来配置一些全局变量供代码中进行使用，例如：
 
@@ -643,11 +669,13 @@ defineConstants: {
 ```
 
 **alias**
+
 ```javascript
 alias: {
   '@': path.resolve(__dirname, '..', 'src')
 }
 ```
+
 ```js
 //为了让编辑器（VS Code）不报错，并继续使用自动路径补全的功能，需要在项目根目录下的 jsconfig.json 或者 tsconfig.json 中配置 paths 让编辑器认得我们的别名，形式如下：
 {
@@ -685,7 +713,7 @@ plugins: {
 
 ## 通过环境变量实现 config 的多元控制
 
-> package.json 
+> package.json
 
 ```javascript
 "scripts": {
@@ -698,9 +726,8 @@ plugins: {
 ## demo
 
 ```typescript jsx
-import Taro, { Component, PageConfig } from '@tarojs/taro';
+import Taro, { Component, PageConfig } from "@tarojs/taro";
 class ReportList extends Component {
-
   /**
    * 指定config的类型声明为: Taro.PageConfig
    *
@@ -709,32 +736,32 @@ class ReportList extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: PageConfig = {
-    navigationBarTitleText: '可疑数据汇总',
-    enablePullDownRefresh: true,   // 这个是启用下拉刷新特性
-    backgroundTextStyle: "dark",   // 把显示的文本颜色改成暗色调,亮色的话.你背景不改看不到,因为同色
-    backgroundColor:'#f7f7f7' // 页面的背景色
-  }
-
+    navigationBarTitleText: "可疑数据汇总",
+    enablePullDownRefresh: true, // 这个是启用下拉刷新特性
+    backgroundTextStyle: "dark", // 把显示的文本颜色改成暗色调,亮色的话.你背景不改看不到,因为同色
+    backgroundColor: "#f7f7f7", // 页面的背景色
+  };
 }
 
 // 启用后,记得加对应的条件关闭,不然会一直显示
- // 下拉刷新
- onPullDownRefresh = () :void => {
-    // 这个loading是 导航栏,页面标题那块显示一个loading  , 微信内置的
-    Taro.showLoading({
-      title: 'loading....'
-    })
-    
-    // 因为我的接口请求都是 async await的姿势,所以可以队列执行
-    this.getList(); 
-    this.unselect();
-    
-    // 接口请求完毕后隐藏两个loading , 标题和下拉区域
-    Taro.hideLoading();
-    Taro.stopPullDownRefresh();
-  }
+// 下拉刷新
+onPullDownRefresh = (): void => {
+  // 这个loading是 导航栏,页面标题那块显示一个loading  , 微信内置的
+  Taro.showLoading({
+    title: "loading....",
+  });
+
+  // 因为我的接口请求都是 async await的姿势,所以可以队列执行
+  this.getList();
+  this.unselect();
+
+  // 接口请求完毕后隐藏两个loading , 标题和下拉区域
+  Taro.hideLoading();
+  Taro.stopPullDownRefresh();
+};
 ```
-## 更新Taro 
+
+## 更新Taro
 
 ```javascript{3,5,7,10,12,13}
 //更新 Taro CLI 工具
@@ -752,40 +779,39 @@ $ taro info 打印的信息
 $ taro doctor 诊断项目的依赖、设置、结构，以及代码的规范是否存在问题，并尝试给出解决方案。
 ```
 
-
-
-
-
 ## Taro的注意事项
 
- **1. 在H5端 周期函数里面使用动态修改tabbar的内容，会循环执行钩子函数**
- 
- **2. taro路由在h5端 ，不能使用引用的变量**
+**1. 在H5端 周期函数里面使用动态修改tabbar的内容，会循环执行钩子函数**
+
+**2. taro路由在h5端 ，不能使用引用的变量**
+
 ```javascript
-const method='navigateTo';
+const method = "navigateTo";
 Taro[method]({
-      url
-})
+  url,
+});
 //这种的在h5端，报错
 //设置变量在h5下不能跳转，必须是Taro['navigateTo'] or Taro.navigateTo
 ```
+
 **3. H5下ScrollView,只显示首屏，下面的都是空白,TaroUI里面overflow:hidden**
 
 **4. cssModules 在字节头条里面，修改全局的样式必须声明在最外面**
 
 **5. H5下:global{}后的样式，有污染的影响,前提是兼容tt**
 
- **6. TaroUI在路由组件里面可以修改全局的样式，但是拆分组件之后，就不能修改样式,h5下正常显示【cssModules】**
- 
+**6. TaroUI在路由组件里面可以修改全局的样式，但是拆分组件之后，就不能修改样式,h5下正常显示【cssModules】**
+
 `小程序的 addGlobalClass 只能使 page 页面上的样式可以影响`
 
-**7. 自定义若干个外部样式类 用 `static externalClasses = ['class-name-style'];`，然后传递给子组件** 
+**7. 自定义若干个外部样式类 用 `static externalClasses = ['class-name-style'];`，然后传递给子组件**
 
 缺陷 `1.H5端不兼容;2.必须用小驼峰`
 
 **8. 小程序拆包在tt下需要手动放到pages里面,在H5下正常显示**
 
 **9. 阻止冒泡**
+
 ```javascript
 //jsx
  {
@@ -816,30 +842,31 @@ parent = (val) => () => {
 
 **函数式组件**
 
-	H5
-	  柯理化函数阻止冒泡成功
-	  bind阻止冒泡成功
-	  
-	weapp
-	  柯理化函数阻止冒泡失效
-	  bind阻止冒泡失效
+    H5
+      柯理化函数阻止冒泡成功
+      bind阻止冒泡成功
+
+    weapp
+      柯理化函数阻止冒泡失效
+      bind阻止冒泡失效
 
 **类组件**
 
-	H5
-	柯理化函数阻止冒泡成功
-	bind阻止冒泡成功
-	
-	weapp
-	柯理化函数阻止冒泡失效
-	bind阻止冒泡成功
+    H5
+    柯理化函数阻止冒泡成功
+    bind阻止冒泡成功
+
+    weapp
+    柯理化函数阻止冒泡失效
+    bind阻止冒泡成功
 
 **通用**
 
-	1.普通的箭头函数,所有兼容，有局限性;
-	2.行内阻止冒泡，写业务代码
-	 
- **10. iconfont只能使用下载本地的方式,直接使用链接页面显示方框**
+    1.普通的箭头函数,所有兼容，有局限性;
+    2.行内阻止冒泡，写业务代码
+
+**10. iconfont只能使用下载本地的方式,直接使用链接页面显示方框**
+
 ```javascript
  //三种使用方式
  <Text className={classNames('icon', 'icon-home', styles.setIcon)}/>
@@ -852,8 +879,9 @@ parent = (val) => () => {
 **11. TaroUI在H5模式下编译报错**
 
 请在 config/index.js 文件中添加如下配置项：
+
 ```javascript
 h5: {
-  esnextModules: ['taro-ui']
+  esnextModules: ["taro-ui"];
 }
 ```

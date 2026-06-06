@@ -3,7 +3,6 @@ import type { TkContentData } from "@teek/config";
 import type { TkTitleTagProps } from "@teek/components/common/TitleTag";
 import { useNamespace, useLocale } from "@teek/composables";
 import { TkTitleTag } from "@teek/components/common/TitleTag";
-import { createDynamicComponent } from "./compile";
 
 defineOptions({ name: "ArticleTitle" });
 
@@ -23,13 +22,7 @@ const { t } = useLocale();
     />
 
     <slot>
-      <template v-if="post.title">
-        <component
-          v-if="!post.title.includes('`<') && !post.title.includes('>`')"
-          :is="createDynamicComponent(post.title)"
-        />
-        <span v-else>{{ post.title }}</span>
-      </template>
+      <span v-if="post.title">{{ post.title }}</span>
     </slot>
 
     <TkTitleTag

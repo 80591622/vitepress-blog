@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-03-04 19:52:17"
 title: base
 categories:
   - Rollup
 tags:
   - Rollup
+lastUpdated: "2020-04-13T19:52:17.373Z"
 ---
 
 # rollup
@@ -15,13 +16,9 @@ tags:
 
 与webpack 偏向于应用打包的定位不同， rollup.js 更专注于 Javascript 类库打包 。
 
-
-
-the-answer  
+the-answer
 
 与 webpack 和 browserify 这样的其他捆绑包不同， rollup 不知道如何打破常规去处理这些依赖。因此我们需要添加一些配置。
-
-
 
 - -f 。 -f 参数是 --format 的缩写，它表示生成代码的格式， amd 表示采用 AMD 标准， cjs 为 CommonJS 标准， esm （或 es）为 ES 模块标准。 -f 的值可以为 amd 、 cjs 、 system 、 esm （'es’也可以）、 iife 或 umd 中的任何一个。
 - -o 。 -o 指定了输出的路径，这里我们将打包后的文件输出到 dist 目录下的 bundle.js
@@ -30,8 +27,6 @@ the-answer
 
 - -c 。指定 rollup 的配置文件。
 - -w 。监听源文件是否有改动，如果有改动，重新打包。
-
-
 
 - input
   入口文件地址
@@ -49,10 +44,8 @@ output:{
 - plugins
   最常用的就是babel插件了,比较不爽的是，babel 的预设不像 webpack 可以直接写在配置文件里，而还是得独立写个“src/.babelrc”（注意我们可以写在 src 下，而不是非得放在项目根目录下）
 
-
-
 ```javascript
-// .babelrc 
+// .babelrc
 {
   "presets": [
     ["env", {
@@ -65,21 +58,19 @@ output:{
 - external
 
 ```javascript
-external:['lodash'] //告诉rollup不要将此lodash打包，而作为外部依赖
+external: ["lodash"]; //告诉rollup不要将此lodash打包，而作为外部依赖
 ```
-
-
 
 ### 整体打包流程
 
 ```javascript
-import babel from '@rollup/plugin-babel';
+import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 import replace from "@rollup/plugin-replace";
 
-const env = process.env.NODE_ENV
+const env = process.env.NODE_ENV;
 
 export default {
   input: ["./package/watermark.js"],
@@ -87,18 +78,17 @@ export default {
     file: "./lib/index.js",
     format: "umd",
     name: "waterMark",
-    sourcemap: false
+    sourcemap: false,
   },
   plugins: [
     resolve(),
     commonjs(),
     json(),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(env)
+      "process.env.NODE_ENV": JSON.stringify(env),
     }),
-    babel({babelHelpers: 'bundled'}),
+    babel({ babelHelpers: "bundled" }),
   ], // babel这个 显式配置此选项（即使使用其默认值）
   external: ["the-answer"],
 };
 ```
-

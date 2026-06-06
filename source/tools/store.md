@@ -1,12 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2026-03-01 21:52:20"
 title: store
 categories:
   - tools
 tags:
   - tools
+lastUpdated: "2026-04-30T21:52:20.085Z"
 ---
-
 
 # 开发工具
 
@@ -15,6 +15,7 @@ tags:
 **太常用的一些库，比如 `lodash`、`axios`、`echarts`、`normalize.css`等就不再下面推荐了。这里主要推荐一下自己平时常用，提高效率的，但大家可能又不知道的一些库。**
 
 ## 前端常用
+
 - [rap](http://rap2.taobao.org/) 模拟接口调用
 - [Tinify](https://tinify.com/web) 用于优化和压缩图片的网站
 - [sweetalert2](https://github.com/sweetalert2/sweetalert2) 一个自适应，且自定义性强的弹出框（零依赖）

@@ -1,18 +1,16 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-07-16 06:21:16"
 title: eventloop
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2023-10-26T06:21:16.197Z"
 ---
-
 
 # Event-Loop
 
-
 ## 同步 & 异步 & 多线程
-
 
 **同步与异步的区别**
 
@@ -28,26 +26,24 @@ tags:
 
 [运行机制详解](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
 
-
 ## JS中的异步操作
 
-- 定时函数，如setTimeout setInterval requestAnimationFrame setImmediate(nodeJS) 
+- 定时函数，如setTimeout setInterval requestAnimationFrame setImmediate(nodeJS)
 - IO 操作，如readFile readdir
 - 网络请求，如ajax http.get（也可以同步，但是等待ajax请求响应之前，页面会卡住，用户什么都做不了,体验差）
-
 
 这两个看你怎么说了
 
 - 事件绑定都是异步操作 <br/>
-除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）只要指定过回调函数，这些事件发生时就会进入"任务队列"，等待主线程读取。
+  除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）只要指定过回调函数，这些事件发生时就会进入"任务队列"，等待主线程读取。
 - 回调函数可以理解为异步（不是严谨的异步操作，同步回调，异步回调）<br/>
-所谓"回调函数"（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。
+  所谓"回调函数"（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。
 
 ## 如何理解 JS 的异步？
 
 ```js
-单线程是异步产生的原因
-事件循环是异步的实现方式
+单线程是异步产生的原因;
+事件循环是异步的实现方式;
 ```
 
 JS 是一门**单线程**的语言，这是因为它运行在浏览器的**渲染主线程**中，而渲染主线程只有一个。  
@@ -68,14 +64,12 @@ JS 中的定时器能做到精确计时吗？为什么？
 答案：不行，原因包括：
 硬件限制：计算机硬件没有原子钟，本身无法实现精确计时；  
 系统函数偏差：JS 定时器最终调用的是操作系统的计时函数，而系统函数本身存在少量偏差；  
-浏览器规范限制：按 W3C 标准，若定时器嵌套层级超过 5 层，会强制设置 4 毫秒的最少时间，当计时时间少于 4 毫秒时会产生差；    
-事件循环影响：定时器的回调函数只能在渲染主线程空闲时执行，主线程的阻塞会导致回调延迟执行，进一步带来偏差。  
-
+浏览器规范限制：按 W3C 标准，若定时器嵌套层级超过 5 层，会强制设置 4 毫秒的最少时间，当计时时间少于 4 毫秒时会产生差；  
+事件循环影响：定时器的回调函数只能在渲染主线程空闲时执行，主线程的阻塞会导致回调延迟执行，进一步带来偏差。
 
 ## 宏任务 & 微任务
 
-- **浏览器的任务队列:**
-   -主任务队列:存储的都是同步任务
+- **浏览器的任务队列:** -主任务队列:存储的都是同步任务
   - 等待任务队列:存储的都是异步任务
 
 - **微任务:**
@@ -91,28 +85,26 @@ JS 中的定时器能做到精确计时吗？为什么？
 
 **微任务的优先级⽐宏任务的优先级要高**
 
-
 ### async/await 和 promise 的执行顺序
 
-## async 
+## async
 
 **带 async 关键字的函数，它使得你的函数的返回值必定是 promise 对象**,async 函数也没啥了不起的，你就想它无非就是把return值包装了一下，其他就跟普通函数一样,重点是里面的await。
 
 ```javascript
-async function fn1(){
-    return 123
+async function fn1() {
+  return 123;
 }
-function fn2(){
-    return 123
+function fn2() {
+  return 123;
 }
-console.log(fn1())
-console.log(fn2())
+console.log(fn1());
+console.log(fn2());
 /*
 Promise {<resolved>: 123}
 123
 */
 ```
-
 
 ## await
 
@@ -129,20 +121,18 @@ await等待的是右侧「表达式」的结果
 
 ```javascript
 const ff = async () => {
-    console.log('async1 start'); //【1】
-    await async2();
-    console.log('async1 end')//【2】
-    function async2() {
-        new Promise((resolve) => {
-            console.log(11);//【3】
-            resolve(22)
-        }).then(
-            (data) => {
-                console.log(data);//【4】
-            }
-        )
-    }
-    console.log('外面')//【5】
+  console.log("async1 start"); //【1】
+  await async2();
+  console.log("async1 end"); //【2】
+  function async2() {
+    new Promise(resolve => {
+      console.log(11); //【3】
+      resolve(22);
+    }).then(data => {
+      console.log(data); //【4】
+    });
+  }
+  console.log("外面"); //【5】
 };
 
 /*
@@ -151,81 +141,77 @@ const ff = async () => {
 */
 
 /*
-* async1 start
-* 11
-* 22
-* async1 end
-* 外面
-*/
+ * async1 start
+ * 11
+ * 22
+ * async1 end
+ * 外面
+ */
 ```
 
 ```javascript
- const ff = () => {
-    async function async1() {
-        console.log('async1 start');
-        await async2();
-        console.log('async1 end')
-    }
-    function async2() {
-        new Promise((a, b) => {
-            console.log(11);
-            a(22)
-        }).then(
-            (data) => {
-                console.log(data);
-            }
-        )
-    }
-    async1();
-    console.log('外面')
+const ff = () => {
+  async function async1() {
+    console.log("async1 start");
+    await async2();
+    console.log("async1 end");
+  }
+  function async2() {
+    new Promise((a, b) => {
+      console.log(11);
+      a(22);
+    }).then(data => {
+      console.log(data);
+    });
+  }
+  async1();
+  console.log("外面");
 };
 /*
 解析：跟上面的一样，就是在ff重新声明一个async1函数，这种比上面那种更加实用，不会堵塞async1外面的同步代码
 */
 
 /*
-* async1 start
-* 11
-* 外面
-* 22
-* async1 end
-*/
+ * async1 start
+ * 11
+ * 外面
+ * 22
+ * async1 end
+ */
 ```
 
 **面试题**
+
 ```javascript
 const ff = async () => {
-    async function async1() {
-        console.log('async1 start')
-        await async2()
-        console.log('async1 end')
-    }
-    async function async2() {
-        new Promise((a, b) => {
-            console.log('async2');
-            a('async222')
-        }).then(
-            (data) => {
-                console.log(data);
-            }
-        )
-    }
-    console.log('script start')
-    setTimeout(function () {
-        console.log('setTimeout')
-    }, 0)
-    async1();
-    new Promise(function (resolve) {
-        console.log('promise1')
-        resolve();
-    }).then(function () {
-        console.log('promise2')
-    })
-    console.log('script end')
+  async function async1() {
+    console.log("async1 start");
+    await async2();
+    console.log("async1 end");
+  }
+  async function async2() {
+    new Promise((a, b) => {
+      console.log("async2");
+      a("async222");
+    }).then(data => {
+      console.log(data);
+    });
+  }
+  console.log("script start");
+  setTimeout(function () {
+    console.log("setTimeout");
+  }, 0);
+  async1();
+  new Promise(function (resolve) {
+    console.log("promise1");
+    resolve();
+  }).then(function () {
+    console.log("promise2");
+  });
+  console.log("script end");
 };
 ```
 
 [参考文档](https://segmentfault.com/a/1190000017224799)
 
 [https://www.cnblogs.com/jiasm/p/9482443.html](https://www.cnblogs.com/jiasm/p/9482443.html)
-

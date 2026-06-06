@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-09-14 23:43:38"
 title: mongodb
 categories:
   - Server
   - sql
 tags:
   - sql
+lastUpdated: "2023-11-01T23:43:38.709Z"
 ---
 
 # Mongodb安装
@@ -13,7 +14,6 @@ tags:
 ## 本地安装mongodb
 
 [安装地址](https://www.mongodb.com/download-center/community)
-
 
 打开安装的目录，默认没有data,etc ,log 文件的
 
@@ -23,13 +23,13 @@ sudo chown -R zhf /data
 
 ./mongod 就可以启动了，但是全局不能使用，需要配置下
 
-设置全局路径 ： echo 'export PATH=/Users/zhenfeng/mongodb/bin:$PATH'>>~/.bash_profile 
+设置全局路径 ： echo 'export PATH=/Users/zhenfeng/mongodb/bin:$PATH'>>~/.bash_profile
 
 在根路径source .bash_profile就生效了，查看是否成功
 
 $PATH/ /是否有当前db 的目录
 
-which mongod  //是否路径
+which mongod //是否路径
 
 问题：整好之后发现配置的环境变量（mongod）不起作用了，执行source .bash_profile后，mongod可以用了，但是终端全部关闭后，再输入mongod，就不起作用了。
 
@@ -44,7 +44,6 @@ which mongod  //是否路径
 mongodb 启动成功，正等待着被连接。
 
 cmd+T 新建命令窗口，执行 `mongo`，进入 mongodb 命令行模式：
-
 
 ## 阿里云服务器安装mongodb
 
@@ -76,9 +75,9 @@ touch /usr/local/mongodb/mongodb.conf
 # mongodb.conf配置文件如下
 dbpath=/usr/local/mongodb/data
 logpath=/usr/local/mongodb/mongodb.log
-logappend = true 
-port = 27017 
-fork = true 
+logappend = true
+port = 27017
+fork = true
 auth = true
 ```
 
@@ -115,11 +114,10 @@ rm -rf *.lock
 
 5.创建完成后需要在阿里云控制台配置防火墙才能连接
 
-
 ## 数据库的操作
 
 - 导出数据库
-./mongoexport --port [port] --db test --collection users --out export.json
+  ./mongoexport --port [port] --db test --collection users --out export.json
 
 - 导入数据库
-./mongoimport -h 120.79.229.197:27-17 -d test -c scenics --file=./export.json
+  ./mongoimport -h 120.79.229.197:27-17 -d test -c scenics --file=./export.json

@@ -1,28 +1,21 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-11-26 03:33:41"
 title: reload
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2025-12-20T03:33:41.341Z"
 ---
-
 
 # 基于Vue的组件局部刷新
 
-
 之前做keepalive，组件destroy销毁后，就不会缓存该页面了，解决的办法就是刷新当前的页面，一种是原始的刷新方式，一种就是基于框架本身的局部刷新，今天完善下基于vue的局部刷新。
-
-
 
 我上次省事在做keepalive的时候，直接在页面内部做的局部刷新，具体看[这大概是最全乎的keep-alive踩坑指南](https://juejin.im/post/6844904178926485511#heading-7) ,实现的思路就是重置所有的data,然后在配合v-if,就能做到局部的刷新，然后可以自己定义一个mixins代码也是很简洁的，但是还是要每次都引入mixins,现在用另一种方式重新优化，原理跟上面的那个方法类似。
 
-
-
 **第一步 : 在 app.vue 中定义全局方法:如下**
-
-
 
 ```javascript
 <template>
@@ -49,7 +42,7 @@ export default {
    reload () {
      this.isRouterAlive = false
      this.$nextTick(() => (this.isRouterAlive = true))
-   }   
+   }
  }
 }
 </script>
@@ -57,11 +50,7 @@ export default {
 
 我们定义了全局的方法 reload( ); 原理就是通过控制组件容器的出现与消失, 达到重新渲染的效果 , 从而实现我们的目的;
 
-
-
 **第二步:在全局中定义了刷新的方法, 接下来就是要引入到需要刷新的组件中:**
-
-
 
 ```javascript
 <script>
@@ -69,7 +58,7 @@ export default {
   inject:["reload"],
   data() {
     return {
-      
+
     }
   },
   mounted() {
@@ -79,7 +68,4 @@ export default {
 </script>
 ```
 
-
-
 通过 **inject 方法**引入到需要的组件中, 直接**this.reload()** 调用这个方法即可.
-

@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-05-30 00:43:09"
 title: tree-menu
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2025-06-04T00:43:09.117Z"
 ---
 
 # 封装树形菜单
@@ -91,7 +92,7 @@ tags:
         <span @click="toggle" >
             <span v-if="hasChild" >{{isOpen ? 'down' : 'up'}}</span>
             <!-- 末菜单 -->
-            <span v-if="!hasChild" >'='</span> 
+            <span v-if="!hasChild" >'='</span>
             {{ data[treeProps.label] }}
         </span>
         // 如果还有子集菜单，继续递归

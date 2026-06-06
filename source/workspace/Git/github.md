@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2026-03-09 21:55:17"
 title: github
 categories:
   - Git
 tags:
   - Git
+lastUpdated: "2026-05-14T21:55:17.692Z"
 ---
 
 # github API 调用
@@ -14,6 +15,7 @@ tags:
 ```javascript
 curl https://api.github.com/users/wkvictory
 ```
+
 - 个人主要信息`https://api.github.com/users/用户名`
 - 个人所有repo。`https://api.github.com/users/用户名/repos`。会得到一个repo的JSON格式列表。
 - repo详细信息。`https://api.github.com/repos/用户名/仓库名`。repo的路径就开始和个人信息不同了。
@@ -39,29 +41,32 @@ curl https://api.github.com/users/wkvictory
 ![](https://ae01.alicdn.com/kf/H0fec58c800544c24b103e00bf3f4e82aY.png)
 
 **1.直接作为url中的参数传输**
+
 ```javascript
 curl https://api.github.com/?access_token=OAUTH-TOKEN
 ```
+
 **2.作为header中的参数传输**
+
 ```javascript
 curl -H "Authorization: token OAUTH-TOKEN"
 ```
+
 ```javascript
-fetch(`https://api.github.com/repos/wkvictory/file/commits?per_page=15&sha=develop`,
-    {
-        method: 'GET',
-        headers: {
-            'Authorization': 'token OAUTH-TOKEN'
-        }
-    }
-  ).then(response => {
-     if (response.ok) {
-        this.show = false
-        return response.json();
-     }
-     throw new Error('接口调取失败！');
- });
+fetch(`https://api.github.com/repos/wkvictory/file/commits?per_page=15&sha=develop`, {
+  method: "GET",
+  headers: {
+    Authorization: "token OAUTH-TOKEN",
+  },
+}).then(response => {
+  if (response.ok) {
+    this.show = false;
+    return response.json();
+  }
+  throw new Error("接口调取失败！");
+});
 ```
+
 ### 参考文档
 
 [Github Api](https://segmentfault.com/a/1190000015144126)

@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2021-02-01 18:12:43"
 title: table-jsx
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2021-04-29T18:12:43.851Z"
 ---
 
 # vue之JSX封装table
@@ -20,37 +21,39 @@ tags:
 
 本次封装用的jsx语法，vue模板拓展性不是特别显优势，没有jsx灵活。[想看jsx在vue中怎么使用的请转看下之前的文章](/workspace/Frame/vue/jsx.html)
 
-
 ## 组件封装源码
 
 ```javascript
 //EnhanceTable.jsx
-import table from "../mixins/table"
+import table from "../mixins/table";
 
 export default {
   mixins: [table],
   props: {
-    otherTableParams: { // 设置table其他参数
+    otherTableParams: {
+      // 设置table其他参数
       type: Object,
-       default: function () {
+      default: function () {
         return {}; // Object/Array的属性必须使用函数返回默认值  箭头函数不行
-      }
+      },
     },
-    otherPaginationParams: { // 设置分页其他参数
+    otherPaginationParams: {
+      // 设置分页其他参数
       type: Object,
-       default: function () {
+      default: function () {
         return {};
-      }
+      },
     },
-    tableColumn: { // table的column
+    tableColumn: {
+      // table的column
       type: Array,
-       default: function () {
+      default: function () {
         return [];
-      }
+      },
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   methods: {
@@ -58,7 +61,8 @@ export default {
       // 处理操作部分按钮 -> 可以在外面自定义，必须是jsx
       if (item.handleButtons) return item.handleButtons(record);
       return (
-        !!item.list.length && item.list.map((item) => {
+        !!item.list.length &&
+        item.list.map(item => {
           return (
             <el-button
               disabled={item.disabled}
@@ -70,18 +74,25 @@ export default {
             >
               {item.title}
             </el-button>
-          )
+          );
         })
       );
-    }
+    },
     // handleCurrentChange(val) {
     //   this.$emit('currentChange', val);
     // },
   },
-  mounted() {
-  },
+  mounted() {},
   render() {
-    const {tableOptions, paginationOptions, paginationOptionsMethod, tableOptionsMethod, otherTableParams, tableColumn, multiple} = this;
+    const {
+      tableOptions,
+      paginationOptions,
+      paginationOptionsMethod,
+      tableOptionsMethod,
+      otherTableParams,
+      tableColumn,
+      multiple,
+    } = this;
     return (
       <div>
         <el-table
@@ -92,72 +103,62 @@ export default {
             },
             on: {
               ...tableOptionsMethod,
-              ...otherTableParams.on
-            }
+              ...otherTableParams.on,
+            },
           }}
         >
           {/* table多选 */}
-          {
-            multiple && (
-              <el-table-column
-                type="selection"
-                width="55"
-                fixed={'left'}
-              />
-            )
-          }
+          {multiple && <el-table-column type="selection" width="55" fixed={"left"} />}
           {/* table列表 */}
-          {
-            tableColumn.map((item) => {
-              if (item.type === 'button') {
-                // 操作部分
-                return (
-                  <el-table-column
-                    label={item.label || '操作'}
-                    width={item.width || '88'}
-                    fixed={item.fixed || 'right'}
-                    {...{
-                      scopedSlots: {
-                        default: ({row}) => {
-                          return this.handleButtons(item, row)
-                        }
-                      }
-                    }}
-                  />
-                )
-              }
+          {tableColumn.map(item => {
+            if (item.type === "button") {
+              // 操作部分
               return (
                 <el-table-column
-                  props={item}
-                  key={item.prop}
+                  label={item.label || "操作"}
+                  width={item.width || "88"}
+                  fixed={item.fixed || "right"}
                   {...{
-                    // 自定义的渲染方式，拓展性
                     scopedSlots: {
-                      default: ({row}) => {
-                        return item.render ? item.render(row[item.prop], row) : row[item.prop]
-                      }
-                    }
+                      default: ({ row }) => {
+                        return this.handleButtons(item, row);
+                      },
+                    },
                   }}
                 />
-              )
-            })
-          }
+              );
+            }
+            return (
+              <el-table-column
+                props={item}
+                key={item.prop}
+                {...{
+                  // 自定义的渲染方式，拓展性
+                  scopedSlots: {
+                    default: ({ row }) => {
+                      return item.render ? item.render(row[item.prop], row) : row[item.prop];
+                    },
+                  },
+                }}
+              />
+            );
+          })}
         </el-table>
         {/*分页*/}
         <el-pagination
           {...{
-            class: paginationOptions.class,  // 支持拓展
+            class: paginationOptions.class, // 支持拓展
             props: {
               ...paginationOptions,
             },
             on: {
-              ...paginationOptionsMethod
+              ...paginationOptionsMethod,
             },
           }}
         />
       </div>
     );
-  }
+  },
 };
 ```
 
@@ -226,10 +227,10 @@ export default {
     components: {EnhanceTable},
     methods: {
       queryList() { // 子组件默认的请求名称
-        this.$nextTick(async () => {  
+        this.$nextTick(async () => {
           // 因为当前算是父组件，当执行到父组件的created周期才会执行它的子组件，所以这个时候子组件的data的一些方法获取不到，或者可以在mounted周期里面执行异步请求
           const {paginationOptions: {pageSize, currentPage}, handlePageData} = this.$refs.table;// 获取子组件mixins里面的参数
-          const {data: {items, page: {totalRecord}}} = 
+          const {data: {items, page: {totalRecord}}} =
           await this.$fetch(`http://xx..xx/role?pageSize=${pageSize}&pageNum=${currentPage}`, {
             headers: {
               Authentication: 'xxxxx'
@@ -246,7 +247,7 @@ export default {
       }
     },
     created() {
-      this.queryList();//必须是这个名称 
+      this.queryList();//必须是这个名称
     },
     mounted() {
     }
@@ -273,7 +274,7 @@ const table = {
         multipleSelection: [], // 列表多选
       },
       tableOptionsMethod: {
-        "selection-change": this.handleSelectionChange
+        "selection-change": this.handleSelectionChange,
       },
       paginationOptions: {
         class: "fyDiv",
@@ -287,8 +288,8 @@ const table = {
       },
       paginationOptionsMethod: {
         "size-change": this.handleSizeChange,
-        "current-change": this.handleCurrentChange
-      }
+        "current-change": this.handleCurrentChange,
+      },
     };
   },
   methods: {
@@ -326,8 +327,8 @@ const table = {
       this.paginationOptions.pageSize = size;
       this.paginationOptions.currentPage = page;
       this.queryList ? this.queryList() : this.$parent.queryList();
-    }
-  }
+    },
+  },
 };
 
 export default table;

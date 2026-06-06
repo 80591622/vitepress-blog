@@ -1,5 +1,5 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2024-07-18 10:05:32"
 title: vue-extend
 categories:
   - Frame
@@ -7,13 +7,14 @@ categories:
   - source-code
 tags:
   - source-code
+lastUpdated: "2024-11-13T10:05:32.799Z"
 ---
 
 # 全局挂载组件之Vue.extend
 
 `Vue.extend` 属于Vue的全局 api，在实际业务开发中我们很少使用，因为相比常用的 `Vue.component` 写法使用 `extend` 步骤要更加繁琐一些。但是在一些独立组件开发场景中（例如：ElementUI库），所以`Vue.extend` + `$mount` 这对组合非常有必要需要我们了解下。
 
-##  Vue.component
+## Vue.component
 
 [文档](https://cn.vuejs.org/v2/api/index.html#Vue-componen)
 
@@ -23,15 +24,22 @@ tags:
 
 ```javascript
 // 注册组件，传入一个扩展过的构造器
-Vue.component('my-component', Vue.extend({ /* ... */ }))
+Vue.component(
+  "my-component",
+  Vue.extend({
+    /* ... */
+  })
+);
 
 // 注册组件，传入一个选项对象 (自动调用 Vue.extend)
-Vue.component('my-component', { /* ... */ })
+Vue.component("my-component", {
+  /* ... */
+});
 
 // 获取注册的组件 (始终返回构造器)
-var MyComponent = Vue.component('my-component')
-let ElInput = Vue.component('ElInput');
-console.log(new ElInput);  // 就是Inout的实例
+var MyComponent = Vue.component("my-component");
+let ElInput = Vue.component("ElInput");
+console.log(new ElInput()); // 就是Inout的实例
 ```
 
 用法也特别的简单，你写好的组件，直接在main.js里面导入然后使用`Vue.component('xx-xxx',xxx)`就可以全局通用了。
@@ -42,9 +50,7 @@ console.log(new ElInput);  // 就是Inout的实例
   - 组件的名称都是自定义的，如果我要从接口动态渲染怎么办。【extend不用必须在初始化的时候完成，下面有实例】
   - 有内容都是在 `#app` 下渲染，注册组件都是在当前位置渲染。如果我要实现一个模态框的提示组件，就比较鸡肋了。
 
-
 这时候，`Vue.extend + vm.$mount` 组合就派上用场了。
-
 
 ## Vue.extend
 
@@ -59,17 +65,17 @@ console.log(new ElInput);  // 就是Inout的实例
 ```javascript
 // 创建构造器
 var Profile = Vue.extend({
-  template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+  template: "<p>{{firstName}} {{lastName}} aka {{alias}}</p>",
   data: function () {
     return {
-      firstName: 'Walter',
-      lastName: 'White',
-      alias: 'Heisenberg'
-    }
-  }
-})
+      firstName: "Walter",
+      lastName: "White",
+      alias: "Heisenberg",
+    };
+  },
+});
 // 创建 Profile 实例，并挂载到一个元素上。
-new Profile().$mount('#mount-point')
+new Profile().$mount("#mount-point");
 ```
 
 结果如下：
@@ -84,8 +90,8 @@ new Profile().$mount('#mount-point')
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app');  // 此处都是替换，不是填充
+  render: h => h(App),
+}).$mount("#app"); // 此处都是替换，不是填充
 ```
 
 **下面简单的分析下`$mount`的源码**
@@ -182,7 +188,6 @@ export default Vue
 
 - `$mount `方法实际上会调用` mountComponent` 方法，方法定义在 `src/core/instance/lifecycle.js `中
 
-
 ## 实现一个弹框组件
 
 ```javascript
@@ -223,10 +228,10 @@ export default Vue
 
         setTimeout(() => {
           this.removeNotice(_name)
-        }, notice.duration) 
+        }, notice.duration)
       },
       getName() {
-        return 'msg_' + (mid++)  //创建一个唯一的值 
+        return 'msg_' + (mid++)  //创建一个唯一的值
       },
       removeNotice(_name) {
         let index = this.notices.findIndex(item => item._name === _name)
@@ -260,7 +265,7 @@ export default Vue
         line-height: 1.3;
     }
 
-    // 对应的集中状态 
+    // 对应的集中状态
     .message.info {
         border-left: var(--borderWidth) solid #909399;
         background: #F4F4F5;
@@ -280,70 +285,64 @@ export default Vue
 </style>
 ```
 
-
-
 ```javascript
 // message/index.js
-import Vue from 'vue'
-import Message from './src/index.vue'
+import Vue from "vue";
+import Message from "./src/index.vue";
 
-let messageInstance = null
-let TempMessage = ''
+let messageInstance = null;
+let TempMessage = "";
 
 // 模拟异步请求
 setTimeout(() => {
-  TempMessage = Message
-}, 2000)
+  TempMessage = Message;
+}, 2000);
 
 let init = () => {
-  let MessageConstructor = TempMessage && Vue.extend(TempMessage)
+  let MessageConstructor = TempMessage && Vue.extend(TempMessage);
 
-  messageInstance = new MessageConstructor({})// 构造函数可以接传值，data、methods.....
+  messageInstance = new MessageConstructor({}); // 构造函数可以接传值，data、methods.....
   // console.log(messageInstance);
 
   // $mount()不带参数，会把组件在内存中渲染完毕
-  messageInstance.$mount()
+  messageInstance.$mount();
 
   // messageInstance.$el 拿到的就是组件对应的dom元素,可以直接操作dom
-  document.body.appendChild(messageInstance.$el)
-  messageInstance.$el.style.zIndex = 9999
-}
+  document.body.appendChild(messageInstance.$el);
+  messageInstance.$el.style.zIndex = 9999;
+};
 
-
-let caller = (options) => {
+let caller = options => {
   if (!messageInstance) {
     // 进页面初始化
-    init(options)
+    init(options);
   }
   // addMessage 是组件内部声明的方法，也可以通过构造函数传对应的方法
-  messageInstance.addMessage(options)
-}
-
+  messageInstance.addMessage(options);
+};
 
 export default {
   install(vue) {
-    vue.prototype.$mymessage = caller
-  }
-}
+    vue.prototype.$mymessage = caller;
+  },
+};
 ```
 
 ```javascript
 // main.js
-import Message from '@/components/Message/index.js'
-Vue.use(Message)
+import Message from "@/components/Message/index.js";
+Vue.use(Message);
 ```
 
 **使用**
 
 ```javascript
- this.$mymessage({
-   type: 'warning',
-   content: '你好坏啊，我好喜欢',
-   duration: 6000
- })
+this.$mymessage({
+  type: "warning",
+  content: "你好坏啊，我好喜欢",
+  duration: 6000,
+});
 ```
-
-
 
 ## 参考文章
 

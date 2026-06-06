@@ -1,11 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-05-14 18:07:32"
 title: event
 categories:
   - Frame
   - react
 tags:
   - react
+lastUpdated: "2020-08-17T18:07:32.155Z"
 ---
 
 # react事件委托机制
@@ -26,29 +27,30 @@ tags:
 ```
 
 **onclick**
+
 ```javascript
-div1.onclick = function(){
-    console.log('打印第一次')
-}
-div1.onclick = function(){
-    console.log('打印第二次')
-}
+div1.onclick = function () {
+  console.log("打印第一次");
+};
+div1.onclick = function () {
+  console.log("打印第二次");
+};
 //结果是第二个点击注册事件覆盖了第一个点击事件,只执行了console.log('打印第二次');
 ```
 
 **DOM 2 实现**
 
 ```javascript
-addEventListener(type,listener,useCapture)
+addEventListener(type, listener, useCapture);
 ```
 
 ```javascript
-div1.addEventListener('click',function(){
-   console.log('打印第一次')
-})
-div1.addEventListener('click',function(){
-    console.log('打印第二次')
-})
+div1.addEventListener("click", function () {
+  console.log("打印第一次");
+});
+div1.addEventListener("click", function () {
+  console.log("打印第二次");
+});
 //可以看到两个注册事件都会成功触发
 ```
 
@@ -65,14 +67,19 @@ div1.addEventListener('click',function(){
 上面的`addEventListener`的第三个参数就是设置是捕获还是冒泡阶段，默认是false是`冒泡阶段`，当设为true的时候是`事件捕获`
 
 ```javascript
-body.addEventListener('click',function(){
-    console.log('打印body')
-},true)
-div1.addEventListener('click',function(){
-    console.log('打印div1')
-})
+body.addEventListener(
+  "click",
+  function () {
+    console.log("打印body");
+  },
+  true
+);
+div1.addEventListener("click", function () {
+  console.log("打印div1");
+});
 // 打印body   打印div1
 ```
+
 ## addEventListener() 和 onclick的区别
 
 - onclick 不能同时执行两个函数，addEventListener()可以执行两个不同的函数
@@ -99,16 +106,16 @@ react事件机制分为两个部分：**1、事件注册 2、事件分发**
       console.log('document click')
     })
     document.getElementsByClassName('App')[0].addEventListener('click', function(){
-      console.log('app click') 
+      console.log('app click')
     })
     document.getElementsByTagName('button')[0].addEventListener('click', function(e){
-      console.log('button click')  
+      console.log('button click')
       // e.stopPropagation();
     })
-  } 
+  }
   onClick = (e) => {
     e.stopPropagation() // 能够阻止div.app的触发
-    e.nativeEvent.stopImmediatePropagation(); // nativeEvent是原生的事件 ， 能够阻止document的触发  
+    e.nativeEvent.stopImmediatePropagation(); // nativeEvent是原生的事件 ， 能够阻止document的触发
     e.nativeEvent.stopPropagation(); // 什么都阻止不了,因为onClick合成事件都会注册到document上
     console.log('react button click');
   };
@@ -126,40 +133,43 @@ react事件机制分为两个部分：**1、事件注册 2、事件分发**
 
 ```javascript
 let vdom = {
-  type: 'div',
+  type: "div",
   props: {
-    onClick: function(){ //合成事件
-      console.log('react app click')    
+    onClick: function () {
+      //合成事件
+      console.log("react app click");
     },
     children: [
       {
-        type: 'button',
+        type: "button",
         props: {
-           onClick: function() {
-              console.log('react button click')    
-           }
-        }
-      }
-    ]
-  }
-}
+          onClick: function () {
+            console.log("react button click");
+          },
+        },
+      },
+    ],
+  },
+};
 ```
+
 **注册事件**
 
 ```javascript
-bankForRegistrationName = { // 回调事件的保存
-    // 数字是_debugID,react用于识别每一个dom
-    5: {
-      click: function(){
-        console.log('react app click')    
-      },
+bankForRegistrationName = {
+  // 回调事件的保存
+  // 数字是_debugID,react用于识别每一个dom
+  5: {
+    click: function () {
+      console.log("react app click");
     },
-    6: {
-      click: function(){
-        console.log('react button click')    
-      },
-    }
-}
+  },
+  6: {
+    click: function () {
+      console.log("react button click");
+    },
+  },
+};
 ```
 
 **事件触发**
@@ -176,15 +186,13 @@ function dispatchEvent(e, type) {
   let synE = new SyntheticEvent(e);
   // 执行监听事件
   let debugID = e.target.__reactInternalInstance$om8tco7dvl._debugID;
-  bankForRegistrationName[debugID][type](synE); 
+  bankForRegistrationName[debugID][type](synE);
 }
 // document事件委托
 document.addEventListener('click', function(e) {
   dispatchEvent(e, 'click'); // 总之最后是通过点击document做事件委托触发的
 })
 ```
-
-
 
 ### 参考文档
 

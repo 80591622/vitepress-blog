@@ -28,9 +28,9 @@ const CATEGORY_ZH: Record<string, string> = {
   "micro-app": "微前端",
   FE框架: "前端框架",
   Vue: "Vue",
-}
+};
 
 export function getCategoryLabelZh(name: string): string {
-  if (/[\u3000-\u9fff]/.test(name)) return name
-  return CATEGORY_ZH[name] ?? name
+  if (/[\u3000-\u9fff]/.test(name)) return name;
+  return CATEGORY_ZH[name] ?? name;
 }

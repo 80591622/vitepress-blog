@@ -1,20 +1,20 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2024-03-30 07:31:44"
 title: mac
 categories:
   - tools
 tags:
   - tools
+lastUpdated: "2024-04-24T07:31:44.347Z"
 ---
-
 
 # MAC整理
 
+## 配置sudo免密码
 
-##  配置sudo免密码
 [创建root账户](https://blog.csdn.net/u011046452/article/details/90140936)
 
-`1.` 需要在/etc/sudoers中配置。 
+`1.` 需要在/etc/sudoers中配置。
 <br/>
 这个文件的权限是只读，配置之前需要加写权限。
 <br/>
@@ -34,27 +34,22 @@ tags:
 
 `sudo chmod u-w /etc/sudoers`
 
-
 ## sudo报错信息 /etc/sudoers is world writable
 
 ::: danger 错误信息
 
-sudo: /etc/sudoers is world writable 
+sudo: /etc/sudoers is world writable
 <br/>
-sudo: no valid sudoers sources found, quitting 
+sudo: no valid sudoers sources found, quitting
 <br/>
 sudo: unable to initialize policy plugin
 
 :::
 
-
-
 今天误操作修改了/etc/sudoers的权限，将它的权限改成了777，结果就导致执行所有sudo的命令都报错。
 <br/>
-`
-sudo: /etc/sudoers is world writable
-sudo: no valid sudoers sources found, quitting
-`
+`sudo: /etc/sudoers is world writable
+sudo: no valid sudoers sources found, quitting`
 <br/>
 想重新把它的权限修改回去，但是执行`chmod 440 /etc/sudoers`后却发现报错为：
 <br/>
@@ -90,18 +85,15 @@ sh-3.2# exit
 
 ## mac下安装Homebrew
 
-
 安装 [Homebrew](https://brew.sh/index_zh-cn)
-
 
 ```nginx{3,5}
 # 使用方式
-# 安装 wget  
+# 安装 wget
 brew install wget
-# 安装 yum   
+# 安装 yum
 brew install yum
 ```
-
 
 ## mac安装autojump
 
@@ -138,7 +130,6 @@ b. 新开一行，添加：`[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] 
 
 c. :wq保存退出，重启终端。
 
-
 ## Mac 终端 oh-my-zsh 配置
 
 Mac 终端默认 shell 为 `bash`。
@@ -148,24 +139,28 @@ Mac 终端默认 shell 为 `bash`。
 **使用 zsh**
 
 查看当前使用的 shell
+
 ```nginx
 echo $SHELL
 # /bin/bash
 ```
+
 **使用 brew 更新 zsh**
+
 ```nginx
 brew install zsh
 ```
 
 **切换为 zsh**
+
 ```nginx
 chsh -s /bin/zsh # 重启shell
 ```
 
 重启终端即可使用 `zsh`
 
-
 **1.安装**
+
 ```nginx
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
@@ -190,31 +185,32 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 更新配置`source ~/.zshrc`
 
-
 **4.自动提示功能插件**
 
 ```nginx
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-vi ~/.zshrc  
+vi ~/.zshrc
 ```
 
 ```nginx
 plugins=(
-  git 
+  git
   zsh-autosuggestions
 )
 ```
+
 更新配置`source ~/.zshrc`
 
 **5.安装zsh-syntax-highlighting语法高亮插件**
 
 [官网](https://github.com/zsh-users/zsh-syntax-highlighting)
+
 ```nginx
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git 
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
 ```
-更新配置`source ~/.zshrc`
 
+更新配置`source ~/.zshrc`
 
 **在编辑器内配置**
 
@@ -230,8 +226,6 @@ echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> 
 
 每次加载终端并运行zsh shell时，它都会执行命令。
 
-
-
 ## mac下sshpass 不能使用
 
 ```nginx
@@ -245,6 +239,7 @@ tar xvzf sshpass-1.05.tar.gz
 make
 sudo make install
 ```
+
 ## mac设置git的分支记录
 
 `基于bash,zsh下不能使用`
@@ -319,7 +314,7 @@ sudo spctl --master-disable
 
 https://chrome.google.com/webstore/category/extensions?utm_source=chrome-ntp-icon
 
-由于Google域名在国内不可访问，可以使用第三方网站  http://chrome-extension-downloader.com/ 或者 www.gugeapps.net 来下载
+由于Google域名在国内不可访问，可以使用第三方网站 http://chrome-extension-downloader.com/ 或者 www.gugeapps.net 来下载
 
 ### Mac系统中如何导出 chrome 插件
 
@@ -337,7 +332,6 @@ ls
 
 获取 id 方式
 ![image-20220922173753489](https://tva1.sinaimg.cn/large/e6c9d24ely1h6fiq4qme3j214u0ngta1.jpg)
-
 
 ```nginx
 #进入插件目录
@@ -357,6 +351,5 @@ pwd
 ```
 
 4.复制插件路径，在 chrome 中->扩展程序->打包扩展程序，弹出打包弹窗。输入插件的路径，即可在生成的打包目录中，获得打包后生成的 crx 文件。
-
 
 使用 crx 也很简单，使用人打开 "扩展程序"，然后把 crx 拖进来即可。

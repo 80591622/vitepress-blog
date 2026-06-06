@@ -1,15 +1,15 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-04-09 21:10:26"
 title: vue-next
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2025-04-18T21:10:26.096Z"
 ---
 
 # Vue3.0源码分析
-
 
 第一次用vue也是两年前了，今天看了预览版的3.0变化挺大，方法都是基于函数式的，
 这对于一直用react的我来说挺新奇的，也是因为下家用vue开发的项目比较多，特此班门弄斧，研究一波。
@@ -26,6 +26,7 @@ tags:
 但是如果在 `Vue 4.0` 中彻底废弃原有的组件声明方式，`Vue`相当于自杀了。
 
 **在很多帖子和论坛上开发者声称：**
+
 - 所有 Vue 代码都必须以全新的方式重写，因为现有的语法正在被移除，并且被其他东西取代；
 - 人们花在学习 Vue 上的所有时间都被浪费了，因为一切都会改变；
 - 新语法比旧的更糟糕，因为它没有强制的结构，并且会导致意大利面条式代码；
@@ -42,51 +43,55 @@ tags:
 - `Composition API` 使用简单
 
 `composition API` 就是让多个方法进行组合使用
+
 ```vue
 <script src="vue.global.js"></script>
 <div id="container"></div>
 <script>
-     // 使用场景跟react的hooks一样，逻辑抽离，方便复用
-    function usePosition(){ // 实时获取鼠标位置
-        let state = Vue.reactive({x:0,y:0});
-        function update(e) {
-            state.x= e.pageX
-            state.y = e.pageY
-        }
-        Vue.onMounted(() => {
-            window.addEventListener('mousemove', update)
-        })
-        Vue.onUnmounted(() => {
-            window.removeEventListener('mousemove', update)
-        })
-        return Vue.toRefs(state);  
+// 使用场景跟react的hooks一样，逻辑抽离，方便复用
+function usePosition() {
+  // 实时获取鼠标位置
+  let state = Vue.reactive({ x: 0, y: 0 });
+  function update(e) {
+    state.x = e.pageX;
+    state.y = e.pageY;
+  }
+  Vue.onMounted(() => {
+    window.addEventListener("mousemove", update);
+  });
+  Vue.onUnmounted(() => {
+    window.removeEventListener("mousemove", update);
+  });
+  return Vue.toRefs(state);
+}
+const App = {
+  setup() {
+    // Composition API 使用的入口,只会执行一次，减少gc
+    const state = Vue.reactive({ name: "youxuan" }); // 定义响应数据
+    const { x, y } = usePosition(); // 使用公共逻辑
+    Vue.onMounted(() => {
+      console.log("当组挂载完成");
+    });
+    Vue.onUpdated(() => {
+      console.log("数据发生更新");
+    });
+    Vue.onUnmounted(() => {
+      console.log("组件将要卸载");
+    });
+    function changeName() {
+      state.name = "webyouxuan";
     }
-    const App = {
-        setup(){ // Composition API 使用的入口,只会执行一次，减少gc
-            const state  = Vue.reactive({name:'youxuan'}); // 定义响应数据
-            const {x,y} = usePosition(); // 使用公共逻辑
-            Vue.onMounted(()=>{
-                console.log('当组挂载完成')
-            });
-            Vue.onUpdated(()=>{
-                console.log('数据发生更新')
-            });
-            Vue.onUnmounted(()=>{
-                console.log('组件将要卸载')
-            })
-            function changeName(){
-                state.name = 'webyouxuan';
-            }
-            return { // 返回上下文,可以在模板中使用
-                state,
-                changeName,
-                x,
-                y
-            }
-        },
-        template:`<button @click="changeName">{{state.name}} 鼠标x: {{x}} 鼠标: {{y}}</button>`
-    }
-    Vue.createApp().mount(App,container);
+    return {
+      // 返回上下文,可以在模板中使用
+      state,
+      changeName,
+      x,
+      y,
+    };
+  },
+  template: `<button @click="changeName">{{state.name}} 鼠标x: {{x}} 鼠标: {{y}}</button>`,
+};
+Vue.createApp().mount(App, container);
 </script>
 ```
 
@@ -94,7 +99,7 @@ tags:
 
 ```bash
 packages目录中包含着Vue3.0所有功能
-  
+
     ├── packages
     │   ├── compiler-core # 所有平台的编译器
     │   ├── compiler-dom # 针对浏览器而写的编译器
@@ -114,7 +119,7 @@ packages目录中包含着Vue3.0所有功能
 
 1. 兼容性好，支持 IE9，而 Proxy 的存在浏览器兼容性问题,而且无法用 polyfill 磨平，因此 Vue 的作者才声明需要等到下个大版本( 3.0 )才能用 Proxy 重写。
 1. 无法监听数组的变化
-1.  需要深度遍历，浪费内存
+1. 需要深度遍历，浪费内存
 
 [解决vue中使用defineProperty的不足](/workspace/Frame/vue/vue.html#defineproperty-的不足)
 
@@ -132,15 +137,15 @@ packages目录中包含着Vue3.0所有功能
 ```javascript
 // utils.js 定义的公共方法
 // 判断是一个object类型的
-function isObject(target){
-    return typeof target === 'object' && target!== null;
+function isObject(target) {
+  return typeof target === "object" && target !== null;
 }
 ```
 
 ```javascript
 // 视图代码
-function  updateView() {
-    console.log('更新视图')
+function updateView() {
+  console.log("更新视图");
 }
 ```
 
@@ -148,39 +153,39 @@ function  updateView() {
 
 ```javascript
 function observer(target) {
-    if (!isObject(target)) return target;
-    
-    for (let key in target) {
-        defineReactive(target, key, target[key])
-    }
+  if (!isObject(target)) return target;
+
+  for (let key in target) {
+    defineReactive(target, key, target[key]);
+  }
 }
 
 function defineReactive(target, key, value) {
-    observer(value); // 有可能对象类型是多层，递归劫持
+  observer(value); // 有可能对象类型是多层，递归劫持
 
-    Object.defineProperty(target, key, {
-        get() {
-            // 在get 方法中收集依赖
-            return value
-        },
-        set(newVal) {
-            console.log('set方法', newVal);
-            if (newVal !== value) {
-                updateView(); // 在set方法中触发更新
-                observer(newVal); // 防止传进来是一个二级对象，不能对以后的数据监测
-                value = newVal; // 赋新值
-            }
-        }
-    })
+  Object.defineProperty(target, key, {
+    get() {
+      // 在get 方法中收集依赖
+      return value;
+    },
+    set(newVal) {
+      console.log("set方法", newVal);
+      if (newVal !== value) {
+        updateView(); // 在set方法中触发更新
+        observer(newVal); // 防止传进来是一个二级对象，不能对以后的数据监测
+        value = newVal; // 赋新值
+      }
+    },
+  });
 }
 
-let data = {name: 'wk', obj: {a: 11}, ary: [1, 2, 3, 4, 5]};
+let data = { name: "wk", obj: { a: 11 }, ary: [1, 2, 3, 4, 5] };
 observer(data);
-data.obj.a = {b: 222};
+data.obj.a = { b: 222 };
 data.obj.a.b = 121212;
 ```
-例如上面的代码，我们用push方法改变ary的话，会改变原数组，但是并没有触发视图更新，所以这里数组劫持来优化触发视图更新
 
+例如上面的代码，我们用push方法改变ary的话，会改变原数组，但是并没有触发视图更新，所以这里数组劫持来优化触发视图更新
 
 ## 数组的劫持
 

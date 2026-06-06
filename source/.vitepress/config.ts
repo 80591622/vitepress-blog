@@ -6,6 +6,7 @@ import search from "./config/search";
 import sidebar from "./config/sidebar";
 import socialLinks from "./config/socialLinks";
 import nav from "./config/nav";
+import { themeLayoutFlags } from "./config/themeFlags";
 
 const description = "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具";
 
@@ -54,10 +55,7 @@ export default defineConfig({
   },
   themeConfig: {
     // 必须出现在最终 theme 上：否则 Teek 合并配置时 teekHome 会回退为 true，首页会套上博客布局与右侧卡片栏
-    teekHome: false,
-    vpHome: true,
-    // 若启用 Teek 博客首页，关闭右侧资讯卡片列（与纯 VitePress 首页二选一时可防错位）
-    homeCardListPosition: false,
+    ...themeLayoutFlags,
     darkModeSwitchLabel: "主题",
     sidebarMenuLabel: "菜单",
     returnToTopLabel: "返回顶部",
@@ -71,7 +69,7 @@ export default defineConfig({
     sidebar,
     nav,
     editLink: {
-      pattern: "https://github.com/80591622",
+      pattern: "https://github.com/80591622/vitepress-blog/edit/master/source/:path",
       text: "在 GitHub 上编辑此页",
     },
     lastUpdated: {

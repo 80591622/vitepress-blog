@@ -1,13 +1,13 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-08-22 03:56:27"
 title: bug
 categories:
   - Frame
   - react-native
 tags:
   - react-native
+lastUpdated: "2022-10-18T03:56:27.237Z"
 ---
-
 
 # XCODE模拟器报错修复
 
@@ -38,8 +38,7 @@ tags:
 
 解决方法：1.关闭项目，重新通过命令行启动。 2.如果还不行，那么再重试多次，一般会行的
 
-
-**5.红屏，提示 JSON value 'XXXX'  of type NSString cannot be converted to  a YGValue. Did you forget the % or pt suffix ?**
+**5.红屏，提示 JSON value 'XXXX' of type NSString cannot be converted to a YGValue. Did you forget the % or pt suffix ?**
 
 **6.红屏，和上面一样，但提示的文字是“Runtime is not ready for debugging”**
 
@@ -50,8 +49,7 @@ tags:
 调出控制台菜单（IOS模拟器下通过control + D开启）
 选择Stop Remote JS Debugging
 
-
-**7.红屏，和上面一样，提示文字: “Unhandled JS Exception:  global.nativeTraceBeginSection is not a function”**
+**7.红屏，和上面一样，提示文字: “Unhandled JS Exception: global.nativeTraceBeginSection is not a function”**
 
 这个问题据说不少人遇到过，解决方法是：在模拟器上删掉APP，然后重新编译安装，
 
@@ -65,29 +63,24 @@ tags:
 
 下面的这位error老弟，我还是第一次看到长得这么“白白净净” 的Error, 难道你不应该是“红脸关公”🐎 ？
 
-
 解决办法：认真从一大堆输出中通过过滤掉其他信息的方式，定位到白色色块的error输出
 
- 
 **9.调出React-Native-Debugger的时候,报警告：Another debugger is already connected**
 
 一般情况下，这是因为你的浏览器页面打开了debugger页面，长这样的
 
 解决办法：把浏览器的debugger关掉就可以了
 
- 
 **10.解决MAC和IOS模拟器之间的复制粘贴问题**
 
 用过IOS模拟器的人就会发现一个问题，MAC上的东东是不能直接粘贴到模拟器的APP上的
 
 解决办法： https://www.jianshu.com/p/a34ab4933211
 
- 
 **11.如果报错：组件不是class/function,而是undefined**
 
 不一定是当前组件没有正确导入，还可能是当前组件的子组件没有正确导入
 
- 
 **12.涉及图片引用改变的时候，偶尔会出现热重载失效的现象**
 
 你说失效，辣就是失效，不狡辩（证据确凿，百口莫辩）

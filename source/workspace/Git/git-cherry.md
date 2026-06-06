@@ -1,15 +1,17 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-06-12 03:03:20"
 title: git-cherry
 categories:
   - Git
 tags:
   - Git
+lastUpdated: "2022-08-04T03:03:20.300Z"
 ---
 
 # git恢复上一次的修改
 
-### 查看谁修改的代码 
+### 查看谁修改的代码
+
 ```bash{9}
 git blame
 比如多人协作的情况下线上出问题了，可以通过git blame清楚的知道是谁对文件进行了修改了。下面给出一个例子:
@@ -22,7 +24,7 @@ git checkout  remotes/origin/daily/1.1.68
 git blame src/pages/item/ItemTable/ItemTable.js
 //(4)此时会显示每一行代码的修改者
 ```
-    
+
 ### git log
 
 ```bash{27,36}
@@ -86,7 +88,6 @@ git cherry-pick 52e3fa6
 
 ### Tag回退代码
 
-
 ```bash{5,9,13,15}
 git add .
 
@@ -111,9 +112,8 @@ git show 1.0.0  or git show v1.0.0^{tree}//查看相关信息
 ```
 
 ::: danger 特别注意
- 通过标签回退版本后，尽量不要改动代码，如果一定要修改代码`必须马上拉一个分支`，然后当前的主干的分支立即回到原来的位置，否则正在开发的分支可能白干了，并且不能把改动的代码合并到主干，接着在刚拉的分支上改bug,修改完毕后合并在主干上
+通过标签回退版本后，尽量不要改动代码，如果一定要修改代码`必须马上拉一个分支`，然后当前的主干的分支立即回到原来的位置，否则正在开发的分支可能白干了，并且不能把改动的代码合并到主干，接着在刚拉的分支上改bug,修改完毕后合并在主干上
 :::
-
 
 `如果你通过标签回退版本后，立马改了当前的分支，很不幸你就成功的push不到Git上了，看提示的错误：`
 
@@ -125,11 +125,12 @@ hint: (e.g., 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 //更新被拒绝，因为远程包含您所做的工作,大致意思就是你之前的提交的那个库指向同一引用，且低于一个版本，要你集成远程更改
 ```
+
 > 有如下几种解决方法：
 
 **1：使用强制push的方法：**
 
-git push -u origin [name] -f 
+git push -u origin [name] -f
 
 太暴力，这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候。
 
@@ -141,6 +142,6 @@ git pull origin [name]
 
 **3：若不想merge远程和本地修改，可以先创建新的分支：**
 
-git checkout -b  [name]
+git checkout -b [name]
 
-然后git push -u origin [name]  万事大吉，实在不行后期你直接 git push origin --delete [name]不留痕迹
+然后git push -u origin [name] 万事大吉，实在不行后期你直接 git push origin --delete [name]不留痕迹

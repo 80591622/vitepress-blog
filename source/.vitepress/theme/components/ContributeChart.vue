@@ -1,5 +1,5 @@
 <script setup lang="ts" name="ContributeChart">
-import * as echarts from "echarts";
+import type { ECharts, EChartsCoreOption } from "echarts";
 import { ref, watch, nextTick, computed, useTemplateRef, onMounted } from "vue";
 import { useData } from "vitepress";
 import { formatDate, usePosts, useIntersectionObserver } from "vitepress-theme-teek";
@@ -8,10 +8,7 @@ const { isDark } = useData();
 const posts = usePosts();
 
 const today = formatDate(new Date(), "yyyy-MM-dd");
-const beforeOnYear = formatDate(
-  new Date(new Date().getTime() - 364 * 24 * 60 * 60 * 1000),
-  "yyyy-MM-dd"
-);
+const beforeOnYear = formatDate(new Date(new Date().getTime() - 364 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
 
 const contributeList = computed((): [string, number][] => {
   const contributeObject: Record<string, number> = {};
@@ -28,7 +25,13 @@ const contributeList = computed((): [string, number][] => {
 });
 
 const chartRef = useTemplateRef("chartRef");
-let contributeChart: echarts.ECharts | undefined;
+let contributeChart: ECharts | undefined;
+let echartsModule: typeof import("echarts") | undefined;
+
+const loadEcharts = async () => {
+  if (!echartsModule) echartsModule = await import("echarts");
+  return echartsModule;
+};
 
 const { create } = useIntersectionObserver(
   chartRef,
@@ -36,11 +39,7 @@ const { create } = useIntersectionObserver(
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         requestAnimationFrame(() => {
-          try {
-            renderChart(contributeList.value);
-          } catch (error) {
-            console.error("初始化动画失败:", error);
-          }
+          void renderChart(contributeList.value);
         });
       }
     });
@@ -97,7 +96,8 @@ const option = {
   },
 };
 
-const renderChart = (data: [string, number][]) => {
+const renderChart = async (data: [string, number][]) => {
+  const echarts = await loadEcharts();
   const cal = option.calendar as {
     itemStyle: { borderColor: string; color: string };
   };
@@ -109,21 +109,21 @@ const renderChart = (data: [string, number][]) => {
 
   const series = option.series as { data: [string, number][]; type: string; coordinateSystem: string };
   series.data = data;
-  contributeChart?.setOption(option as echarts.EChartsCoreOption);
+  contributeChart?.setOption(option as EChartsCoreOption);
 };
 
 watch(
   contributeList,
   async newValue => {
     await nextTick();
-    renderChart(newValue);
+    await renderChart(newValue);
   },
   { flush: "post" }
 );
 
 watch(isDark, async () => {
   await nextTick();
-  renderChart(contributeList.value);
+  await renderChart(contributeList.value);
 });
 
 onMounted(() => {

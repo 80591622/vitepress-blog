@@ -1,15 +1,19 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2025-08-11 06:28:45"
 title: frontend-map
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2025-09-06T06:28:45.632Z"
 ---
+
 # 前端知识图谱
+
 ## 一、JavaScript基础
 
-###  变量和类型
+### 变量和类型
+
 &emsp; 1. <span class="highlight">JavaScript</span> 规定了几种语言类型
 
 &emsp; 2. <span class="highlight">JavaScript</span> 对象的底层数据结构是什么
@@ -30,12 +34,11 @@ tags:
 
 &emsp; 10. 出现小数精度丢失的原因，<span class="highlight">JavaScript</span>可以存储的最大数字、最大安全数字，<span class="highlight">JavaScript</span>处理大数字的方法、避免精度丢失的方法
 
-
 ### 原型和原型链
 
 &emsp; 1. 理解原型设计模式以及<span class="highlight">JavaScript</span>中的原型规则
 
-&emsp; 2. <span class="highlight">instanceof  typeof</span>的底层实现原理，手动实现一个<span class="highlight">instanceof  typeof</span>
+&emsp; 2. <span class="highlight">instanceof typeof</span>的底层实现原理，手动实现一个<span class="highlight">instanceof typeof</span>
 
 &emsp; 3. 实现继承的几种方式以及他们的优缺点
 
@@ -44,7 +47,6 @@ tags:
 &emsp; 5. 可以描述<span class="highlight">new</span>一个对象的详细过程，手动实现一个<span class="highlight">new</span>操作符
 
 &emsp; 6. 理解<span class="highlight">es6 class</span>构造以及继承的底层实现原理
-
 
 ### 作用域和闭包
 
@@ -64,7 +66,6 @@ tags:
 
 &emsp; 8. 理解模块化解决的实际问题，可列举几个模块化方案并理解其中原理
 
-
 ### 执行机制
 
 &emsp; 1. 为何<span class="highlight">try</span>里面放<span class="highlight">return</span>，<span class="highlight">finally</span>还会执行，理解其内部机制
@@ -80,7 +81,6 @@ tags:
 &emsp; 6. <span class="highlight">Node</span>与浏览器<span class="highlight">EventLoop</span>的差异
 
 &emsp; 7. 如何在保证页面运行流畅的情况下处理海量数据
-
 
 ### 语法和API
 
@@ -98,7 +98,6 @@ tags:
 
 &emsp; 7. <span class="highlight">JavaScript</span>异常处理的方式，统一的异常处理方案
 
-
 ## 二、HTML和CSS
 
 ### HTML
@@ -112,7 +111,6 @@ tags:
 &emsp; 4. <span class="highlight">HTML5</span>离线缓存原理
 
 &emsp; 5. 可以使用<span class="highlight">Canvas API</span> 、<span class="highlight">SVG</span>等绘制高性能的动画
-
 
 ### CSS
 
@@ -140,7 +138,6 @@ tags:
 
 &emsp; 12. 掌握一套完整的响应式布局方案
 
-
 ### 手写
 
 &emsp; 1. 手写图片瀑布流效果
@@ -150,7 +147,6 @@ tags:
 &emsp; 3. 使用纯<span class="highlight">CSS</span>实现曲线运动（贝塞尔曲线）
 
 &emsp; 4. 实现常用布局（三栏、圣杯、双飞翼、吸顶），可是说出多种方式并理解其优缺点
-
 
 ## 三、计算机基础
 
@@ -166,7 +162,6 @@ tags:
 
 &emsp; 5.几种进制的相互转换计算方法，在<span class="highlight">JavaScript</span>中如何表示和转换
 
-
 ### 网络协议
 
 &emsp; 1. 浏览器提供的符合<span class="highlight">W3C</span>标准的<span class="highlight">DOM</span>操作<span class="highlight">API</span>、浏览器差异、兼容性
@@ -179,14 +174,13 @@ tags:
 
 &emsp; 5. <span class="highlight">DOM</span>事件流的具体实现机制、不同浏览器的差异、事件代理
 
-&emsp; 6. 前端发起网络请求的几种方式及其底层实现、可以手写原生<span class="highlight">ajax</span>  <span class="highlight">xhr</span>、<span class="highlight">fetch</span>可以熟练使用第三方库
+&emsp; 6. 前端发起网络请求的几种方式及其底层实现、可以手写原生<span class="highlight">ajax</span> <span class="highlight">xhr</span>、<span class="highlight">fetch</span>可以熟练使用第三方库
 
 &emsp; 7. 浏览器的同源策略，如何避免同源策略，几种方式的异同点以及如何选型
 
 &emsp; 8. 浏览器提供的几种存储机制、优缺点、开发中正确的选择
 
 &emsp; 9. 浏览器跨标签通信
-
 
 ### 设计模式
 
@@ -195,7 +189,6 @@ tags:
 &emsp; 2. 发布订阅模式和观察者模式的异同以及实际应用
 
 &emsp; 3. 可以说出几种设计模式在开发中的实际应用，理解框架源码中对设计模式的应用
-
 
 ## 四、数据结构和算法
 
@@ -227,7 +220,6 @@ tags:
 
 &emsp; 7. <span class="highlight">手写懒加载</span>、<span class="highlight">下拉刷新</span>、<span class="highlight">上拉加载</span>、<span class="highlight">预加载</span>等效果
 
-
 ### 数据结构
 
 &emsp; 1.理解常见数据结构的特点，以及他们在不同场景下使用的优缺点
@@ -237,7 +229,6 @@ tags:
 &emsp; 3.理解<span class="highlight">二叉树</span>、<span class="highlight">栈</span>、<span class="highlight">队列</span>、<span class="highlight">哈希表</span>的基本结构和特点，并可以应用它解决问题
 
 &emsp; 4.了解<span class="highlight">栈</span>、<span class="highlight">堆</span>的基本结构和使用场景
-
 
 ### 算法
 
@@ -251,7 +242,6 @@ tags:
 
 &emsp; 5. 前端处理海量数据的算法方案
 
-
 ## 五、运行环境
 
 ### 浏览器API
@@ -260,20 +250,19 @@ tags:
 
 &emsp; 2. 浏览器提供的浏览器对象模型 (<span class="highlight">BOM</span>)提供的所有全局<span class="highlight">API</span>、浏览器差异、兼容性
 
-&emsp; 3. 大量<span class="highlight">DOM</span>操作、海量数据的性能优化(合并操作、<span class="highlight">Diff</span>、<span class="highlight">requestAnimationFrame  requestidlecallback</span>等)
+&emsp; 3. 大量<span class="highlight">DOM</span>操作、海量数据的性能优化(合并操作、<span class="highlight">Diff</span>、<span class="highlight">requestAnimationFrame requestidlecallback</span>等)
 
 &emsp; 4. 浏览器海量数据存储、操作性能优化
 
 &emsp; 5. <span class="highlight">DOM</span>事件流的具体实现机制、不同浏览器的差异、事件代理
 
-&emsp; 6. 前端发起网络请求的几种方式及其底层实现、可以手写原生<span class="highlight">ajax</span>  <span class="highlight">xhr</span>、<span class="highlight">fetch</span>可以熟练使用第三方库
+&emsp; 6. 前端发起网络请求的几种方式及其底层实现、可以手写原生<span class="highlight">ajax</span> <span class="highlight">xhr</span>、<span class="highlight">fetch</span>可以熟练使用第三方库
 
 &emsp; 7. 浏览器的同源策略，如何避免同源策略，几种方式的异同点以及如何选型
 
 &emsp; 8. 浏览器提供的几种存储机制、优缺点、开发中正确的选择
 
 &emsp; 9.浏览器跨标签通信
-
 
 ### Node
 
@@ -287,7 +276,6 @@ tags:
 
 &emsp; 5.<span class="highlight">Node</span>事件驱动、非阻塞机制的实现原理
 
-
 ## 六、框架和类库
 
 ### TypeScript
@@ -299,7 +287,6 @@ tags:
 &emsp; 3. <span class="highlight">TypeScript</span>的规则检测原理
 
 &emsp; 4. 可以在<span class="highlight">React</span>、<span class="highlight">Vue</span>等框架中使用<span class="highlight">TypeScript</span>进行开发
-
 
 ### React
 
@@ -319,7 +306,6 @@ tags:
 
 &emsp; 8.基于<span class="highlight">React</span>的特性和原理，可以手动实现一个简单的<span class="highlight">React</span>
 
-
 ### Vue
 
 &emsp; 1. 熟练使用<span class="highlight">Vue</span>的<span class="highlight">API</span>、生命周期、钩子函数
@@ -331,7 +317,6 @@ tags:
 &emsp; 4. <span class="highlight">Vue</span>的事件机制
 
 &emsp; 5. 从<span class="highlight">template</span>转换成真实<span class="highlight">DOM</span>的实现机制
-
 
 ### 多端开发
 
@@ -349,7 +334,6 @@ tags:
 
 &emsp; 7. 理解多端框架的内部实现原理，至少了解一个多端框架的使用
 
-
 ### 数据流管理
 
 &emsp; 1. 掌握<span class="highlight">React</span>和<span class="highlight">Vue</span>传统的跨组件通信方案，对比采用数据流管理框架的异同
@@ -361,7 +345,6 @@ tags:
 &emsp; 4. 熟练使用<span class="highlight">Vuex</span>管理数据流，并理解其实现原理
 
 &emsp; 5. 以上数据流方案的异同和优缺点，不情况下的技术选型
-
 
 ### 实用库
 
@@ -375,7 +358,6 @@ tags:
 
 &emsp; 5. 工具函数库，如<span class="highlight">lodash</span>、<span class="highlight">underscore</span>、<span class="highlight">moment</span>moment <span class="highlight">dayjs</span> 等，理解使用的工具类或工具函数的具体实现原理
 
-
 ### 开发和调试
 
 &emsp; 1. 熟练使用各浏览器提供的调试工具
@@ -385,7 +367,6 @@ tags:
 &emsp; 3. 可以使用<span class="highlight">Android</span>、<span class="highlight">IOS</span>模拟器进行调试，并掌握一种真机调试方案
 
 &emsp; 4. 了解<span class="highlight">Vue</span>、<span class="highlight">React</span>等框架调试工具的使用
-
 
 ## 七、前端工程
 
@@ -401,14 +382,13 @@ tags:
 
 &emsp; 5. <span class="highlight">Babel</span>的核心原理，可以自己编写一个<span class="highlight">Babel</span>插件
 
-&emsp; 6. 可以配置一种前端代码兼容方案，如<span class="highlight">Polyfill</span>--- 现在是  <span class="highlight">corejs</span>
+&emsp; 6. 可以配置一种前端代码兼容方案，如<span class="highlight">Polyfill</span>--- 现在是 <span class="highlight">corejs</span>
 
 &emsp; 7. <span class="highlight">Webpack</span>的编译原理、构建流程、热更新原理，chunk、bundle和module的区别和应用
 
 &emsp; 8. 可熟练配置已有的<span class="highlight">loaders</span>和<span class="highlight">plugins</span>解决问题，可以自己编写loaders和plugins
 
-&emsp; 9. 其他的构建工具<span class="highlight">vite </span>  
-
+&emsp; 9. 其他的构建工具<span class="highlight">vite </span>
 
 ### nginx
 
@@ -420,7 +400,6 @@ tags:
 
 &emsp; 4. 可以用<span class="highlight">nginx</span>实现请求过滤、配置<span class="highlight">gzip</span>、负载均衡等，并能解释其内部原理
 
-
 ### 开发提速
 
 &emsp; 1. 熟练掌握一种接口管理、接口<span class="highlight">nginx</span>mock工具的使用，如<span class="highlight">nginx</span>yapi
@@ -428,7 +407,6 @@ tags:
 &emsp; 2. 掌握一种高效的日志埋点方案，可快速使用日志查询工具定位线上问题
 
 &emsp; 3. 理解<span class="highlight">TDD</span>与<span class="highlight">BDD</span>模式，至少会使用一种前端单元测试框架
-
 
 ### 版本控制
 
@@ -438,22 +416,19 @@ tags:
 
 &emsp; 3. 可以快速解决<span class="highlight">线上分支回滚</span>、<span class="highlight">线上分支错误合并</span>等复杂问题
 
-
 ### 持续集成
 
 &emsp; 1. 理解<span class="highlight">CI/CD</span>技术的意义，至少熟练掌握一种<span class="highlight">CI/CD</span>工具的使用，如<span class="highlight">Jenkins</span>
 
 &emsp; 2. 可以独自完成架构设计、技术选型、环境搭建、全流程开发、部署上线等一套完整的开发流程（包括Web应用、移动客户端应用、PC客户端应用、小程序、H5等等）
 
-
 ## 八、项目和业务
 
 ### 后端技能
 
-&emsp; 1. 了解后端的开发方式，在应用程序中的作用，至少会使用一种后端语言（<span class="highlight">node  java  go</span>）
+&emsp; 1. 了解后端的开发方式，在应用程序中的作用，至少会使用一种后端语言（<span class="highlight">node java go</span>）
 
 &emsp; 2. 掌握数据最终在数据库中是如何落地存储的，能看懂表结构设计、表之间的关联，至少会使用一种数据库
-
 
 ### 前端安全
 
@@ -462,7 +437,6 @@ tags:
 &emsp; 2. <span class="highlight">CSRF</span>攻击的原理、具体案例，前端如何防御
 
 &emsp; 3. <span class="highlight">HTTP</span>劫持、页面劫持的原理、防御措施
-
 
 ### 业务相关
 

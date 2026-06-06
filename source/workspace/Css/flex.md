@@ -1,12 +1,12 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2022-04-16 15:25:07"
 title: flex
 categories:
   - Css
 tags:
   - Css
+lastUpdated: "2022-04-20T15:25:07.140Z"
 ---
-
 
 # Flex弹性布局
 
@@ -15,7 +15,6 @@ tags:
 ## flex-direction属性
 
 `flex-direction`属性决定主轴的方向（即项目的排列方向）。
-
 
 ```css
 .box {
@@ -113,9 +112,10 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ```css
 .item {
-  flex-grow: 0
+  flex-grow: 0;
 }
 ```
+
  <br/>
  
 <img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="https://ae01.alicdn.com/kf/H71fcbd2221b642a6bc7f52d3170378239.png">
@@ -128,9 +128,10 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ```css
 .item {
-  flex-shrink: 1
+  flex-shrink: 1;
 }
 ```
+
 <br/>
 
 <img style="border: .3em solid #e0dfcc;border-radius: 1em;width：98%"  src="https://ae01.alicdn.com/kf/H245bfecf53234ecba3042bd2f74545efo.jpg">
@@ -143,22 +144,8 @@ flex-basis表示在flex items 被放入flex容器之前的大小，也就是item
 其真实大小取决于flex容器的宽度，flex items的min-width,max-width等其他样式，具体分析看下文
 
 ```html
-#main {
-    width: 350px;
-    height: 100px;
-    border: 1px solid #c3c3c3;
-    display: flex;
-}
-
-#main div {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 40px;
-}
-
-#main div:nth-of-type(2) {
-    flex-basis: 80px;
-}
+#main { width: 350px; height: 100px; border: 1px solid #c3c3c3; display: flex; } #main div { flex-grow: 0; flex-shrink:
+0; flex-basis: 40px; } #main div:nth-of-type(2) { flex-basis: 80px; }
 
 <div id="main">
   <div style="background-color:coral;"></div>
@@ -171,7 +158,7 @@ flex-basis表示在flex items 被放入flex容器之前的大小，也就是item
 
 ![](https://ae01.alicdn.com/kf/H8ca6768902df41ecb593aec7f900645ad.png)
 
-##  flex属性
+## flex属性
 
 `flex`属性是`flex-grow`, `flex-shrink` 和 `flex-basis`的简写，默认值为0 1 auto。后两个属性可选。
 
@@ -187,13 +174,12 @@ flex-basis表示在flex items 被放入flex容器之前的大小，也就是item
 
 `align-self`属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
 
-
 ```css
 .item {
   align-self: auto | flex-start | flex-end | center | baseline | stretch;
 }
 ```
+
 <br/>
 
 <img style="border: .3em solid #e0dfcc;border-radius: 1emwidth：98%;"  src="https://ae01.alicdn.com/kf/Hedafd4f059f24e8cb9093252cad6f53an.png">
-

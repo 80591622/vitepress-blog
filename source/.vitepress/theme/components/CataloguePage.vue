@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useData, withBase } from "vitepress";
-import {
-  TkHomeCategoryCard,
-  TkHomeTagCard,
-  usePosts,
-  usePagePath,
-} from "vitepress-theme-teek";
+import { TkHomeCategoryCard, TkHomeTagCard, usePosts, usePagePath } from "vitepress-theme-teek";
 
 const { frontmatter } = useData();
 const posts = usePosts();
@@ -23,18 +18,11 @@ const items = computed(() => {
 
 const queryKey = computed(() => (isCategoriesPage.value ? "category" : "tag"));
 
-const basePath = computed(() =>
-  withBase(
-    isCategoriesPage.value ? categoryPath.value : tagPath.value
-  )
-);
+const basePath = computed(() => withBase(isCategoriesPage.value ? categoryPath.value : tagPath.value));
 </script>
 
 <template>
-  <div
-    class="tk-home tk-home--catalog vp-doc"
-    role="main"
-  >
+  <div class="tk-home tk-home--catalog vp-doc" role="main">
     <div class="tk-home__content flx-start-justify-center">
       <!-- 主内容区：分类/标签卡片网格 -->
       <div class="tk-home__content__post">
@@ -53,14 +41,8 @@ const basePath = computed(() =>
 
       <!-- 侧边栏：分类/标签快捷列表 -->
       <div class="tk-home__content__info is-right">
-        <TkHomeCategoryCard
-          v-if="isCategoriesPage"
-          :categories-page="true"
-        />
-        <TkHomeTagCard
-          v-else
-          :tags-page="true"
-        />
+        <TkHomeCategoryCard v-if="isCategoriesPage" :categories-page="true" />
+        <TkHomeTagCard v-else :tags-page="true" />
       </div>
     </div>
   </div>

@@ -1,26 +1,24 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-01-31 07:23:42"
 title: node-console
 categories:
   - Server
   - node
 tags:
   - node
+lastUpdated: "2020-04-17T07:23:42.892Z"
 ---
 
 # 终端实现console输出不同颜色
-
 
 **在浏览器的控制塔也适用**
 
 ### 使用方式
 
 ```javascript
-console.log('\x1B[31m%s\x1B[0m', '这是红色')
-console.log('\x1B[36m%s\x1B[0m', '这是青色')
+console.log("\x1B[31m%s\x1B[0m", "这是红色");
+console.log("\x1B[36m%s\x1B[0m", "这是青色");
 ```
-
-
 
 #### 规则说明
 
@@ -28,69 +26,66 @@ console.log('\x1B[36m%s\x1B[0m', '这是青色')
 - **`%s` 是字符串（第二个参数）被注入的位置；上述代码还可以这样写：**
 
 ```javascript
-console.log('\x1B[31m这是红色\x1B[0m')
-console.log('\x1B[36m这是青色\x1B[0m')
+console.log("\x1B[31m这是红色\x1B[0m");
+console.log("\x1B[36m这是青色\x1B[0m");
 ```
 
 - **`\x1B[0m` 表示重置终端颜色，使其在此之后不再继续成为所选颜色；**「推荐种用法」
-
-
 
 ### 封装
 
 ```javascript
 // 颜色参考
 const styles = {
-    'reset': '\x1B[0m',
-    'bright'    : '\x1B[1m', // 亮色
-    'grey'      : '\x1B[2m', // 灰色
-    'italic'    : '\x1B[3m', // 斜体
-    'underline' : '\x1B[4m', // 下划线
-    'reverse'   : '\x1B[7m', // 反向
-    'hidden'    : '\x1B[8m', // 隐藏
-    'black'     : '\x1B[30m', // 黑色
-    'red'       : '\x1B[31m', // 红色
-    'green'     : '\x1B[32m', // 绿色
-    'yellow'    : '\x1B[33m', // 黄色
-    'blue'      : '\x1B[34m', // 蓝色
-    'magenta'   : '\x1B[35m', // 品红
-    'cyan'      : '\x1B[36m', // 青色
-    'white'     : '\x1B[37m', // 白色
-    'blackBG'   : '\x1B[40m', // 背景色为黑色
-    'redBG'     : '\x1B[41m', // 背景色为红色
-    'greenBG'   : '\x1B[42m', // 背景色为绿色
-    'yellowBG'  : '\x1B[43m', // 背景色为黄色
-    'blueBG'    : '\x1B[44m', // 背景色为蓝色
-    'magentaBG' : '\x1B[45m', // 背景色为品红
-    'cyanBG'    : '\x1B[46m', // 背景色为青色
-    'whiteBG'   : '\x1B[47m' // 背景色为白色
-}
+  reset: "\x1B[0m",
+  bright: "\x1B[1m", // 亮色
+  grey: "\x1B[2m", // 灰色
+  italic: "\x1B[3m", // 斜体
+  underline: "\x1B[4m", // 下划线
+  reverse: "\x1B[7m", // 反向
+  hidden: "\x1B[8m", // 隐藏
+  black: "\x1B[30m", // 黑色
+  red: "\x1B[31m", // 红色
+  green: "\x1B[32m", // 绿色
+  yellow: "\x1B[33m", // 黄色
+  blue: "\x1B[34m", // 蓝色
+  magenta: "\x1B[35m", // 品红
+  cyan: "\x1B[36m", // 青色
+  white: "\x1B[37m", // 白色
+  blackBG: "\x1B[40m", // 背景色为黑色
+  redBG: "\x1B[41m", // 背景色为红色
+  greenBG: "\x1B[42m", // 背景色为绿色
+  yellowBG: "\x1B[43m", // 背景色为黄色
+  blueBG: "\x1B[44m", // 背景色为蓝色
+  magentaBG: "\x1B[45m", // 背景色为品红
+  cyanBG: "\x1B[46m", // 背景色为青色
+  whiteBG: "\x1B[47m", // 背景色为白色
+};
 
 function colors(keys, source) {
-    var values = ''
-    if(typeof keys === 'string'){
-        values = styles[keys]
-    }
-    else {
-        keys.forEach(key => {
-            values += styles[key]
-        });
-    }
-    return values + source + styles['reset']
+  var values = "";
+  if (typeof keys === "string") {
+    values = styles[keys];
+  } else {
+    keys.forEach(key => {
+      values += styles[key];
+    });
+  }
+  return values + source + styles["reset"];
 }
 
 // 使用
-console.log(colors(['red','greenBG','underline'], '这是红色、绿色背景、下划线'))
+console.log(colors(["red", "greenBG", "underline"], "这是红色、绿色背景、下划线"));
 ```
 
-**也可以使用 `chalk`** 
+**也可以使用 `chalk`**
 
 node的终端样式库
 
 ```js
-const chalk = require('chalk');
-console.log(chalk.blue('Hello world!'));
-console.log(chalk.blue.bgRed.bold('Hello world!'));
-console.log(chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz'));
-console.log(chalk.red('Hello', chalk.underline.bgBlue('world') + '!'));
+const chalk = require("chalk");
+console.log(chalk.blue("Hello world!"));
+console.log(chalk.blue.bgRed.bold("Hello world!"));
+console.log(chalk.blue("Hello", "World!", "Foo", "bar", "biz", "baz"));
+console.log(chalk.red("Hello", chalk.underline.bgBlue("world") + "!"));
 ```

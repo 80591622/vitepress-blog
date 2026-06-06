@@ -1,17 +1,18 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2023-08-17 12:51:13"
 title: vue-cli
 categories:
   - Frame
   - vue
 tags:
   - vue
+lastUpdated: "2023-11-18T12:51:13.484Z"
 ---
-
 
 # 脚手架vue-cli
 
 ## vue-cli
+
 ```bash
 # 安装 Vue CLI 3.x
 yarn global @vue/cli
@@ -44,22 +45,24 @@ Check the features needed for your project:
 // 基于CommonJS 的风格导出一个对象
 // 和webpack.config.js一样，修改后需要重启
 module.exports = {
-    outputDir: './dist', // 指定文件打包后的输出路径
-    lintOnSave: true, // 启用eslint语法检查，默认启用
-    productionSourceMap: false, // 生产环境是否需要source-map,如果设为false可以加速构建(打包)
-    devServer: { // vue-cli 支持所有webpack-dev-server的配置
-        port: 8082, // 端口号
-        open: true, // 自动打开浏览器
-        host: '0.0.0.0', // 指定使用一个 host。默认是 localhost
-        https: false, // 是否启用https
-        proxy: { // 这个必须会，用来解决开发环境跨域的问题
-            '/api': {
-                target: 'http://localhost:8000',
-                changeOrigin: true,
-                secure: false
-            }
-        }
-    }
+  outputDir: "./dist", // 指定文件打包后的输出路径
+  lintOnSave: true, // 启用eslint语法检查，默认启用
+  productionSourceMap: false, // 生产环境是否需要source-map,如果设为false可以加速构建(打包)
+  devServer: {
+    // vue-cli 支持所有webpack-dev-server的配置
+    port: 8082, // 端口号
+    open: true, // 自动打开浏览器
+    host: "0.0.0.0", // 指定使用一个 host。默认是 localhost
+    https: false, // 是否启用https
+    proxy: {
+      // 这个必须会，用来解决开发环境跨域的问题
+      "/api": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 };
 ```
 
@@ -71,7 +74,7 @@ const isPro = process.env.NODE_ENV === 'production'
 
 module.exports = {
     ...
-    
+
     configureWebpack: config => {
         if (isPro) {
             return {
@@ -80,7 +83,7 @@ module.exports = {
                          // 目标文件名称。[path] 被替换为原始文件的路径和 [query] 查询
                         asset: '[path].gz[query]',
                         // 使用 gzip 压缩
-                        algorithm: 'gzip', 
+                        algorithm: 'gzip',
                         // 处理与此正则相匹配的所有文件
                         test: new RegExp(
                             '\\.(js|css)$'
@@ -101,61 +104,60 @@ module.exports = {
 ## 分析包文件
 
 ```javascript
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 chainWebpack: config => {
-    // 修复HMR
-    config.resolve.symlinks(true);
-    if (isAnalyze) {
-        config
-            .plugin('webpack-bundle-analyzer')
-            .use(
-                new BundleAnalyzerPlugin({
-                    analyzerPort: 9999,
-                    openAnalyzer: true,
-                }))
-    }
-}
+  // 修复HMR
+  config.resolve.symlinks(true);
+  if (isAnalyze) {
+    config.plugin("webpack-bundle-analyzer").use(
+      new BundleAnalyzerPlugin({
+        analyzerPort: 9999,
+        openAnalyzer: true,
+      })
+    );
+  }
+};
 ```
 
 ## 拆包
 
 ```javascript
 configureWebpack: () => ({
-    optimization: {
-        splitChunks: {
-        cacheGroups: {
-            vendor:{
-            chunks:"all",
-                test: /node_modules/,
-                name:"vendor",
-                minChunks: 1,
-                maxInitialRequests: 5,
-                minSize: 0,
-                priority:100,
-            },
-            common: {
-                chunks:"all",
-                test:/[\\/]src[\\/]js[\\/]/,
-                name: "common",
-                minChunks: 2,
-                maxInitialRequests: 5,
-                minSize: 0,
-                priority:60
-            },
-            styles: {
-                name: 'styles',
-                test: /\.(sa|sc|c)ss$/,
-                chunks: 'all',
-                enforce: true,
-                },
-                runtimeChunk: {
-                name: 'manifest'
-            }
-        }
-        }
-    }
-})
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: "all",
+          test: /node_modules/,
+          name: "vendor",
+          minChunks: 1,
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 100,
+        },
+        common: {
+          chunks: "all",
+          test: /[\\/]src[\\/]js[\\/]/,
+          name: "common",
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 60,
+        },
+        styles: {
+          name: "styles",
+          test: /\.(sa|sc|c)ss$/,
+          chunks: "all",
+          enforce: true,
+        },
+        runtimeChunk: {
+          name: "manifest",
+        },
+      },
+    },
+  },
+});
 ```
 
 ## 默认插件简介
@@ -172,68 +174,68 @@ configureWebpack: () => ({
 
 ```javascript
 // vue-loader是 webpack 的加载器，允许你以单文件组件的格式编写 Vue 组件
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 // webpack 内置插件，用于创建在编译时可以配置的全局常量
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin } = require("webpack");
 
 // 用于强制所有模块的完整路径必需与磁盘上实际路径的确切大小写相匹配
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 
 // 识别某些类型的 webpack 错误并整理，以提供开发人员更好的体验。
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 
 // 将 CSS 提取到单独的文件中，为每个包含 CSS 的 JS 文件创建一个 CSS 文件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // 用于在 webpack 构建期间优化、最小化 CSS文件
-const OptimizeCssnanoPlugin = require('optimize-css-public-webpack-plugin');
+const OptimizeCssnanoPlugin = require("optimize-css-public-webpack-plugin");
 
 // webpack 内置插件，用于根据模块的相对路径生成 hash 作为模块 id, 一般用于生产环境
-const { HashedModuleIdsPlugin } = require('webpack');
+const { HashedModuleIdsPlugin } = require("webpack");
 
 // 用于根据模板或使用加载器生成 HTML 文件
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // 用于在使用 html-webpack-plugin 生成的 html 中添加 <link rel ='preload'> 或 <link rel ='prefetch'>，有助于异步加载
-const PreloadPlugin = require('preload-webpack-plugin');
+const PreloadPlugin = require("preload-webpack-plugin");
 
 // 用于将单个文件或整个目录复制到构建目录
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    plugins: [
-        /* config.plugin('vue-loader') */
-        new VueLoaderPlugin(), 
-        
-        /* config.plugin('define') */
-        new DefinePlugin(),
-        
-        /* config.plugin('case-sensitive-paths') */
-        new CaseSensitivePathsPlugin(),
-        
-        /* config.plugin('friendly-errors') */
-        new FriendlyErrorsWebpackPlugin(),
-        
-        /* config.plugin('extract-css') */
-        new MiniCssExtractPlugin(),
-        
-        /* config.plugin('optimize-css') */
-        new OptimizeCssnanoPlugin(),
-        
-        /* config.plugin('hash-module-ids') */
-        new HashedModuleIdsPlugin(),
-        
-        /* config.plugin('html') */
-        new HtmlWebpackPlugin(),
-        
-        /* config.plugin('preload') */
-        new PreloadPlugin(),
-        
-        /* config.plugin('copy') */
-        new CopyWebpackPlugin()
-    ]
-}
+  plugins: [
+    /* config.plugin('vue-loader') */
+    new VueLoaderPlugin(),
+
+    /* config.plugin('define') */
+    new DefinePlugin(),
+
+    /* config.plugin('case-sensitive-paths') */
+    new CaseSensitivePathsPlugin(),
+
+    /* config.plugin('friendly-errors') */
+    new FriendlyErrorsWebpackPlugin(),
+
+    /* config.plugin('extract-css') */
+    new MiniCssExtractPlugin(),
+
+    /* config.plugin('optimize-css') */
+    new OptimizeCssnanoPlugin(),
+
+    /* config.plugin('hash-module-ids') */
+    new HashedModuleIdsPlugin(),
+
+    /* config.plugin('html') */
+    new HtmlWebpackPlugin(),
+
+    /* config.plugin('preload') */
+    new PreloadPlugin(),
+
+    /* config.plugin('copy') */
+    new CopyWebpackPlugin(),
+  ],
+};
 ```
 
 ## 使用 alias 简化路径
@@ -243,17 +245,17 @@ module.exports = {
 ```javascript
 /* vue.config.js */
 module.exports = {
-    // ...
-    chainWebpack: config => {
-        config.resolve.alias
-            .set('@', resolve('src'))
-            .set('_lib', resolve('src/common'))
-            .set('_com', resolve('src/components'))
-            .set('_img', resolve('src/images'))
-            .set('_ser', resolve('src/services'))
-    }, 
-   // ...
-}
+  // ...
+  chainWebpack: config => {
+    config.resolve.alias
+      .set("@", resolve("src"))
+      .set("_lib", resolve("src/common"))
+      .set("_com", resolve("src/components"))
+      .set("_img", resolve("src/images"))
+      .set("_ser", resolve("src/services"));
+  },
+  // ...
+};
 ```
 
 这样我们修改 `webpack alias` 来简化路径的优化就实现了。
@@ -261,7 +263,7 @@ module.exports = {
 
 ```css
 .img {
-    background: (~_img/home.png);
+  background: (~_img/home.png);
 }
 ```
 
@@ -275,14 +277,14 @@ module.exports = {
 
 ```javascript
 module.exports = {
-    // ...
-    entry: {
-        page1: '/xxx/pages/page1/page1.js',
-        page2: '/xxx/pages/page2/page2.js',
-        index: '/xxx/pages/index/index.js',
-    },
-   //  ...
-}
+  // ...
+  entry: {
+    page1: "/xxx/pages/page1/page1.js",
+    page2: "/xxx/pages/page2/page2.js",
+    index: "/xxx/pages/index/index.js",
+  },
+  //  ...
+};
 ```
 
 那么我们如何读取并解析这样的路径呢，这里就需要使用工具和函数来解决了。
@@ -299,7 +301,7 @@ const glob = require('glob');
 // 取得相应的页面路径，因为之前的配置，所以是 src 文件夹下的 pages 文件夹
 const PAGE_PATH = path.resolve(__dirname, '../src/pages');
 
-/* 
+/*
 * 多入口配置
 * 通过 glob 模块读取 pages 文件夹下的所有对应文件夹下的 js * 后缀文件，如果该文件存在
 * 那么就作为入口处理
@@ -307,16 +309,16 @@ const PAGE_PATH = path.resolve(__dirname, '../src/pages');
 exports.getEntries = () => {
     let entryFiles = glob.sync(PAGE_PATH + '/*/*.js') // 同步读取所有入口文件
     let map = {}
-    
+
     // 遍历所有入口文件
     entryFiles.forEach(filePath => {
         // 获取文件名
         let filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
-        
+
         // 以键值对的形式存储
-        map[filename] = filePath 
+        map[filename] = filePath
     })
-    
+
     return map
 }
 ```
@@ -343,21 +345,21 @@ module.exports = {
 
 ```javascript
 /* webpack 配置文件 */
-const HtmlWebpackPlugin = require('html-webpack-plugin') // 安装并引用插件
+const HtmlWebpackPlugin = require("html-webpack-plugin"); // 安装并引用插件
 
 module.exports = {
-    // ...
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'My Page', // 生成 html 中的 title
-            filename: 'demo.html', // 生成 html 的文件名
-            template: 'xxx/xxx/demo.html', // 模板路径
-            chunks: ['manifest', 'vendor', 'demo'], // 所要包含的模块
-            inject: true, // 是否注入资源
-        })
-    ]
-    // ...
-}
+  // ...
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "My Page", // 生成 html 中的 title
+      filename: "demo.html", // 生成 html 的文件名
+      template: "xxx/xxx/demo.html", // 模板路径
+      chunks: ["manifest", "vendor", "demo"], // 所要包含的模块
+      inject: true, // 是否注入资源
+    }),
+  ],
+  // ...
+};
 ```
 
 ```javascript
@@ -366,42 +368,41 @@ module.exports = {
 // 多页面输出配置
 // 与上面的多页面入口配置相同，读取 page 文件夹下的对应的 html 后缀文件，然后放入数组中
 exports.htmlPlugin = configs => {
-    let entryHtml = glob.sync(PAGE_PATH + '/*/*.html')
-    let arr = []
-    
-    entryHtml.forEach(filePath => {
-        let filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
-        let conf = {
-            template: filePath, // 模板路径
-            filename: filename + '.html', // 生成 html 的文件名
-            chunks: ['manifest', 'vendor',  filename],
-            inject: true,
-        }
-        
-        // 如果有自定义配置可以进行 merge
-        if (configs) {
-            conf = merge(conf, configs)
-        }
-        
-        // 针对生产环境配置
-        if (process.env.NODE_ENV === 'production') {
-            conf = merge(conf, {
-                minify: {
-                    removeComments: true, // 删除 html 中的注释代码
-                    collapseWhitespace: true, // 删除 html 中的空白符
-                    // removeAttributeQuotes: true // 删除 html 元素中属性的引号
-                },
-                chunksSortMode: 'manual' // 按 manual 的顺序引入
-            })
-        }
-        
-        arr.push(new HtmlWebpackPlugin(conf))
-    })
-    
-    return arr
-}
-```
+  let entryHtml = glob.sync(PAGE_PATH + "/*/*.html");
+  let arr = [];
 
+  entryHtml.forEach(filePath => {
+    let filename = filePath.substring(filePath.lastIndexOf("\/") + 1, filePath.lastIndexOf("."));
+    let conf = {
+      template: filePath, // 模板路径
+      filename: filename + ".html", // 生成 html 的文件名
+      chunks: ["manifest", "vendor", filename],
+      inject: true,
+    };
+
+    // 如果有自定义配置可以进行 merge
+    if (configs) {
+      conf = merge(conf, configs);
+    }
+
+    // 针对生产环境配置
+    if (process.env.NODE_ENV === "production") {
+      conf = merge(conf, {
+        minify: {
+          removeComments: true, // 删除 html 中的注释代码
+          collapseWhitespace: true, // 删除 html 中的空白符
+          // removeAttributeQuotes: true // 删除 html 元素中属性的引号
+        },
+        chunksSortMode: "manual", // 按 manual 的顺序引入
+      });
+    }
+
+    arr.push(new HtmlWebpackPlugin(conf));
+  });
+
+  return arr;
+};
+```
 
 ```javascript{13}
 /* vue.config.js */
@@ -432,28 +433,28 @@ module.exports = {
 ```javascript
 /* vue.config.js */
 module.exports = {
-    pages: {
-        index: {
-            // page 的入口
-            entry: 'src/index/main.js',
-            // 模板来源
-            template: 'public/index.html',
-            // 在 dist/index.html 的输出
-            filename: 'index.html',
-            // 当使用 title 选项时，
-            // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-            title: 'Index Page',
-            // 在这个页面中包含的块，默认情况下会包含
-            // 提取出来的通用 chunk 和 vendor chunk。
-            chunks: ['chunk-vendors', 'chunk-common', 'index']
-        },
-        // 当使用只有入口的字符串格式时，
-        // 模板会被推导为 `public/subpage.html`
-        // 并且如果找不到的话，就回退到 `public/index.html`。
-        // 输出文件名会被推导为 `subpage.html`。
-        subpage: 'src/subpage/main.js'
-    }
-}
+  pages: {
+    index: {
+      // page 的入口
+      entry: "src/index/main.js",
+      // 模板来源
+      template: "public/index.html",
+      // 在 dist/index.html 的输出
+      filename: "index.html",
+      // 当使用 title 选项时，
+      // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
+      title: "Index Page",
+      // 在这个页面中包含的块，默认情况下会包含
+      // 提取出来的通用 chunk 和 vendor chunk。
+      chunks: ["chunk-vendors", "chunk-common", "index"],
+    },
+    // 当使用只有入口的字符串格式时，
+    // 模板会被推导为 `public/subpage.html`
+    // 并且如果找不到的话，就回退到 `public/index.html`。
+    // 输出文件名会被推导为 `subpage.html`。
+    subpage: "src/subpage/main.js",
+  },
+};
 ```
 
 我们不难发现，`pages` 对象中的 `key` 就是入口的别名，而其 `value` 对象其实是入口 `entry` 和模板属性的合并，
@@ -471,13 +472,13 @@ exports.setPages = configs => {
 
         let conf = {
             // page 的入口
-            entry: filePath, 
+            entry: filePath,
             // 模板来源
-            template: tmp + '.html', 
+            template: tmp + '.html',
             // 在 dist/index.html 的输出
-            filename: filename + '.html', 
+            filename: filename + '.html',
             // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
-            chunks: ['manifest', 'vendor', filename], 
+            chunks: ['manifest', 'vendor', filename],
             inject: true,
         };
 
@@ -506,13 +507,13 @@ exports.setPages = configs => {
 ```javascript
 /* vue.config.js */
 
-const utils = require('./build/utils')
+const utils = require("./build/utils");
 
 module.exports = {
-    // ...
-    pages: utils.setPages(),
-    // ...
-}
+  // ...
+  pages: utils.setPages(),
+  // ...
+};
 ```
 
 这样我们多页应用基于 `pages` 配置的改进就大功告成了，当你运行打包命令来查看输出结果的时候，你会发现和之前的方式相比并没有什么变化，
@@ -531,22 +532,25 @@ module.exports = {
 <template>
   <div id="app">
     <div id="nav">
-      <a @click="goFn('')">Index</a> |
-      <a @click="goFn('page1')">Page1</a> |
-      <a @click="goFn('page2')">Page2</a> |
+      <a @click="goFn('')">Index</a>
+      |
+      <a @click="goFn('page1')">Page1</a>
+      |
+      <a @click="goFn('page2')">Page2</a>
+      |
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        goFn(name) {
-            location.href = `${process.env.BASE_URL}` + name
-        }
-    }
-}
+  methods: {
+    goFn(name) {
+      location.href = `${process.env.BASE_URL}` + name;
+    },
+  },
+};
 </script>
 ```
 
@@ -554,20 +558,14 @@ export default {
 实现一个` Navigator` 类，类的代码可以查看本文最后的示例，封装完成后我们可以将跳转方法修改为
 
 ```vue
-this.$openRouter({
-    name: name, // 跳转地址
-    query: {
-        text: 'hello' // 可以进行参数传递
-    },
-})
+this.$openRouter({ name: name, // 跳转地址 query: { text: 'hello' // 可以进行参数传递 }, })
 ```
 
 将其绑定到 Vue 的原型链上
 
 ```vue
-import { Navigator } from '../../common' // 引入 Navigator
-
-Vue.prototype.$openRouter = Navigator.openRouter; // 添加至 Vue 原型链
+import { Navigator } from '../../common' // 引入 Navigator Vue.prototype.$openRouter = Navigator.openRouter; // 添加至
+Vue 原型链
 ```
 
 至此我们已经能够成功模仿 `vue-router `进行单页间的跳转，但是需要注意的是因为其本质使用的是 `location` 跳转，所以必然会产生浏览器的刷新与重载
@@ -589,18 +587,18 @@ Vue.prototype.$openRouter = Navigator.openRouter; // 添加至 Vue 原型链
 ```javascript
 /* vue.config.js */
 
-let baseUrl = '/vue/';
+let baseUrl = "/vue/";
 
 module.exports = {
-    // ...
-    devServer: {
-        historyApiFallback: {
-            rewrites: [
-                { from: new RegExp(baseUrl + 'page1'), to: baseUrl + 'page1.html' },
-                { from: new RegExp(baseUrl + 'page2'), to: baseUrl + 'page2.html' },
-            ]
-        }
-    }
-   // ...
-}
+  // ...
+  devServer: {
+    historyApiFallback: {
+      rewrites: [
+        { from: new RegExp(baseUrl + "page1"), to: baseUrl + "page1.html" },
+        { from: new RegExp(baseUrl + "page2"), to: baseUrl + "page2.html" },
+      ],
+    },
+  },
+  // ...
+};
 ```

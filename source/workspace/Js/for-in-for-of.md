@@ -1,10 +1,11 @@
 ---
-date: 2026-05-10 22:52:36
+date: "2020-12-08 02:22:37"
 title: for-in-for-of
 categories:
   - Js
 tags:
   - Js
+lastUpdated: "2021-01-12T02:22:37.877Z"
 ---
 
 # for in和for of区别
@@ -15,10 +16,10 @@ tags:
 
 ## 数组
 
-``` js
-let arr = [{age: 1}, {age: 5}, {age: 100}, {age: 34}]
+```js
+let arr = [{ age: 1 }, { age: 5 }, { age: 100 }, { age: 34 }];
 for (let key in arr) {
-    console.log(key, arr[key])
+  console.log(key, arr[key]);
 }
 // 打印
 // 0 {age: 1}
@@ -31,30 +32,28 @@ for (let key in arr) {
 let arr = [1, 2];
 
 for (let key in arr) {
-    console.log(arr[key]); // 会正常打印 1, 2
+  console.log(arr[key]); // 会正常打印 1, 2
 }
 
 // 但是如果在 Array 原型链上添加一个方法
-Array.prototype.test = function() {};
+Array.prototype.test = function () {};
 
 for (let key in arr) {
-    console.log(arr[key]); // 此时会打印 1, 2, ƒ () {}
+  console.log(arr[key]); // 此时会打印 1, 2, ƒ () {}
 }
 ```
 
 ## 对象
 
-``` js
-let obj = {f1: 'test1', f2: 'test2'}
+```js
+let obj = { f1: "test1", f2: "test2" };
 for (let key in obj) {
-    console.log(key, obj[key])
+  console.log(key, obj[key]);
 }
 // 打印
 // f1 test1
 // f2 test2
 ```
-
-
 
 ## for in 缺点
 
@@ -64,7 +63,6 @@ for in 不仅会遍历当前对象，还包括原型链上的可枚举属性
 for in 没有break中断
 for in 不适合遍历数组，主要应用为对象
 ```
-
 
 ## Object.keys()和for in的区别
 
@@ -79,13 +77,13 @@ ES6引入的新语法。在`可迭代对象`（包括 Array，Map，Set，String
 
 ## 数组
 
-``` js
-let arr = [{age: 1}, {age: 5}, {age: 100}, {age: 34}]
-for(let {age} of arr) {
-    if (age > 10) {
-        break // for of 允许中断
-    }
-    console.log(age)
+```js
+let arr = [{ age: 1 }, { age: 5 }, { age: 100 }, { age: 34 }];
+for (let { age } of arr) {
+  if (age > 10) {
+    break; // for of 允许中断
+  }
+  console.log(age);
 }
 // 打印
 // 1
@@ -95,18 +93,19 @@ for(let {age} of arr) {
 ## 三个数组：arr1=[1,2,3,4],arr2=[4,5,6],arr3=[5],将arr1与arr2合并，去重，然后返回不包含arr3中元素的新数组（用es6标准的新特性实现）
 
 ```javascript
-
-let arr1 = [1, 2, 3, 4], arr2 = [4, 5, 6], arr3 = [5];
+let arr1 = [1, 2, 3, 4],
+  arr2 = [4, 5, 6],
+  arr3 = [5];
 
 function fn(arr1, arr2, arr3) {
-    let ary4 = [...arr1, ...arr2];
-    let ary5 = [...new Set(ary4)];
-    for (let [ind, item] of ary5.entries()) {
-        if (arr3.includes(item)) {
-            ary5.splice(ind, 1);
-        }
+  let ary4 = [...arr1, ...arr2];
+  let ary5 = [...new Set(ary4)];
+  for (let [ind, item] of ary5.entries()) {
+    if (arr3.includes(item)) {
+      ary5.splice(ind, 1);
     }
-    return ary5
+  }
+  return ary5;
 }
 ```
 
