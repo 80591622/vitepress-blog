@@ -14,7 +14,7 @@ export interface Banner {
   /**
    * Banner 背景风格：pure 为纯色背景，partImg 为局部图片背景，fullImg 为全屏图片背景
    *
-   * @default 'default'
+   * @default 'partImg'
    */
   bgStyle?: "pure" | "partImg" | "fullImg";
   /**

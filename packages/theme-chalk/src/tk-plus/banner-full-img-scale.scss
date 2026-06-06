@@ -8,7 +8,7 @@
 
   @include b(banner-bg-image) {
     &.full {
-      animation: enlarge getCssVar("banner-img-switch-interval-s") linear infinite;
+      animation: enlarge getCssVar(banner-img-switch-interval-s) linear infinite;
 
       @keyframes enlarge {
         50% {

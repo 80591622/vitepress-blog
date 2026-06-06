@@ -4,7 +4,7 @@ import type { CSSProperties } from "vue";
 import { computed, ref, watch } from "vue";
 import { useNamespace } from "@teek/composables";
 import { addUnit, isString } from "@teek/helper";
-import { TkIcon } from "@teek/components/common/Icon";
+import { TkIcon } from "@teek/components/common/icon";
 
 defineOptions({ name: "Avatar" });
 

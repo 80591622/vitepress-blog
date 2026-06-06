@@ -2,7 +2,7 @@
 import type { PaginationNextProps } from "./next";
 import { computed } from "vue";
 import { useLocale } from "@teek/composables";
-import { TkIcon } from "@teek/components/common/Icon";
+import { TkIcon } from "@teek/components/common/icon";
 
 defineOptions({ name: "PaginationNext" });
 

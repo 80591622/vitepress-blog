@@ -12,7 +12,7 @@
   line-height: 1em;
   color: var(--icon-color, inherit);
   fill: var(--icon-color, currentColor);
-  transition: color getCssVar("transition-duration");
+  transition: color getCssVar(transition-duration);
 
   &.iconfont {
     font-size: var(--icon-size, inherit); // 覆盖 iconfont 自带 font-size

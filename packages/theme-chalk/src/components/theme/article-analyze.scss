@@ -4,14 +4,14 @@
 @use "../../mixins/config" as *;
 
 :root {
-  @include set-css-var("home-article-analyze-gap", getCssVar("gap1"));
+  @include set-css-var(home-article-analyze-gap, getCssVar(gap1));
 }
 
 @include b(article-analyze) {
   flex-wrap: wrap;
-  font-size: getCssVar("home-font-size-sm");
+  font-size: getCssVar(home-font-size-sm);
   margin-bottom: 24px;
-  gap: getCssVar("home-article-analyze-gap");
+  gap: getCssVar(home-article-analyze-gap);
 
   @include e(wrapper) {
     flex-wrap: wrap;

@@ -4,7 +4,7 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("home-banner-feature-row-gap", getCssVar("gap2"));
+  @include set-css-var(home-banner-feature-row-gap, getCssVar(gap2));
 }
 
 @include b(banner-feature) {
@@ -14,12 +14,12 @@
   overflow: hidden;
   padding: 32px 0;
   position: relative;
-  row-gap: getCssVar("home-banner-feature-row-gap");
+  row-gap: getCssVar(home-banner-feature-row-gap);
 
   @include e(feature__item) {
     width: 30%;
     text-align: center;
-    color: getCssVar("banner-text-color");
+    color: getCssVar(banner-text-color);
 
     .feature-img {
       width: 160px;

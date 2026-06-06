@@ -43,7 +43,7 @@
 
     &:hover {
       background-color: transparent;
-      box-shadow: getCssVar("hover-shadow");
+      box-shadow: getCssVar(hover-shadow);
       transform: scale(1.05);
     }
 

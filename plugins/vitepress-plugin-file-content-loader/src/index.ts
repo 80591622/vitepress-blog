@@ -7,7 +7,7 @@ import { join, relative } from "node:path";
 import { FileContentLoaderData, FileContentLoaderOptions } from "./types";
 import log, { logger } from "./log";
 
-export * from "./types";
+export type * from "./types";
 
 // 默认忽略的文件夹列表
 export const DEFAULT_IGNORE_DIR = ["**/node_modules/**", "**/dist/**"];

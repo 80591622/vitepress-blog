@@ -10,10 +10,10 @@ import {
   containerPlugin,
   createContainersThenUse,
 } from "../markdown";
-import { registerPluginAndGet } from "./vitePlugins";
+import { registerPluginAndGet } from "./vite-plugins";
 
 export { createRewrites } from "vitepress-plugin-permalink";
-export { ThemeColorName, LayoutMode, SpotlightStyle } from "../components/theme/ThemeEnhance/src/themeEnhance";
+export { ThemeColorName, LayoutMode, SpotlightStyle } from "../components/theme/theme-enhance/src/theme-enhance";
 export type * from "./types";
 
 export const defineTeekConfig = (config: TeekConfig & UserConfig<DefaultTheme.Config> = {}): UserConfig => {

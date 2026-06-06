@@ -4,22 +4,22 @@
 @use "../../mixins/config" as *;
 
 :root {
-  @include set-css-var("article-banner-height", 500px);
-  @include set-css-var("article-banner-info-mr", 16px);
-  @include set-css-var("article-banner-text-color", #ffffff);
-  @include set-css-var("article-banner-text-size", 16px);
+  @include set-css-var(article-banner-height, 500px);
+  @include set-css-var(article-banner-info-mr, 16px);
+  @include set-css-var(article-banner-text-color, #ffffff);
+  @include set-css-var(article-banner-text-size, 16px);
 }
 
 @media (max-width: 768px) {
   :root {
-    @include set-css-var("article-banner-text-size", 15px);
+    @include set-css-var(article-banner-text-size, 15px);
   }
 }
 
 @include b(article-banner) {
   position: relative;
   width: 100%;
-  height: getCssVar("article-banner-height");
+  height: getCssVar(article-banner-height);
   z-index: 1;
 
   @media (max-width: 768px) {
@@ -27,7 +27,7 @@
   }
 
   @include e(wrapper) {
-    transition: getCssVar("transition-duration-slow-plus");
+    transition: getCssVar(transition-duration-slow-plus);
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -37,9 +37,9 @@
     background-repeat: no-repeat;
 
     &::before {
-      transition: getCssVar("transition-duration");
+      transition: getCssVar(transition-duration);
       height: 100%;
-      background-color: var(#{getCssVarName("article-banner-bg-color")}, var(#{getCssVarName("theme-color")}));
+      background-color: var(#{getCssVarName(article-banner-bg-color)}, var(#{getCssVarName(theme-color)}));
       position: absolute;
       top: 0;
       left: 0;
@@ -68,7 +68,7 @@
       height: 100%;
       object-fit: cover;
       opacity: 0.8;
-      transition: all getCssVar("transition-duration-fast") ease 0s;
+      transition: all getCssVar(transition-duration-fast) ease 0s;
     }
   }
 
@@ -83,7 +83,7 @@
     padding: 0 60px;
     margin: 0 auto;
     z-index: 10;
-    color: getCssVar("article-banner-text-color");
+    color: getCssVar(article-banner-text-color);
     max-width: 1400px;
     display: flex;
     flex-direction: column;
@@ -121,14 +121,14 @@
     // 面包屑
     .#{$namespace}-breadcrumb {
       margin-bottom: 35px;
-      font-size: getCssVar("article-banner-text-size");
+      font-size: getCssVar(article-banner-text-size);
 
       &__separator {
         color: #c2c2c4;
       }
 
       &__inner {
-        color: getCssVar("article-banner-text-color");
+        color: getCssVar(article-banner-text-color);
       }
 
       &__item {
@@ -137,7 +137,7 @@
           .#{$namespace}-breadcrumb__inner a {
             &,
             &:hover {
-              color: getCssVar("article-banner-text-color");
+              color: getCssVar(article-banner-text-color);
             }
           }
         }
@@ -151,20 +151,20 @@
         }
 
         > div:not(:last-child) {
-          margin-right: getCssVar("article-banner-info-mr");
+          margin-right: getCssVar(article-banner-info-mr);
         }
 
         .#{$namespace}-article-info {
-          color: getCssVar("article-banner-text-color");
+          color: getCssVar(article-banner-text-color);
 
           > span:not(:last-child) {
-            margin-right: getCssVar("article-banner-info-mr");
+            margin-right: getCssVar(article-banner-info-mr);
           }
         }
 
         i,
         a {
-          font-size: getCssVar("article-banner-text-size");
+          font-size: getCssVar(article-banner-text-size);
           opacity: 0.85;
 
           &:hover {
@@ -178,7 +178,7 @@
 
   @include e(meta) {
     gap: 10px;
-    font-size: getCssVar("article-banner-text-size");
+    font-size: getCssVar(article-banner-text-size);
 
     a {
       font-weight: 800;
@@ -189,7 +189,7 @@
       border-radius: 12px;
       line-height: 32px;
       height: 32px;
-      transition: getCssVar("transition-duration") ease-out;
+      transition: getCssVar(transition-duration) ease-out;
       display: flex;
       align-items: center;
       flex-direction: row;
@@ -202,8 +202,8 @@
         background-color: rgba(255, 255, 255, 0.2);
 
         &:hover {
-          color: var(#{getCssVarName("article-banner-bg-color")}, var(#{getCssVarName("theme-color")}));
-          background-color: getCssVar("article-banner-text-color");
+          color: var(#{getCssVarName(article-banner-bg-color)}, var(#{getCssVarName(theme-color)}));
+          background-color: getCssVar(article-banner-text-color);
         }
       }
     }
@@ -212,7 +212,7 @@
       gap: 8px;
 
       .tag {
-        color: getCssVar("article-banner-text-color");
+        color: getCssVar(article-banner-text-color);
         gap: 2px;
 
         &:hover {
@@ -230,17 +230,17 @@
   ~ .VPNav {
     .VPNavBar:not(.home).top {
       background-color: transparent;
-      color: getCssVar("article-banner-text-color");
+      color: getCssVar(article-banner-text-color);
 
       .VPNavBarTitle .title,
       .VPNavBarMenuLink,
       .VPNavBarMenuGroup .text,
       .VPSocialLink {
-        color: getCssVar("article-banner-text-color");
+        color: getCssVar(article-banner-text-color);
 
         &.active,
         &:hover {
-          color: getCssVar("theme-color");
+          color: getCssVar(theme-color);
         }
       }
 
@@ -254,21 +254,40 @@
         .vp-icon,
         .DocSearch-Button-Placeholder,
         .#{$namespace}-icon {
-          color: getCssVar("article-banner-text-color");
+          color: getCssVar(article-banner-text-color);
         }
 
         .DocSearch-Button-Key {
-          color: getCssVar("article-banner-text-color");
+          color: getCssVar(article-banner-text-color);
           border: none;
           &::after {
-            color: getCssVar("article-banner-text-color");
+            color: getCssVar(article-banner-text-color);
+          }
+        }
+      }
+
+      // vitepress 2.0.x 以上版本兼容
+      .VPNavBarSearch .VPNavBarSearchButton {
+        background-color: transparent;
+
+        .vpi-search,
+        .text,
+        .#{$namespace}-icon {
+          color: var(--vp-c-white);
+        }
+
+        .keys {
+          color: var(--vp-c-white);
+          border: none;
+          &::after {
+            color: var(--vp-c-white);
           }
         }
       }
 
       .VPNavBarTranslations {
         .text {
-          color: getCssVar("article-banner-text-color");
+          color: getCssVar(article-banner-text-color);
         }
       }
 
@@ -276,18 +295,18 @@
         .top,
         .middle,
         .bottom {
-          background-color: getCssVar("article-banner-text-color");
+          background-color: getCssVar(article-banner-text-color);
         }
       }
 
       .VPNavBarExtra {
         .button {
-          color: getCssVar("article-banner-text-color");
+          color: getCssVar(article-banner-text-color);
         }
       }
 
       &.screen-open {
-        @include set-css-var("article-banner-text-color", var(--vp-c-text-1));
+        @include set-css-var(article-banner-text-color, var(--vp-c-text-1));
         background-color: var(--vp-nav-bg-color);
       }
     }

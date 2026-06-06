@@ -1,2 +1,2 @@
-export * from "./simpleContainer";
-export * from "./cardContainer";
+export * from "./simple-container";
+export * from "./card-container";

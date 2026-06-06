@@ -10,8 +10,8 @@
   padding: 2px 6px;
   border-radius: 3px;
   font-weight: 500;
-  border: 1px solid getCssVar("theme-color");
-  color: getCssVar("theme-color");
+  border: 1px solid getCssVar(theme-color);
+  color: getCssVar(theme-color);
 
   @include m(vp-primary) {
     border: 1px solid var(--vp-c-brand-1);
@@ -47,8 +47,8 @@
     @include m($epType) {
       $type: string.slice($epType, 4);
 
-      border: 1px solid getCssVar("el-color", $type);
-      color: getCssVar("el-color", $type);
+      border: 1px solid getCssVar(el-color, $type);
+      color: getCssVar(el-color, $type);
     }
   }
 

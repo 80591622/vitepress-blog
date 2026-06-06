@@ -4,7 +4,7 @@
 /* INFO 容器背景色、流体边框 */
 .custom-block.info {
   border-left: none;
-  background-color: getCssVar("custom-block-info-bg");
+  background-color: getCssVar(custom-block-info-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -18,7 +18,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-info-left");
+  border: 2px solid getCssVar(custom-block-info-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;
@@ -32,7 +32,7 @@
 /* TIP 容器背景色、流体边框 */
 .custom-block.tip {
   border-left: none;
-  background-color: getCssVar("custom-block-tip-bg");
+  background-color: getCssVar(custom-block-tip-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -46,7 +46,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-tip-left");
+  border: 2px solid getCssVar(custom-block-tip-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;
@@ -60,7 +60,7 @@
 /* WARNING 容器背景色、流体边框 */
 .custom-block.warning {
   border-left: none;
-  background-color: getCssVar("custom-block-warning-bg");
+  background-color: getCssVar(custom-block-warning-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -74,7 +74,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-warning-left");
+  border: 2px solid getCssVar(custom-block-warning-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;
@@ -88,7 +88,7 @@
 /* DANGER 容器背景色、流体边框 */
 .custom-block.danger {
   border-left: none;
-  background-color: getCssVar("custom-block-danger-bg");
+  background-color: getCssVar(custom-block-danger-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -102,7 +102,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-danger-left");
+  border: 2px solid getCssVar(custom-block-danger-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;
@@ -118,7 +118,7 @@
 /* NOTE 容器背景色、流体边框 */
 .custom-block.note {
   border-left: none;
-  background-color: getCssVar("custom-block-note-bg");
+  background-color: getCssVar(custom-block-note-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -132,7 +132,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-note-left");
+  border: 2px solid getCssVar(custom-block-note-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;
@@ -146,7 +146,7 @@
 /* IMPORTANT 容器背景色、流体边框 */
 .custom-block.important {
   border-left: none;
-  background-color: getCssVar("custom-block-important-bg");
+  background-color: getCssVar(custom-block-important-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -160,7 +160,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-important-left");
+  border: 2px solid getCssVar(custom-block-important-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;
@@ -174,7 +174,7 @@
 /* CAUTION 容器背景色、流体边框 */
 .custom-block.caution {
   border-left: none;
-  background-color: getCssVar("custom-block-caution-bg");
+  background-color: getCssVar(custom-block-caution-bg);
   position: relative;
   transition: all 0.3s;
 }
@@ -188,7 +188,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid getCssVar("custom-block-caution-left");
+  border: 2px solid getCssVar(custom-block-caution-left);
   transition: all 0.5s;
   animation: flow 6s infinite linear;
   border-radius: 10px;

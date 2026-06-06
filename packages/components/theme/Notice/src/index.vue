@@ -5,8 +5,8 @@ import { useData } from "vitepress";
 import { useNamespace, useLocale, useVpRouter } from "@teek/composables";
 import { isClient, isString } from "@teek/helper";
 import { noticeIcon, closeIcon } from "@teek/static";
-import { useCommon, useTeekConfig } from "@teek/components/theme/ConfigProvider";
-import { TkIcon } from "@teek/components/common/Icon";
+import { useCommon, useTeekConfig } from "@teek/components/theme/config-provider";
+import { TkIcon } from "@teek/components/common/icon";
 
 defineOptions({ name: "Notice" });
 

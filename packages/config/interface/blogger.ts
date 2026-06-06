@@ -1,4 +1,4 @@
-import type { TkAvatarProps } from "@teek/components/common/Avatar";
+import type { TkAvatarProps } from "@teek/components/common/avatar";
 
 export interface Blogger {
   /**

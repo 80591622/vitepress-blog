@@ -4,24 +4,24 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("sidebar-trigger-top-offset", 10px);
-  @include set-css-var("sidebar-trigger-left-offset", 10px);
-  @include set-css-var("sidebar-trigger-collapse-doc-offset", 160px);
+  @include set-css-var(sidebar-trigger-top-offset, 10px);
+  @include set-css-var(sidebar-trigger-left-offset, 10px);
+  @include set-css-var(sidebar-trigger-collapse-doc-offset, 160px);
 }
 
 @include b(layout) {
   @include has(sidebar-trigger) {
     .VPSidebar {
       transition:
-        width getCssVar("transition-duration-slow") ease-in-out,
-        padding-left getCssVar("transition-duration-slow") ease-in-out,
-        padding-right getCssVar("transition-duration-slow") ease-in-out,
-        opacity getCssVar("transition-duration-slow"),
-        transform getCssVar("transition-duration");
+        width getCssVar(transition-duration-slow) ease-in-out,
+        padding-left getCssVar(transition-duration-slow) ease-in-out,
+        padding-right getCssVar(transition-duration-slow) ease-in-out,
+        opacity getCssVar(transition-duration-slow),
+        transform getCssVar(transition-duration);
     }
 
     .VPContent.has-sidebar.sidebar-trigger-transition {
-      transition: padding-left getCssVar("transition-duration-slow") ease-in-out;
+      transition: padding-left getCssVar(transition-duration-slow) ease-in-out;
     }
 
     // 没有侧边栏时，隐藏侧边栏触发器
@@ -33,7 +33,7 @@
 
     // 侧边栏折叠时样式
     @include is(sidebar-collapse) {
-      @include set-css-var("sidebar-trigger-doc-offset", var(--#{$namespace}-sidebar-trigger-collapse-doc-offset));
+      @include set-css-var(sidebar-trigger-doc-offset, var(--#{$namespace}-sidebar-trigger-collapse-doc-offset));
 
       .VPSidebar {
         width: 0 !important;
@@ -62,25 +62,25 @@
       .VPContent.has-sidebar {
         padding-left: calc(
           (100vw - var(--vp-layout-max-width)) / 2 +
-            var(--vp-sidebar-width) - var(#{getCssVarName("sidebar-trigger-doc-offset")}, 0px)
+            var(--vp-sidebar-width) - var(#{getCssVarName(sidebar-trigger-doc-offset)}, 0px)
         );
       }
 
       // 折叠侧边栏的左侧距离
       @include b(sidebar-trigger) {
-        left: getCssVar("sidebar-trigger-left-offset") !important;
+        left: getCssVar(sidebar-trigger-left-offset) !important;
       }
     }
 
     // 侧边栏折叠/展开触发器样式
     @include b(sidebar-trigger) {
       position: fixed;
-      top: calc(var(--vp-nav-height) + getCssVar("sidebar-trigger-top-offset"));
+      top: calc(var(--vp-nav-height) + getCssVar(sidebar-trigger-top-offset));
       left: calc(
         (100% - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
-          getCssVar("sidebar-trigger-left-offset")
+          getCssVar(sidebar-trigger-left-offset)
       );
-      transition: left getCssVar("transition-duration-slow") ease-in-out;
+      transition: left getCssVar(transition-duration-slow) ease-in-out;
       z-index: 20px;
 
       > div {
@@ -88,14 +88,14 @@
       }
 
       @include is(active) {
-        transition-duration: getCssVar("transition-duration-slow");
+        transition-duration: getCssVar(transition-duration-slow);
       }
 
       @media (max-width: 1440px) {
-        left: calc(var(--vp-sidebar-width) + getCssVar("sidebar-trigger-left-offset")) !important;
+        left: calc(var(--vp-sidebar-width) + getCssVar(sidebar-trigger-left-offset)) !important;
       }
       @media (max-width: 1280px) {
-        top: calc(var(--vp-nav-height) + getCssVar("sidebar-trigger-top-offset") + 47px);
+        top: calc(var(--vp-nav-height) + getCssVar(sidebar-trigger-top-offset) + 47px);
       }
     }
   }
@@ -105,11 +105,11 @@
 @include multiple-b(((card, card-nav, segment, segment-nav))) {
   &.Layout.has-sidebar-trigger {
     @include b(sidebar-trigger) {
-      left: calc(var(--vp-sidebar-width) + getCssVar("sidebar-trigger-left-offset"));
+      left: calc(var(--vp-sidebar-width) + getCssVar(sidebar-trigger-left-offset));
     }
     &.is-sidebar-collapse {
       @include b(sidebar-trigger) {
-        left: getCssVar("sidebar-trigger-left-offset");
+        left: getCssVar(sidebar-trigger-left-offset);
       }
     }
   }
@@ -121,9 +121,9 @@ html[layout-mode="original"] {
     @include b(sidebar-trigger) {
       left: calc(
         (100% - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
-          getCssVar("sidebar-trigger-left-offset")
+          getCssVar(sidebar-trigger-left-offset)
       );
-      transition-duration: getCssVar("transition-duration-slow");
+      transition-duration: getCssVar(transition-duration-slow);
     }
   }
 }
@@ -132,10 +132,10 @@ html[layout-mode="bothWidthAdjustable"] {
   @include b(layout) {
     @include b(sidebar-trigger) {
       left: calc(
-        (100% - (getCssVar("page-max-width") - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
-          getCssVar("sidebar-trigger-left-offset")
+        (100% - (getCssVar(page-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
+          getCssVar(sidebar-trigger-left-offset)
       );
-      transition-duration: getCssVar("transition-duration-slow");
+      transition-duration: getCssVar(transition-duration-slow);
     }
   }
 }
@@ -144,10 +144,10 @@ html[layout-mode="sidebarWidthAdjustableOnly"] {
   @include b(layout) {
     @include b(sidebar-trigger) {
       left: calc(
-        (100% - (getCssVar("page-max-width") - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
-          getCssVar("sidebar-trigger-left-offset")
+        (100% - (getCssVar(page-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
+          getCssVar(sidebar-trigger-left-offset)
       );
-      transition-duration: getCssVar("transition-duration-slow");
+      transition-duration: getCssVar(transition-duration-slow);
     }
   }
 }
@@ -156,10 +156,10 @@ html[layout-mode="fullWidth"] {
   @include b(layout) {
     @include b(sidebar-trigger) {
       left: calc(
-        (100% - (getCssVar("full-width-max-width") - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
-          getCssVar("sidebar-trigger-left-offset")
+        (100% - (getCssVar(full-width-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px +
+          getCssVar(sidebar-trigger-left-offset)
       );
-      transition-duration: getCssVar("transition-duration-slow");
+      transition-duration: getCssVar(transition-duration-slow);
     }
   }
 }

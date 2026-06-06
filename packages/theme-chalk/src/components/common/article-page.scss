@@ -7,7 +7,7 @@
   width: 100%;
 
   @media (min-width: 1280px) {
-    width: getCssVar("page-width");
+    width: getCssVar(page-width);
   }
   @media (max-width: 1280px) {
     padding: 0 10px;
@@ -17,7 +17,7 @@
     display: flex;
 
     @media (min-width: 1280px) {
-      width: calc(getCssVar("page-width") + 360px);
+      width: calc(getCssVar(page-width) + 360px);
 
       .#{$namespace}-doc {
         transform: translateX(80px);
@@ -29,7 +29,7 @@
     padding: 20px 30px;
     box-shadow: var(--vp-shadow-3);
     border-radius: 10px;
-    background-color: getCssVar("bg-color");
+    background-color: getCssVar(bg-color);
     overflow-y: auto;
     flex: 1;
   }
@@ -149,7 +149,7 @@
       font-weight: 700;
     }
     &.active {
-      color: getCssVar("theme-color");
+      color: getCssVar(theme-color);
     }
   }
 }

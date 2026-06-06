@@ -34,6 +34,8 @@ export const teekConfig = defineTeekConfig({
     easing: "ease-in",
   },
   codeBlock: {
+    /** false：所有代码块默认展开，不自动折叠 */
+    collapseHeight: false,
     copiedDone: TkMessage => TkMessage.success("复制成功！"),
   },
   articleShare: { enabled: true },

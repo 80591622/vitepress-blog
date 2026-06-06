@@ -3,27 +3,27 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("slider-height", 32px);
-  @include set-css-var("slider-shadow-color", getCssVar("text-color-disabled"));
-  @include set-css-var("slider-thumb-height", 32px);
-  @include set-css-var("slider-thumb-width", 32px);
-  @include set-css-var("slider-thumb-border-radius", 6px);
-  @include set-css-var("slider-thumb-color", #ffffff);
+  @include set-css-var(slider-height, 32px);
+  @include set-css-var(slider-shadow-color, getCssVar(text-color-disabled));
+  @include set-css-var(slider-thumb-height, 32px);
+  @include set-css-var(slider-thumb-width, 32px);
+  @include set-css-var(slider-thumb-border-radius, 6px);
+  @include set-css-var(slider-thumb-color, #ffffff);
   @include set-css-var(
-    "slider-track-height",
-    calc(getCssVar("slider-height") - getCssVar("slider-track-progress-padding") * 2)
+    slider-track-height,
+    calc(getCssVar(slider-height) - getCssVar(slider-track-progress-padding) * 2)
   );
-  @include set-css-var("slider-track-border-radius", 6px);
-  @include set-css-var("slider-track-color", #ffffff);
-  @include set-css-var("slider-track-progress-color", #ffffff);
-  @include set-css-var("slider-track-progress-padding", 0px);
-  @include set-css-var("slider-transition-duration", getCssVar("transition-duration-fast"));
+  @include set-css-var(slider-track-border-radius, 6px);
+  @include set-css-var(slider-track-color, #ffffff);
+  @include set-css-var(slider-track-progress-color, #ffffff);
+  @include set-css-var(slider-track-progress-padding, 0px);
+  @include set-css-var(slider-transition-duration, getCssVar(transition-duration-fast));
 }
 
 :root.dark {
-  @include set-css-var("slider-thumb-color", #e1e2da);
-  @include set-css-var("slider-track-color", #e1e2da);
-  @include set-css-var("slider-track-progress-color", #e1e2da);
+  @include set-css-var(slider-thumb-color, #e1e2da);
+  @include set-css-var(slider-track-color, #e1e2da);
+  @include set-css-var(slider-track-progress-color, #e1e2da);
 }
 
 @include b(input-slide) {
@@ -39,7 +39,7 @@
   color: #d1d5db;
 
   @include e(label) {
-    height: getCssVar("slider-height");
+    height: getCssVar(slider-height);
     cursor: col-resize;
     position: relative;
     width: 100%;
@@ -48,11 +48,11 @@
 
   @include e(label__input) {
     width: 100%;
-    height: getCssVar("slider-height");
+    height: getCssVar(slider-height);
     margin: 0;
     appearance: none;
     -webkit-appearance: none;
-    transition: background-color getCssVar("slider-transition-duration") ease;
+    transition: background-color getCssVar(slider-transition-duration) ease;
     cursor: col-resize;
 
     &:focus {
@@ -62,21 +62,21 @@
     /* Webkit specific */
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: getCssVar("slider-thumb-width");
-      height: getCssVar("slider-thumb-height");
-      border-radius: getCssVar("slider-thumb-border-radius");
-      background: getCssVar("slider-thumb-color");
+      width: getCssVar(slider-thumb-width);
+      height: getCssVar(slider-thumb-height);
+      border-radius: getCssVar(slider-thumb-border-radius);
+      background: getCssVar(slider-thumb-color);
       border: none;
-      box-shadow: 0 2px 4px 0px getCssVar("slider-shadow-color");
-      margin-top: calc(getCssVar("slider-track-height") * 0.5 - getCssVar("slider-thumb-height") * 0.5);
-      margin-left: calc(0 - getCssVar("slider-track-progress-padding"));
+      box-shadow: 0 2px 4px 0px getCssVar(slider-shadow-color);
+      margin-top: calc(getCssVar(slider-track-height) * 0.5 - getCssVar(slider-thumb-height) * 0.5);
+      margin-left: calc(0 - getCssVar(slider-track-progress-padding));
       cursor: col-resize;
     }
 
     &::-webkit-slider-runnable-track {
-      height: getCssVar("slider-track-height");
+      height: getCssVar(slider-track-height);
       border: none;
-      border-radius: getCssVar("slider-track-border-radius");
+      border-radius: getCssVar(slider-track-border-radius);
       background: #f1f1f100;
       box-shadow: none;
       cursor: col-resize;
@@ -84,20 +84,20 @@
 
     /* Firefox specific */
     &::-moz-range-thumb {
-      width: getCssVar("slider-thumb-width");
-      height: getCssVar("slider-thumb-height");
-      margin-left: calc(0 - getCssVar("slider-track-progress-padding"));
-      border-radius: getCssVar("slider-thumb-border-radius");
-      background: getCssVar("slider-thumb-color");
+      width: getCssVar(slider-thumb-width);
+      height: getCssVar(slider-thumb-height);
+      margin-left: calc(0 - getCssVar(slider-track-progress-padding));
+      border-radius: getCssVar(slider-thumb-border-radius);
+      background: getCssVar(slider-thumb-color);
       border: none;
-      box-shadow: 0 2px 4px 0px getCssVar("slider-shadow-color");
+      box-shadow: 0 2px 4px 0px getCssVar(slider-shadow-color);
       cursor: col-resize;
     }
 
     &::-moz-range-track {
-      height: getCssVar("slider-track-height");
+      height: getCssVar(slider-track-height);
       border: none;
-      border-radius: getCssVar("slider-track-border-radius");
+      border-radius: getCssVar(slider-track-border-radius);
       background: #f1f1f100;
       box-shadow: none;
       cursor: col-resize;
@@ -115,21 +115,21 @@
     }
 
     &::-ms-thumb {
-      width: getCssVar("slider-thumb-width");
-      height: getCssVar("slider-thumb-height");
-      border-radius: getCssVar("slider-thumb-border-radius");
-      background: getCssVar("slider-thumb-color");
+      width: getCssVar(slider-thumb-width);
+      height: getCssVar(slider-thumb-height);
+      border-radius: getCssVar(slider-thumb-border-radius);
+      background: getCssVar(slider-thumb-color);
       border: none;
-      box-shadow: 0 2px 4px 0px getCssVar("slider-shadow-color");
+      box-shadow: 0 2px 4px 0px getCssVar(slider-shadow-color);
       margin-top: 0;
-      margin-left: calc(0 - getCssVar("slider-track-progress-padding"));
+      margin-left: calc(0 - getCssVar(slider-track-progress-padding));
       cursor: col-resize;
     }
 
     &::-ms-track {
-      height: getCssVar("slider-track-height");
+      height: getCssVar(slider-track-height);
       border: none;
-      border-radius: getCssVar("slider-track-border-radius");
+      border-radius: getCssVar(slider-track-border-radius);
       background: #f1f1f100;
       box-shadow: none;
       cursor: col-resize;
@@ -137,23 +137,23 @@
   }
 
   @include e(label__input-progress) {
-    @include set-css-var("slider-range", calc(getCssVar("slider-max") - getCssVar("slider-min")));
+    @include set-css-var(slider-range, calc(getCssVar(slider-max) - getCssVar(slider-min)));
     @include set-css-var(
       "slider-ratio",
-      calc((getCssVar("slider-value") - getCssVar("slider-min")) / getCssVar("slider-range"))
+      calc((getCssVar(slider-value) - getCssVar(slider-min)) / getCssVar(slider-range))
     );
     @include set-css-var(
       "slider-sx",
-      calc(0.5 * getCssVar("slider-thumb-width") + getCssVar("slider-ratio") * (100% - getCssVar("slider-thumb-width")))
+      calc(0.5 * getCssVar(slider-thumb-width) + getCssVar(slider-ratio) * (100% - getCssVar(slider-thumb-width)))
     );
 
     /* Webkit specific */
     &::-webkit-slider-runnable-track {
-      margin-left: getCssVar("slider-track-progress-padding");
-      margin-right: calc(0 - getCssVar("slider-track-progress-padding"));
+      margin-left: getCssVar(slider-track-progress-padding);
+      margin-right: calc(0 - getCssVar(slider-track-progress-padding));
       background:
-        linear-gradient(getCssVar("slider-track-progress-color"), getCssVar("slider-track-progress-color")) 0 /
-          getCssVar("slider-sx") 100% no-repeat,
+        linear-gradient(getCssVar(slider-track-progress-color), getCssVar(slider-track-progress-color)) 0 /
+          getCssVar(slider-sx) 100% no-repeat,
         #ffffff00;
       cursor: col-resize;
     }
@@ -161,31 +161,31 @@
     /* Firefox specific */
     &::-moz-range-track {
       display: block;
-      width: calc(100% - getCssVar("slider-track-progress-padding") - getCssVar("slider-track-progress-padding"));
+      width: calc(100% - getCssVar(slider-track-progress-padding) - getCssVar(slider-track-progress-padding));
       background:
-        linear-gradient(getCssVar("slider-track-progress-color"), getCssVar("slider-track-progress-color")) 0 /
-          getCssVar("slider-sx") 100% no-repeat,
+        linear-gradient(getCssVar(slider-track-progress-color), getCssVar(slider-track-progress-color)) 0 /
+          getCssVar(slider-sx) 100% no-repeat,
         #ffffff00;
       cursor: col-resize;
     }
 
     /* Microsoft specific */
     &::-ms-fill-lower {
-      height: getCssVar("slider-track-height");
-      border-radius: getCssVar("slider-track-border-radius") 0 0 getCssVar("slider-track-border-radius");
-      background: getCssVar("slider-track-progress-color");
+      height: getCssVar(slider-track-height);
+      border-radius: getCssVar(slider-track-border-radius) 0 0 getCssVar(slider-track-border-radius);
+      background: getCssVar(slider-track-progress-color);
       border: none;
       border-right-width: 0;
       margin-top: 0;
       margin-bottom: 0;
-      margin-left: calc(getCssVar("slider-track-progress-padding"));
-      margin-right: calc(0 - getCssVar("slider-track-progress-padding"));
+      margin-left: calc(getCssVar(slider-track-progress-padding));
+      margin-right: calc(0 - getCssVar(slider-track-progress-padding));
       cursor: col-resize;
     }
   }
 
   @include e(label__tooltip) {
-    top: calc(0px - getCssVar("slider-height") - 16px);
+    top: calc(0px - getCssVar(slider-height) - 16px);
     position: absolute;
     min-width: 48px;
     border-radius: 8px;

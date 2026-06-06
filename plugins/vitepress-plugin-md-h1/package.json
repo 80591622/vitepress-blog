@@ -40,14 +40,12 @@
   },
   "scripts": {
     "stub": "unbuild --stub",
-    "build": "unbuild",
-    "typecheck": "tsc --noEmit"
+    "build": "unbuild"
   },
   "dependencies": {
     "gray-matter": "catalog:"
   },
   "devDependencies": {
-    "typescript": "catalog:",
     "vite": "catalog:"
   }
 }

@@ -3,14 +3,14 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("avatar-bg-color", getCssVar("text-color-disabled"));
-  @include set-css-var("avatar-text-color", var(--vp-c-white));
-  @include set-css-var("avatar-text-size", 14px);
-  @include set-css-var("avatar-icon-size", 18px);
-  @include set-css-var("avatar-border-radius", 4px);
-  @include set-css-var("avatar-size-small", 24px);
-  @include set-css-var("avatar-size", 40px);
-  @include set-css-var("avatar-size-large", 56px);
+  @include set-css-var(avatar-bg-color, getCssVar(text-color-disabled));
+  @include set-css-var(avatar-text-color, var(--vp-c-white));
+  @include set-css-var(avatar-text-size, 14px);
+  @include set-css-var(avatar-icon-size, 18px);
+  @include set-css-var(avatar-border-radius, 4px);
+  @include set-css-var(avatar-size-small, 24px);
+  @include set-css-var(avatar-size, 40px);
+  @include set-css-var(avatar-size-large, 56px);
 }
 
 @include b(avatar) {
@@ -21,11 +21,11 @@
   text-align: center;
   overflow: hidden;
   outline: none;
-  color: getCssVar("avatar-text-color");
-  background: getCssVar("avatar-bg-color");
-  width: getCssVar("avatar-size");
-  height: getCssVar("avatar-size");
-  font-size: getCssVar("avatar-text-size");
+  color: getCssVar(avatar-text-color);
+  background: getCssVar(avatar-bg-color);
+  width: getCssVar(avatar-size);
+  height: getCssVar(avatar-size);
+  font-size: getCssVar(avatar-text-size);
 
   > img {
     display: block;
@@ -38,20 +38,20 @@
   }
 
   @include m(square) {
-    border-radius: getCssVar("avatar-border-radius");
+    border-radius: getCssVar(avatar-border-radius);
   }
 
   @include m(icon) {
-    font-size: getCssVar("avatar-icon-size");
+    font-size: getCssVar(avatar-icon-size);
   }
 
   @include m(small) {
-    width: getCssVar("avatar-size-small");
-    height: getCssVar("avatar-size-small");
+    width: getCssVar(avatar-size-small);
+    height: getCssVar(avatar-size-small);
   }
 
   @include m(large) {
-    width: getCssVar("avatar-size-large");
-    height: getCssVar("avatar-size-large");
+    width: getCssVar(avatar-size-large);
+    height: getCssVar(avatar-size-large);
   }
 }

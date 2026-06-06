@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useData, withBase } from "vitepress";
-import { TkHomeCategoryCard, TkHomeTagCard, usePosts, usePagePath } from "vitepress-theme-teek";
+import { TkHomeCardCategory, TkHomeCardTag, usePosts, usePagePath } from "vitepress-theme-teek";
 
 const { frontmatter } = useData();
 const posts = usePosts();
@@ -41,8 +41,8 @@ const basePath = computed(() => withBase(isCategoriesPage.value ? categoryPath.v
 
       <!-- 侧边栏：分类/标签快捷列表 -->
       <div class="tk-home__content__info is-right">
-        <TkHomeCategoryCard v-if="isCategoriesPage" :categories-page="true" />
-        <TkHomeTagCard v-else :tags-page="true" />
+        <TkHomeCardCategory v-if="isCategoriesPage" :categories-page="true" />
+        <TkHomeCardTag v-else :tags-page="true" />
       </div>
     </div>
   </div>

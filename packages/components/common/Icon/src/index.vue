@@ -3,10 +3,10 @@ import type { IconProps } from "./icon";
 import { useSlots, computed, toRaw } from "vue";
 import { useNamespace } from "@teek/composables";
 import { addUnit, isObject, isString } from "@teek/helper";
-import SvgIcon from "./components/SvgIcon.vue";
-import FontIcon from "./components/FontIcon.vue";
-import IconifyOffline from "./components/IconifyOffline.vue";
-import IconifyOnline from "./components/IconifyOnline.vue";
+import SvgIcon from "./components/svg-icon.vue";
+import FontIcon from "./components/font-icon.vue";
+import IconifyOffline from "./components/iconify-offline.vue";
+import IconifyOnline from "./components/iconify-online.vue";
 
 defineOptions({ name: "Icon" });
 

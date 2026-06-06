@@ -4,7 +4,7 @@ export * from "./util";
 export * from "./types";
 export * from "./color";
 
-export * from "./analytics/baiduAnalytics";
-export * from "./analytics/googleAnalytics";
-export * from "./analytics/umamiAnalytics";
-export * from "./analytics/clarityAnalytics";
+export * from "./analytics/baidu-analytics";
+export * from "./analytics/google-analytics";
+export * from "./analytics/umami-analytics";
+export * from "./analytics/clarity-analytics";

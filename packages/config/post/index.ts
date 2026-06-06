@@ -27,7 +27,7 @@ export const transformData = (data: FileContentLoaderData): TkContentData => {
   const { themeConfig } = siteConfig.userConfig;
   const { frontmatter, url, relativePath, excerpt } = data;
 
-  if (frontmatter.date) frontmatter.date = formatDate(frontmatter.date);
+  if (frontmatter.date) frontmatter.date = formatDate(frontmatter.date, "yyyy-MM-dd hh:mm:ss", true);
 
   return {
     url,
@@ -125,7 +125,7 @@ export function getDate(post: RequiredKeyPartialOther<TkContentData, "frontmatte
     `${relativePath.endsWith("/") ? `${relativePath}/index` : relativePath.replace(/\.html$/, "")}.md`
   );
   const stat = statSync(filePath);
-  return formatDate(stat.birthtime || stat.atime);
+  return formatDate(stat.birthtime || stat.atime, "yyyy-MM-dd hh:mm:ss", true);
 }
 
 /**

@@ -10,7 +10,7 @@
 
       p.text {
         font-size: 15px;
-        transition: transform getCssVar("transition-duration") ease-in-out;
+        transition: transform getCssVar(transition-duration) ease-in-out;
 
         &:hover {
           transform: translate(4px);

@@ -1,6 +1,6 @@
 import type { PageData } from "vitepress";
-import type { VpContainerProps } from "@teek/components/common/VpContainer/src/vpContainer";
-import type { TkPaginationProps } from "../components/common/Pagination";
+import type { VpContainerProps } from "@teek/components/common/vp-container/src/vp-container";
+import type { TkPaginationProps } from "../components/common/pagination";
 import type {
   Appreciation,
   ArticleAnalyze,
@@ -106,7 +106,7 @@ export interface TeekConfig {
    *
    * @default ''
    */
-  themeSize?: "small" | "default" | "large" | "wide";
+  themeSize?: "small" | "default" | "large" | "wide" | "";
   /**
    * 页面加载 Loading 动画，如果为 boolean，则控制是否启用，如果为字符串，则指定加载 Loading 动画的文案
    *

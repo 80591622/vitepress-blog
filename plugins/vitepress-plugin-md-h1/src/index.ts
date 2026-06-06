@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import { MdH1Option } from "./types";
 import { EOL } from "node:os";
 
-export * from "./types";
+export type * from "./types";
 
 export default function VitePluginVitePressMdH1(option: MdH1Option = {}): Plugin & { name: string } {
   return {

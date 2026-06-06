@@ -6,7 +6,7 @@
   outline-color: transparent;
   outline-offset: 4px;
   outline-style: dashed;
-  transition: outline getCssVar("transition-duration-fast") cubic-bezier(0.4, 0, 0.2, 1);
+  transition: outline getCssVar(transition-duration-fast) cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 6px;
 
   @include is(active) {

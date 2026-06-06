@@ -5,7 +5,7 @@ import readFileList from "./helper";
 import { getGitLastCommitTime, getEachFileWords, getTotalFileWords, getLastUpdateTime } from "./util";
 import logger from "./log";
 
-export * from "./types";
+export type * from "./types";
 
 export default function VitePluginVitePressDocAnalysis(option: DocAnalysisOption = {}): Plugin & { name: string } {
   let isExecute = false;

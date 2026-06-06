@@ -210,15 +210,119 @@ pnpm cz
 | `revert`   | ⏪️    | 回退代码                             |
 | `chore`    | 🔨    | 其他修改（不涉及 src 或 test 文件）  |
 
-示例：
+#### pnpm cz 交互式提交指南
 
-```bash
-git commit -m "feat: 添加文章搜索功能"
-git commit -m "fix: 修复移动端侧边栏显示异常"
-git commit -m "docs: 更新部署文档"
+项目已配置 [cz-git](https://cz-git.qbb.sh/) 交互式提交，运行 `pnpm cz` 可逐步选择提交类型、范围、描述等，自动生成符合规范的提交信息。以下是每一步的详细操作说明：
+
+**命令说明：**
+
+| 命令       | 作用                                                  |
+| ---------- | ----------------------------------------------------- |
+| `pnpm cz`  | 暂存所有修改并启动交互式提交（`git add . && git-cz`） |
+| `pnpm czp` | 暂存、提交并推送到远程仓库（含 `git push`）           |
+
+> 建议使用 `git add <file>` 手动暂存后再运行 `pnpm exec git-cz`，以便精确控制提交范围。
+
+**交互式提交流程（共 5 步）：**
+
+**第 1 步 — 选择提交类型：**
+
+使用方向键 ↑↓ 浏览类型列表，按 Enter 确认。类型列表会同时显示 emoji 图标和中文说明，例如：
+
+```
+🚀  feat:     新增功能 | A new feature
+🐞  fix:      修复缺陷 | A bug fix
+📚  docs:     文档更新 | Documentation only changes
+🎨  style:    代码格式 | Changes that don't affect the meaning of code
+♻️  refactor: 代码重构 | A code change that neither fixes a bug nor adds a feature
+⚡️  perf:     性能优化 | A code change that improves performance
+✅  test:     测试相关 | Adding missing tests or correcting existing tests
+📦️  build:    构建相关 | Changes that affect the build system or external dependencies
+🎡  ci:       持续集成 | Changes to our CI configuration files and scripts
+⏪️  revert:   回退代码 | Revert to a commit
+🔨  chore:    其他修改 | Other changes that don't modify src or test files
 ```
 
-> 项目已配置 [cz-git](https://cz-git.qbb.sh/) 交互式提交，运行 `pnpm cz` 可逐步选择提交类型、范围、描述等，自动生成符合规范的提交信息。提交信息中包含 `init` 时会跳过 commitlint 校验。
+**第 2 步 — 选择提交范围（可选）：**
+
+输入本次提交影响的范围，例如 `components`、`docs`、`config`、`deploy` 等。支持：
+
+- 直接输入自定义范围
+- 选择 `empty` 跳过（不填写范围）
+
+示例：修改了文章页组件 → 输入 `articlePage`；修改了部署脚本 → 输入 `deploy`。
+
+**第 3 步 — 填写简短描述（必填）：**
+
+用一句话描述本次变更内容，建议控制在 72 个字符以内。例如：
+
+```
+添加文章搜索功能
+修复移动端侧边栏显示异常
+更新项目部署文档
+```
+
+> 注意：描述开头不需要大写，末尾不需要句号。
+
+**第 4 步 — 填写详细描述（可选）：**
+
+如需补充更多变更细节，可以在此填写。使用 `|` 作为换行符。通常简单提交可跳过（直接按 Enter）。
+
+**第 5 步 — 关联 Issue（可选）：**
+
+输入关联的 Issue 编号（如 `#31`）或选择 `skip` 跳过。
+
+**第 6 步 — 确认提交：**
+
+最后一步会展示完整的提交信息预览，确认无误后选择 `Yes` 完成提交。
+
+**完整示例演示：**
+
+```bash
+# 1. 修改了文件后，启动交互式提交
+$ pnpm cz
+
+# 终端交互过程：
+# ? 选择你要提交的类型:                           ← 选择 feat
+# ? 选择一个提交范围（可选）:                       ← 输入 search
+# ? 填写简短精炼的变更描述:                        ← 输入 添加文章全文搜索功能
+# ? 填写更加详细的变更描述（可选）。使用 "|" 换行： ← 跳过（Enter）
+# ? 列举关联 Issue (可选) 例如: #31, #I3244:       ← 输入 #42
+# ? 是否提交或修改 commit ?                       ← 选择 Yes
+
+# 最终生成的提交信息：
+# feat(search): 添加文章全文搜索功能 (#42)
+```
+
+**自动化流程：**
+
+当你完成交互式提交后，Git 钩子会自动执行：
+
+```
+git commit
+    │
+    ├─ pre-commit 钩子
+    │   └─ lint-staged → ESLint + Prettier 自动修复暂存文件
+    │
+    └─ commit-msg 钩子
+        └─ commitlint → 校验提交信息格式是否合规
+```
+
+- **pre-commit**：对暂存文件自动运行 ESLint 和 Prettier，确保代码质量。如果 lint 失败（有无法自动修复的错误），提交会被阻止，需手动修复后重新提交。
+- **commit-msg**：校验提交信息是否符合 Conventional Commits 规范。如果格式不正确，提交会被拒绝并提示错误信息。
+
+> 提交信息中包含 `init` 时会跳过 commitlint 校验（由 `commitlint.config.js` 中的 `ignores` 配置）。
+
+**常见问题：**
+
+| 问题                        | 解决方案                                                                                              |
+| --------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 提交被 pre-commit 阻止      | 查看 ESLint/Prettier 报错信息，修复后重新提交；紧急情况下可用 `git commit --no-verify` 跳过（不推荐） |
+| `pnpm cz` 提示找不到命令    | 确认已执行 `pnpm install` 安装依赖                                                                    |
+| 想只提交部分文件            | 先用 `git add <file>` 手动暂存，再运行 `pnpm exec git-cz`                                             |
+| 提交信息打错了              | 使用 `git commit --amend` 修改最近一次提交信息                                                        |
+| commitlint 校验失败         | 检查提交信息格式是否为 `<type>(<scope>): <subject>`，type 必须在允许的列表中                          |
+| Windows 终端 emoji 显示异常 | 使用 Windows Terminal 或支持 emoji 的终端；emoji 仅用于交互式展示，不影响实际提交内容                 |
 
 ## 部署
 

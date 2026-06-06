@@ -1,5 +1,5 @@
-import type Segmented from "./Segmented.vue";
-import type SegmentedItem from "./SegmentedItem.vue";
+import type Segmented from "./segmented.vue";
+import type SegmentedItem from "./segmented-item.vue";
 
 export type TkSegmentedInstance = InstanceType<typeof Segmented>;
 export type TkSegmentedItemInstance = InstanceType<typeof SegmentedItem>;

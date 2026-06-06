@@ -3,11 +3,7 @@
   "name": "@teek/config",
   "description": "teek config loader for vitepress server",
   "license": "MIT",
-  "type": "module",
-  "main": "./index.ts",
-  "exports": {
-    ".": "./index.ts"
-  },
+  "main": "index.ts",
   "dependencies": {
     "gray-matter": "catalog:",
     "vitepress": "catalog:",

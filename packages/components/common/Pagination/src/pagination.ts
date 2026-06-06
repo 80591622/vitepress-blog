@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey, ModelRef } from "vue";
-import type { TkIconProps } from "@teek/components/common/Icon";
+import type { TkIconProps } from "@teek/components/common/icon";
 
 export interface PaginationContext {
   currentPage?: ModelRef<number>;

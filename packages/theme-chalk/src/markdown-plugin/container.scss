@@ -18,13 +18,13 @@
 }
 
 :root {
-  @include set-css-var("custom-block-note-bg", #e8f5fa);
+  @include set-css-var(custom-block-note-bg, #e8f5fa);
 }
 
 :root.dark {
-  @include set-css-var("custom-block-note-bg", #003a4d);
+  @include set-css-var(custom-block-note-bg, #003a4d);
 }
 
 .custom-block.note {
-  background-color: getCssVar("custom-block-note-bg");
+  background-color: getCssVar(custom-block-note-bg);
 }

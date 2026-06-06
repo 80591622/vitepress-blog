@@ -3,7 +3,7 @@
 
 @include b(footer-group) {
   width: 100%;
-  max-width: getCssVar("home-footer-group-width");
+  max-width: getCssVar(home-footer-group-width);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   margin: 20px auto;
@@ -32,14 +32,14 @@
       display: inline-flex;
       align-items: center;
       transition:
-        color getCssVar("transition-duration") cubic-bezier(0.25, 0.1, 0.25, 1),
-        background-color getCssVar("transition-duration") cubic-bezier(0.25, 0.1, 0.25, 1);
+        color getCssVar(transition-duration) cubic-bezier(0.25, 0.1, 0.25, 1),
+        background-color getCssVar(transition-duration) cubic-bezier(0.25, 0.1, 0.25, 1);
       padding: 8px 10px;
       margin-left: -10px;
       border-radius: 12px;
 
       &:hover {
-        background-color: getCssVar("fill-color-light");
+        background-color: getCssVar(fill-color-light);
       }
     }
   }

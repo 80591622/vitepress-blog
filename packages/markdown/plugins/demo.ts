@@ -1,26 +1,19 @@
+import type MarkdownIt from "markdown-it";
+import type { Token } from "markdown-it/dist/index.cjs.js";
 import type { SiteConfig } from "vitepress";
 import type { Demo } from "@teek/config";
 import { readFileSync } from "fs";
 import { join, resolve, posix } from "path";
-import MarkdownIt from "markdown-it";
 import container from "markdown-it-container";
 import yaml from "js-yaml";
 
 interface ContainerOpts {
   marker?: string | undefined;
   validate?(params: string): boolean;
-  render?(tokens: ContainerToken[], index: number, options: unknown, env: unknown, self: unknown): string;
+  render?(tokens: Token[], index: number): string;
 }
 
-/** markdown-it 容器用到的 token 子集（避免与 DefinitelyTyped 导出名不一致） */
-interface ContainerToken {
-  info: string;
-  nesting?: number;
-  content: string;
-  children?: ContainerToken[];
-}
-
-const demoPlugin = (md: InstanceType<typeof MarkdownIt>, option: Demo = {}) => {
+const demoPlugin = (md: MarkdownIt, option: Demo = {}) => {
   const siteConfig: SiteConfig = (globalThis as any).VITEPRESS_CONFIG;
   const srcDir = siteConfig.srcDir;
   const path = "examples";
@@ -60,7 +53,7 @@ const demoPlugin = (md: InstanceType<typeof MarkdownIt>, option: Demo = {}) => {
   md.use(container, "demo", options);
 };
 
-const getDemoFile = (sourceFileToken: ContainerToken, yamlToken: ContainerToken) => {
+const getDemoFile = (sourceFileToken: Token, yamlToken: Token) => {
   // 需要复制其内容的源码文件路径
   let sourceFile = "";
   // 需要渲染效果的源码文件路径

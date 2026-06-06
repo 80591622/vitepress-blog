@@ -5,7 +5,7 @@ import { join } from "node:path";
 import logger from "./log";
 import { removeMarkdownExt } from "./util";
 
-export * from "./types";
+export type * from "./types";
 
 export default function VitePluginVitePressCatalogue(option: CatalogueOption = {}): Plugin & { name: string } {
   let isExecute = false;

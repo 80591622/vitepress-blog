@@ -1,5 +1,11 @@
 # vitepress-plugin-sidebar-resolve
 
+## 1.2.3
+
+### Patch Changes
+
+- 文件名修改
+
 ## 1.2.2
 
 ### Patch Changes

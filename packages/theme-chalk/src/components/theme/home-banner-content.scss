@@ -4,17 +4,17 @@
 @include b(banner-content) {
   width: 100%;
   padding-top: 48px;
-  color: getCssVar("banner-text-color");
+  color: getCssVar(banner-text-color);
   text-align: center;
 
   @include e(title) {
-    font-size: getCssVar("banner-title-text");
+    font-size: getCssVar(banner-title-text);
     font-weight: 600;
     line-height: 1.25;
   }
 
   @include e(desc) {
-    font-size: getCssVar("banner-desc-text");
+    font-size: getCssVar(banner-desc-text);
     max-width: 800px;
     line-height: 1.3;
     margin: 24px auto;

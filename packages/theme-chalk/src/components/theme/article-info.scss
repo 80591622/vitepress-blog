@@ -2,8 +2,8 @@
 @use "../../mixins/function" as *;
 
 @include b(article-info) {
-  font-size: getCssVar("home-font-size-sm");
-  color: getCssVar("text-color-regular");
+  font-size: getCssVar(home-font-size-sm);
+  color: getCssVar(text-color-regular);
 
   &.article > span:not(:last-child) {
     margin-right: 14px;
@@ -26,7 +26,7 @@
       width: 0.8px;
       height: 8px;
       margin: 0 10px;
-      background-color: getCssVar("text-color-regular");
+      background-color: getCssVar(text-color-regular);
     }
   }
 
@@ -36,7 +36,7 @@
       display: inline-block;
       width: 5.6px;
       height: 0;
-      background-color: getCssVar("text-color-regular");
+      background-color: getCssVar(text-color-regular);
     }
   }
 }

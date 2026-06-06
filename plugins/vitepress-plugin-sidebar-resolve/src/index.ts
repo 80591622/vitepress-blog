@@ -2,11 +2,11 @@ import type { Plugin, ViteDevServer } from "vite";
 import type { SidebarOption } from "./types";
 import { DefaultTheme } from "vitepress";
 import { join } from "node:path";
-import createFilePathSidebar from "./filePathToSidebar";
-import createRewritesSidebar from "./rewritesToSidebar";
+import createFilePathSidebar from "./file-path-to-sidebar";
+import createRewritesSidebar from "./rewrites-to-sidebar";
 import logger from "./log";
 
-export * from "./types";
+export type * from "./types";
 export * from "./utils";
 
 export default function VitePluginVitePressSidebarResolve(option: SidebarOption = {}): Plugin & { name: string } {

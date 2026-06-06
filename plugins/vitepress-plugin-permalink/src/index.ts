@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { getLocalePermalink } from "./rewrites";
 import logger from "./log";
 
-export * from "./types";
+export type * from "./types";
 export { createRewrites } from "./rewrites";
 
 /**
@@ -193,7 +193,7 @@ const getDirname = () => {
  * 2、将 NotFoundDelay 组件传入 VitePress 的 not-found 插槽
  */
 export function VitePluginVitePressUsePermalink(option: PermalinkOption = {}): Plugin & { name: string } {
-  const usePermalinkFile = `usePermalink`;
+  const usePermalinkFile = `use-permalink`;
   const aliasUsePermalinkFile = `${getDirname()}/${usePermalinkFile}`;
 
   const NotFoundDelayComponentName = "NotFoundDelay";

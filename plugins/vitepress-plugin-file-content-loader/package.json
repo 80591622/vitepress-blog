@@ -40,8 +40,7 @@
   },
   "scripts": {
     "stub": "unbuild --stub",
-    "build": "unbuild",
-    "typecheck": "tsc --noEmit"
+    "build": "unbuild"
   },
   "dependencies": {
     "gray-matter": "catalog:",
@@ -49,7 +48,6 @@
     "tinyglobby": "catalog:"
   },
   "devDependencies": {
-    "typescript": "catalog:",
     "vite": "catalog:",
     "vitepress": "catalog:"
   },

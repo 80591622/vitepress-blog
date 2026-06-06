@@ -10,7 +10,7 @@
 @use "./home-banner-waves";
 
 :root {
-  @include set-css-var("home-banner-part-min-height", 450px);
+  @include set-css-var(home-banner-part-min-height, 450px);
   // 网状背景图
   @include set-css-var(
     "bg-img-default",
@@ -60,7 +60,7 @@
 
     &.active,
     &:hover {
-      color: getCssVar("theme-color");
+      color: getCssVar(theme-color);
     }
   }
 
@@ -71,13 +71,32 @@
   .VPNavBarSearch .DocSearch-Button {
     background-color: transparent;
 
-    .vp-icon,
+    .DocSearch-Search-Icon,
     .DocSearch-Button-Placeholder,
     .#{$namespace}-icon {
       color: var(--vp-c-white);
     }
 
     .DocSearch-Button-Key {
+      color: var(--vp-c-white);
+      border: none;
+      &::after {
+        color: var(--vp-c-white);
+      }
+    }
+  }
+
+  // vitepress 2.0.x 以上版本兼容
+  .VPNavBarSearch .VPNavBarSearchButton {
+    background-color: transparent;
+
+    .vpi-search,
+    .text,
+    .#{$namespace}-icon {
+      color: var(--vp-c-white);
+    }
+
+    .keys {
       color: var(--vp-c-white);
       border: none;
       &::after {

@@ -4,7 +4,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { VPBadge } from "vitepress/theme";
 import { useEventListener, useNamespace, useZIndex } from "@teek/composables";
 import { closeIcon, circleCloseFilledIcon, infoFilledIcon, successFilledIcon, warningFilledIcon } from "@teek/static";
-import { TkIcon } from "@teek/components/common/Icon";
+import { TkIcon } from "@teek/components/common/icon";
 import { messagePropsDefaults } from "./message";
 import { getLastOffset, getOffsetOrSpace } from "./instance";
 

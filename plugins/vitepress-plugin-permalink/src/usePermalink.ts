@@ -1,5 +1,5 @@
 import { useRouter, useData } from "vitepress";
-import { nextTick, onBeforeMount } from "@vue/runtime-core";
+import { nextTick, onBeforeMount } from "vue";
 
 /**
  * 监听永久链接跳转

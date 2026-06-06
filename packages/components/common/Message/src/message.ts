@@ -1,6 +1,6 @@
 import type { AppContext, VNode } from "vue";
 import { isClient } from "@teek/helper";
-import type { TkIconProps } from "@teek/components/common/Icon";
+import type { TkIconProps } from "@teek/components/common/icon";
 
 export const messageTypes = ["primary", "success", "info", "warning", "error"] as const;
 

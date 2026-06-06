@@ -9,7 +9,6 @@
     "allowJs": false,
     "strict": true,
     "noUnusedLocals": true,
-    "skipLibCheck": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -19,7 +18,5 @@
     "paths": {
       "vitepress-plugin-permalink/*": ["./dist/*"]
     }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  }
 }

@@ -7,7 +7,7 @@ import { readFileSync, statSync, writeFileSync } from "node:fs";
 import { formatDate } from "./util";
 import logger from "./log";
 
-export * from "./types";
+export type * from "./types";
 
 export default function VitePluginVitePressAutoFrontmatter(
   option: AutoFrontmatterOption = {}

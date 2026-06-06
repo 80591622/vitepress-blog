@@ -1,7 +1,7 @@
 {
   "name": "vitepress-plugin-sidebar-resolve",
   "type": "module",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "扫描 Markdown 文档，自动生成侧边栏",
   "author": {
     "name": "teeker",
@@ -40,15 +40,13 @@
   },
   "scripts": {
     "stub": "unbuild --stub",
-    "build": "unbuild",
-    "typecheck": "tsc --noEmit"
+    "build": "unbuild"
   },
   "dependencies": {
     "gray-matter": "catalog:",
     "picocolors": "catalog:"
   },
   "devDependencies": {
-    "typescript": "catalog:",
     "vite": "catalog:",
     "vitepress": "catalog:"
   },

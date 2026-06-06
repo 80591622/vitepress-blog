@@ -1,5 +1,5 @@
-import Segmented from "./src/Segmented.vue";
-import SegmentedItem from "./src/SegmentedItem.vue";
+import Segmented from "./src/segmented.vue";
+import SegmentedItem from "./src/segmented-item.vue";
 
 export { Segmented as TkSegmented, SegmentedItem as TkSegmentedItem };
 export default Segmented;

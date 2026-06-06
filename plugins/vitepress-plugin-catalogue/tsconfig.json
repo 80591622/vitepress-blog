@@ -9,14 +9,11 @@
     "allowJs": false,
     "strict": true,
     "noUnusedLocals": true,
-    "skipLibCheck": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "removeComments": false,
     "preserveSymlinks": true,
     "rootDir": "."
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  }
 }

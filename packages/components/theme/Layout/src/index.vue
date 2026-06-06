@@ -6,41 +6,41 @@ import { useData, onContentUpdated } from "vitepress";
 import { computed, provide, ref, watch } from "vue";
 import { useNamespace, localeContextKey } from "@teek/composables";
 import { isBoolean, isClient } from "@teek/helper";
-import { useTeekConfig, usePageState, useSidebar } from "@teek/components/theme/ConfigProvider";
-import { TkHome } from "@teek/components/theme/Home";
-import { TkHomeMyCardScreen } from "@teek/components/theme/HomeMyCard";
-import { TkBodyBgImage } from "@teek/components/theme/BodyBgImage";
-import { TkFooterGroup } from "@teek/components/theme/FooterGroup";
-import { TkFooterInfo } from "@teek/components/theme/FooterInfo";
-import { TkArticleImagePreview } from "@teek/components/theme/ArticleImagePreview";
-import { TkArticleAnalyze } from "@teek/components/theme/ArticleAnalyze";
-import { TkArticleShare } from "@teek/components/theme/ArticleShare";
-import { TkArticleUpdate } from "@teek/components/theme/ArticleUpdate";
-import { TkArticleHeadingHighlight } from "@teek/components/theme/ArticleHeadingHighlight";
-import { TkArticlePageStyle } from "@teek/components/theme/ArticlePageStyle";
+import { useTeekConfig, usePageState, useSidebar } from "@teek/components/theme/config-provider";
+import { TkHomeMain } from "@teek/components/theme/home-main";
+import { TkHomeCardMyScreen } from "@teek/components/theme/home-card-my";
+import { TkBodyBgImage } from "@teek/components/theme/body-bg-image";
+import { TkFooterGroup } from "@teek/components/theme/footer-group";
+import { TkFooterInfo } from "@teek/components/theme/footer-info";
+import { TkArticleImagePreview } from "@teek/components/theme/article-image-preview";
+import { TkArticleAnalyze } from "@teek/components/theme/article-analyze";
+import { TkArticleShare } from "@teek/components/theme/article-share";
+import { TkArticleUpdate } from "@teek/components/theme/article-update";
+import { TkArticleHeadingHighlight } from "@teek/components/theme/article-heading-highlight";
+import { TkArticlePageStyle } from "@teek/components/theme/article-page-style";
 import {
   TkDocAfterAppreciation,
   TkAsideBottomAppreciation,
   TkDocAfterAppreciationPopper,
-} from "@teek/components/theme/ArticleAppreciation";
-import { TkCommentTwikoo } from "@teek/components/theme/CommentTwikoo";
-import { TkCommentArtalk } from "@teek/components/theme/CommentArtalk";
-import { TkCommentGiscus } from "@teek/components/theme/CommentGiscus";
-import { TkCommentWaline } from "@teek/components/theme/CommentWaline";
-import { TkCodeBlockToggle } from "@teek/components/theme/CodeBlockToggle";
-import { TkRightBottomButton } from "@teek/components/theme/RightBottomButton";
-import { TkNotice } from "@teek/components/theme/Notice";
-import { TkThemeEnhance } from "@teek/components/theme/ThemeEnhance";
-import { TkVpContainer } from "@teek/components/common/VpContainer";
-import { TkArchivesPage } from "@teek/components/theme/ArchivesPage";
-import { TkCataloguePage } from "@teek/components/theme/CataloguePage";
-import { TkArticleOverviewPage } from "@teek/components/theme/ArticleOverviewPage";
-import { TkLoginPage, useWatchLogin } from "@teek/components/theme/LoginPage";
-import { TkRiskLinkPage, useRiskLink } from "@teek/components/theme/RiskLinkPage";
-import { TkSidebarTrigger } from "@teek/components/theme/SidebarTrigger";
-import { TkHomeFeature } from "@teek/components/theme/HomeFeature";
-import { TkRouteLoading } from "@teek/components/theme/RouteLoading";
-import { TkArticleBanner } from "@teek/components/theme/ArticleBanner";
+} from "@teek/components/theme/article-appreciation";
+import { TkCommentTwikoo } from "@teek/components/theme/comment-twikoo";
+import { TkCommentArtalk } from "@teek/components/theme/comment-artalk";
+import { TkCommentGiscus } from "@teek/components/theme/comment-giscus";
+import { TkCommentWaline } from "@teek/components/theme/comment-waline";
+import { TkArticleCodeBlock } from "@teek/components/theme/article-code-block";
+import { TkRightBottomButton } from "@teek/components/theme/right-bottom-button";
+import { TkNotice } from "@teek/components/theme/notice";
+import { TkThemeEnhance } from "@teek/components/theme/theme-enhance";
+import { TkVpContainer } from "@teek/components/common/vp-container";
+import { TkArchivesPage } from "@teek/components/theme/page-archives";
+import { TkCataloguePage } from "@teek/components/theme/page-catalogue";
+import { TkArticleOverviewPage } from "@teek/components/theme/page-article-overview";
+import { TkLoginPage, useWatchLogin } from "@teek/components/theme/page-login";
+import { TkRiskLinkPage, useRiskLink } from "@teek/components/theme/page-risk-link";
+import { TkSidebarTrigger } from "@teek/components/theme/sidebar-trigger";
+import { TkHomeFeature } from "@teek/components/theme/home-feature";
+import { TkRouteLoading } from "@teek/components/theme/route-loading";
+import { TkArticleBanner } from "@teek/components/theme/article-banner";
 
 defineOptions({ name: "TeekLayout" });
 
@@ -214,11 +214,11 @@ const usedSlots = [
         <slot name="teek-home-before" />
 
         <!-- 自定义首页 -->
-        <TkHome v-if="teekConfig.teekHome">
+        <TkHomeMain v-if="teekConfig.teekHome">
           <template v-for="(_, name) in $slots" :key="name" #[name]="scope">
             <slot :name="name" v-bind="scope" />
           </template>
-        </TkHome>
+        </TkHomeMain>
 
         <slot name="teek-home-after" />
       </template>
@@ -274,7 +274,7 @@ const usedSlots = [
       </template>
 
       <template #sidebar-nav-before>
-        <TkHomeMyCardScreen />
+        <TkHomeCardMyScreen />
       </template>
 
       <template #doc-before>
@@ -288,7 +288,7 @@ const usedSlots = [
 
         <TkArticleImagePreview v-if="teekConfig.articleAnalyze.imageViewer?.enabled ?? true" />
         <TkArticlePageStyle />
-        <TkCodeBlockToggle v-if="teekConfig.codeBlock.enabled ?? true" />
+        <TkArticleCodeBlock v-if="teekConfig.codeBlock.enabled ?? true" />
         <TkVpContainer v-if="topTipConfig" v-bind="isBoolean(topTipConfig) ? {} : topTipConfig" />
         <TkSidebarTrigger v-if="teekConfig.sidebarTrigger">
           <template #default="scope">

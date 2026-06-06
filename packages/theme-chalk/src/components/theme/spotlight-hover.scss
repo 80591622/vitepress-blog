@@ -4,7 +4,7 @@
 @use "../../mixins/config" as *;
 
 :root {
-  @include set-css-var("spotlight-under-bg-color", var(--vp-c-brand-soft));
+  @include set-css-var(spotlight-under-bg-color, var(--vp-c-brand-soft));
 }
 
 .#{$namespace}-spotlight-hover {
@@ -25,5 +25,5 @@
 
 .#{$namespace}-spotlight-hover__under {
   z-index: -1;
-  background-color: getCssVar("spotlight-under-bg-color");
+  background-color: getCssVar(spotlight-under-bg-color);
 }

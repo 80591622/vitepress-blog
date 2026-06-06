@@ -3,7 +3,6 @@
   "name": "@teek/helper",
   "description": "all utils are settled here",
   "license": "MIT",
-  "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -15,10 +14,7 @@
     }
   },
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub"
-  },
-  "devDependencies": {
-    "unbuild": "3.6.1"
+    "stub": "unbuild --stub",
+    "build": "unbuild"
   }
 }

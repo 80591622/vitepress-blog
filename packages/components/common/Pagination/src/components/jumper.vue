@@ -2,7 +2,7 @@
 import type { PaginationJumperProps } from "./jumper";
 import { ref } from "vue";
 import { useNamespace, useLocale } from "@teek/composables";
-import { usePagination } from "../usePagination";
+import { usePagination } from "../use-pagination";
 
 defineOptions({ name: "PaginationJumper" });
 

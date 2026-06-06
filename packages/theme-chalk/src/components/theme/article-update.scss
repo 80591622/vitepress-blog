@@ -3,8 +3,8 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("article-update-num-color", getCssVar("theme-color"));
-  @include set-css-var("article-update-more-color", var(--vp-c-brand-2));
+  @include set-css-var(article-update-num-color, getCssVar(theme-color));
+  @include set-css-var(article-update-more-color, var(--vp-c-brand-2));
 }
 
 @include b(article-update) {
@@ -29,9 +29,9 @@
       height: 50px;
       border-bottom: 1px dotted var(--vp-c-divider);
       &:last-child {
-        color: getCssVar("article-update-more-color");
+        color: getCssVar(article-update-more-color);
         &:hover {
-          color: getCssVar("theme-color");
+          color: getCssVar(theme-color);
         }
       }
     }
@@ -40,7 +40,7 @@
   @include m(num) {
     width: 50px;
     font-size: 17px;
-    color: getCssVar("article-update-num-color");
+    color: getCssVar(article-update-num-color);
     text-align: center;
     margin: 0;
   }
@@ -53,7 +53,7 @@
       padding-right: 10px;
       &:hover {
         text-decoration: underline;
-        text-decoration-color: getCssVar("theme-color");
+        text-decoration-color: getCssVar(theme-color);
       }
     }
 

@@ -22,10 +22,10 @@
       & a {
         font-weight: bold;
         text-decoration: none;
-        transition: color getCssVar("transition-duration-fast") cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: color getCssVar(transition-duration-fast) cubic-bezier(0.645, 0.045, 0.355, 1);
 
         &:hover {
-          color: getCssVar("theme-color");
+          color: getCssVar(theme-color);
           cursor: pointer;
         }
       }

@@ -61,8 +61,7 @@
   },
   "scripts": {
     "stub": "unbuild --stub",
-    "build": "unbuild",
-    "typecheck": "tsc --noEmit"
+    "build": "unbuild"
   },
   "dependencies": {
     "gray-matter": "catalog:",
@@ -71,11 +70,8 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "fs-extra": "^11.2.0",
-    "typescript": "catalog:",
     "vite": "catalog:",
-    "vitepress": "catalog:",
-    "vue": "catalog:vue",
-    "@vue/runtime-core": "catalog:vue"
+    "vitepress": "catalog:"
   },
   "peerDependencies": {
     "vitepress": "catalog:"

@@ -3,7 +3,7 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("footer-gap", getCssVar("gap2"));
+  @include set-css-var(footer-gap, getCssVar(gap2));
 }
 
 @include b(footer-info) {
@@ -12,7 +12,7 @@
   text-align: center;
 
   @include e(icons) {
-    gap: getCssVar("footer-gap");
+    gap: getCssVar(footer-gap);
     margin-bottom: 10px;
 
     a {
@@ -49,9 +49,9 @@
     @include e(list__item) {
       gap: 5px;
       a:hover {
-        color: getCssVar("theme-color");
+        color: getCssVar(theme-color);
         text-decoration: underline;
-        text-decoration-color: getCssVar("theme-color");
+        text-decoration-color: getCssVar(theme-color);
         text-decoration-style: dashed;
       }
     }

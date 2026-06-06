@@ -188,8 +188,6 @@ export default {
     },
     rightBottomButton: {
       backTopTitle: "Back to Top",
-      themeSizeTitle: "Theme Size Switch",
-      themeStyleTitle: "Theme Style Switch",
       toComment: "Go to Comment",
     },
     themeEnhance: {
@@ -223,23 +221,22 @@ export default {
         helpTipContent: "A slider to select and customize the maximum width of the page.",
       },
       themeColor: {
-        title: "Layout Theme Color",
+        title: "Theme Color Palette",
         speedLabel: "Speed",
-        vpLabel: "VitePress Theme",
-        epLabel: "ElementPlus Theme",
-        vpTip: "VitePress Theme",
-        epTip: "ElementPlus Theme",
-        defaultLabel: "Default",
-        blueLabel: "Blue",
-        greenLabel: "Green",
-        yellowLabel: "Yellow",
-        redLabel: "Red",
+        label: "Built-in Color Palette",
+        tip: "Built-in Color Palette",
+        primaryLabel: "Primary",
+        successLabel: "Success",
+        warningLabel: "Warning",
+        dangerLabel: "Danger",
         helpDesc:
-          "Provide VitePress base color palette and ElementPlus base color palette for selection. The theme color can be diffused to other elements such as sidebar background color, font color, etc. through the diffusion switch.",
-        vpHelpTipTitle: "VitePress Base Color Palette",
-        vpHelpTipContent: "Provides 4 VitePress base color palettes: Blue (default), Green, Yellow, Red.",
-        epHelpTipTitle: "ElementPlus Base Color Palette",
-        epHelpTipContent: "Provides 4 ElementPlus base color palettes: Blue, Green, Yellow, Red.",
+          "The theme provides a complete set of color palettes, including product-level palettes for VitePress, Element Plus, and Teek. These cover most use cases. The diffusion switch allows the theme colors to extend to other elements, such as sidebar background and font colors.",
+        helpTipTitle: "Built-in Color Palette",
+        helpTipContent:
+          "Choose a color palette to switch the theme color, or click the diffusion switch to diffuse the theme color across all elements.",
+        customizeHelpTipTitle: "Custom Color Palette",
+        customizeHelpTipContent:
+          "Customize and expand the brand-new theme color palette through the configuration provided by the theme.",
       },
       spotlight: {
         title: "Spotlight",

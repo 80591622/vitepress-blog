@@ -1,0 +1,59 @@
+@use "../../mixins/bem" as *;
+@use "../../mixins/function" as *;
+
+@use "./home-post-item-list";
+@use "./home-post-item-card";
+
+@include b(post) {
+  @include is(card) {
+    > ul {
+      display: grid;
+      row-gap: 1.1rem;
+      column-gap: 1.1rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-auto-flow: row dense;
+    }
+  }
+
+  @include is(list) {
+    @include b(article-title) {
+      &::before {
+        content: "";
+        width: 2.5px;
+        height: 14px;
+        display: inline-block;
+        background-color: var(--vp-c-brand-3);
+        position: absolute;
+        left: 14px;
+        top: 21px;
+
+        &:hover {
+          background-color: var(--vp-c-brand-1);
+        }
+      }
+    }
+  }
+
+  @include e(empty) {
+    padding: 24px;
+    margin: 0.5px;
+
+    @include e(empty__title) {
+      margin-top: 20px;
+    }
+  }
+
+  @include b(pagination) {
+    padding: 15px 2px 0;
+  }
+
+  /* 封面图为 full 风格样式时，偶数封面图居左 */
+  li.full-img:nth-child(2n) {
+    .list {
+      flex-direction: row-reverse;
+      .full .cover-img {
+        clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+      }
+    }
+  }
+}

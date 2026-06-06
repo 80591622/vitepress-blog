@@ -2,58 +2,90 @@
 
 /* 所有变量：https://github.com/vuejs/vitepress/blob/main/src/client/theme-color-default/styles/vars.css */
 
-/* VitePress 绿色 */
-html[theme-color="vp-green"] {
-  --vp-c-brand-1: var(--vp-c-green-1);
-  --vp-c-brand-2: var(--vp-c-green-2);
-  --vp-c-brand-3: var(--vp-c-green-3);
-  --vp-c-brand-soft: var(--vp-c-green-soft);
+/* VitePress 成功色 */
+html[theme-color="vp-success"] {
+  --vp-c-brand-1: var(--vp-c-success-1);
+  --vp-c-brand-2: var(--vp-c-success-2);
+  --vp-c-brand-3: var(--vp-c-success-3);
+  --vp-c-brand-soft: var(--vp-c-success-soft);
 }
 
-/* VitePress 黄色 */
-html[theme-color="vp-yellow"] {
-  --vp-c-brand-1: var(--vp-c-yellow-1);
-  --vp-c-brand-2: var(--vp-c-yellow-2);
-  --vp-c-brand-3: var(--vp-c-yellow-3);
-  --vp-c-brand-soft: var(--vp-c-yellow-soft);
+/* VitePress 警告色 */
+html[theme-color="vp-warning"] {
+  --vp-c-brand-1: var(--vp-c-warning-1);
+  --vp-c-brand-2: var(--vp-c-warning-2);
+  --vp-c-brand-3: var(--vp-c-warning-3);
+  --vp-c-brand-soft: var(--vp-c-warning-soft);
 }
 
-/* VitePress 红色 */
-html[theme-color="vp-red"] {
-  --vp-c-brand-1: var(--vp-c-red-1);
-  --vp-c-brand-2: var(--vp-c-red-2);
-  --vp-c-brand-3: var(--vp-c-red-3);
-  --vp-c-brand-soft: var(--vp-c-red-soft);
+/* VitePress 危险色 */
+html[theme-color="vp-danger"] {
+  --vp-c-brand-1: var(--vp-c-danger-1);
+  --vp-c-brand-2: var(--vp-c-danger-2);
+  --vp-c-brand-3: var(--vp-c-danger-3);
+  --vp-c-brand-soft: var(--vp-c-danger-soft);
 }
 
-/* element plus 蓝色 */
-html[theme-color="ep-blue"] {
-  --vp-c-brand-1: #{getCssVar("el-color-primary")};
-  --vp-c-brand-2: #{getCssVar("el-color-primary-light-3")};
-  --vp-c-brand-3: #{getCssVar("el-color-primary-light-5")};
-  --vp-c-brand-soft: #{getCssVar("el-color-primary-light-8")};
+/* element plus 品牌色 */
+html[theme-color="tk-primary"] {
+  --vp-c-brand-1: #{getCssVar(color-primary)};
+  --vp-c-brand-2: #{getCssVar(color-primary-light-3)};
+  --vp-c-brand-3: #{getCssVar(color-primary-light-5)};
+  --vp-c-brand-soft: #{getCssVar(color-primary-light-8)};
 }
 
-/* element plus 绿色 */
-html[theme-color="ep-green"] {
-  --vp-c-brand-1: #{getCssVar("el-color-success")};
-  --vp-c-brand-2: #{getCssVar("el-color-success-light-3")};
-  --vp-c-brand-3: #{getCssVar("el-color-success-light-5")};
-  --vp-c-brand-soft: #{getCssVar("el-color-success-light-8")};
+/* element plus 成功色 */
+html[theme-color="tk-success"] {
+  --vp-c-brand-1: #{getCssVar(color-success)};
+  --vp-c-brand-2: #{getCssVar(color-success-light-3)};
+  --vp-c-brand-3: #{getCssVar(color-success-light-5)};
+  --vp-c-brand-soft: #{getCssVar(color-success-light-8)};
 }
 
-/* element plus 黄色 */
-html[theme-color="ep-yellow"] {
-  --vp-c-brand-1: #{getCssVar("el-color-warning")};
-  --vp-c-brand-2: #{getCssVar("el-color-warning-light-3")};
-  --vp-c-brand-3: #{getCssVar("el-color-warning-light-5")};
-  --vp-c-brand-soft: #{getCssVar("el-color-warning-light-8")};
+/* element plus 警告色 */
+html[theme-color="tk-warning"] {
+  --vp-c-brand-1: #{getCssVar(color-warning)};
+  --vp-c-brand-2: #{getCssVar(color-warning-light-3)};
+  --vp-c-brand-3: #{getCssVar(color-warning-light-5)};
+  --vp-c-brand-soft: #{getCssVar(color-warning-light-8)};
 }
 
-/* element plus 红色 */
-html[theme-color="ep-red"] {
-  --vp-c-brand-1: #{getCssVar("el-color-danger")};
-  --vp-c-brand-2: #{getCssVar("el-color-danger-light-3")};
-  --vp-c-brand-3: #{getCssVar("el-color-danger-light-5")};
-  --vp-c-brand-soft: #{getCssVar("el-color-danger-light-8")};
+/* element plus 危险色 */
+html[theme-color="tk-danger"] {
+  --vp-c-brand-1: #{getCssVar(color-danger)};
+  --vp-c-brand-2: #{getCssVar(color-danger-light-3)};
+  --vp-c-brand-3: #{getCssVar(color-danger-light-5)};
+  --vp-c-brand-soft: #{getCssVar(color-danger-light-8)};
+}
+
+/* element plus 品牌色 */
+html[theme-color="tk-primary"] {
+  --vp-c-brand-1: #{getCssVar(el-color-primary)};
+  --vp-c-brand-2: #{getCssVar(el-color-primary-light-3)};
+  --vp-c-brand-3: #{getCssVar(el-color-primary-light-5)};
+  --vp-c-brand-soft: #{getCssVar(el-color-primary-light-8)};
+}
+
+/* element plus 成功色 */
+html[theme-color="ep-success"] {
+  --vp-c-brand-1: #{getCssVar(el-color-success)};
+  --vp-c-brand-2: #{getCssVar(el-color-success-light-3)};
+  --vp-c-brand-3: #{getCssVar(el-color-success-light-5)};
+  --vp-c-brand-soft: #{getCssVar(el-color-success-light-8)};
+}
+
+/* element plus 警告色 */
+html[theme-color="ep-warning"] {
+  --vp-c-brand-1: #{getCssVar(el-color-warning)};
+  --vp-c-brand-2: #{getCssVar(el-color-warning-light-3)};
+  --vp-c-brand-3: #{getCssVar(el-color-warning-light-5)};
+  --vp-c-brand-soft: #{getCssVar(el-color-warning-light-8)};
+}
+
+/* element plus 危险色 */
+html[theme-color="ep-danger"] {
+  --vp-c-brand-1: #{getCssVar(el-color-danger)};
+  --vp-c-brand-2: #{getCssVar(el-color-danger-light-3)};
+  --vp-c-brand-3: #{getCssVar(el-color-danger-light-5)};
+  --vp-c-brand-soft: #{getCssVar(el-color-danger-light-8)};
 }

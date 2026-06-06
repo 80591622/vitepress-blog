@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { PaginationTotalProps } from "./total";
 import { useNamespace, useLocale } from "@teek/composables";
-import { usePagination } from "../usePagination";
+import { usePagination } from "../use-pagination";
 
 defineOptions({ name: "PaginationTotal" });
 

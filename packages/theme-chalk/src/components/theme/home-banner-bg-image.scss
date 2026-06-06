@@ -16,14 +16,14 @@
 
   &.part,
   &.full {
-    background: getCssVar("banner-img-bg") fixed;
+    background: getCssVar(banner-img-bg) fixed;
     transition: background 1s;
 
     .mask {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: getCssVar("banner-mask-bg-color");
+      background-color: getCssVar(banner-mask-bg-color);
     }
   }
 }

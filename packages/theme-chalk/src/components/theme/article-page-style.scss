@@ -4,13 +4,13 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("nav-color-dilute", rgb(255, 255, 255, 0.9));
-  @include set-css-var("sidebar-color-dilute", rgb(255, 255, 255, 0.85));
+  @include set-css-var(nav-color-dilute, rgb(255, 255, 255, 0.9));
+  @include set-css-var(sidebar-color-dilute, rgb(255, 255, 255, 0.85));
 }
 
 :root.dark {
-  @include set-css-var("nav-color-dilute", rgb(27, 27, 31, 0.9));
-  @include set-css-var("sidebar-color-dilute", rgb(27, 27, 31, 0.85));
+  @include set-css-var(nav-color-dilute, rgb(27, 27, 31, 0.9));
+  @include set-css-var(sidebar-color-dilute, rgb(27, 27, 31, 0.85));
 }
 
 html[layout-mode="original"] {
@@ -20,7 +20,7 @@ html[layout-mode="original"] {
       .#{$namespace}-segment,
       .#{$namespace}-segment-nav
     ) {
-    background-color: getCssVar("bg-color-mute");
+    background-color: getCssVar(bg-color-mute);
 
     .#{$namespace}-spotlight-hover__under {
       z-index: 0;
@@ -32,14 +32,14 @@ html[layout-mode="original"] {
     .VPContent:not(.is-home) {
       .VPDoc {
         &.has-sidebar {
-          background-color: getCssVar("bg-color");
+          background-color: getCssVar(bg-color);
           padding-top: 0;
           padding-left: 10px;
         }
         &:not(.has-sidebar) {
           padding-top: 0;
           .container {
-            background-color: getCssVar("bg-color");
+            background-color: getCssVar(bg-color);
             & > .content {
               padding-left: 0;
               padding-right: 10px;
@@ -59,7 +59,7 @@ html[layout-mode="original"] {
           max-width: 845px;
         }
         .container > .content {
-          background-color: getCssVar("bg-color");
+          background-color: getCssVar(bg-color);
           @media (max-width: 1280px) {
             padding: 32px 24px 96px;
           }
@@ -73,7 +73,7 @@ html[layout-mode="original"] {
                 padding-right: 15px;
                 padding-bottom: 10px;
                 border-left: none;
-                background-color: getCssVar("bg-color");
+                background-color: getCssVar(bg-color);
                 border-radius: 4px;
               }
             }
@@ -87,7 +87,7 @@ html[layout-mode="original"] {
 
     .#{$namespace}-article-share {
       &__button {
-        background-color: getCssVar("bg-color");
+        background-color: getCssVar(bg-color);
       }
     }
   }
@@ -128,9 +128,9 @@ html[layout-mode="original"] {
   /* card & segment 公共样式 */
   @include multiple-b(((card, card-nav, segment, segment-nav))) {
     &.Layout .VPNav .VPNavBar:not(.home) {
-      background-color: getCssVar("bg-color");
+      background-color: getCssVar(bg-color);
       @media (min-width: 1440px) {
-        background-color: getCssVar("nav-color-dilute");
+        background-color: getCssVar(nav-color-dilute);
       }
     }
 
@@ -162,7 +162,7 @@ html[layout-mode="original"] {
     @media (min-width: 1440px) {
       /* 侧边栏 */
       .VPSidebar {
-        background-color: getCssVar("sidebar-color-dilute");
+        background-color: getCssVar(sidebar-color-dilute);
         padding: 0;
         width: var(--vp-sidebar-width);
         top: var(--vp-nav-height);

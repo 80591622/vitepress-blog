@@ -3,7 +3,7 @@
 @use "../../mixins/mixins" as *;
 
 :root {
-  @include set-css-var("appreciation-gap", getCssVar("gap1"));
+  @include set-css-var(appreciation-gap, getCssVar(gap1));
 }
 
 @include b(article-appreciation) {
@@ -25,14 +25,14 @@
     color: var(--vp-c-white);
     text-align: center;
     outline: none;
-    transition-duration: getCssVar("transition-duration-fast");
+    transition-duration: getCssVar(transition-duration-fast);
     font-weight: 500;
     -webkit-user-select: none;
     user-select: none;
     vertical-align: middle;
     -webkit-appearance: none;
-    background-color: getCssVar("theme-color");
-    border: 1px solid getCssVar("theme-color");
+    background-color: getCssVar(theme-color);
+    border: 1px solid getCssVar(theme-color);
 
     &:hover {
       background-color: var(--vp-c-brand-3);
@@ -50,7 +50,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: getCssVar("appreciation-gap");
+    gap: getCssVar(appreciation-gap);
     margin-top: 10px;
   }
 

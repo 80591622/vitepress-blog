@@ -75,6 +75,11 @@
 
 /* ==================== 分类 / 标签页：主布局 ==================== */
 
+/* 主栏与侧栏间距 +15px */
+.tk-home--catalog .tk-home__content {
+  gap: calc(var(--tk-home-gap, 16px) + 15px);
+}
+
 /* 主栏文章列表 + 右侧固定宽侧栏 */
 .tk-home--catalog .tk-home__content__info.is-right {
   flex: 0 0 var(--tk-home-card-width);
@@ -114,8 +119,8 @@
 
 .tk-home--catalog .tk-category .tk-page-card.card:hover,
 .tk-home--catalog .tk-tag .tk-page-card.card:hover {
-  box-shadow: var(--tk-hover-shadow);
-  transform: scale(1.01);
+  box-shadow: 0 8px 32px var(--vp-c-brand-1) !important;
+  transform: scale(1.02) !important;
 }
 
 .tk-home--catalog :deep(.tk-page-card__header .title) {
@@ -374,6 +379,24 @@
 .tk-home--catalog ul li,
 .tk-home--catalog ol li {
   list-style: none;
+}
+
+/* 左栏文章卡片 hover 与右侧卡片对齐 */
+.tk-home--catalog .tk-post-item-list,
+.tk-home--catalog .tk-post-item-card,
+.tk-home--catalog .tk-category .tk-page-card.card,
+.tk-home--catalog .tk-tag .tk-page-card.card {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease !important;
+}
+
+.tk-home--catalog .tk-post-item-list:hover,
+.tk-home--catalog .tk-post-item-card:hover {
+  box-shadow: 0 8px 32px var(--vp-c-brand-1) !important;
+  transform: scale(1.02) !important;
 }
 
 /* ==================== 深色模式 ==================== */

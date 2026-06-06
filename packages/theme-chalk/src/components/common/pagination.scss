@@ -4,39 +4,39 @@
 @use "../../mixins/function" as *;
 
 :root {
-  @include set-css-var("pagination-font-size", 14px);
-  @include set-css-var("pagination-bg-color", getCssVar("fill-color-blank"));
-  @include set-css-var("pagination-text-color", var(--vp-c-text-1));
-  @include set-css-var("pagination-border-radius", 2px);
-  @include set-css-var("pagination-button-color", var(--vp-c-text-1));
-  @include set-css-var("pagination-button-width", 32px);
-  @include set-css-var("pagination-button-height", 32px);
-  @include set-css-var("pagination-button-disabled-color", getCssVar("text-color-placeholder"));
-  @include set-css-var("pagination-button-disabled-bg-color", getCssVar("fill-color-blank"));
-  @include set-css-var("pagination-button-bg-color", getCssVar("fill-color"));
-  @include set-css-var("pagination-hover-color", getCssVar("theme-color"));
-  @include set-css-var("pagination-font-size-small", 12px);
-  @include set-css-var("pagination-button-width-small", 24px);
-  @include set-css-var("pagination-button-height-small", 24px);
-  @include set-css-var("pagination-button-width-large", 40px);
-  @include set-css-var("pagination-button-height-large", 40px);
-  @include set-css-var("pagination-item-gap", 16px);
-  @include set-css-var("pagination-transition-duration", getCssVar("transition-duration-fast"));
+  @include set-css-var(pagination-font-size, 14px);
+  @include set-css-var(pagination-bg-color, getCssVar(fill-color-blank));
+  @include set-css-var(pagination-text-color, var(--vp-c-text-1));
+  @include set-css-var(pagination-border-radius, 2px);
+  @include set-css-var(pagination-button-color, var(--vp-c-text-1));
+  @include set-css-var(pagination-button-width, 32px);
+  @include set-css-var(pagination-button-height, 32px);
+  @include set-css-var(pagination-button-disabled-color, getCssVar(text-color-placeholder));
+  @include set-css-var(pagination-button-disabled-bg-color, getCssVar(fill-color-blank));
+  @include set-css-var(pagination-button-bg-color, getCssVar(fill-color));
+  @include set-css-var(pagination-hover-color, getCssVar(theme-color));
+  @include set-css-var(pagination-font-size-small, 12px);
+  @include set-css-var(pagination-button-width-small, 24px);
+  @include set-css-var(pagination-button-height-small, 24px);
+  @include set-css-var(pagination-button-width-large, 40px);
+  @include set-css-var(pagination-button-height-large, 40px);
+  @include set-css-var(pagination-item-gap, 16px);
+  @include set-css-var(pagination-transition-duration, getCssVar(transition-duration-fast));
 }
 
 @mixin pagination-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: getCssVar("pagination-font-size");
-  min-width: getCssVar("pagination-button-width");
-  height: getCssVar("pagination-button-height");
-  line-height: getCssVar("pagination-button-height");
-  color: getCssVar("pagination-button-color");
-  background: getCssVar("pagination-bg-color");
+  font-size: getCssVar(pagination-font-size);
+  min-width: getCssVar(pagination-button-width);
+  height: getCssVar(pagination-button-height);
+  line-height: getCssVar(pagination-button-height);
+  color: getCssVar(pagination-button-color);
+  background: getCssVar(pagination-bg-color);
   padding: 0 4px;
   border: none;
-  border-radius: getCssVar("pagination-border-radius");
+  border-radius: getCssVar(pagination-border-radius);
   cursor: pointer;
   text-align: center;
   box-sizing: border-box;
@@ -50,11 +50,11 @@
   }
 
   &:hover {
-    color: getCssVar("pagination-hover-color");
+    color: getCssVar(pagination-hover-color);
   }
 
   &.is-active {
-    color: getCssVar("pagination-hover-color");
+    color: getCssVar(pagination-hover-color);
     cursor: default;
     font-weight: bold;
 
@@ -66,21 +66,21 @@
 
   &:disabled,
   &.is-disabled {
-    color: getCssVar("pagination-button-disabled-color");
-    background-color: getCssVar("pagination-button-disabled-bg-color");
+    color: getCssVar(pagination-button-disabled-color);
+    background-color: getCssVar(pagination-button-disabled-bg-color);
     cursor: not-allowed;
   }
 
   &:focus-visible {
-    outline: 1px solid getCssVar("pagination-hover-color");
+    outline: 1px solid getCssVar(pagination-hover-color);
     outline-offset: -1px;
   }
 }
 
 @include b(pagination) {
   white-space: nowrap;
-  color: getCssVar("pagination-text-color");
-  font-size: getCssVar("pagination-font-size");
+  color: getCssVar(pagination-text-color);
+  font-size: getCssVar(pagination-font-size);
   font-weight: normal;
   display: flex;
   align-items: center;
@@ -114,28 +114,28 @@
   }
 
   .btn-prev {
-    margin-left: getCssVar("pagination-item-gap");
+    margin-left: getCssVar(pagination-item-gap);
   }
 
   @include e(total) {
-    margin-left: getCssVar("pagination-item-gap");
+    margin-left: getCssVar(pagination-item-gap);
     font-weight: normal;
     color: var(--vp-c-text-2);
 
     &[disabled="true"] {
-      color: getCssVar("text-color-placeholder");
+      color: getCssVar(text-color-placeholder);
     }
   }
 
   @include e(jump) {
     display: flex;
     align-items: center;
-    margin-left: getCssVar("pagination-item-gap");
+    margin-left: getCssVar(pagination-item-gap);
     font-weight: normal;
     color: var(--vp-c-text-2);
 
     &[disabled="true"] {
-      color: getCssVar("text-color-placeholder");
+      color: getCssVar(text-color-placeholder);
     }
 
     @include e(goto) {
@@ -154,7 +154,7 @@
       background-image: none;
       border-radius: 4px;
       cursor: text;
-      transition: box-shadow getCssVar("pagination-transition-duration") cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: box-shadow getCssVar(pagination-transition-duration) cubic-bezier(0.645, 0.045, 0.355, 1);
       transform: translateZ(0);
       box-shadow: 0 0 0 1px var(--vp-c-divider) inset;
 
@@ -193,27 +193,27 @@
     .btn-next,
     .#{$namespace}-pager li {
       margin: 0 4px;
-      background-color: getCssVar("pagination-button-bg-color");
+      background-color: getCssVar(pagination-button-bg-color);
 
       &.is-active {
-        background-color: getCssVar("theme-color");
+        background-color: getCssVar(theme-color);
         color: #ffffff;
       }
 
       &:disabled,
       &.is-disabled {
-        color: getCssVar("text-color-placeholder");
-        background-color: getCssVar("fill-color-light");
+        color: getCssVar(text-color-placeholder);
+        background-color: getCssVar(fill-color-light);
 
         &.is-active {
           color: var(--vp-c-text-3);
-          background-color: getCssVar("fill-color", "dark");
+          background-color: getCssVar(fill-color, dark);
         }
       }
     }
 
     .btn-prev {
-      margin-left: getCssVar("pagination-item-gap");
+      margin-left: getCssVar(pagination-item-gap);
     }
   }
 
@@ -221,15 +221,15 @@
     .btn-prev,
     .btn-next,
     .#{$namespace}-pager li {
-      height: getCssVar("pagination-button-height-small");
-      line-height: getCssVar("pagination-button-height-small");
-      font-size: getCssVar("pagination-font-size-small");
-      min-width: getCssVar("pagination-button-width-small");
+      height: getCssVar(pagination-button-height-small);
+      line-height: getCssVar(pagination-button-height-small);
+      font-size: getCssVar(pagination-font-size-small);
+      min-width: getCssVar(pagination-button-width-small);
     }
 
     span:not([class*="suffix"]),
     button {
-      font-size: getCssVar("pagination-font-size-small");
+      font-size: getCssVar(pagination-font-size-small);
     }
 
     .#{$namespace}-select {
@@ -240,9 +240,9 @@
     .btn-prev,
     .btn-next,
     .#{$namespace}-pager li {
-      height: getCssVar("pagination-button-height-large");
-      line-height: getCssVar("pagination-button-height-large");
-      min-width: getCssVar("pagination-button-width-large");
+      height: getCssVar(pagination-button-height-large);
+      line-height: getCssVar(pagination-button-height-large);
+      min-width: getCssVar(pagination-button-width-large);
     }
 
     .#{$namespace}-select .#{$namespace}-input {

@@ -30,7 +30,7 @@
     top: 80px;
     right: 20px;
     z-index: 110;
-    background-color: getCssVar("bg-color");
+    background-color: getCssVar(bg-color);
     border: 1px solid var(--vp-c-brand-3);
     border-radius: 6px;
     box-shadow: var(--vp-shadow-2);

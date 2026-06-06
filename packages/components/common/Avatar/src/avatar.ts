@@ -1,4 +1,4 @@
-import type { TkIconProps } from "@teek/components/common/Icon";
+import type { TkIconProps } from "@teek/components/common/icon";
 
 export interface AvatarProps {
   /**

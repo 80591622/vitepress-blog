@@ -1,3 +1,5 @@
+import { isString } from "./is";
+
 /**
  * 获取当前时间，返回格式为 yyyy-MM-dd HH:mm:ss
  */
@@ -13,6 +15,8 @@ export const getNowDate = (format = "yyyy-MM-dd hh:mm:ss", utc = true) => {
  */
 export const formatDate = (date: Date | string | number, format = "yyyy-MM-dd hh:mm:ss", utc = true) => {
   if (!date) return ""; // 如果日期为空，返回空字符串
+  if (isString(date) && date?.length === format.length) return date;
+
   const dateObj = new Date(date);
 
   // 提取日期和时间的各个部分
