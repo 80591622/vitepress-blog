@@ -6,10 +6,10 @@ export const teekConfig = defineTeekConfig({
   ...themeLayoutFlags,
   /** 关闭侧栏边缘折叠按钮（双箭头），避免与正文之间的干扰线视觉 */
   sidebarTrigger: false,
-  /** 聚光灯默认用「底部高亮」，避免出现 aside 模式下的左侧品牌色竖条 */
   themeEnhance: {
     spotlight: {
-      defaultStyle: "under",
+      /** 聚光灯默认样式：aside 置于侧边 | under 置于底部 */
+      defaultStyle: "aside",
     },
   },
   author: { name: "TimeByte", link: "https://github.com/80591622" },

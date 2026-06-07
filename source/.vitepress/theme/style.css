@@ -26,14 +26,6 @@
   border-left: none;
 }
 
-/**
- * Teek「聚光灯」aside 模式悬停竖条强制关闭。
- */
-.tk-spotlight-hover__aside::before {
-  content: none;
-  display: none;
-}
-
 /* ==================== 首页 Hero 功能卡：毛玻璃 + hover 对齐 tk-home-card-hover ====================
  * VPFeature 使用 scoped 纯色背景，需 !important + 写全 color-mix 比例，透明度才稳定生效。
  */
