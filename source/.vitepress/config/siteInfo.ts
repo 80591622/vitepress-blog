@@ -22,6 +22,12 @@ export const siteProfile = {
   },
 } as const;
 
+export const siteHeadMeta = {
+  title: siteProfile.title,
+  description: siteProfile.description,
+  logo: siteProfile.logo,
+} as const;
+
 export const featurePageLinks: DefaultTheme.NavItemWithLink[] = [
   { text: "归档", link: "/archives" },
   { text: "清单页", link: "/articleOverview" },
@@ -42,12 +48,27 @@ export const commonNavLinks: DefaultTheme.NavItemWithLink[] = [
   { text: "Vue", link: "/workspace/Frame/vue/vue" },
   { text: "React", link: "/workspace/Frame/react/react" },
   { text: "Taro", link: "/workspace/Frame/taro/taroBase" },
-  { text: "谷歌", link: "https://google.com" },
+  { text: "Google", link: "https://google.com" },
 ];
 
-export const socialLinkItems: DefaultTheme.SocialLink[] = [
+export const siteNavGroups = {
+  featurePages: featurePageLinks,
+  commonLinks: commonNavLinks,
+} as const;
+
+export const siteSocialLinks: DefaultTheme.SocialLink[] = [
   {
     icon: "github",
     link: siteProfile.github.profile,
   },
 ];
+
+export const siteEditLink = {
+  pattern: siteProfile.github.editPattern,
+  text: "在 GitHub 上编辑此页",
+} as const;
+
+export const siteFooter = {
+  message: siteProfile.copyright.footerMessage,
+  copyright: `<a href="${siteProfile.copyright.icpLink}" target="_blank">${siteProfile.copyright.icpText}</a>`,
+} as const;

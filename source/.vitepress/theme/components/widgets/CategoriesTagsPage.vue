@@ -42,5 +42,3 @@ provide(postDataUpdateSymbol, () => {
     </div>
   </div>
 </template>
-
-<style src="../../styles/categories-page.css"></style>

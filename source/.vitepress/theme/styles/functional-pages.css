@@ -1,0 +1,647 @@
+/*
+ * 功能页统一样式：
+ * - categories.html
+ * - tags.html
+ * - articleOverview.html
+ */
+
+.tk-home--categories,
+.tk-home--catalog,
+.tk-article-overview {
+  --fp-panel-bg: var(--vp-c-bg-soft);
+  --fp-panel-border: color-mix(in srgb, var(--vp-c-divider) 88%, transparent);
+  --fp-surface: color-mix(in srgb, var(--vp-c-default-soft) 72%, transparent);
+  --fp-surface-strong: color-mix(in srgb, var(--vp-c-default-soft) 92%, transparent);
+  --fp-accent-soft: color-mix(in srgb, var(--vp-c-brand-soft) 26%, transparent);
+  --fp-accent-border: color-mix(in srgb, var(--vp-c-brand-1) 20%, var(--vp-c-divider));
+  --fp-muted: var(--vp-c-text-3);
+}
+
+.tk-home--categories .tk-home__content,
+.tk-home--catalog .tk-home__content {
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.tk-home--categories .tk-home__content__post,
+.tk-home--catalog .tk-home__content__post {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.tk-home--categories .tk-home__content__post > .tk-post,
+.tk-home--catalog .tk-home__content__post > .tk-post,
+.tk-home--catalog .catalogue-shell {
+  width: min(100%, 920px);
+  margin-inline: auto;
+}
+
+.tk-home--categories .tk-home__content__info.is-right,
+.tk-home--catalog .tk-home__content__info.is-right {
+  flex: 0 0 300px;
+  width: 300px;
+  max-width: 300px;
+  min-width: 0;
+  padding-bottom: 120px;
+}
+
+.tk-home--categories .tk-category.is-page,
+.tk-home--catalog .tk-category.is-page,
+.tk-home--catalog .tk-tag.is-page {
+  position: static !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+.tk-home--categories .tk-post > ul,
+.tk-home--catalog .tk-post > ul,
+.tk-home--categories ul,
+.tk-home--categories ol,
+.tk-home--catalog ul,
+.tk-home--catalog ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tk-home--categories ul li::marker,
+.tk-home--categories ol li::marker,
+.tk-home--catalog ul li::marker,
+.tk-home--catalog ol li::marker {
+  content: none;
+}
+
+.tk-home--categories.vp-doc a,
+.tk-home--catalog.vp-doc a,
+.tk-article-overview .tk-doc.vp-doc a,
+.tk-article-page.tk-article-overview .tk-doc.vp-doc a {
+  text-decoration: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.tk-home--categories .tk-category .tk-page-card.card,
+.tk-home--categories .tk-tag .tk-page-card.card,
+.tk-home--categories .tk-page-card.card.tk-calendar-card,
+.tk-home--catalog .tk-category .tk-page-card.card,
+.tk-home--catalog .tk-tag .tk-page-card.card,
+.tk-home--catalog .tk-page-card.card.tk-calendar-card {
+  margin-bottom: 16px;
+  border: 1px solid var(--fp-panel-border);
+  border-radius: 8px;
+  background: var(--fp-panel-bg);
+  box-shadow: none;
+  transition:
+    border-color var(--vp-t-color),
+    background-color var(--vp-t-color);
+}
+
+.tk-home--categories .tk-category .tk-page-card.card:hover,
+.tk-home--categories .tk-tag .tk-page-card.card:hover,
+.tk-home--categories .tk-page-card.card.tk-calendar-card:hover,
+.tk-home--catalog .tk-category .tk-page-card.card:hover,
+.tk-home--catalog .tk-tag .tk-page-card.card:hover,
+.tk-home--catalog .tk-page-card.card.tk-calendar-card:hover {
+  border-color: var(--fp-accent-border);
+}
+
+.tk-home--categories .tk-post-item-list:hover,
+.tk-home--catalog .tk-post-item-list:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 8px 32px var(--vp-c-brand-1) !important;
+  border-color: var(--fp-accent-border);
+}
+
+.tk-home--categories .tk-page-card.card.tk-calendar-card,
+.tk-home--catalog .tk-page-card.card.tk-calendar-card {
+  margin-top: 18px;
+}
+
+.tk-home--categories .tk-post-item-list,
+.tk-home--catalog .tk-post-item-list {
+  margin-bottom: 16px;
+  border: 1px solid var(--fp-panel-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  box-shadow: var(--tk-card-shadow, var(--vp-shadow-2));
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    border-color var(--vp-t-color),
+    background-color var(--vp-t-color);
+}
+
+.tk-home--categories .tk-post-item-list__left,
+.tk-home--catalog .tk-post-item-list__left {
+  padding: 18px 22px;
+}
+
+.tk-home--categories .tk-post-item-list__left__title,
+.tk-home--catalog .tk-post-item-list__left__title {
+  font-size: 19px;
+  line-height: 1.35;
+}
+
+.tk-home--categories .tk-post-item-list__left__footer,
+.tk-home--catalog .tk-post-item-list__left__footer {
+  margin-top: 10px;
+}
+
+.tk-home--categories .tk-post-item-list__left__excerpt.bottom,
+.tk-home--catalog .tk-post-item-list__left__excerpt.bottom {
+  border-top: 1px solid var(--fp-panel-border);
+}
+
+.tk-home--categories .tk-post-item-list__left__excerpt .excerpt,
+.tk-home--catalog .tk-post-item-list__left__excerpt .excerpt {
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.tk-home--categories .tk-post-item-list__left__excerpt.bottom .excerpt,
+.tk-home--catalog .tk-post-item-list__left__excerpt.bottom .excerpt {
+  margin: 10px 0 0;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.tk-home--categories .tk-post-item-list__left__excerpt .more,
+.tk-home--catalog .tk-post-item-list__left__excerpt .more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 10px 0 0;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+}
+
+.tk-home--categories .tk-post-item-list__right .cover.full .cover-img,
+.tk-home--catalog .tk-post-item-list__right .cover.full .cover-img {
+  max-width: 248px;
+  clip-path: none;
+}
+
+.tk-home--categories .tk-post-item-list__right .cover.small .cover-img,
+.tk-home--catalog .tk-post-item-list__right .cover.small .cover-img {
+  border-radius: 6px;
+}
+
+.tk-home--categories .tk-category__list,
+.tk-home--categories .tk-tag__list,
+.tk-home--catalog .tk-category__list,
+.tk-home--catalog .tk-tag__list {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tk-home--categories .tk-category__list a,
+.tk-home--categories .tk-tag__list a,
+.tk-home--catalog .tk-category__list a,
+.tk-home--catalog .tk-tag__list a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 38px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--fp-surface) !important;
+  color: var(--vp-c-text-1) !important;
+  transition:
+    border-color var(--vp-t-color),
+    background-color var(--vp-t-color),
+    color var(--vp-t-color);
+}
+
+.tk-home--categories .tk-category__list a:hover,
+.tk-home--categories .tk-tag__list a:hover,
+.tk-home--catalog .tk-category__list a:hover,
+.tk-home--catalog .tk-tag__list a:hover {
+  transform: none;
+  background: var(--fp-surface-strong) !important;
+  border-color: var(--fp-panel-border);
+}
+
+.tk-home--categories .tk-category__list a.active,
+.tk-home--categories .tk-tag__list a.active,
+.tk-home--catalog .tk-category__list a.active,
+.tk-home--catalog .tk-tag__list a.active {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--fp-accent-border);
+  background: var(--fp-accent-soft) !important;
+  color: var(--vp-c-brand-1) !important;
+}
+
+.tk-home--categories .tk-category__list a .sle,
+.tk-home--categories .tk-tag__list a > span:first-child,
+.tk-home--catalog .tk-category__list a .sle,
+.tk-home--catalog .tk-tag__list a > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.tk-home--categories .tk-category__list a span:not(.sle),
+.tk-home--categories .tk-tag__list a .num,
+.tk-home--catalog .tk-category__list a span:not(.sle),
+.tk-home--catalog .tk-tag__list a .num {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vp-c-bg) 66%, var(--vp-c-default-soft));
+  color: var(--fp-muted) !important;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tk-home--categories .tk-category__list .more,
+.tk-home--categories .tk-tag__list .more,
+.tk-home--catalog .tk-category__list .more,
+.tk-home--catalog .tk-tag__list .more {
+  justify-content: center;
+  grid-template-columns: 1fr;
+  border-style: dashed;
+  background: transparent !important;
+  color: var(--vp-c-text-2) !important;
+}
+
+.tk-home--categories .tk-post__pagination,
+.tk-home--catalog .tk-post__pagination {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.tk-home--categories .tk-post__pagination .tk-pagination,
+.tk-home--catalog .tk-post__pagination .tk-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tk-home--categories .tk-post__pagination .tk-pagination button,
+.tk-home--categories .tk-post__pagination .tk-pager li,
+.tk-home--catalog .tk-post__pagination .tk-pagination button,
+.tk-home--catalog .tk-post__pagination .tk-pager li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  margin: 0;
+  border: 1px solid var(--fp-panel-border);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  transition:
+    border-color var(--vp-t-color),
+    color var(--vp-t-color),
+    background-color var(--vp-t-color);
+}
+
+.tk-home--categories .tk-post__pagination .tk-pager li.is-active,
+.tk-home--catalog .tk-post__pagination .tk-pager li.is-active {
+  background: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  color: #fff;
+}
+
+.tk-home--categories .tk-post__pagination .tk-pagination__jump,
+.tk-home--catalog .tk-post__pagination .tk-pagination__jump {
+  margin-left: 12px;
+  color: var(--fp-muted);
+  font-size: 13px;
+}
+
+.tk-home--categories .tk-post__pagination .tk-pagination__input,
+.tk-home--catalog .tk-post__pagination .tk-pagination__input {
+  width: 54px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--fp-panel-border);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  text-align: center;
+}
+
+.tk-home--catalog .catalogue-shell {
+  display: grid;
+  gap: 20px;
+}
+
+.tk-home--catalog .catalogue-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tk-home--catalog .catalogue-intro__title h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  color: var(--vp-c-text-1);
+}
+
+.tk-home--catalog .catalogue-intro__title p {
+  margin: 8px 0 0;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+}
+
+.tk-home--catalog .catalogue-intro__meta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--fp-surface);
+  color: var(--fp-muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tk-home--catalog .catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.tk-home--catalog .catalogue-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--fp-panel-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  transition:
+    border-color var(--vp-t-color),
+    background-color var(--vp-t-color);
+}
+
+.tk-home--catalog .catalogue-card:hover {
+  border-color: var(--fp-accent-border);
+  background: color-mix(in srgb, var(--vp-c-default-soft) 34%, var(--vp-c-bg));
+}
+
+.tk-home--catalog .catalogue-card__name {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tk-home--catalog .catalogue-card__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--fp-surface);
+  color: var(--fp-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tk-article-overview {
+  width: min(100%, 1040px);
+  margin: 0 auto;
+}
+
+.tk-article-overview h1 {
+  margin-bottom: 14px;
+}
+
+.tk-article-overview .overview-intro {
+  margin-bottom: 24px;
+  color: var(--vp-c-text-2);
+}
+
+.tk-article-overview .overview-section {
+  margin-top: 24px;
+  border: 1px solid var(--fp-panel-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  overflow: hidden;
+}
+
+.tk-article-overview .overview-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--fp-panel-border);
+  background: color-mix(in srgb, var(--vp-c-default-soft) 44%, var(--vp-c-bg));
+}
+
+.tk-article-overview .overview-section__title h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.tk-article-overview .overview-section__title p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--fp-muted);
+}
+
+.tk-article-overview .overview-section__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--fp-surface);
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tk-article-overview .overview-section__body {
+  overflow-x: auto;
+}
+
+.tk-article-overview table {
+  width: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tk-article-overview thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--vp-c-bg);
+  color: var(--fp-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  border-bottom: 1px solid var(--fp-panel-border);
+}
+
+.tk-article-overview tbody td {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  border-bottom: 1px solid color-mix(in srgb, var(--vp-c-divider) 70%, transparent);
+}
+
+.tk-article-overview tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tk-article-overview tbody td:nth-child(2) {
+  min-width: 260px;
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+}
+
+@media (max-width: 960px) {
+  .tk-home--categories .tk-home__content,
+  .tk-home--catalog .tk-home__content {
+    flex-direction: column;
+  }
+
+  .tk-home--categories .tk-home__content__info.is-right,
+  .tk-home--catalog .tk-home__content__info.is-right {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 22px;
+  }
+
+  .tk-home--catalog .catalogue-intro,
+  .tk-article-overview .overview-section__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-home--categories .tk-post-item-list__left,
+  .tk-home--catalog .tk-post-item-list__left {
+    padding: 16px;
+  }
+
+  .tk-home--categories .tk-post-item-list__left__title,
+  .tk-home--catalog .tk-post-item-list__left__title {
+    font-size: 17px;
+  }
+
+  .tk-home--catalog .catalogue-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-home--categories .tk-post__pagination .tk-pagination__jump,
+  .tk-home--categories .tk-post__pagination .tk-pagination__total,
+  .tk-home--catalog .tk-post__pagination .tk-pagination__jump,
+  .tk-home--catalog .tk-post__pagination .tk-pagination__total {
+    display: none;
+  }
+
+  .tk-article-overview .overview-section {
+    overflow: visible;
+  }
+
+  .tk-article-overview .overview-section__head {
+    padding: 16px;
+  }
+
+  .tk-article-overview .overview-section__title h2 {
+    font-size: 20px;
+  }
+
+  .tk-article-overview .overview-section__body {
+    overflow: visible;
+  }
+
+  .tk-article-overview table,
+  .tk-article-overview thead,
+  .tk-article-overview tbody,
+  .tk-article-overview tr,
+  .tk-article-overview th,
+  .tk-article-overview td {
+    display: block;
+    width: 100%;
+  }
+
+  .tk-article-overview thead {
+    display: none;
+  }
+
+  .tk-article-overview tbody {
+    padding: 10px 12px 12px;
+  }
+
+  .tk-article-overview tbody tr {
+    padding: 12px;
+    border: 1px solid var(--fp-panel-border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--vp-c-default-soft) 28%, var(--vp-c-bg));
+  }
+
+  .tk-article-overview tbody tr + tr {
+    margin-top: 10px;
+  }
+
+  .tk-article-overview tbody td {
+    padding: 0;
+    border: 0;
+    font-size: 13px;
+  }
+
+  .tk-article-overview tbody td + td {
+    margin-top: 10px;
+  }
+
+  .tk-article-overview tbody td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    color: var(--fp-muted);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .tk-article-overview tbody td:nth-child(2) {
+    min-width: 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .tk-article-overview tbody td:nth-child(2) a {
+    color: var(--vp-c-text-1);
+  }
+}

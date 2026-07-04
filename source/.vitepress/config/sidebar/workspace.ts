@@ -5,10 +5,16 @@ import { frontendSidebarSection } from "./sections/frontend";
 import { miscSidebarSection } from "./sections/misc";
 import { toolingSidebarSection } from "./sections/tooling";
 
-export const workspaceSidebarItems: DefaultTheme.SidebarItem[] = [
-  ...baseSidebarSection,
-  ...frontendSidebarSection,
-  ...backendSidebarSection,
-  ...toolingSidebarSection,
-  ...miscSidebarSection,
-];
+const workspaceSidebarSections = [
+  baseSidebarSection,
+  frontendSidebarSection,
+  backendSidebarSection,
+  toolingSidebarSection,
+  miscSidebarSection,
+] as const;
+
+function flattenSidebarSections(sections: readonly DefaultTheme.SidebarItem[][]): DefaultTheme.SidebarItem[] {
+  return sections.flatMap(section => section);
+}
+
+export const workspaceSidebarItems = flattenSidebarSections(workspaceSidebarSections);

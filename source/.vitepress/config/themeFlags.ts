@@ -4,3 +4,8 @@ export const themeLayoutFlags = {
   vpHome: true,
   homeCardListPosition: false,
 } as const;
+
+export const withThemeLayoutFlags = <T extends Record<string, unknown>>(config: T) => ({
+  ...themeLayoutFlags,
+  ...config,
+});

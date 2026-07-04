@@ -1,10 +1,11 @@
 import { defineTeekConfig } from "../../../packages/config";
 import { blogContentConfig } from "./content";
 import { blogThemeConfig } from "./theme";
-import { themeLayoutFlags } from "./themeFlags";
+import { withThemeLayoutFlags } from "./themeFlags";
 
-export const teekConfig = defineTeekConfig({
-  ...themeLayoutFlags,
-  ...blogThemeConfig,
-  ...blogContentConfig,
-});
+export const teekConfig = defineTeekConfig(
+  withThemeLayoutFlags({
+    ...blogThemeConfig,
+    ...blogContentConfig,
+  })
+);

@@ -1,3 +1,3 @@
-import { socialLinkItems } from "./siteInfo";
+import { siteSocialLinks } from "./siteInfo";
 
-export default socialLinkItems;
+export default siteSocialLinks;

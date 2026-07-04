@@ -20,6 +20,14 @@ const categoryConfig = getTeekConfigRef<Required<Category>>("category", {
   path: "/categories",
 });
 
+const overviewLabel = computed(() => ({
+  name: t("tk.articleOverview.name"),
+  title: t("tk.articleOverview.title"),
+  date: t("tk.articleOverview.date"),
+  wordCount: t("tk.articleOverview.wordCount"),
+  readingTime: t("tk.articleOverview.readingTime"),
+}));
+
 const categories = computed(() => posts.value.groupPosts.categories);
 const eachFileWords = computed<DocDocAnalysisFileInfo[]>(() => theme.value.docAnalysisInfo?.eachFileWords || []);
 
@@ -76,45 +84,61 @@ const formatPublishDate = (date?: string) => {
       <a class="header-anchor" :href="`#${frontmatter.title}`" :aria-label="`Permalink to '${frontmatter.title}'`" />
     </h1>
 
-    <Content />
+    <div class="overview-intro">
+      <Content />
+    </div>
 
     <template v-for="item in enhancedCategories" :key="item.name">
-      <h2 :id="`${item.name}-${t('tk.articleOverview.overview')}`">
-        {{ item.name }} {{ t("tk.articleOverview.overview") }}
-        <a
-          class="header-anchor"
-          :href="`#${item.name}-${t('tk.articleOverview.overview')}`"
-          :aria-label="`Permalink to '${item.name}-${t('tk.articleOverview.overview')}'`"
-        />
-      </h2>
+      <section class="overview-section">
+        <div class="overview-section__head">
+          <div class="overview-section__title">
+            <h2 :id="`${item.name}-${t('tk.articleOverview.overview')}`">
+              {{ item.name }} {{ t("tk.articleOverview.overview") }}
+              <a
+                class="header-anchor"
+                :href="`#${item.name}-${t('tk.articleOverview.overview')}`"
+                :aria-label="`Permalink to '${item.name}-${t('tk.articleOverview.overview')}'`"
+              />
+            </h2>
+            <p>{{ item.data.length }} {{ t("tk.articleOverview.category") }}</p>
+          </div>
 
-      <a :href="`${categoriesPageLink}?category=${item.name}`" :aria-describedby="`overview-title`">
-        {{ item.name }} {{ t("tk.articleOverview.category") }}
-      </a>
-      <table :aria-describedby="`overview-title`">
-        <thead>
-          <tr>
-            <th>{{ t("tk.articleOverview.name") }}</th>
-            <th>{{ t("tk.articleOverview.title") }}</th>
-            <th>{{ t("tk.articleOverview.date") }}</th>
-            <th>{{ t("tk.articleOverview.wordCount") }}</th>
-            <th>{{ t("tk.articleOverview.readingTime") }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="data in item.data" :key="data.url">
-            <td>{{ item.name }}</td>
-            <td>
-              <a :href="data.url && withBase(data.url)" :aria-label="data.title">
-                <component v-if="data.title" :is="createDynamicComponent(data.title)" />
-              </a>
-            </td>
-            <td>{{ formatPublishDate(data.date) }}</td>
-            <td>{{ data.wordCount }}</td>
-            <td>{{ data.readingTime }}</td>
-          </tr>
-        </tbody>
-      </table>
+          <a
+            class="overview-section__link"
+            :href="`${categoriesPageLink}?category=${item.name}`"
+            :aria-describedby="`overview-title`"
+          >
+            查看 {{ item.name }}
+          </a>
+        </div>
+
+        <div class="overview-section__body">
+          <table :aria-describedby="`overview-title`">
+            <thead>
+              <tr>
+                <th>{{ overviewLabel.name }}</th>
+                <th>{{ overviewLabel.title }}</th>
+                <th>{{ overviewLabel.date }}</th>
+                <th>{{ overviewLabel.wordCount }}</th>
+                <th>{{ overviewLabel.readingTime }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="data in item.data" :key="data.url">
+                <td :data-label="overviewLabel.name">{{ item.name }}</td>
+                <td :data-label="overviewLabel.title">
+                  <a :href="data.url && withBase(data.url)" :aria-label="data.title">
+                    <component v-if="data.title" :is="createDynamicComponent(data.title)" />
+                  </a>
+                </td>
+                <td :data-label="overviewLabel.date">{{ formatPublishDate(data.date) }}</td>
+                <td :data-label="overviewLabel.wordCount">{{ data.wordCount }}</td>
+                <td :data-label="overviewLabel.readingTime">{{ data.readingTime }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </template>
   </TkArticlePage>
 </template>

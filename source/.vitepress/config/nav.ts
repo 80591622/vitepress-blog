@@ -1,18 +1,18 @@
 import type { DefaultTheme } from "vitepress";
-import { ecosystemNavGroup } from "./ecosystem";
-import { commonNavLinks, featurePageLinks } from "./siteInfo";
+import { resourcesNavGroup } from "./resources";
+import { siteNavGroups } from "./siteInfo";
 
 const nav: DefaultTheme.NavItem[] = [
   { text: "首页", link: "/" },
   {
     text: "功能页",
-    items: featurePageLinks,
+    items: siteNavGroups.featurePages,
   },
   {
     text: "常用链接",
-    items: commonNavLinks,
+    items: siteNavGroups.commonLinks,
   },
-  ecosystemNavGroup,
+  resourcesNavGroup,
 ];
 
 export default nav;
