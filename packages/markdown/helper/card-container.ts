@@ -1,5 +1,4 @@
 import type MarkdownIt from "markdown-it";
-import type { Token } from "markdown-it/dist/index.cjs.js";
 import container from "markdown-it-container";
 import yaml from "js-yaml";
 
@@ -15,20 +14,15 @@ export interface CardContainerOption<D extends Record<string, any>, C extends Re
   /**
    * 渲染 HTML 前端的回调，返回 false 则不渲染容器，返回 true 则继续渲染容器
    */
-  beforeHtmlRender?: (
-    props: { data: D[]; config: C },
-    info: string,
-    tokens: Token[],
-    idx: number
-  ) => boolean | undefined;
+  beforeHtmlRender?: (props: { data: D[]; config: C }, info: string, tokens: any[], idx: number) => boolean | undefined;
   /**
    * 渲染 HTML 的回调
    */
-  htmlRender: (props: { data: D[]; config: C }, info: string, tokens: Token[], idx: number) => string;
+  htmlRender: (props: { data: D[]; config: C }, info: string, tokens: any[], idx: number) => string;
   /**
    * 渲染 HTML 后的回调
    */
-  afterHtmlRender?: (props: { data: D[]; config: C }, info: string, tokens: Token[], idx: number) => void;
+  afterHtmlRender?: (props: { data: D[]; config: C }, info: string, tokens: any[], idx: number) => void;
   /**
    * HTML 转换回调，通过该函数修改最终生成的 HTML
    */

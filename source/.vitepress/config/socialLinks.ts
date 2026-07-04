@@ -1,10 +1,3 @@
-import type { DefaultTheme } from "vitepress";
+import { socialLinkItems } from "./siteInfo";
 
-const socialLinks: DefaultTheme.SocialLink[] = [
-  {
-    icon: "github",
-    link: "https://github.com/80591622",
-  },
-];
-
-export default socialLinks;
+export default socialLinkItems;

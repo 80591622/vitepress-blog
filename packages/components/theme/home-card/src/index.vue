@@ -7,7 +7,7 @@ import { TkHomeCardMy } from "@teek/components/theme/home-card-my";
 import { TkHomeCardTopArticle } from "@teek/components/theme/home-card-top-article";
 import { TkHomeCardCategory } from "@teek/components/theme/home-card-category";
 import { TkHomeCardTag } from "@teek/components/theme/home-card-tag";
-import { TkHomeCardFriendLink } from "@teek/components/theme/home-card-friend-link";
+import { TkHomeCardFriendLink } from "@teek/components/theme/home-card-friendLink";
 import { TkHomeCardDocAnalysis } from "@teek/components/theme/home-card-doc-analysis";
 
 defineOptions({ name: "HomeCard" });

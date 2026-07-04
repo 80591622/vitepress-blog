@@ -24,7 +24,7 @@ export * from "../common/page-card";
 export * from "./home-card-category";
 export * from "./home-card-doc-analysis";
 export * from "./home-feature";
-export * from "./home-card-friend-link";
+export * from "./home-card-friendLink";
 export * from "./home-fullscreen-wallpaper";
 export * from "./home-card";
 export * from "./home-card-my";

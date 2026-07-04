@@ -1,15 +1,13 @@
 .DS_Store
-
 .idea
-
-dist.tar.gz
-
 node_modules
-
 dist
-
+# generated archives
+dist.tar.gz
+# VitePress runtime caches
 source/.vitepress/cache
 source/.vitepress/.temp
-
-
-
+# generated theme-chalk assets
+packages/theme-chalk/*.css
+packages/teek/index.css
+packages/teek/theme-chalk

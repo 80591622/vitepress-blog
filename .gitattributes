@@ -1,2 +1,23 @@
-# Shell scripts use LF so remote bash (SSH deploy) works on Windows and Mac checkouts.
+# Keep text files consistent across macOS / Linux / Windows checkouts.
+* text=auto eol=lf
+
+# Shell scripts must stay LF so local / remote bash can execute safely.
 *.sh text eol=lf
+
+# Windows command scripts use CRLF by convention.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Common binary assets should never be normalized or diffed as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.zip binary
+*.gz binary
+*.tgz binary

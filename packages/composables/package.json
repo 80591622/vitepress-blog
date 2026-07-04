@@ -4,6 +4,9 @@
   "description": "all composables are settled here",
   "license": "MIT",
   "main": "index.ts",
+  "dependencies": {
+    "@teek/theme-chalk": "workspace:*"
+  },
   "devDependencies": {
     "vitepress": "catalog:"
   }

@@ -28,8 +28,8 @@ vitepress-blog/
 # 安装依赖（会自动初始化 husky）
 pnpm install
 
-# 构建 @teek/helper（VitePress 配置链会按包 exports 解析 helper 的 dist）
-pnpm helper:build
+# 预生成 theme-chalk 发布态 CSS（`pnpm dev / build / typecheck` 已内置执行）
+pnpm theme-chalk:build
 
 # 启动开发服务器
 pnpm dev
@@ -51,7 +51,7 @@ pnpm plugins:build
 
 本仓库在 `packages/` 内维护 **vitepress-theme-teek** 的定制源码（pnpm workspace 名为 `vitepress-theme-teek`），可能与上游 [vitepress-theme-teek](https://github.com/Kele-Bingtang/vitepress-theme-teek) 不同步；同步上游时请自行对比合并。
 
-`source/.vitepress/teekConfig.ts` 直接相对路径导入 `packages/config` 与主题版本，`vite.config` 侧仍为 `vitepress-theme-teek` / `@teek/*` 提供别名解析；组件内 `@teek/theme-chalk/*.css` 由 Vite 插件映射到源码 `.scss`。
+站点配置已经收敛到 `source/.vitepress/config/`：`site.ts` 负责 Teek 配置，`vite.ts` 负责本地源码别名。`theme-chalk` 的发布态 CSS 由 [`scripts/build-theme-chalk.ts`](./scripts/build-theme-chalk.ts) 预生成到 `packages/theme-chalk/` 与 `packages/teek/theme-chalk/`，不再依赖运行时 resolve 插件把 `.css` 翻译回 `.scss`。
 
 ## packages 与 plugins 说明
 
@@ -60,7 +60,7 @@ pnpm plugins:build
 ### 接入关系（简图）
 
 ```
-source/.vitepress/teekConfig.ts     # 站点级 Teek 配置（含 vitePlugins 开关）
+source/.vitepress/config/site.ts    # 站点级 Teek 配置（含 vitePlugins 开关）
         ↓ defineTeekConfig
 packages/config                     # 注册 plugins、Markdown 插件、合并 VitePress 配置
         ↓ vite.plugins
@@ -73,23 +73,23 @@ source/.vitepress/theme/            # 本仓库主题扩展（样式、TeekLayou
 
 关键文件：
 
-| 文件                                                                     | 作用                                                        |
-| ------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| [`packages/config/vitePlugins.ts`](./packages/config/vitePlugins.ts)     | 统一注册 `plugins/` 下各 Vite 插件                          |
-| [`source/.vitepress/teekConfig.ts`](./source/.vitepress/teekConfig.ts)   | 本博客的 Teek 配置与 `vitePlugins` 开关                     |
-| [`source/.vitepress/teekVite.ts`](./source/.vitepress/teekVite.ts)       | `@teek/*`、`vitepress-theme-teek` 别名指向 `packages/` 源码 |
-| [`packages/teek/index.ts`](./packages/teek/index.ts)                     | 主题入口，注册全局组件并 `extends` VitePress 默认主题       |
-| [`packages/components/theme/Layout`](./packages/components/theme/Layout) | 主布局，按 frontmatter / 路由挂载各页面组件                 |
+| 文件                                                                     | 作用                                                  |
+| ------------------------------------------------------------------------ | ----------------------------------------------------- |
+| [`packages/config/vitePlugins.ts`](./packages/config/vitePlugins.ts)     | 统一注册 `plugins/` 下各 Vite 插件                    |
+| [`source/.vitepress/config/site.ts`](./source/.vitepress/config/site.ts) | 本博客的 Teek 配置与 `vitePlugins` 开关               |
+| [`source/.vitepress/config/vite.ts`](./source/.vitepress/config/vite.ts) | `@teek/*`、`vitepress-theme-teek` 本地源码别名配置    |
+| [`packages/teek/index.ts`](./packages/teek/index.ts)                     | 主题入口，注册全局组件并 `extends` VitePress 默认主题 |
+| [`packages/components/theme/Layout`](./packages/components/theme/Layout) | 主布局，按 frontmatter / 路由挂载各页面组件           |
 
 ### packages/ 各子包
 
 | 目录                                    | 作用                                                  | 在本项目中的使用位置                                                                 |
 | --------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [`teek`](./packages/teek)               | 主题 npm 入口（`vitepress-theme-teek`）               | `source/.vitepress/theme/index.ts` 通过 `extends: Teek` 引入；导出组件、工具、版本号 |
-| [`config`](./packages/config)           | `defineTeekConfig`、类型定义、插件注册、Post 数据转换 | `teekConfig.ts` 调用；`vitePlugins.ts` 挂载 `plugins/*`                              |
+| [`config`](./packages/config)           | `defineTeekConfig`、类型定义、插件注册、Post 数据转换 | `source/.vitepress/config/site.ts` 调用；`vitePlugins.ts` 挂载 `plugins/*`           |
 | [`components`](./packages/components)   | Vue 组件（`common/` 通用 + `theme/` 主题）            | 由 `Layout`、各功能页、Markdown 容器等引用；见下表                                   |
 | [`composables`](./packages/composables) | 组合式 API（命名空间、侧栏、国际化上下文等）          | 几乎所有 `components` 与主题逻辑                                                     |
-| [`theme-chalk`](./packages/theme-chalk) | SCSS 样式与 CSS 变量                                  | `theme/index.ts` 与各组件 `style/`；`teekVite` 将 `*.css` 请求映射到 `.scss`         |
+| [`theme-chalk`](./packages/theme-chalk) | SCSS 源样式与预生成 CSS                               | `theme/index.ts` 直接引 `.scss`；`pnpm theme-chalk:build` 生成发布态 `.css`          |
 | [`locale`](./packages/locale)           | 中英文文案                                            | 组件内 `useLocale()`、主题配置项提示                                                 |
 | [`helper`](./packages/helper)           | 工具函数（日期、类型判断、统计脚本等）                | 配置链、组件、插件；**需先 `pnpm helper:build` 生成 dist**                           |
 | [`markdown`](./packages/markdown)       | 自定义 Markdown-it 插件（卡片、演示块、容器等）       | `packages/config/index.ts` 注册到 `markdown` 配置                                    |

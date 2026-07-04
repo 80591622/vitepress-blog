@@ -1,5 +1,5 @@
-import type { App, ShallowRef } from "vue";
 import type { TeekConfig } from "@teek/config";
+import type { Theme } from "vitepress";
 import type {
   BaiduAnalyticsOptions,
   GoogleAnalyticsOptions,
@@ -48,15 +48,7 @@ export * from "./version";
 export default {
   extends: DefaultTheme as DefaultThemeType,
   Layout: TeekConfigProvider(TkLayout),
-  async enhanceApp({
-    app,
-    siteData,
-    router,
-  }: {
-    app: App;
-    siteData: ShallowRef<{ themeConfig: TeekConfig & Record<string, unknown>; base: string; cleanUrls?: boolean }>;
-    router: { route: { path: string; data: { isNotFound?: boolean } }; go: (url: string) => Promise<void> };
-  }) {
+  async enhanceApp({ app, siteData, router }: Parameters<NonNullable<Theme["enhanceApp"]>>[0]) {
     app.component("TkCataloguePage", TkCataloguePage);
     app.component("TkArchivesPage", TkArchivesPage);
     app.component("TkArticleOverviewPage", TkArticleOverviewPage);

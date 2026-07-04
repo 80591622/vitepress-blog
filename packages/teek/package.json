@@ -26,7 +26,17 @@
   "bugs": {
     "url": "https://github.com/Kele-Bingtang/vitepress-theme-teek/issues"
   },
+  "style": "./index.css",
   "module": "./index.ts",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    },
+    "./theme-chalk/*": "./theme-chalk/*",
+    "./vp-plus/*": "./theme-chalk/src/vp-plus/*",
+    "./tk-plus/*": "./theme-chalk/src/tk-plus/*",
+    "./*": "./*"
+  },
   "devDependencies": {
     "vitepress": "catalog:"
   },

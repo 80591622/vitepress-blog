@@ -3,10 +3,15 @@
   "name": "@teek/theme-chalk",
   "description": "Teek theme chalk style",
   "license": "MIT",
-  "main": "index.css",
+  "main": "./index.css",
+  "style": "./index.css",
   "exports": {
-    "./*": "./src/*",
-    "./src/*": "./src/*"
+    ".": "./index.css",
+    "./src/*": "./src/*",
+    "./vp-plus/*": "./src/vp-plus/*",
+    "./tk-plus/*": "./src/tk-plus/*",
+    "./markdown-plugin/*": "./src/markdown-plugin/*",
+    "./*": "./*"
   },
   "devDependencies": {
     "sass": "catalog:"

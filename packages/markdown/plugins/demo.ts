@@ -1,5 +1,4 @@
 import type MarkdownIt from "markdown-it";
-import type { Token } from "markdown-it/dist/index.cjs.js";
 import type { SiteConfig } from "vitepress";
 import type { Demo } from "@teek/config";
 import { readFileSync } from "fs";
@@ -10,7 +9,7 @@ import yaml from "js-yaml";
 interface ContainerOpts {
   marker?: string | undefined;
   validate?(params: string): boolean;
-  render?(tokens: Token[], index: number): string;
+  render?(tokens: any[], index: number, options: any, env: any, self: any): string;
 }
 
 const demoPlugin = (md: MarkdownIt, option: Demo = {}) => {
@@ -53,7 +52,7 @@ const demoPlugin = (md: MarkdownIt, option: Demo = {}) => {
   md.use(container, "demo", options);
 };
 
-const getDemoFile = (sourceFileToken: Token, yamlToken: Token) => {
+const getDemoFile = (sourceFileToken: any, yamlToken: any) => {
   // 需要复制其内容的源码文件路径
   let sourceFile = "";
   // 需要渲染效果的源码文件路径

@@ -31,7 +31,8 @@
       "@teek/markdown/*": ["./packages/markdown/*"],
       "@teek/static": ["./packages/static/index.ts"],
       "@teek/static/*": ["./packages/static/*"],
-      "@teek/theme-chalk": ["./packages/theme-chalk/src/index.scss"]
+      "@teek/theme-chalk": ["./packages/theme-chalk/index.css"],
+      "@teek/theme-chalk/*": ["./packages/theme-chalk/*", "./packages/theme-chalk/src/*"]
     }
   },
   "include": [

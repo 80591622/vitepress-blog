@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "stub": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "stub": "unbuild"
   }
 }

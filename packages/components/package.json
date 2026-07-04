@@ -9,6 +9,7 @@
     "*/style/*"
   ],
   "dependencies": {
+    "@teek/theme-chalk": "workspace:*",
     "@iconify/vue": "catalog:",
     "@vue/compiler-dom": "catalog:vue"
   },

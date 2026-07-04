@@ -3,7 +3,7 @@ import { ns } from "../namespace";
 
 const check = defineModel({ default: false });
 
-const emit = defineEmits<{ change: [boolean] }>();
+const emit = defineEmits<{ change: [model: boolean] }>();
 
 const handleClick = () => {
   check.value = !check.value;

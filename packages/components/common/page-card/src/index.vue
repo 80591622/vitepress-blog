@@ -24,7 +24,7 @@ const {
   pageSpeed = 4000,
 } = defineProps<PageCardProps>();
 
-const emit = defineEmits<{ pagination: [number, "prev" | "next"] }>();
+const emit = defineEmits<{ pagination: [to: number, "prev" | "next"] }>();
 
 const pageNum = defineModel<number>({ default: 1 });
 const pageTotalNum = Math.ceil(total / pageSize);

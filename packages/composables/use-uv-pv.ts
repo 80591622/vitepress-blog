@@ -149,8 +149,6 @@ export const useUvPv = (immediate = false, options: UseUvPvOptions = {}) => {
     const clearTimer = (timer: ReturnType<typeof setInterval> | null) => {
       if (timer) {
         clearInterval(timer);
-
-        timer = null;
       }
     };
 

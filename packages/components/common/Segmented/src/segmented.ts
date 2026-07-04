@@ -7,7 +7,7 @@ export interface SegmentedProps {
   disabled?: boolean;
 }
 export interface SegmentedEmits {
-  (e: "change", model: any): void;
+  change: [model: any];
 }
 
 export interface SegmentedOption extends SegmentedBase {
