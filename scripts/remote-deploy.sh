@@ -36,7 +36,11 @@ trap rollback EXIT
 
 rm -rf "$release_dir" "$backup_dir"
 mkdir -p "$release_dir"
-tar -zxf "$archive_name" -C "$release_dir"
+if command -v bsdtar >/dev/null 2>&1; then
+  LC_ALL=C bsdtar -xzf "$archive_name" -C "$release_dir"
+else
+  LC_ALL=C tar --warning=no-unknown-keyword -zxf "$archive_name" -C "$release_dir"
+fi
 
 if [ ! -e "$release_dir/$target_path" ]; then
   echo "未找到解压后的目标目录：$release_dir/$target_path" >&2

@@ -128,11 +128,7 @@ function buildScpArgs(serverPort: string): string[] {
 }
 
 function crossSpawn(command: string, args: string[], options: { cwd?: string; stdio?: "inherit" | "pipe" } = {}): void {
-  const isWindows = process.platform === "win32";
-  const finalCommand = isWindows ? process.env.ComSpec || "cmd.exe" : command;
-  const finalArgs = isWindows ? ["/c", command, ...args] : args;
-
-  const result = spawnSync(finalCommand, finalArgs, {
+  const result = spawnSync(command, args, {
     cwd: projectRoot,
     stdio: "inherit",
     ...options,
@@ -172,7 +168,6 @@ function runSshBashScript(target: string, serverPort: string, scriptBody: string
     cwd: projectRoot,
     input,
     stdio: ["pipe", "inherit", "inherit"],
-    windowsHide: true,
   });
 
   if (result.error) {
@@ -240,7 +235,12 @@ function deploy(): void {
   }
 
   try {
-    runCommand("tar", ["-zcf", localArchiveName, distDir], `🗜️  压缩 ${distDir}`);
+    // macOS 的 bsdtar 会默认打入扩展属性；远端 Linux/bsdtar 解压时可能因此报错退出。
+    const tarFlags = process.platform === "darwin" ? "--no-xattrs --no-mac-metadata " : "";
+    // 使用 shell 前置环境变量以确保子进程 tar 收到 COPYFILE_DISABLE
+    const tarCmd = `COPYFILE_DISABLE=1 tar ${tarFlags}-zcf ${quotePosix(localArchiveName)} ${quotePosix(distDir)}`;
+    runCommand("sh", ["-c", tarCmd], `🗜️  压缩 ${distDir}`);
+
     runCommand(
       "scp",
       [...buildScpArgs(config.serverPort), "-C", archivePath, `${target}:${remoteArchivePath}`],
