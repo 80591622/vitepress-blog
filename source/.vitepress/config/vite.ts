@@ -7,9 +7,14 @@ const teekPackages = path.resolve(dir, "../../../packages");
 const teekEntry = path.join(teekPackages, "teek");
 const localTeekPackages = ["components", "composables", "config", "helper", "locale", "markdown", "static"] as const;
 
+function getPackageAliasReplacement(name: (typeof localTeekPackages)[number]) {
+  if (name === "helper") return path.join(teekPackages, name, "index.ts");
+  return path.join(teekPackages, name);
+}
+
 const teekPackageAliases = localTeekPackages.map(name => ({
   find: `@teek/${name}`,
-  replacement: path.join(teekPackages, name),
+  replacement: getPackageAliasReplacement(name),
 }));
 
 /**
