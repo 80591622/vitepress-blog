@@ -20,8 +20,8 @@ export const backendSidebarSection: DefaultTheme.SidebarItem[] = [
         text: "☞ Mongoose",
         collapsed: true,
         items: [
-          { text: "Mongodb安装", link: "/workspace/Server/sql/mongodb" },
-          { text: "Mongoose使用", link: "/workspace/Server/sql/mongoose" },
+          { text: "Mongodb安装", link: "/workspace/Server/database/mongodb" },
+          { text: "Mongoose使用", link: "/workspace/Server/database/mongoose" },
         ],
       },
       {
@@ -32,8 +32,29 @@ export const backendSidebarSection: DefaultTheme.SidebarItem[] = [
           { text: "安装Nginx踩到的坑", link: "/workspace/Server/nginx/nginx_local" },
         ],
       },
-      { text: "云服务器配置", link: "/workspace/Server/lnmp" },
-      { text: "什么是cookie,token和session?它们之间有什么关系？", link: "/workspace/Server/token" },
+      {
+        text: "☞ Java",
+        collapsed: false,
+        items: [
+          { text: "JDK 安装与版本切换", link: "/workspace/Server/java/base/jdk-install" },
+          { text: "Java 基础语法", link: "/workspace/Server/java/base/java-basic" },
+          { text: "Spring 基础", link: "/workspace/Server/java/spring/spring-base" },
+          { text: "Spring Boot 快速开始", link: "/workspace/Server/java/spring-boot/quick-start" },
+          { text: "MyBatis 基础", link: "/workspace/Server/java/persistence/mybatis" },
+          { text: "用户系统实战", link: "/workspace/Server/java/project/user-system" },
+          { text: "Java 八股整理", link: "/workspace/Server/java/interview/java-baguwen" },
+        ],
+      },
+      {
+        text: "☞ Auth",
+        collapsed: true,
+        items: [{ text: "什么是cookie,token和session?它们之间有什么关系？", link: "/workspace/Server/auth/token" }],
+      },
+      {
+        text: "☞ Deploy",
+        collapsed: true,
+        items: [{ text: "云服务器配置", link: "/workspace/Server/deploy/lnmp" }],
+      },
     ],
   },
 ];
