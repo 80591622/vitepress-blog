@@ -2,13 +2,13 @@
 date: "2026-08-12 10:00:00"
 title: java-baguwen
 categories:
-  - Server
+  - Java
   - java
   - interview
 tags:
   - java
   - interview
-lastUpdated: "2026-08-12T10:00:00.000Z"
+lastUpdated: "2026-08-30T16:47:07.753Z"
 ---
 
 # Java 八股整理

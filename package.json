@@ -66,6 +66,7 @@
     "clean": "rimraf dist",
     "typecheck": "pnpm run theme-chalk:build && tsc --noEmit",
     "deploy": "tsx scripts/deploy.ts",
+    "article:date:staged": "tsx scripts/distribute-article-dates.ts --staged",
     "lint:lint-staged": "lint-staged -c .husky/lintstagedrc.js",
     "lint:prettier": "prettier \"**/*.{js,jsx,ts,tsx,vue,css,less,sass,scss,json,md}\" --write --ignore-path .prettierignore",
     "lint:eslint": "eslint . --fix",

@@ -2,13 +2,13 @@
 date: "2026-08-12 10:00:00"
 title: user-system
 categories:
-  - Server
+  - Java
   - java
   - project
 tags:
   - java
   - project
-lastUpdated: "2026-08-12T10:00:00.000Z"
+lastUpdated: "2026-08-30T16:47:07.753Z"
 ---
 
 # 用户系统实战

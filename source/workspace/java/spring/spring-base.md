@@ -2,13 +2,13 @@
 date: "2026-08-12 10:00:00"
 title: spring-base
 categories:
-  - Server
+  - Java
   - java
   - spring
 tags:
   - java
   - spring
-lastUpdated: "2026-08-12T10:00:00.000Z"
+lastUpdated: "2026-08-30T16:47:07.753Z"
 ---
 
 # Spring 基础

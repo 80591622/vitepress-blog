@@ -2,13 +2,13 @@
 date: "2026-08-12 10:00:00"
 title: jdk-install
 categories:
-  - Server
+  - Java
   - java
   - base
 tags:
   - java
   - jdk
-lastUpdated: "2026-08-12T10:00:00.000Z"
+lastUpdated: "2026-08-30T16:47:07.753Z"
 ---
 
 # mac 上安装 JDK 与版本切换

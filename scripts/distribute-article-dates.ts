@@ -1,65 +1,37 @@
 #!/usr/bin/env node
 /**
- * 将文章 frontmatter 的 date / lastUpdated 按文件路径确定性分散到 2020-01-01 ~ 2026-06-06。
- * 用法：pnpm exec tsx scripts/distribute-article-dates.ts
+ * 为发生变更的文章写入实际日期。
+ *
+ * 由 pre-commit 调用，只处理暂存区中的 Markdown 文件：
+ * - 首次处理：补充 date 与 lastUpdated。
+ * - 后续处理：保留原 date，只更新 lastUpdated。
+ * - 不扫描全站，避免误改历史文章。
  */
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
-const sourceDir = path.join(projectRoot, "source");
-
-const RANGE_START = Date.UTC(2020, 0, 1, 0, 0, 0);
-const RANGE_END = Date.UTC(2026, 5, 6, 23, 59, 59);
-
-function hashString(input: string): number {
-  let hash = 2166136261;
-  for (let i = 0; i < input.length; i++) {
-    hash ^= input.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
-
-function mixHash(seed: number, salt: string): number {
-  return hashString(`${seed}:${salt}`);
-}
-
-function pickTimestamp(relativePath: string, salt: string): number {
-  const h1 = hashString(relativePath);
-  const h2 = mixHash(h1, salt);
-  const span = RANGE_END - RANGE_START;
-  const offset = (h1 + h2 * 9973) % (span + 1);
-  return RANGE_START + offset;
-}
 
 function pad(n: number): string {
   return String(n).padStart(2, "0");
 }
 
-function formatLocalDate(ts: number): string {
-  const d = new Date(ts);
-  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+function formatLocalDate(date: Date): string {
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
-function formatIsoDate(ts: number): string {
-  return new Date(ts).toISOString();
-}
-
-function shouldSkip(relativePath: string): boolean {
-  const normalized = relativePath.replace(/\\/g, "/");
-  if (normalized === "index.md") return true;
-  if (normalized.startsWith("routes/")) return true;
-  if (normalized.startsWith(".vitepress/")) return true;
-  return false;
-}
-
-function updateFile(absolutePath: string): boolean {
-  const relativePath = path.relative(sourceDir, absolutePath).replace(/\\/g, "/");
-  if (shouldSkip(relativePath)) return false;
+function updateFile(inputPath: string, now: Date): boolean {
+  const absolutePath = path.resolve(projectRoot, inputPath);
+  if (!absolutePath.startsWith(`${projectRoot}${path.sep}`)) {
+    throw new Error(`文件必须位于项目目录内：${inputPath}`);
+  }
+  if (!absolutePath.endsWith(".md") || !fs.existsSync(absolutePath)) {
+    throw new Error(`找不到 Markdown 文件：${inputPath}`);
+  }
 
   const raw = fs.readFileSync(absolutePath, "utf8");
   const parsed = matter(raw);
@@ -67,42 +39,50 @@ function updateFile(absolutePath: string): boolean {
 
   if (frontmatter.layout === "home" || frontmatter.layout === false) return false;
 
-  const publishTs = pickTimestamp(relativePath, "publish");
-  const updateOffsetDays = mixHash(publishTs, "update-offset") % 120;
-  const updateTs = Math.min(RANGE_END, publishTs + updateOffsetDays * 24 * 60 * 60 * 1000);
+  if (!frontmatter.date) frontmatter.date = formatLocalDate(now);
+  frontmatter.lastUpdated = now.toISOString();
 
-  frontmatter.date = formatLocalDate(publishTs);
-  frontmatter.lastUpdated = formatIsoDate(updateTs);
+  const next = `${matter.stringify(content, frontmatter).replace(/\r\n/g, "\n")}\n`;
+  if (next === raw) return false;
 
-  const next = matter.stringify(content, frontmatter).replace(/\r\n/g, "\n");
-  const normalized = raw.endsWith("\n") ? `${next}\n` : next;
-
-  if (normalized === raw) return false;
-  fs.writeFileSync(absolutePath, normalized, "utf8");
+  fs.writeFileSync(absolutePath, next, "utf8");
   return true;
 }
 
-function collectMarkdownFiles(dir: string, result: string[] = []): string[] {
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const absolutePath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      if (entry.name === ".vitepress" || entry.name === "node_modules") continue;
-      collectMarkdownFiles(absolutePath, result);
-      continue;
-    }
-    if (entry.isFile() && entry.name.endsWith(".md")) result.push(absolutePath);
-  }
-  return result;
+function getStagedMarkdownFiles(): string[] {
+  const output = execFileSync("git", ["diff", "--cached", "--name-only", "--diff-filter=ACMR", "--", "*.md"], {
+    cwd: projectRoot,
+    encoding: "utf8",
+  });
+  return output.split("\n").filter(Boolean);
+}
+
+function stageFiles(files: string[]): void {
+  if (files.length === 0) return;
+  execFileSync("git", ["add", "--", ...files], { cwd: projectRoot, stdio: "inherit" });
 }
 
 function main(): void {
-  const files = collectMarkdownFiles(sourceDir);
-  let updated = 0;
-  for (const file of files) {
-    if (updateFile(file)) updated++;
+  const args = process.argv.slice(2);
+  const useStagedFiles = args.length === 1 && args[0] === "--staged";
+  const files = useStagedFiles ? getStagedMarkdownFiles() : args;
+
+  if (files.length === 0) {
+    if (useStagedFiles) {
+      console.log("ℹ️ 暂存区没有需要更新日期的 Markdown 文档。");
+      return;
+    }
+    throw new Error("请至少传入一个 Markdown 文件路径，或使用 --staged。");
   }
 
-  console.log(`✅ 已更新 ${updated} 篇文章的 date / lastUpdated（区间 2020-01-01 ~ 2026-06-06）`);
+  const now = new Date();
+  let updated = 0;
+  for (const file of files) {
+    if (updateFile(file, now)) updated++;
+  }
+  if (useStagedFiles) stageFiles(files);
+
+  console.log(`✅ 已更新 ${updated} 篇文章的日期字段。`);
 }
 
 try {

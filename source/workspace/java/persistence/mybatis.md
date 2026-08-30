@@ -2,13 +2,13 @@
 date: "2026-08-12 10:00:00"
 title: mybatis
 categories:
-  - Server
+  - Java
   - java
   - persistence
 tags:
   - java
   - mybatis
-lastUpdated: "2026-08-12T10:00:00.000Z"
+lastUpdated: "2026-08-30T16:47:07.753Z"
 ---
 
 # MyBatis 基础
