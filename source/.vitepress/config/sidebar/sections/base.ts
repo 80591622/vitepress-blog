@@ -31,6 +31,9 @@ export const baseSidebarSection: DefaultTheme.SidebarItem[] = [
       { text: "leetCode", link: "/workspace/Project/leetcode" },
     ],
   },
+];
+
+export const projectSidebarSection: DefaultTheme.SidebarItem[] = [
   {
     text: "Project",
     collapsed: true,

@@ -5,6 +5,7 @@ dist
 # generated archives
 dist.tar.gz
 # VitePress runtime caches
+.vitepress/cache
 source/.vitepress/cache
 source/.vitepress/.temp
 # generated theme-chalk assets

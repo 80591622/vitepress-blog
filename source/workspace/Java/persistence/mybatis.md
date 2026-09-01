@@ -8,7 +8,7 @@ categories:
 tags:
   - java
   - mybatis
-lastUpdated: "2026-08-30T16:47:07.753Z"
+lastUpdated: "2026-09-01T10:21:04.020Z"
 ---
 
 # MyBatis 基础

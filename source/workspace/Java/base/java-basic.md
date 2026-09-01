@@ -7,7 +7,7 @@ categories:
   - base
 tags:
   - java
-lastUpdated: "2026-08-30T16:47:07.753Z"
+lastUpdated: "2026-09-01T10:21:04.020Z"
 ---
 
 # Java 数据类型与变量

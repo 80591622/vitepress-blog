@@ -8,7 +8,7 @@ categories:
 tags:
   - java
   - jdk
-lastUpdated: "2026-08-30T16:47:07.753Z"
+lastUpdated: "2026-09-01T10:21:04.020Z"
 ---
 
 # mac 上安装 JDK 与版本切换
