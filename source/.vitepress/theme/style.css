@@ -8,6 +8,11 @@
   --vp-c-brand-soft: var(--vp-c-indigo-soft);
 }
 
+/* VitePress 1.6 的导航分隔节点只有尺寸，未提供可见的底色。 */
+.VPNavBar .divider-line {
+  background-color: var(--vp-c-divider);
+}
+
 .highlight {
   color: #d86e89;
   font-weight: bold;
