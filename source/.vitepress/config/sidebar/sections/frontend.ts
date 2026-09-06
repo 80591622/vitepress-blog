@@ -2,7 +2,7 @@ import type { DefaultTheme } from "vitepress";
 
 export const frontendSidebarSection: DefaultTheme.SidebarItem[] = [
   {
-    text: "FE框架",
+    text: "FE Frameworks",
     collapsed: true,
     items: [
       {

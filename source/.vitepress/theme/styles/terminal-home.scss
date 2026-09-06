@@ -1,0 +1,800 @@
+body:has(.tk-terminal-home) {
+  background: #0a0f19;
+}
+
+body:has(.tk-terminal-home) .VPContent,
+body:has(.tk-terminal-home) .VPHome,
+body:has(.tk-terminal-home) .VPHomeHero,
+body:has(.tk-terminal-home) .VPHomeFeatures {
+  background: transparent;
+}
+
+body:has(.tk-terminal-home) .VPHomeHero,
+body:has(.tk-terminal-home) .VPHomeFeatures {
+  display: none;
+}
+
+body:has(.tk-terminal-home) .VPNav,
+body:has(.tk-terminal-home) .VPNavBar,
+body:has(.tk-terminal-home) .VPFooter {
+  background: #0a0f19 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+body:has(.tk-terminal-home) .VPNavBarTitle .title,
+body:has(.tk-terminal-home) .VPNavBarMenuLink,
+body:has(.tk-terminal-home) .VPFooter {
+  color: #aebfb4 !important;
+}
+
+/* 首页保留现有时钟 logo，仅将 TimeByte 文案渲染为原型的终端标识。 */
+body:has(.tk-terminal-home) .VPNavBarTitle .title {
+  position: relative;
+  gap: 8px;
+}
+
+body:has(.tk-terminal-home) .VPNavBarTitle .title > span:last-child {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  color: transparent !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+
+body:has(.tk-terminal-home) .VPNavBarTitle .title > span:last-child::before,
+body:has(.tk-terminal-home) .VPNavBarTitle .title > span:last-child::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+}
+
+body:has(.tk-terminal-home) .VPNavBarTitle .title > span:last-child::before {
+  left: 0;
+  content: "time";
+  color: #81ef9e;
+  text-shadow: 0 0 10px rgba(129, 239, 158, 0.38);
+}
+
+body:has(.tk-terminal-home) .VPNavBarTitle .title > span:last-child::after {
+  left: 28px;
+  content: "byte";
+  color: #80e2e9;
+}
+
+body:has(.tk-terminal-home) .VPNavBarTitle .title::after {
+  width: 5px;
+  height: 14px;
+  margin-left: -6px;
+  background: #81ef9e;
+  content: "";
+  animation: terminal-blink 1s steps(2) infinite;
+}
+
+/* 浅色模式：保留终端语言，但改为纸张、墨色和低饱和青绿，确保阅读对比度。 */
+html:not(.dark) body:has(.tk-terminal-home) {
+  background: #f4f8f7;
+}
+
+html:not(.dark) body:has(.tk-terminal-home) .VPNav,
+html:not(.dark) body:has(.tk-terminal-home) .VPNavBar,
+html:not(.dark) body:has(.tk-terminal-home) .VPFooter {
+  background: rgba(244, 248, 247, 0.92) !important;
+  border-color: rgba(24, 70, 59, 0.18) !important;
+}
+
+html:not(.dark) body:has(.tk-terminal-home) .VPNavBarTitle .title,
+html:not(.dark) body:has(.tk-terminal-home) .VPNavBarMenuLink,
+html:not(.dark) body:has(.tk-terminal-home) .VPFooter {
+  color: #36564d !important;
+}
+
+html:not(.dark) .tk-terminal-home {
+  --term-bg: #f4f8f7;
+  --term-surface: #ffffff;
+  --term-surface-light: #e9f5f0;
+  --term-border: rgba(24, 70, 59, 0.2);
+  --term-text: #153e34;
+  --term-dim: #6c827b;
+  --term-green: #087c5c;
+  --term-cyan: #087e91;
+}
+
+html:not(.dark) .tk-terminal-rain {
+  opacity: 0.82;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 7%, #000 89%, transparent 100%);
+}
+
+html:not(.dark) .tk-terminal-home::before {
+  background:
+    radial-gradient(rgba(8, 124, 92, 0.075) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      rgba(244, 248, 247, 0.62) 0%,
+      transparent 18%,
+      transparent 82%,
+      rgba(244, 248, 247, 0.62) 100%
+    ),
+    radial-gradient(ellipse at 50% -12%, rgba(89, 210, 161, 0.16), transparent 47%),
+    linear-gradient(to bottom, rgba(244, 248, 247, 0.02), rgba(244, 248, 247, 0.28) 84%, rgba(244, 248, 247, 0.72));
+  background-size:
+    24px 24px,
+    auto,
+    auto,
+    auto;
+}
+
+html:not(.dark) .tk-terminal-window,
+html:not(.dark) .tk-terminal-monitor,
+html:not(.dark) .tk-terminal-activity,
+html:not(.dark) .tk-terminal-categories ul,
+html:not(.dark) .tk-terminal-status {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+html:not(.dark) .tk-terminal-window {
+  box-shadow:
+    0 0 0 1px rgba(8, 124, 92, 0.08),
+    0 24px 70px -30px rgba(9, 111, 82, 0.24);
+}
+html:not(.dark) .tk-terminal-crt {
+  opacity: 0.2;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(6, 107, 78, 0.055) 0,
+    rgba(6, 107, 78, 0.055) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+html:not(.dark) .tk-terminal-intro {
+  background: linear-gradient(to bottom, rgba(74, 207, 152, 0.08), transparent 26%);
+}
+html:not(.dark) .tk-terminal-ascii {
+  text-shadow:
+    0.5px 0 rgba(8, 126, 145, 0.36),
+    -0.5px 0 rgba(210, 89, 115, 0.24);
+}
+html:not(.dark) .tk-terminal-categories a:hover,
+html:not(.dark) .tk-terminal-categories li:first-child a {
+  background: var(--term-surface-light);
+}
+html:not(.dark) .tk-terminal-dialog {
+  background: rgba(220, 237, 230, 0.68);
+}
+
+html:not(.dark) .tk-terminal-dialog > div {
+  background: #ffffff;
+  box-shadow: 0 20px 80px rgba(12, 71, 51, 0.2);
+}
+
+.tk-terminal-home {
+  --term-bg: #0a0f19;
+  --term-surface: #111824;
+  --term-surface-light: #172331;
+  --term-border: rgba(255, 255, 255, 0.12);
+  --term-text: #d9e9e1;
+  --term-dim: #8795a8;
+  --term-green: #6ef1b2;
+  --term-cyan: #86ddec;
+  position: relative;
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+  color: var(--term-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tk-terminal-rain {
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  opacity: 0.72;
+  mix-blend-mode: normal;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 82%, transparent 100%);
+}
+
+.tk-terminal-home::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(rgba(110, 241, 178, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 15, 25, 0.82) 0%, transparent 24%, transparent 76%, rgba(10, 15, 25, 0.82) 100%),
+    radial-gradient(ellipse at 50% -12%, rgba(74, 219, 157, 0.1), transparent 47%),
+    linear-gradient(to bottom, rgba(10, 15, 25, 0.08), rgba(10, 15, 25, 0.5) 84%, rgba(10, 15, 25, 0.88));
+  background-size:
+    24px 24px,
+    auto,
+    auto,
+    auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tk-terminal-rain {
+    display: none;
+  }
+  .tk-terminal-window,
+  .tk-terminal-sweep::after,
+  .tk-terminal-ascii,
+  .boot-line,
+  .tk-terminal-cursor,
+  .tk-monitor-title i,
+  .tk-terminal-monitor::before {
+    animation: none;
+  }
+  .tk-terminal-home::before {
+    background:
+      radial-gradient(rgba(117, 247, 161, 0.08) 1px, transparent 1px),
+      radial-gradient(ellipse at 50% -10%, rgba(58, 212, 109, 0.12), transparent 44%);
+    background-size:
+      24px 24px,
+      auto;
+  }
+}
+
+.tk-terminal-window,
+.tk-terminal-monitor,
+.tk-terminal-activity,
+.tk-terminal-categories ul,
+.tk-terminal-status {
+  border: 1px solid var(--term-border);
+  background: rgba(17, 24, 36, 0.72);
+}
+.tk-terminal-window {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(110, 241, 178, 0.1),
+    0 24px 70px -24px rgba(73, 232, 176, 0.28);
+  animation: terminal-crt-flicker 6s ease-in-out infinite;
+}
+.tk-terminal-crt {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.34;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(160, 255, 215, 0.05) 0,
+    rgba(160, 255, 215, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+.tk-terminal-sweep {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 32px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(110, 241, 178, 0.09), transparent);
+  overflow: hidden;
+}
+.tk-terminal-sweep::after {
+  display: block;
+  width: 100%;
+  height: 32px;
+  content: "";
+  background: rgba(110, 241, 178, 0.08);
+  animation: terminal-scan-sweep 7s linear infinite;
+}
+.tk-terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 45px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--term-border);
+  color: var(--term-dim);
+  font-size: 11px;
+}
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 100%;
+}
+.dot--red {
+  background: #ee6264;
+}
+.dot--yellow {
+  background: #e7c359;
+}
+.dot--green {
+  background: #6ddf90;
+}
+.tk-terminal-title {
+  margin-left: 8px;
+}
+.tk-terminal-record {
+  margin-left: auto;
+  letter-spacing: 0.12em;
+  font-size: 10px;
+}
+.tk-terminal-intro {
+  position: relative;
+  z-index: 1;
+  min-height: 308px;
+  padding: 21px 20px;
+  background: linear-gradient(to bottom, rgba(110, 241, 178, 0.05), transparent 26%);
+}
+.tk-terminal-intro p {
+  margin: 2px 0;
+}
+.tk-terminal-intro .result {
+  margin: 6px 0 6px;
+  color: var(--term-text);
+  padding-left: 0;
+}
+.boot-line {
+  color: var(--term-dim);
+  font-size: 11px;
+  animation: terminal-line-in 0.25s ease-out both;
+}
+.terminal-glow {
+  text-shadow: 0 0 11px rgba(110, 241, 178, 0.24);
+}
+.tk-terminal-ascii {
+  margin: 0 0 13px;
+  color: var(--term-green);
+  font-size: 9px;
+  line-height: 1.15;
+  text-shadow:
+    0.6px 0 rgba(134, 221, 236, 0.7),
+    -0.6px 0 rgba(255, 105, 137, 0.45);
+  animation: terminal-glitch 4.5s step-end infinite;
+}
+.green {
+  color: var(--term-green) !important;
+}
+.cyan {
+  color: var(--term-cyan) !important;
+}
+.tk-terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  vertical-align: -3px;
+  background: var(--term-green);
+  animation: terminal-blink 1s steps(2) infinite;
+}
+@keyframes terminal-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.tk-terminal-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin-top: 16px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  color: var(--term-dim);
+  font-size: 11px;
+}
+.tk-terminal-status b {
+  font-weight: 500;
+}
+.tk-terminal-status time {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.tk-terminal-monitor,
+.tk-terminal-activity {
+  position: relative;
+  overflow: hidden;
+  margin-top: 16px;
+  padding: 15px;
+  border-radius: 8px;
+}
+.tk-terminal-monitor::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--term-green), transparent);
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  animation: terminal-beam 4.5s linear infinite;
+}
+.tk-monitor-title,
+.tk-terminal-activity p,
+.tk-command,
+.total {
+  margin: 0;
+  color: var(--term-dim);
+  font-size: 11px;
+}
+.tk-monitor-title i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  background: var(--term-green);
+  border-radius: 50%;
+  box-shadow: 0 0 9px var(--term-green);
+  animation: pulse 1.6s infinite;
+}
+.tk-monitor-title b {
+  font-weight: 500;
+}
+.tk-monitor-grid {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+.tk-monitor-item {
+  flex: 1;
+  min-width: 0;
+}
+.tk-monitor-item p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  color: var(--term-dim);
+  font-size: 10px;
+}
+.metric--cpu {
+  color: var(--term-green);
+}
+.metric--mem {
+  color: var(--term-cyan);
+}
+.metric--net {
+  color: #ead274;
+}
+.tk-monitor-bars {
+  display: flex;
+  align-items: end;
+  gap: 1px;
+  height: 32px;
+  margin-top: 3px;
+}
+.tk-monitor-bars i {
+  flex: 1;
+  min-width: 1px;
+  border-radius: 1px;
+  background: var(--term-green);
+  transition: height 0.3s ease;
+}
+.tk-monitor-item:nth-child(2) i {
+  background: var(--term-cyan);
+}
+.tk-monitor-item:nth-child(3) i {
+  background: #ead274;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+/* 182 天 = 26 列 × 7 行。小格保持原型的 8×8px，剩余横向空间由列间距承担。 */
+.tk-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(26, 8px);
+  grid-template-rows: repeat(7, 8px);
+  grid-auto-flow: column;
+  justify-content: space-between;
+  row-gap: 3px;
+  overflow: hidden;
+  width: 100%;
+  height: 74px;
+  margin-top: 12px;
+}
+.tk-activity-grid i,
+.legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--term-border);
+}
+.level-1 {
+  background: rgba(110, 241, 178, 0.25) !important;
+}
+.level-2 {
+  background: rgba(110, 241, 178, 0.45) !important;
+}
+.level-3 {
+  background: rgba(110, 241, 178, 0.7) !important;
+}
+.level-4 {
+  background: var(--term-green) !important;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 7px !important;
+  font-size: 10px !important;
+}
+.legend i {
+  width: 8px;
+  height: 8px;
+}
+@keyframes terminal-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes terminal-crt-flicker {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.82;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.9;
+  }
+}
+@keyframes terminal-scan-sweep {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(1000%);
+  }
+}
+@keyframes terminal-glitch {
+  0%,
+  88%,
+  100% {
+    transform: translate(0);
+  }
+  90% {
+    transform: translate(-1px, 1px);
+  }
+  92% {
+    transform: translate(1px, -1px);
+  }
+}
+@keyframes terminal-beam {
+  from {
+    background-position: -50% 0;
+  }
+  to {
+    background-position: 150% 0;
+  }
+}
+.tk-terminal-categories {
+  margin-top: 39px;
+}
+.tk-command {
+  font-size: 14px;
+}
+.tk-command small {
+  margin-left: 12px;
+  font-size: 10px;
+}
+.total {
+  margin-top: 12px;
+}
+.tk-terminal-categories ul {
+  padding: 0;
+  margin: 5px 0 0;
+  overflow: hidden;
+  border-radius: 8px;
+  list-style: none;
+}
+.tk-terminal-categories li + li {
+  border-top: 1px solid var(--term-border);
+}
+.tk-terminal-categories a {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3ch 11ch 7ch minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: baseline;
+  padding: 12px 15px;
+  color: var(--term-text);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.tk-terminal-categories a::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--term-green);
+  content: "";
+  transform: scaleY(0);
+  transition: transform 0.2s;
+}
+.tk-terminal-categories a:hover,
+.tk-terminal-categories li.is-active a {
+  background: var(--term-surface-light);
+}
+.tk-terminal-categories a:hover::before,
+.tk-terminal-categories li.is-active a::before {
+  transform: scaleY(1);
+}
+.permissions,
+.size,
+.row-index {
+  color: var(--term-dim);
+}
+.tk-terminal-categories li.is-active .row-index {
+  color: var(--term-green);
+}
+.entry {
+  min-width: 0;
+}
+.entry b {
+  display: inline-grid;
+  min-width: 1.25em;
+  margin-right: 4px;
+  font-weight: 500;
+  text-align: center;
+}
+.entry b.text-icon {
+  font-size: 10px;
+  letter-spacing: -0.08em;
+}
+.entry strong {
+  font-weight: 500;
+}
+.entry em {
+  margin-left: 8px;
+  color: var(--term-dim);
+  font-size: 11px;
+  font-style: normal;
+}
+.entry small {
+  display: block;
+  margin-top: 2px;
+  color: var(--term-dim);
+  font-size: 11px;
+}
+.row-arrow {
+  color: var(--term-green);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: 0.2s;
+}
+.tk-terminal-categories a:hover .row-arrow,
+.tk-terminal-categories li.is-active .row-arrow {
+  opacity: 1;
+  transform: translateX(1px);
+}
+.tk-terminal-action {
+  text-align: center;
+  margin: 40px 0 0;
+}
+.tk-terminal-action button {
+  border: 1px solid var(--term-border);
+  border-radius: 8px;
+  padding: 9px 15px;
+  background: var(--term-surface);
+  color: var(--term-dim);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tk-terminal-action button:hover {
+  border-color: var(--term-green);
+  color: var(--term-green);
+}
+kbd {
+  border: 1px solid var(--term-border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  background: var(--term-bg);
+  color: var(--term-text);
+  font: inherit;
+}
+.tk-terminal-dialog {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  place-items: start center;
+  padding-top: 20vh;
+  background: rgba(0, 8, 4, 0.66);
+  backdrop-filter: blur(5px);
+}
+.tk-terminal-dialog > div {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  width: min(430px, calc(100% - 40px));
+  padding: 20px;
+  border: 1px solid var(--term-green);
+  border-radius: 9px;
+  background: var(--term-surface);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
+}
+.tk-terminal-dialog p {
+  margin: 0;
+  color: var(--term-dim);
+}
+.tk-terminal-dialog input {
+  border: 1px solid var(--term-border);
+  border-radius: 5px;
+  padding: 9px;
+  background: var(--term-bg);
+  color: var(--term-text);
+  font: inherit;
+}
+.tk-terminal-dialog a {
+  padding: 6px;
+  color: var(--term-text);
+  text-decoration: none;
+}
+.tk-terminal-dialog a:hover {
+  background: var(--term-surface-light);
+  color: var(--term-green);
+}
+.dialog-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--term-dim);
+  font-size: 22px;
+  cursor: pointer;
+}
+@media (max-width: 640px) {
+  .tk-terminal-home {
+    padding: 22px 14px 60px;
+  }
+  .tk-terminal-intro {
+    min-height: 255px;
+    padding: 21px 15px;
+    font-size: 12px;
+  }
+  .tk-terminal-ascii {
+    display: none;
+  }
+  .tk-terminal-record,
+  .permissions,
+  .size {
+    display: none;
+  }
+  .tk-terminal-categories a {
+    grid-template-columns: 3ch minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .tk-monitor-grid {
+    gap: 9px;
+  }
+  .tk-command small {
+    display: block;
+    margin: 5px 0 0;
+  }
+  .tk-terminal-status time {
+    width: 100%;
+    margin-left: 0;
+  }
+  .tk-activity-grid {
+    row-gap: 3px;
+  }
+}

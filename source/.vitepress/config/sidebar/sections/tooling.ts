@@ -17,7 +17,7 @@ export const toolingSidebarSection: DefaultTheme.SidebarItem[] = [
     items: [{ text: "会用到的插件", link: "/workspace/Project/more" }],
   },
   {
-    text: "构建工具",
+    text: "Build Tools",
     collapsed: true,
     items: [
       {
@@ -52,7 +52,7 @@ export const toolingSidebarSection: DefaultTheme.SidebarItem[] = [
     ],
   },
   {
-    text: "Git教程",
+    text: "Git Tutorials",
     collapsed: true,
     items: [
       { text: "git基础", link: "/workspace/Git/git" },

@@ -23,3 +23,4 @@ import "./code-bg.scss";
 import "./archives.scss";
 import "./functional-pages.css";
 import "./iframe.scss";
+import "./terminal-home.scss";

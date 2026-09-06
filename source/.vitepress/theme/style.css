@@ -6,11 +6,41 @@
   --vp-c-brand-2: var(--vp-c-indigo-2);
   --vp-c-brand-3: var(--vp-c-indigo-3);
   --vp-c-brand-soft: var(--vp-c-indigo-soft);
+  /* 内容页侧栏不跟随主题色扩散，保持 VitePress 原始浅色底色。 */
+  --blog-content-sidebar-bg: #f6f6f7;
+}
+
+:root.dark {
+  /* 与 VitePress 默认深色 sidebar 底色保持一致。 */
+  --blog-content-sidebar-bg: #161618;
 }
 
 /* VitePress 1.6 的导航分隔节点只有尺寸，未提供可见的底色。 */
 .VPNavBar .divider-line {
   background-color: var(--vp-c-divider);
+}
+
+/*
+ * Teek 的文章页样式会将大屏侧栏设为带透明度的 sidebar-color-dilute。
+ * 当用户开启主题色扩散时，底层页面色会透出，使内容页侧栏偏向主题色。
+ * 此处只锁定非首页内容页，恢复为 VitePress 原生的不透明背景；首页终端页
+ * 不包含 .VPContent:not(.is-home)，因此不会受到影响。
+ */
+body:has(.VPContent:not(.is-home)) .VPSidebar,
+body:has(.VPContent:not(.is-home)) .VPSidebar .curtain {
+  background-color: var(--blog-content-sidebar-bg) !important;
+}
+
+/*
+ * VitePress 原始目录树本身不带色块，只通过文字、指示线标识当前页面。
+ * 将目录容器、节点及链接显式恢复为透明，隔离旧热更新样式或外部注入样式
+ * 对二、三级目录造成的背景色污染。
+ */
+body:has(.VPContent:not(.is-home)) .VPSidebar .items,
+body:has(.VPContent:not(.is-home)) .VPSidebar .VPSidebarItem,
+body:has(.VPContent:not(.is-home)) .VPSidebar .VPSidebarItem > .item,
+body:has(.VPContent:not(.is-home)) .VPSidebar .VPSidebarItem > .item > .link {
+  background: transparent !important;
 }
 
 .highlight {
