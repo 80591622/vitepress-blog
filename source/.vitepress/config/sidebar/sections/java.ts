@@ -12,6 +12,7 @@ export const javaSidebarSection: DefaultTheme.SidebarItem[] = [
           { text: "JDK 安装与版本切换", link: "/workspace/Java/base/jdk-install" },
           { text: "二进制与数据存储", link: "/workspace/Java/base/computer-principles" },
           { text: "Java 数据类型与变量", link: "/workspace/Java/base/java-basic" },
+          { text: "Java 基础语法", link: "/workspace/Java/base/basic-syntax" },
         ],
       },
       {
