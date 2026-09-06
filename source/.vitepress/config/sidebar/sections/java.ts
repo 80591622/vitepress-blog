@@ -13,6 +13,7 @@ export const javaSidebarSection: DefaultTheme.SidebarItem[] = [
           { text: "二进制与数据存储", link: "/workspace/Java/base/computer-principles" },
           { text: "Java 数据类型与变量", link: "/workspace/Java/base/java-basic" },
           { text: "Java 基础语法", link: "/workspace/Java/base/basic-syntax" },
+          { text: "Java 运算符与循环", link: "/workspace/Java/base/operators-and-loops" },
         ],
       },
       {
