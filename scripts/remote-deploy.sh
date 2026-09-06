@@ -47,6 +47,10 @@ if [ ! -e "$release_dir/$target_path" ]; then
   exit 1
 fi
 
+# 构建产物可能保留本地文件权限。统一静态站点权限，确保 Nginx 可以读取图片等资源。
+find "$release_dir/$target_path" -type d -exec chmod 755 {} +
+find "$release_dir/$target_path" -type f -exec chmod 644 {} +
+
 if [ "$target_parent" != "." ]; then
   mkdir -p "$target_parent"
 fi

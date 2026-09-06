@@ -7,7 +7,7 @@ categories:
   - base
 tags:
   - java
-lastUpdated: "2026-09-01T10:21:04.020Z"
+lastUpdated: "2026-09-06T09:47:06.151Z"
 ---
 
 # Java 数据类型与变量
@@ -32,6 +32,13 @@ String userName = "wangke";
 ```java
 int age;
 age = 18;
+```
+
+JavaScript 的变量不需要在声明时指定类型，同一个变量也可以在后续赋为其他类型的值。
+
+```js
+let count = 1;
+count = "1"; // 可以执行，变量类型在运行时改变
 ```
 
 ## 变量如何存储
@@ -222,19 +229,9 @@ String remark = "";
 | 布尔值   | `boolean`，不能当数字使用           | `boolean`，但条件判断会发生真值转换 | `boolean`；编译期能约束类型            |
 | 类型检查 | 编译时和运行时都有明确类型          | 运行时动态决定                      | 编译期检查，编译后仍是 JavaScript      |
 
-```java
-int count = 1;
-// count = "1"; // 编译错误
-```
-
 ```ts
 let count: number = 1;
 // count = "1"; // TypeScript 编译错误
-```
-
-```js
-let count = 1;
-count = "1"; // 可以执行，变量类型在运行时改变
 ```
 
 ## 转义字符
