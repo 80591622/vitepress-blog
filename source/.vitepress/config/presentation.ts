@@ -1,5 +1,4 @@
 import type { DefaultTheme } from "vitepress";
-import search from "./search";
 import sidebar from "./sidebar";
 import socialLinks from "./socialLinks";
 import nav from "./nav";
@@ -8,7 +7,7 @@ import { withThemeLayoutFlags } from "./themeFlags";
 
 /**
  * 站点展示配置：
- * - 顶部导航 / 侧边栏 / 搜索 / 社交链接
+ * - 顶部导航 / 侧边栏 / 社交链接
  * - 站点文案、页脚、编辑链接
  * - 与最终页面呈现直接相关的 VitePress themeConfig
  */
@@ -21,7 +20,6 @@ export const siteThemeConfig = withThemeLayoutFlags({
     level: [2, 3] as [number, number],
     label: "本页导航",
   },
-  search,
   socialLinks,
   sidebar,
   nav,
