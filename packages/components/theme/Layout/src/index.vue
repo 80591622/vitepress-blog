@@ -1,4 +1,5 @@
-<script setup lang="ts" name="TeekLayout">
+<script setup lang="ts">
+import type { Component } from "vue";
 import type { TeekConfig } from "@teek/config";
 import type { Language } from "@teek/locale";
 import DefaultTheme from "vitepress/theme";
@@ -53,6 +54,13 @@ provide(
 
 const { Layout } = DefaultTheme;
 
+const commentComponents: Record<string, Component> = {
+  twikoo: TkCommentTwikoo,
+  waline: TkCommentWaline,
+  giscus: TkCommentGiscus,
+  artalk: TkCommentArtalk,
+};
+
 const ns = useNamespace("layout");
 const { getTeekConfigRef } = useTeekConfig();
 const { isHomePage, isArchivesPage, isCataloguePage, isArticleOverviewPage } = usePageState();
@@ -97,16 +105,13 @@ const commentConfig = computed(() => {
 
   return {
     enabled: true,
-    components: {
-      twikoo: TkCommentTwikoo,
-      waline: TkCommentWaline,
-      giscus: TkCommentGiscus,
-      artalk: TkCommentArtalk,
-    },
+    components: commentComponents,
     provider: commentConfig.provider,
     options: commentConfig.options,
   };
 });
+
+const getCommentComponent = (provider: string) => commentComponents[provider];
 
 const topTipConfig = computed(() => {
   if (isBoolean(teekConfig.value.articleTopTip)) return teekConfig.value.articleTopTip;
@@ -329,7 +334,7 @@ const usedSlots = [
           <template v-if="commentConfig.provider === 'render'"><slot name="teek-comment" /></template>
           <component
             v-else
-            :is="commentConfig.components?.[commentConfig.provider]"
+            :is="getCommentComponent(commentConfig.provider)"
             :id="`${ns.namespace}-comment`"
             :class="ns.e('comment')"
           />

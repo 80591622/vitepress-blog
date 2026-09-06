@@ -1,4 +1,4 @@
-<script lang="ts" setup name="Message">
+<script lang="ts" setup>
 import type { MessageEmits, MessageProps, MessageType } from "./message";
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { VPBadge } from "vitepress/theme";
@@ -20,6 +20,8 @@ const iconsMap = {
   info: infoFilledIcon,
 };
 
+const getTypeIcon = (type: MessageType) => iconsMap[type === "primary" ? "info" : type];
+
 const isStartTransition = ref(false);
 
 const ns = useNamespace("message");
@@ -40,9 +42,9 @@ const badeTypeMap: Record<MessageType, string> = {
 const badgeType = computed(() => (props.type ? badeTypeMap[props.type] : "info"));
 const typeClass = computed(() => {
   const type = props.type;
-  return { [ns.bm("icon", type)]: type && iconsMap[type] };
+  return { [ns.bm("icon", type)]: getTypeIcon(type) };
 });
-const iconComponent = computed(() => props.icon || iconsMap[props.type] || "");
+const iconComponent = computed(() => props.icon || getTypeIcon(props.type) || "");
 
 const lastOffset = computed(() => getLastOffset(props.id));
 const offset = computed(() => getOffsetOrSpace(props.id, props.offset) + lastOffset.value);
@@ -80,6 +82,10 @@ const close = () => {
       emit("destroy");
     }
   });
+};
+
+const handleAfterLeave = () => {
+  emit("destroy");
 };
 
 const keydown = ({ code }: KeyboardEvent) => {
@@ -130,35 +136,35 @@ defineExpose({
   <Transition
     :name="ns.b('fade')"
     @before-enter="isStartTransition = true"
-    @before-leave="onClose"
-    @after-leave="$emit('destroy')"
+    @before-leave="props.onClose"
+    @after-leave="handleAfterLeave"
   >
     <div
       v-show="visible"
-      :id="id"
+      :id="props.id"
       ref="messageRef"
       :class="[
         ns.b(),
-        { [ns.m(type)]: type },
-        ns.is('center', center),
-        ns.is('closable', showClose),
-        ns.is('plain', plain),
-        customClass,
+        { [ns.m(props.type)]: props.type },
+        ns.is('center', props.center),
+        ns.is('closable', props.showClose),
+        ns.is('plain', props.plain),
+        props.customClass,
       ]"
       :style="customStyle"
       role="alert"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
     >
-      <VPBadge v-if="repeatNum > 1" :text="repeatNum" :type="badgeType" :class="ns.e('badge')" />
+      <VPBadge v-if="props.repeatNum > 1" :text="props.repeatNum" :type="badgeType" :class="ns.e('badge')" />
       <TkIcon v-if="iconComponent" :icon="iconComponent" :class="[ns.e('icon'), typeClass]" />
       <slot>
-        <p v-if="!dangerouslyUseHTMLString" :class="ns.e('content')">
-          {{ message }}
+        <p v-if="!props.dangerouslyUseHTMLString" :class="ns.e('content')">
+          {{ props.message }}
         </p>
-        <p v-else :class="ns.e('content')" v-html="message" />
+        <p v-else :class="ns.e('content')" v-html="props.message" />
       </slot>
-      <TkIcon v-if="showClose" :icon="closeIcon" :class="ns.e('closeBtn')" @click.stop="close" />
+      <TkIcon v-if="props.showClose" :icon="closeIcon" :class="ns.e('closeBtn')" @click.stop="close" />
     </div>
   </Transition>
 </template>

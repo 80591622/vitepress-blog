@@ -1,3 +1,8 @@
+---
+date: "2026-09-06 19:28:37"
+lastUpdated: "2026-09-06T11:28:37.793Z"
+---
+
 <h1 align="center">vitepress-blog</h1>
 
 <div align="center">
@@ -40,7 +45,7 @@ pnpm build
 # 预览构建结果
 pnpm preview
 
-# TypeScript（根仓库 + `./plugins/*` 内各插件包分别检查）
+# TypeScript / Vue SFC（根仓库 + `./plugins/*` 内各插件包分别检查）
 pnpm typecheck
 
 # 构建 workspace 插件

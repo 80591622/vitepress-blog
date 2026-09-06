@@ -1,4 +1,5 @@
-<script setup lang="ts" name="HomeCard">
+<script setup lang="ts">
+import type { Component } from "vue";
 import type { TeekConfig } from "@teek/config";
 import { computed, onMounted, ref } from "vue";
 import { useWindowTransition, useNamespace } from "@teek/composables";
@@ -12,20 +13,33 @@ import { TkHomeCardDocAnalysis } from "@teek/components/theme/home-card-doc-anal
 
 defineOptions({ name: "HomeCard" });
 
+type HomeCardName = "my" | "topArticle" | "category" | "tag" | "docAnalysis" | "friendLink";
+type ConfigurableHomeCardName = Exclude<HomeCardName, "my">;
+type HomeCardDefinition = {
+  el: Component;
+  show: boolean;
+  slot: string;
+  props?: Record<string, boolean>;
+};
+
 const ns = useNamespace("home-card");
 const { getTeekConfigRef } = useTeekConfig();
 const teekConfig = getTeekConfigRef<TeekConfig>(null, {});
 
 // 获取用户配置 + 默认的卡片排序
-const finalHomeCardSort = computed(() => {
+const finalHomeCardSort = computed<HomeCardName[]>(() => {
   const configCardSort = teekConfig.value.homeCardSort || [];
-  return ["my", ...new Set([...configCardSort, ...["topArticle", "category", "tag", "friendLink", "docAnalysis"]])];
+  const supportedCards: ConfigurableHomeCardName[] = ["topArticle", "category", "tag", "friendLink", "docAnalysis"];
+  const configuredCards = configCardSort.filter((card): card is ConfigurableHomeCardName =>
+    supportedCards.includes(card as ConfigurableHomeCardName)
+  );
+  return ["my", ...new Set([...configuredCards, ...supportedCards])];
 });
 
 const { isHomePage, isCategoriesPage, isTagsPage } = usePageState();
 
 // 定义组件映射
-const componentMap = computed(() => {
+const componentMap = computed<Record<HomeCardName, HomeCardDefinition>>(() => {
   const { topArticle, category, tag, docAnalysis, friendLink } = teekConfig.value;
   const homePage = isHomePage.value;
   const categoriesPage = isCategoriesPage.value;

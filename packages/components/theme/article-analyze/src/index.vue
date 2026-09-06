@@ -1,5 +1,12 @@
-<script setup lang="ts" name="ArticleAnalyze">
-import type { ArticleAnalyze, ArticlePosition, Author, DocAnalysis, DocDocAnalysisFileInfo } from "@teek/config";
+<script setup lang="ts">
+import type {
+  ArticleAnalyze,
+  ArticlePosition,
+  Author,
+  DocAnalysis,
+  DocAnalysisData,
+  DocDocAnalysisFileInfo,
+} from "@teek/config";
 import type { TkContentData } from "@teek/config";
 import { computed, nextTick, ref, watch } from "vue";
 import { useData } from "vitepress";
@@ -32,7 +39,7 @@ const post = computed<TkContentData>(() => ({
 }));
 
 // 站点信息数据
-const docAnalysisInfo = computed(() => theme.value.docAnalysisInfo || {});
+const docAnalysisInfo = computed<Partial<DocAnalysisData>>(() => theme.value.docAnalysisInfo || {});
 
 // 文章阅读量、阅读时长、字数
 const pageViewInfo = computed(() => {
@@ -53,9 +60,8 @@ const articleConfig = getTeekConfigRef<ArticleAnalyze>("articleAnalyze", {
 
 // 是否展示作者、日期、分类、标签等信息
 const isShowInfo = computed(() => {
-  const arr = [articleConfig.value.showInfo].flat();
-  if (arr.includes(true) || arr.includes("article")) return true;
-  return false;
+  const showInfo = articleConfig.value.showInfo;
+  return showInfo === true || (Array.isArray(showInfo) && showInfo.includes("article"));
 });
 
 const baseInfoRef = ref<HTMLDivElement>();
@@ -74,7 +80,9 @@ const teleportInfo = () => {
   targetDom?.parentElement?.querySelectorAll(`.${ns.e("wrapper")}`).forEach(v => v.remove());
 
   baseInfoRefConst.classList.add(className);
-  targetDom?.[position]?.(baseInfoRefConst);
+  if (targetDom) {
+    position === "before" ? targetDom.before(baseInfoRefConst) : targetDom.after(baseInfoRefConst);
+  }
 };
 
 watch(router.route, () => nextTick(teleportInfo), { immediate: true, flush: "post" });

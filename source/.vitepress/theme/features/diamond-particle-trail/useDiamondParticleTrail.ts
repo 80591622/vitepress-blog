@@ -58,7 +58,8 @@ export function useDiamondParticleTrail(config: ParticleTrailConfig) {
   function resizeCanvas(): void {
     if (!canvas || !ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    // 3x / 4x 屏幕继续提升画布分辨率的视觉收益很低，却会显著增加绘制面积和显存占用。
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const { innerWidth: w, innerHeight: h } = window;
 
     canvas.width = w * dpr;
@@ -98,6 +99,8 @@ export function useDiamondParticleTrail(config: ParticleTrailConfig) {
         maxLife: life,
       });
     }
+
+    requestFrame();
   }
 
   /** 鼠标点击：在点击位置爆发一圈菱形粒子 */
@@ -160,13 +163,20 @@ export function useDiamondParticleTrail(config: ParticleTrailConfig) {
     }
   }
 
-  /** requestAnimationFrame 主循环 */
+  function requestFrame(): void {
+    if (!running || rafId) return;
+    rafId = requestAnimationFrame(loop);
+  }
+
+  /** requestAnimationFrame 主循环：没有粒子时自动停止，避免空闲状态持续占用一帧。 */
   function loop(): void {
+    rafId = 0;
     if (!running) return;
 
     update();
     draw();
-    rafId = requestAnimationFrame(loop);
+
+    if (particles.length > 0) requestFrame();
   }
 
   /** 鼠标移动：超过距离阈值时生成拖尾粒子 */
@@ -218,7 +228,6 @@ export function useDiamondParticleTrail(config: ParticleTrailConfig) {
     if (running) return;
 
     running = true;
-    rafId = requestAnimationFrame(loop);
   }
 
   /** 停止渲染并清理所有资源，防止内存泄漏 */

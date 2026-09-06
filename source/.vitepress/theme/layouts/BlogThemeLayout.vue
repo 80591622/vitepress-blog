@@ -1,10 +1,10 @@
 <script setup lang="ts" name="BlogThemeLayout">
 import { defineAsyncComponent } from "vue";
 import Teek from "vitepress-theme-teek";
-import CategoriesTagsPage from "../components/widgets/CategoriesTagsPage.vue";
 import DiamondParticleTrail from "../features/diamond-particle-trail/DiamondParticleTrail.vue";
 import NotFound from "../components/pages/NotFoundPage.vue";
 
+const CategoriesTagsPage = defineAsyncComponent(() => import("../components/widgets/CategoriesTagsPage.vue"));
 const ContributeChart = defineAsyncComponent(() => import("../components/widgets/ContributeChart.vue"));
 </script>
 

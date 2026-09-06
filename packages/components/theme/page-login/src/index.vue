@@ -12,6 +12,11 @@ import { TkMessage } from "@teek/components/common/message";
 import { TkVerifyCode } from "@teek/components/common/verify-code";
 import { getLoginStorageKey, verifyModeMap, loginUrlKeyMap, defaultPrivateConfig } from "./login";
 
+type LoginHandler = {
+  condition: () => boolean;
+  handle: () => boolean | undefined;
+};
+
 defineOptions({ name: "LoginPage" });
 
 const ns = useNamespace("login");
@@ -58,7 +63,7 @@ const loginForm = reactive<LoginForm>({
 /**
  * 校验登录表单
  */
-const checkLoginForm = () => {
+const checkLoginForm = (): boolean => {
   if (loginForm.verifyCode.model === "") {
     loginForm.verifyCode.errorModel = true;
     TkMessage.warning({ message: t("tk.login.verifyCodeNonNull"), plain: true });
@@ -87,7 +92,7 @@ const checkLoginForm = () => {
 /**
  * 获取过期时间，单位毫秒
  */
-const getExpire = (expire?: string) => {
+const getExpire = (expire?: string): number => {
   // 默认 1 天
   if (!expire) return 86400000;
 
@@ -100,7 +105,7 @@ const getExpire = (expire?: string) => {
 /**
  * 重置表单
  */
-const resetForm = () => {
+const resetForm = (): void => {
   Object.values(loginForm).forEach(form => {
     form.model = "";
     form.focusModel = false;
@@ -110,22 +115,22 @@ const resetForm = () => {
 /**
  * 获取当前级别的登录逻辑处理器
  */
-const getLoginHandler = (searchParams: URLSearchParams) => {
+const getLoginHandler = (searchParams: URLSearchParams): LoginHandler | undefined => {
   // 获取地址栏参数
   const verifyModeValue = searchParams.get(loginUrlKeyMap.verifyMode);
   const toPath = searchParams.get(loginUrlKeyMap.toPath);
   const realmValue = searchParams.get(loginUrlKeyMap.realm);
   const { site = [], pages = [], realm = {} } = privateConfig.value;
 
-  return [
+  const handlers: LoginHandler[] = [
     {
       // 单页面级别登录
-      condition: () => verifyModeValue === verifyModeMap.page && toPath,
+      condition: () => verifyModeValue === verifyModeMap.page && !!toPath,
       handle: () => execLogin([], pageLoginKey, { toPath: toPath! }),
     },
     {
       // 领域级别登录
-      condition: () => verifyModeValue === verifyModeMap.realm && realmValue,
+      condition: () => verifyModeValue === verifyModeMap.realm && !!realmValue,
       handle: () => execLogin(realm[realmValue!] || [], realmLoginKey, { isRealm: true, realm: realmValue! }),
     },
     {
@@ -138,20 +143,23 @@ const getLoginHandler = (searchParams: URLSearchParams) => {
       condition: () => verifyModeValue === verifyModeMap.site,
       handle: () => execLogin(site, siteLoginKey, { isSite: true }),
     },
-  ].find(item => item.condition());
+  ];
+
+  return handlers.find(item => item.condition());
 };
 
 /**
  * 执行登录操作
  */
-const login = () => {
+const login = (): void => {
   if (!isClient) return;
 
   const { enabled = false } = privateConfig.value;
   // 如果登录功能禁用，则默认登录成功，且直接跳转首页
   if (!enabled) {
     TkMessage.success({ message: t("tk.login.loginSuccess"), plain: true });
-    return router.go("/");
+    router.go("/");
+    return;
   }
 
   // 表单校验
@@ -169,9 +177,9 @@ const login = () => {
   if (handler) {
     const { doLogin } = privateConfig.value;
     const loginInfo = { username: loginForm.username.model, password: loginForm.password.model };
-    const nativeLogin = handler.handle;
+    const nativeLogin = (): boolean => handler.handle() ?? false;
 
-    isLogin = doLogin ? doLogin(loginInfo, "page", nativeLogin) : nativeLogin();
+    isLogin = doLogin ? doLogin(loginInfo, "page", nativeLogin) : handler.handle();
   }
 
   if (isLogin === undefined) return;
@@ -190,7 +198,7 @@ const execLogin = (
   loginInfo: (LoginInfo & { role?: string })[],
   storageKey: string,
   options: { isRealm?: boolean; realm?: string; isSite?: boolean; toPath?: string } = {}
-) => {
+): boolean | undefined => {
   const { toPath } = options;
 
   // 此处为单页面级别的登录认证
@@ -208,7 +216,7 @@ const execLogin = (
 /**
  * 指定单页面登录逻辑
  */
-const execSinglePageLogin = (toPath: string, storageKey: string) => {
+const execSinglePageLogin = (toPath: string, storageKey: string): boolean | undefined => {
   const post = posts.value.originPosts.find(post => [post.frontmatter.permalink, post.url].includes(toPath));
   if (!post) return false;
 
@@ -227,7 +235,8 @@ const execSinglePageLogin = (toPath: string, storageKey: string) => {
   }
 
   if (realm && privateConfig.value.realm) {
-    const nativeLogin = () => execLogin(privateConfig.value.realm![realm], realmLoginKey, { isRealm: true, realm });
+    const nativeLogin = (): boolean =>
+      execLogin(privateConfig.value.realm![realm], realmLoginKey, { isRealm: true, realm }) ?? false;
     return privateConfig.value.doLogin
       ? privateConfig.value.doLogin({ username, password }, "realm", nativeLogin)
       : nativeLogin();
@@ -271,13 +280,13 @@ const storeLoginInfo = (
   }
 };
 
-const handleFocus = (item: LoginFormItem, formName: "username" | "password" | "verifyCode") => {
+const handleFocus = (item: LoginFormItem, formName: "username" | "password" | "verifyCode"): void => {
   item.focusModel = true;
   item.errorModel = false;
   privateConfig.value.onFocus?.(item.model, formName);
 };
 
-const handleBlur = (item: LoginFormItem, formName: "username" | "password" | "verifyCode") => {
+const handleBlur = (item: LoginFormItem, formName: "username" | "password" | "verifyCode"): void => {
   item.focusModel = false;
   if (item.model === "") item.errorModel = true;
   privateConfig.value.onBlur?.(item.model, formName);

@@ -1,8 +1,17 @@
-<script setup lang="ts" name="ContributeChart">
-import type { ECharts, EChartsCoreOption } from "echarts";
+<script setup lang="ts">
+import type { ECharts, EChartsCoreOption } from "echarts/core";
+import * as echarts from "echarts/core";
+import { HeatmapChart } from "echarts/charts";
+import { CalendarComponent, TooltipComponent, VisualMapComponent } from "echarts/components";
+import { CanvasRenderer } from "echarts/renderers";
 import { computed, nextTick, onBeforeUnmount, onMounted, useTemplateRef, watch } from "vue";
 import { useData } from "vitepress";
 import { formatDate, useIntersectionObserver, usePosts } from "vitepress-theme-teek";
+
+defineOptions({ name: "ContributeChart" });
+
+// 贡献图只依赖日历热力图，按需注册可避免将完整 ECharts 图表库打入归档页资源。
+echarts.use([CalendarComponent, HeatmapChart, TooltipComponent, VisualMapComponent, CanvasRenderer]);
 
 type HeatmapPoint = [date: string, count: number];
 
@@ -12,7 +21,6 @@ const { isDark } = useData();
 const posts = usePosts();
 
 let contributeChart: ECharts | undefined;
-let echartsModule: typeof import("echarts") | undefined;
 
 const today = new Date();
 const startDate = new Date(today.getTime() - 364 * MS_PER_DAY);
@@ -95,11 +103,6 @@ const colorPalette = computed(() =>
 );
 
 const heatLevelLabels = ["较少", "轻度", "稳定", "活跃", "高峰"];
-
-const loadEcharts = async () => {
-  if (!echartsModule) echartsModule = await import("echarts");
-  return echartsModule;
-};
 
 const getSeriesColor = (value: number) => {
   const colors = colorPalette.value.colors;
@@ -186,13 +189,12 @@ const buildOption = (data: HeatmapPoint[]): EChartsCoreOption => ({
   },
 });
 
-const renderChart = async (data: HeatmapPoint[]) => {
-  const echarts = await loadEcharts();
+const renderChart = (data: HeatmapPoint[]) => {
   if (!chartRef.value) return;
 
-  if (!contributeChart) contributeChart = echarts.init(chartRef.value);
-  contributeChart.setOption(buildOption(data), true);
-  contributeChart.resize();
+  const chart = contributeChart ?? (contributeChart = echarts.init(chartRef.value));
+  chart.setOption(buildOption(data), true);
+  chart.resize();
 };
 
 const handleResize = () => {
@@ -205,7 +207,7 @@ const { create } = useIntersectionObserver(
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       requestAnimationFrame(() => {
-        void renderChart(contributeList.value);
+        renderChart(contributeList.value);
       });
     });
   },
@@ -214,9 +216,10 @@ const { create } = useIntersectionObserver(
 
 watch(
   [contributeList, isDark],
-  async () => {
-    await nextTick();
-    await renderChart(contributeList.value);
+  () => {
+    void nextTick().then(() => {
+      renderChart(contributeList.value);
+    });
   },
   { flush: "post" }
 );

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onBeforeMount, onMounted, watch } from "vue";
 import { onContentUpdated } from "vitepress";
 import { useVpRouter, useNamespace } from "@teek/composables";
@@ -11,6 +11,14 @@ const vpRouter = useVpRouter();
 const { getTeekConfigRef } = useTeekConfig();
 
 const loadingConfig = getTeekConfigRef("loading", false);
+
+type LoadingSlot = (props: { loading: boolean }) => unknown;
+
+interface RouteLoadingSlots {
+  default?: LoadingSlot;
+}
+
+defineSlots<RouteLoadingSlots>();
 
 /**
  * 路由开始时加载 Loading 动画

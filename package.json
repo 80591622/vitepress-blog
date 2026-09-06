@@ -9,10 +9,9 @@
     "node": ">=18.12.0"
   },
   "dependencies": {
-    "vitepress-theme-teek": "workspace:*",
+    "@iconify/vue": "catalog:",
     "@teek/helper": "workspace:*",
     "@teek/theme-chalk": "workspace:*",
-    "@iconify/vue": "catalog:",
     "@vue/compiler-dom": "catalog:vue",
     "echarts": "^5.6.0",
     "gray-matter": "catalog:",
@@ -25,6 +24,7 @@
     "vitepress-plugin-md-h1": "workspace:*",
     "vitepress-plugin-permalink": "workspace:*",
     "vitepress-plugin-sidebar-resolve": "workspace:*",
+    "vitepress-theme-teek": "workspace:*",
     "vue": "catalog:vue"
   },
   "devDependencies": {
@@ -44,15 +44,16 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "only-allow": "^1.2.2",
-    "unbuild": "3.6.1",
     "prettier": "^3.8.1",
     "rimraf": "^5.0.5",
     "sass": "^1.99.0",
     "tsx": "^4.19.4",
     "typescript": "catalog:",
+    "unbuild": "3.6.1",
     "vite": "^5.4.21",
     "vitepress": "^1.6.4",
-    "vue-eslint-parser": "^10.4.0"
+    "vue-eslint-parser": "^10.4.0",
+    "vue-tsc": "^3.3.11"
   },
   "scripts": {
     "preinstall": "pnpm exec only-allow pnpm",
@@ -65,7 +66,7 @@
     "build": "pnpm run theme-chalk:build && vitepress build source",
     "preview": "vitepress preview source",
     "clean": "rimraf dist",
-    "typecheck": "pnpm run theme-chalk:build && tsc --noEmit",
+    "typecheck": "pnpm run theme-chalk:build && vue-tsc --noEmit",
     "deploy": "tsx scripts/deploy.ts",
     "article:date:staged": "tsx scripts/distribute-article-dates.ts --staged",
     "lint:lint-staged": "lint-staged -c .husky/lintstagedrc.js",
