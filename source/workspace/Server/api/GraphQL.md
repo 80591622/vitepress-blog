@@ -6,7 +6,7 @@ categories:
   - api
 tags:
   - api
-lastUpdated: "2024-06-07T12:12:27.476Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # GraphQL
@@ -19,7 +19,7 @@ lastUpdated: "2024-06-07T12:12:27.476Z"
        width: 50%;
        transform: translateX(50%);
        "
-       src='/img/jiaohu.png'/>
+       src='/img/jiaohu.webp'/>
 
 此时为了保障多端的不同需求，需要为不同的平台写不同的 API 接口，
 而每当值发生一些变化时，需要多段同时做出修改,这样的代价显然相当大。
@@ -32,7 +32,7 @@ lastUpdated: "2024-06-07T12:12:27.476Z"
        width: 50%;
        transform: translateX(50%);
        "
-       src='/img/bff.png'/>
+       src='/img/bff.webp'/>
 
 ## GraphQL 语言设计中的必然性
 

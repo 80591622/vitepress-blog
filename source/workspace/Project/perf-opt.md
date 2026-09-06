@@ -5,7 +5,7 @@ categories:
   - Project
 tags:
   - Project
-lastUpdated: "2024-12-26T17:15:33.492Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 ## 性能优化
@@ -577,11 +577,11 @@ export default {
 - **考虑资源过期时间**：`Expires:t/Cache-Control:max-age=t,s-maxage=t`
 - **考虑协商缓存**：`Last-Modified/Etag`
 
-![缓存判断机制](/img/cache-1.png)
+![缓存判断机制](/img/cache-1.webp)
 
-![强缓存.png](/img/cache-2.png)
+![强缓存.png](/img/cache-2.webp)
 
-![协商缓存.png](/img/cache-3.png)
+![协商缓存.png](/img/cache-3.webp)
 
 整个`缓存策略`机制很明了，`先走强缓存，若命中失败才走协商缓存`。若命中`强缓存`，直接使用`强缓存`；若未命中`强缓存`，发送请求到服务器检查是否命中`协商缓存`；若命中`协商缓存`，服务器返回304通知浏览器使用`本地缓存`，否则返回`最新资源`。
 

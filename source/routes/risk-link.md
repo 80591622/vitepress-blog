@@ -2,7 +2,7 @@
 layout: false
 riskLinkPage: true
 permalink: /risk-link
-logo: /img/clock.png
+logo: /img/clock.webp
 name: TimeByte
 article: false
 ---

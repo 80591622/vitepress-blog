@@ -6,7 +6,7 @@ categories:
   - react
 tags:
   - react
-lastUpdated: "2021-03-27T09:48:09.203Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # Hooks
@@ -215,7 +215,7 @@ const ContextComponent = () => {
 
 ## useReducer
 
-<img src='/img/redux.jpeg'/>
+<img src='/img/redux.webp'/>
 
 为了职责清晰，数据流向明确，Redux 把整个数据修改的流程分成了三个核心概念：
 

@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -10,6 +11,7 @@ const themeChalkRoot = path.join(projectRoot, "packages", "theme-chalk");
 const themeChalkSrc = path.join(themeChalkRoot, "src");
 const teekRoot = path.join(projectRoot, "packages", "teek");
 const teekThemeChalkRoot = path.join(teekRoot, "theme-chalk");
+const cacheFile = path.join(projectRoot, "source", ".vitepress", "cache", "theme-chalk.json");
 
 const IGNORE_TOP_LEVEL_DIRS = new Set(["common", "mixins", "module", "var"]);
 
@@ -70,12 +72,44 @@ const ensureDir = async (dir: string) => {
   await mkdir(dir, { recursive: true });
 };
 
+const getThemeSourceHash = async (files: string[]) => {
+  const hash = createHash("sha256");
+
+  for (const file of [...files].sort()) {
+    hash.update(path.relative(projectRoot, file));
+    hash.update(await readFile(file));
+  }
+
+  // 本脚本调整生成规则时也应失效缓存。
+  hash.update(await readFile(fileURLToPath(import.meta.url)));
+  return hash.digest("hex");
+};
+
+const canReuseBuild = async (hash: string) => {
+  if (!existsSync(cacheFile) || !existsSync(path.join(themeChalkRoot, "index.css"))) return false;
+  if (!existsSync(path.join(teekRoot, "index.css")) || !existsSync(teekThemeChalkRoot)) return false;
+
+  try {
+    const cache = JSON.parse(await readFile(cacheFile, "utf8")) as { hash?: string };
+    return cache.hash === hash;
+  } catch {
+    return false;
+  }
+};
+
 const buildThemeChalk = async () => {
+  const scssFiles = await collectScssFiles(themeChalkSrc);
+  const sourceHash = await getThemeSourceHash(scssFiles);
+
+  if (await canReuseBuild(sourceHash)) {
+    console.log("Skipped theme-chalk CSS build (source unchanged)");
+    return;
+  }
+
   await cleanGeneratedCss(themeChalkRoot);
   await rm(path.join(teekRoot, "index.css"), { force: true });
   await rm(teekThemeChalkRoot, { recursive: true, force: true });
 
-  const scssFiles = await collectScssFiles(themeChalkSrc);
   const stemToFile = pickPreferredStemFile(scssFiles);
   const generatedFiles: string[] = [];
 
@@ -106,6 +140,8 @@ const buildThemeChalk = async () => {
   }
 
   await writeFile(path.join(teekRoot, "index.css"), await readFile(path.join(themeChalkRoot, "index.css"), "utf8"));
+  await ensureDir(path.dirname(cacheFile));
+  await writeFile(cacheFile, `${JSON.stringify({ hash: sourceHash })}\n`);
 
   console.log(`Built theme-chalk CSS (${generatedFiles.length} files)`);
 };

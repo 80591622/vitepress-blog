@@ -4,7 +4,16 @@ import type { Component, Ref, InjectionKey } from "vue";
 import { computed, defineComponent, h, inject, nextTick, provide, ref, unref, watch } from "vue";
 import { useData, useRoute } from "vitepress";
 import { useAnchorScroll, useMediaQuery, useViewTransition } from "@teek/composables";
-import { emptyPost } from "@teek/config/post/helper";
+import {
+  emptyPost,
+  filterPosts,
+  getGroupCards,
+  getGroupPosts,
+  getSortPostsByDate,
+  getSortPostsByDateAndSticky,
+  groupByYear,
+  groupByYearMonth,
+} from "@teek/config/post/helper";
 import { isClient, isFunction, isObject } from "@teek/helper";
 
 export const postsContext: InjectionKey<PostData> = Symbol("posts");
@@ -197,7 +206,7 @@ export const useAllPosts = (): PostData => {
   const { theme } = useData();
   const posts = theme.value.posts;
 
-  return posts || emptyPost;
+  return resolvePosts(posts || emptyPost);
 };
 
 /**
@@ -208,7 +217,39 @@ export const usePosts = (): Ref<PostData> => {
   const posts = useAllPosts();
 
   // 兼容国际化功能，先从多语言下获取 posts 数据，获取不到说明没有使用多语言功能，则获取所有 posts 数据。因为多语言可以随时切换，因此使用 computed
-  return computed(() => posts.locales?.[localeIndex.value] || posts);
+  return computed(() => resolvePosts(posts.locales?.[localeIndex.value] || posts));
+};
+
+/**
+ * 构建阶段只序列化 allPosts，避免 allPosts / 排序结果 / 分组结果在每个页面的
+ * metadata 中重复出现。首次读取时在运行时重建，文章数量较少，计算成本远低于
+ * 下载和解析重复 JSON 的成本。
+ */
+const postDataCache = new WeakMap<PostData, PostData>();
+
+const resolvePosts = (posts: PostData): PostData => {
+  if (posts === emptyPost || posts.originPosts?.length || !posts.allPosts?.length) return posts;
+
+  const cached = postDataCache.get(posts);
+  if (cached) return cached;
+
+  const originPosts = filterPosts(posts.allPosts);
+  const sortPostsByDateAndSticky = getSortPostsByDateAndSticky(originPosts);
+  const sortPostsByDate = getSortPostsByDate(originPosts);
+  const groupPosts = getGroupPosts(sortPostsByDateAndSticky);
+  const resolved: PostData = {
+    ...posts,
+    originPosts,
+    sortPostsByDateAndSticky,
+    sortPostsByDate,
+    groupPostsByYear: groupByYear(sortPostsByDate),
+    groupPostsByYearMonth: groupByYearMonth(sortPostsByDate),
+    groupPosts,
+    groupCards: getGroupCards(groupPosts),
+  };
+
+  postDataCache.set(posts, resolved);
+  return resolved;
 };
 
 /**

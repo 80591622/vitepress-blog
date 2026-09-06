@@ -7,7 +7,7 @@ categories:
   - base
 tags:
   - java
-lastUpdated: "2026-09-06T09:45:15.054Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # Java 基础语法
@@ -70,7 +70,7 @@ int orderCount = 3;
 
 类型转换是将一个类型的值用于另一个兼容类型的过程。数值类型的转换分为自动类型转换和强制类型转换；`String` 与数值之间则需要使用对应的转换方法。
 
-![Java 自动类型转换](/img/java-type-conversion.png)
+![Java 自动类型转换](/img/java-type-conversion.webp)
 
 ### 自动类型转换
 
@@ -90,7 +90,7 @@ int code = initial; // 65
 
 数值参与算术表达式时，Java 会先把范围较小的类型提升为能参与运算的较大类型，再计算结果。`byte`、`short` 和 `char` 即使单独参与 `+`、`-`、`*`、`/`、`%`，也会先提升为 `int`。
 
-![Java 表达式的自动类型提升](/img/java-expression-type-promotion.png)
+![Java 表达式的自动类型提升](/img/java-expression-type-promotion.webp)
 
 表达式的结果由参与运算的最高类型决定；其中 `byte`、`short`、`char` 的起点是 `int`，而不是彼此之间逐级提升。
 
@@ -142,7 +142,7 @@ public class TypePromotionDemo {
 
 上例中 `charSum` 与 `shortSum` 都是 `int`。`100 + 100` 的结果是 `200`，超出 `byte` 的 `-128 ~ 127` 范围；强制转换只保留低 8 位，因此 `overflow` 是 `-56`，不是 `200`。
 
-![Java 表达式自动类型提升小结](/img/java-expression-type-promotion-summary.png)
+![Java 表达式自动类型提升小结](/img/java-expression-type-promotion-summary.webp)
 
 常量表达式是一个例外：如果编译器能在编译期确定结果，并且结果没有超出目标类型范围，允许直接赋值给 `byte`、`short` 或 `char`。
 
@@ -155,7 +155,7 @@ byte value = 10 + 20; // 编译期可确定为 30，允许赋值
 
 从范围较大的类型转换为范围较小的类型时，必须在前面写目标类型。转换可能发生截断或溢出，使用前应确认数值范围。
 
-![Java 强制类型转换](/img/java-forced-type-conversion.png)
+![Java 强制类型转换](/img/java-forced-type-conversion.webp)
 
 ```java
 int total = 130;

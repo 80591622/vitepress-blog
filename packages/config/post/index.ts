@@ -6,15 +6,7 @@ import { getTitleFromMarkdown } from "vitepress-plugin-sidebar-resolve";
 import { basename, join } from "node:path";
 import { statSync } from "node:fs";
 import { formatDate } from "@teek/helper";
-import {
-  filterPosts,
-  getSortPostsByDateAndSticky,
-  getSortPostsByDate,
-  getGroupPosts,
-  getGroupCards,
-  groupByYear,
-  groupByYearMonth,
-} from "./helper";
+import { emptyPost } from "./helper";
 import matter from "gray-matter";
 
 // ! 该文件只在 node 环境运行，无法直接在 Client（浏览器）环境运行
@@ -48,7 +40,7 @@ export const transformRaw = (posts: TkContentData[]): PostData => {
   const siteConfig: SiteConfig = (globalThis as any).VITEPRESS_CONFIG;
   const { locales = {} } = siteConfig.userConfig;
 
-  const postsData = resolvePosts(posts);
+  const postsData = createCompactPostData(posts);
 
   const localesKeys = Object.keys(locales);
   // 没有配置国际化，则返回所有 posts 数据
@@ -60,38 +52,29 @@ export const transformRaw = (posts: TkContentData[]): PostData => {
     .filter(localesKey => localesKey !== "root")
     .forEach(localesKey => {
       const localePosts = posts.filter(post => post.relativePath.startsWith(`/${localesKey}`));
-      postsLocale[localesKey] = resolvePosts(localePosts);
+      postsLocale[localesKey] = createCompactPostData(localePosts);
     });
 
   // root 处理
   const rootPosts = posts.filter(
     post => !localesKeys.some(localesKey => post.relativePath.startsWith(`/${localesKey}`))
   );
-  postsLocale["root"] = resolvePosts(rootPosts);
+  postsLocale["root"] = createCompactPostData(rootPosts);
 
   return { ...postsData, locales: postsLocale };
 };
 
-const resolvePosts = (posts: TkContentData[]): PostData => {
-  const originPosts = filterPosts(posts);
-  const sortPostsByDateAndSticky = getSortPostsByDateAndSticky(originPosts);
-  const sortPostsByDate = getSortPostsByDate(originPosts);
-  const groupPostsByYear = groupByYear(sortPostsByDate);
-  const groupPostsByYearMonth = groupByYearMonth(sortPostsByDate);
-  const groupPosts = getGroupPosts(sortPostsByDateAndSticky);
-  const groupCards = getGroupCards(groupPosts);
-
-  return {
-    allPosts: posts,
-    originPosts,
-    sortPostsByDateAndSticky,
-    sortPostsByDate,
-    groupPostsByYear,
-    groupPostsByYearMonth,
-    groupPosts,
-    groupCards,
-  };
-};
+/**
+ * 仅将原始文章列表写入 VitePress 的全局站点数据。
+ *
+ * `PostData` 的派生数组会在 JSON 序列化时重复整篇文章的摘要、前言等字段；
+ * 当前站点约 150 篇文章时，这部分会让每个页面额外携带 1 MB 左右的 metadata。
+ * 浏览器端会基于 allPosts 重建这些派生数据，避免首屏重复传输。
+ */
+const createCompactPostData = (posts: TkContentData[]): PostData => ({
+  ...emptyPost,
+  allPosts: posts,
+});
 
 /**
  * 获取文章标题，获取顺序：frontmatter.title > md 文件开头的一级标题 > 文件名

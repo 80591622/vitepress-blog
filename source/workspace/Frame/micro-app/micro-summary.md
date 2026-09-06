@@ -6,7 +6,7 @@ categories:
   - micro-app
 tags:
   - micro-app
-lastUpdated: "2022-07-27T16:09:05.080Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # 微前端方案总结
@@ -192,7 +192,7 @@ module.exports = {
 
 ## 微前端执行流程
 
-<img src="/img/micro.png" alt="微前端执行流程" style="width: 280px; height: 800px;">
+<img src="/img/micro.webp" alt="微前端执行流程" style="width: 280px; height: 800px;">
 
 ## Qiankun 原理
 

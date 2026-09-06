@@ -6,7 +6,7 @@ categories:
 tags:
   - Js
   - Java
-lastUpdated: "2026-09-01T10:21:04.020Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # 堆内存、栈内存与数据类型
@@ -63,7 +63,7 @@ admin.setName("coder");
 对象不再可达，等待 GC 回收
 ```
 
-![堆、栈与基本类型、引用类型的关系](/img/heap-stack-data-types.png)
+![堆、栈与基本类型、引用类型的关系](/img/heap-stack-data-types.webp)
 
 “基本类型在栈、引用类型在堆”适合先建立概念，但不是语言规范保证的固定规则。JavaScript 引擎和 JVM 都会根据运行情况做优化，不需要也不应该依赖真实内存位置写代码。
 
@@ -71,7 +71,7 @@ admin.setName("coder");
 
 JavaScript 有 7 种原始值：`undefined`、`null`、`boolean`、`number`、`bigint`、`string`、`symbol`。对象、数组、函数都属于对象相关的引用值。
 
-![JavaScript 数据类型分类](/img/javascript-data-types.png)
+![JavaScript 数据类型分类](/img/javascript-data-types.webp)
 
 `const` 只是不允许变量重新指向另一个值，不代表对象不能修改。
 
@@ -88,7 +88,7 @@ profile.name = "coder"; // 可以修改对象内容
 
 Java 有 8 种基本类型：`byte`、`short`、`int`、`long`、`float`、`double`、`char`、`boolean`。`String`、数组、类实例、集合、包装类等都属于引用类型。
 
-![Java 数据类型分类](/img/java-data-types.png)
+![Java 数据类型分类](/img/java-data-types.webp)
 
 ```java
 int age = 18;                    // 基本类型

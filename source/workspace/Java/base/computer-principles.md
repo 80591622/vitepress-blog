@@ -8,7 +8,7 @@ categories:
 tags:
   - java
   - computer
-lastUpdated: "2026-09-01T10:21:04.020Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # 计算机原理：二进制与数据存储
@@ -17,7 +17,7 @@ lastUpdated: "2026-09-01T10:21:04.020Z"
 
 ## bit、byte 与容量单位
 
-![计算机中的数据单位](/img/java-bit-byte.png)
+![计算机中的数据单位](/img/java-bit-byte.webp)
 
 `bit`（比特）是最小的信息单位，取值只有 `0` 或 `1`；8 个 bit 组成 1 个 `byte`（字节）。Java 中 `int` 的“4 字节”、`long` 的“8 字节”都是以 byte 为单位。
 
@@ -71,7 +71,7 @@ Java 的 `char` 使用 UTF-16 代码单元，因此字符范围不止 ASCII；`A
 音频文件 → 解码 → PCM 数据 → 数模转换 → 扬声器播放
 ```
 
-![音频采样、量化与二进制编码](/img/audio-sampling-quantization.png)
+![音频采样、量化与二进制编码](/img/audio-sampling-quantization.webp)
 
 图左是连续的声音波形；图右将波形按固定时间点采样，再把每个采样点量化到有限等级。等级可以用二进制编码，例如 3 位可表示 `000 ~ 111` 共 8 个等级。连续的编码结果按字节写入文件，便形成 PCM 等数字音频数据。
 
@@ -97,7 +97,7 @@ MP4、MKV 是容器格式，负责组织音视频流、字幕和时间信息；H
 
 从右向左，每一位乘以对应的 `2` 的幂，再求和。
 
-![二进制转十进制](/img/java-binary-to-decimal.png)
+![二进制转十进制](/img/java-binary-to-decimal.webp)
 
 ```text
 0b10110 = 1 × 2⁴ + 0 × 2³ + 1 × 2² + 1 × 2¹ + 0 × 2⁰
@@ -139,7 +139,7 @@ public class BinaryValueDemo {
 | 十进制   |   10 | 无           | `10`     |       10 |
 | 十六进制 |   16 | `0x` 或 `0X` | `0xA`    |       10 |
 
-![八进制与十六进制表示](/img/java-octal-hexadecimal.png)
+![八进制与十六进制表示](/img/java-octal-hexadecimal.webp)
 
 ```java
 public class RadixLiteralDemo {

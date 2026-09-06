@@ -5,7 +5,7 @@ categories:
   - Jenkins
 tags:
   - Jenkins
-lastUpdated: "2026-03-11T04:59:12.784Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # Jenkins自动化部署
@@ -35,7 +35,7 @@ CI 持续集成
 
 CD 持续部署
 
- <img src='/img/jenkins.jpeg'/>
+ <img src='/img/jenkins.webp'/>
 
 ## 配置jdk安装Java环境
 
@@ -136,7 +136,7 @@ Role-based Authorization Strategy//增加用户的权限管理
 
 在jenkins`插件管理->高级`选择上传插件进行安装。
 
-<img src='/img/plugin.png'/>
+<img src='/img/plugin.webp'/>
 
 ## 关闭防火墙
 
@@ -154,22 +154,22 @@ Role-based Authorization Strategy//增加用户的权限管理
 
 源代码->git->https://github.com/wkvictory/weapp.git->添加权限【git 的用户名和密码】->构建触发器(Generic Webhook Trigger)->应用保存
 
-<img src='/img/addGit.png'/>
+<img src='/img/addGit.webp'/>
 
-<img src='/img/trigger.png'/>
+<img src='/img/trigger.webp'/>
 
 ## 配置webhook
 
 此时可以构建了，但是需要在还给Git中添加Webhooks，否则不能自动化构建
 
-<img src='/img/webhooks.png'/>
+<img src='/img/webhooks.webp'/>
 
 `http://JENKINS_URL/generic-webhook-trigger/invoke`
 
 JENKINS_URL格式为 `用户名:token@ip:8080`
 
 **token生成的位置**<br/>
-<img src='/img/token.png'/>
+<img src='/img/token.webp'/>
 
 admin<br/>
 1108c27bdd32e70d8ba6ba7893bcf57450<br/>
@@ -188,7 +188,7 @@ http://admin:1108c27bdd32e70d8ba6ba7893bcf57450@120.79.229.197:8080/generic-webh
 下拉任务名字->配置->构建环境（选中Run the build in an NVM managed environment，【我们自己下载的插件提供node环境】）->
 输入node的版本号->构建->选择shell
 
-<!-- <img src='/img/nvm.png'/> -->
+<!-- <img src='/img/nvm.webp'/> -->
 
 ```bash
 echo $GIT_BRANCH
@@ -205,7 +205,7 @@ tar -czvf dist.tar.gz dist/h5
 
 系统管理->系统设置->Publish over SSH
 
-<img src='/img/ssh.png'/>
+<img src='/img/ssh.webp'/>
 
 ## 配置免费登录（同一台也要）
 
@@ -219,7 +219,7 @@ ssh-copy-id 120.79.229.197
 
 下拉任务名字->配置->构建后操作->Send build artifacts over SSH
 <br/>
-<img src='/img/deploy.png'/>
+<img src='/img/deploy.webp'/>
 
 ## 邮件提醒
 
@@ -227,17 +227,17 @@ ssh-copy-id 120.79.229.197
 
 2.系统管理->系统设置->Extended E-mail Notification
 
-<img src='/img/email.png'/>
+<img src='/img/email.webp'/>
 
 3.系统管理->系统设置->邮件通知
 
-<img src='/img/nextEmail.png'/>
+<img src='/img/nextEmail.webp'/>
 
 4.拉任务名字->配置->构建后操作->Editable Email Notification
 
-<img src='/img/nextDeployEmail.png'/>
+<img src='/img/nextDeployEmail.webp'/>
 <br/>
-<img src='/img/always.png'/>
+<img src='/img/always.webp'/>
 
 > 优化jenkins运行内存 vim /etc/sysconfig/jenkins
 
@@ -270,7 +270,7 @@ service jenkins restart
 
 **再次访问Jenkins后，首先要设置登录认证。**
 
-<img src='/img/security.png'/>
+<img src='/img/security.webp'/>
 
 ## Jenkins调优
 

@@ -7,7 +7,7 @@ categories:
   - base
 tags:
   - java
-lastUpdated: "2026-09-06T09:45:15.054Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # Java 运算符、条件与循环
@@ -37,7 +37,7 @@ const pageCount = 5 / 2; // 2.5
 
 `=` 是赋值，`+=`、`-=` 等会基于原值更新变量。它们不是相等比较。
 
-![Java 赋值与复合赋值运算符](/img/java-assignment-operators.png)
+![Java 赋值与复合赋值运算符](/img/java-assignment-operators.webp)
 
 ```java
 int stock = 10;
@@ -55,7 +55,7 @@ stock -= 2; // 13
 
 `++`、`--` 分别表示加一和减一。单独作为一条语句时，前缀和后缀写法的效果相同；嵌入表达式时，后缀先取值再更新，前缀先更新再取值。
 
-![Java 自增自减运算符](/img/java-increment-decrement-operators.png)
+![Java 自增自减运算符](/img/java-increment-decrement-operators.webp)
 
 ```java
 int count = 1;

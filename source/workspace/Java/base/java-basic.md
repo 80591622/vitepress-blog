@@ -7,7 +7,7 @@ categories:
   - base
 tags:
   - java
-lastUpdated: "2026-09-06T09:47:06.151Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # Java 数据类型与变量
@@ -16,7 +16,7 @@ Java 是静态类型语言。变量先声明类型，赋值时会做类型检查
 
 ## 变量声明与赋值
 
-![Java 变量声明](/img/java-variable-declaration.png)
+![Java 变量声明](/img/java-variable-declaration.webp)
 
 变量可以理解为程序中保存数据的名称。声明时要明确数据类型，变量名通常使用小驼峰命名，并且应表达数据的含义。
 

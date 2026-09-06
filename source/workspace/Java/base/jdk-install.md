@@ -8,7 +8,7 @@ categories:
 tags:
   - java
   - jdk
-lastUpdated: "2026-09-01T10:21:04.020Z"
+lastUpdated: "2026-09-06T10:46:57.598Z"
 ---
 
 # mac 上安装 JDK 与版本切换
@@ -21,7 +21,7 @@ lastUpdated: "2026-09-01T10:21:04.020Z"
 
 先看这张图：
 
-![jdk组成](/img/jdk.png)
+![jdk组成](/img/jdk.webp)
 
 平时总会看到 `JDK`、`JRE`、`JVM` 这几个词，最简单的理解方式就是：
 

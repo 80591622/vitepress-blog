@@ -81,7 +81,8 @@ export default defineConfig({
   vite: {
     ...teekViteConfig,
     build: {
-      chunkSizeWarningLimit: 3000,
+      // 让异常大的首屏 chunk 在构建阶段暴露出来，而不是被 3 MB 阈值掩盖。
+      chunkSizeWarningLimit: 700,
     },
   },
   themeConfig: siteThemeConfig,
