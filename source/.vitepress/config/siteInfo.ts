@@ -3,7 +3,7 @@ import type { DefaultTheme } from "vitepress";
 export const siteProfile = {
   title: "TimeByte",
   description: "软件开发计：开发文档和开发计划，完成功能工具，和待开发的功能和工具",
-  logo: "/img/clock.png",
+  logo: "/img/clock.webp",
   author: {
     name: "TimeByte",
     link: "https://github.com/80591622",

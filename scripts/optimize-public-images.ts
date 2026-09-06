@@ -25,7 +25,7 @@ async function updateImageReferences(conversions: Map<string, string>) {
   if (!conversions.size) return 0;
 
   const sourceRoot = path.join(projectRoot, "source");
-  const result = spawnSync("rg", ["--files", sourceRoot, "-g", "*.md", "-g", "*.ts", "-g", "*.vue"], {
+  const result = spawnSync("rg", ["--hidden", "--files", sourceRoot, "-g", "*.md", "-g", "*.ts", "-g", "*.vue"], {
     encoding: "utf8",
   });
 
