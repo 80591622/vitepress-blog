@@ -9,15 +9,6 @@ catalogs:
     '@iconify/vue':
       specifier: ^4.3.0
       version: 4.3.0
-    '@types/js-yaml':
-      specifier: ^4.0.9
-      version: 4.0.9
-    '@types/markdown-it':
-      specifier: ^14.1.2
-      version: 14.1.2
-    '@types/markdown-it-container':
-      specifier: ^4.0.0
-      version: 4.0.0
     gray-matter:
       specifier: ^4.0.3
       version: 4.0.3
@@ -27,45 +18,9 @@ catalogs:
     markdown-it-container:
       specifier: ^4.0.0
       version: 4.0.0
-    picocolors:
-      specifier: ^1.1.1
-      version: 1.1.1
-    sass:
-      specifier: ^1.99.0
-      version: 1.99.0
-    tinyglobby:
-      specifier: ^0.2.15
-      version: 0.2.16
     typescript:
       specifier: ^5.4.5
       version: 5.9.3
-    vite:
-      specifier: ^5.4.21
-      version: 5.4.21
-    vitepress:
-      specifier: ^1.6.4
-      version: 1.6.4
-    vitepress-plugin-auto-frontmatter:
-      specifier: ^1.0.13
-      version: 1.0.13
-    vitepress-plugin-catalogue:
-      specifier: ^1.1.2
-      version: 1.1.2
-    vitepress-plugin-doc-analysis:
-      specifier: ^1.0.13
-      version: 1.0.13
-    vitepress-plugin-file-content-loader:
-      specifier: ^1.0.13
-      version: 1.0.13
-    vitepress-plugin-md-h1:
-      specifier: ^1.0.11
-      version: 1.0.11
-    vitepress-plugin-permalink:
-      specifier: ^1.2.1
-      version: 1.2.1
-    vitepress-plugin-sidebar-resolve:
-      specifier: ^1.2.2
-      version: 1.2.3
   vue:
     '@vue/compiler-dom':
       specifier: ^3.5.33
@@ -78,6 +33,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/jetbrains-mono':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@iconify/vue':
         specifier: 'catalog:'
         version: 4.3.0(vue@3.5.33(typescript@5.9.3))
@@ -1132,6 +1090,9 @@ packages:
   '@eslint/plugin-kit@0.7.1':
     resolution: {integrity: sha512-rZAP3aVgB9ds9KOeUSL+zZ21hPmo8dh6fnIFwRQj5EAZl9gzR7wxYbYXYysAM8CTqGmUGyp2S4kUdV17MnGuWQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@fontsource/jetbrains-mono@5.3.0':
+    resolution: {integrity: sha512-fqDfB5I9f1p1TV486aUgB9t8zP84P0O1FtQR5Ol9vjwPy+S+EIGlVYm1cvj2W5shcZMTg2nZFdVMoH5wFu8a1A==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -4165,6 +4126,8 @@ snapshots:
     dependencies:
       '@eslint/core': 1.2.1
       levn: 0.4.1
+
+  '@fontsource/jetbrains-mono@5.3.0': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

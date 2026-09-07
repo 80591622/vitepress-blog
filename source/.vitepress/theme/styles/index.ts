@@ -18,6 +18,9 @@ import "@teek/theme-chalk/tk-plus/banner-desc-gradient.scss";
 import "@teek/theme-chalk/tk-plus/home-card-hover.scss";
 import "@teek/theme-chalk/tk-plus/fade-up-animation.scss";
 
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+
 import "../style.css";
 import "./code-bg.scss";
 import "./archives.scss";

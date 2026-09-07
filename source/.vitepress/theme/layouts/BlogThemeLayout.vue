@@ -25,7 +25,7 @@ const isTerminalHome = computed(() => route.path === "/" || route.path === "/ind
       <TerminalHome v-if="isTerminalHome" />
     </template>
 
-    <template #teek-home-features-before>
+    <template #page-top>
       <CategoriesTagsPage />
     </template>
 

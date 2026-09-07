@@ -9,7 +9,7 @@ const ns = "error-page";
   <div :class="ns">
     <div :class="`${ns}__inner`">
       <div :class="`${ns}__art`" aria-hidden="true">
-        <img :src="withBase('/img/404-illustration.png')" alt="" />
+        <img :src="withBase('/img/404-illustration.webp')" alt="" />
       </div>
       <div :class="`${ns}__detail`">
         <h2 :class="`${ns}__code`">404</h2>

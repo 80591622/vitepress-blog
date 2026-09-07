@@ -23,7 +23,6 @@ type TerminalSection = SectionMeta & { label: string; link: string; count: numbe
 
 const posts = usePosts();
 
-const commandOpen = ref(false);
 const activeCategory = ref(0);
 const rainCanvas = ref<HTMLCanvasElement | null>(null);
 const elapsed = ref(0);
@@ -34,6 +33,14 @@ const bootLines = [
   "loading knowledge base ......... 6 modules",
   "starting shell ................. zsh 5.9",
 ] as const;
+const asciiLogo = [
+  " _____ _                 ____        _",
+  "|_   _(_)_ __ ___   ___ | __ ) _   _| |_ ___",
+  "  | | | | '_ ` _ \\ / _ \\|  _ \\| | | | __/ _ \\",
+  "  | | | | | | | | |  __/| |_) | |_| | ||  __/",
+  "  |_| |_|_| |_| |_|\\___||____/ \\__, |\\__\\___|",
+  "                                |___/",
+].join("\n");
 const meterHistory = ref<MeterHistory>({
   cpu: Array.from({ length: METER_HISTORY_LENGTH }, (_, index) => 24 + ((index * 7) % 45)),
   mem: Array.from({ length: METER_HISTORY_LENGTH }, (_, index) => 32 + ((index * 11) % 44)),
@@ -44,6 +51,8 @@ const activity = ref<number[]>(Array(ACTIVITY_CELL_COUNT).fill(0));
 let clockTimer: ReturnType<typeof setInterval> | undefined;
 let monitorTimer: ReturnType<typeof setInterval> | undefined;
 let stopCodeRain: (() => void) | undefined;
+let stopTimers: (() => void) | undefined;
+let visibilityChange: (() => void) | undefined;
 
 const postCount = computed(() => posts.value.originPosts.length);
 const uptime = computed(() => {
@@ -66,24 +75,28 @@ const sectionMeta: Record<string, SectionMeta> = {
   Other: { icon: "✨", folder: "other", desc: "Jenkins、开发工具与其他记录" },
 };
 
-const getFirstArticleLink = (items: readonly SidebarNode[] | undefined): string | undefined => {
-  if (!items) return undefined;
-  for (const item of items) {
-    if ("link" in item && item.link) return item.link;
-    const nestedLink = getFirstArticleLink(item.items);
-    if (nestedLink) return nestedLink;
-  }
-  return undefined;
-};
+const summarizeArticles = (items: readonly SidebarNode[] | undefined) => {
+  let firstLink: string | undefined;
+  let count = 0;
 
-const countArticles = (items: readonly SidebarNode[] | undefined): number => {
-  if (!items) return 0;
-  return items.reduce((total, item) => total + ("link" in item && item.link ? 1 : countArticles(item.items)), 0);
+  for (const item of items ?? []) {
+    if ("link" in item && item.link) {
+      firstLink ??= item.link;
+      count += 1;
+      continue;
+    }
+
+    const nested = summarizeArticles(item.items);
+    firstLink ??= nested.firstLink;
+    count += nested.count;
+  }
+
+  return { firstLink, count };
 };
 
 const sections = computed<TerminalSection[]>(() =>
   (workspaceSidebarItems as readonly SidebarNode[]).flatMap(section => {
-    const link = getFirstArticleLink(section.items);
+    const { firstLink: link, count } = summarizeArticles(section.items);
     if (!link) return [];
     // 侧栏配置中的根分组均有 text；保留 VitePress 类型中该字段可选的兼容性。
     const label = section.text!;
@@ -92,7 +105,7 @@ const sections = computed<TerminalSection[]>(() =>
       folder: label.toLowerCase().replace(/\s+/g, "-"),
       desc: `${label} 相关的技术探索与实践记录`,
     };
-    return [{ ...meta, label, link, count: countArticles(section.items) }];
+    return [{ ...meta, label, link, count }];
   })
 );
 
@@ -106,25 +119,10 @@ const nextMeterValue = (current: number) => Math.round(Math.max(8, Math.min(96, 
 
 /** 首页目录直接跳至侧边栏分组的首篇真实文章，不在首页筛选或展开内容。 */
 const sectionHref = (link: string) => withBase(link);
-const openSearch = () => {
-  commandOpen.value = true;
-};
-
 const keydown = (event: KeyboardEvent) => {
   const target = event.target as HTMLElement | null;
   const isTyping = ["INPUT", "TEXTAREA", "SELECT"].includes(target?.tagName ?? "") || target?.isContentEditable;
-  if (isTyping || commandOpen.value) return;
-
-  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-    event.preventDefault();
-    openSearch();
-    return;
-  }
-  if (event.key === "~") {
-    event.preventDefault();
-    openSearch();
-    return;
-  }
+  if (isTyping) return;
 
   if (!sections.value.length) return;
 
@@ -166,13 +164,13 @@ const startCodeRain = () => {
   let columns: number[] = [];
   let width = 0;
   let height = 0;
-  let pixelRatio = 1;
-  let lastDraw = 0;
-  let isVisible = true;
-  let rainFrame = 0;
+  let isVisible = !document.hidden;
+  let rainFrame: number | undefined;
+  let rainTimer: ReturnType<typeof setTimeout> | undefined;
+  let resizeFrame: number | undefined;
 
   const resize = () => {
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = Math.floor(width * pixelRatio);
@@ -185,39 +183,60 @@ const startCodeRain = () => {
     context.font = `${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
   };
 
-  const draw = (time: number) => {
-    rainFrame = requestAnimationFrame(draw);
-    if (!isVisible || time - lastDraw < 66) return;
-    lastDraw = time;
+  const scheduleDraw = () => {
+    rainTimer = setTimeout(() => {
+      rainTimer = undefined;
+      rainFrame = requestAnimationFrame(draw);
+    }, 50);
+  };
+
+  const draw = () => {
+    if (!isVisible) return;
     const darkMode = document.documentElement.classList.contains("dark");
+    const rainColor = darkMode ? "rgba(88, 232, 162, .34)" : "rgba(7, 128, 91, .44)";
+    const highlightColor = darkMode ? "rgba(180, 255, 225, .72)" : "rgba(2, 104, 75, .82)";
     context.fillStyle = darkMode ? "rgba(10, 14, 20, .10)" : "rgba(244, 248, 247, .055)";
     context.fillRect(0, 0, width, height);
+    context.fillStyle = rainColor;
     for (let column = 0; column < columns.length; column += 1) {
       const y = columns[column] * fontSize;
       const highlight = Math.random() > 0.97;
-      context.fillStyle = darkMode
-        ? highlight
-          ? "rgba(170, 255, 220, .55)"
-          : "rgba(80, 220, 150, .22)"
-        : highlight
-          ? "rgba(2, 104, 75, .68)"
-          : "rgba(7, 128, 91, .30)";
+      if (highlight) context.fillStyle = highlightColor;
       context.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], column * fontSize, y);
+      if (highlight) context.fillStyle = rainColor;
       columns[column] = y > height && Math.random() > 0.975 ? 0 : columns[column] + 1;
     }
+    scheduleDraw();
   };
 
   const visibilityChange = () => {
     isVisible = !document.hidden;
+    if (!isVisible) {
+      if (rainFrame !== undefined) cancelAnimationFrame(rainFrame);
+      if (rainTimer !== undefined) clearTimeout(rainTimer);
+      rainFrame = undefined;
+      rainTimer = undefined;
+      return;
+    }
+    rainFrame = requestAnimationFrame(draw);
+  };
+  const scheduleResize = () => {
+    if (resizeFrame !== undefined) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      resizeFrame = undefined;
+      resize();
+    });
   };
   resize();
-  window.addEventListener("resize", resize, { passive: true });
+  window.addEventListener("resize", scheduleResize, { passive: true });
   document.addEventListener("visibilitychange", visibilityChange);
-  rainFrame = requestAnimationFrame(draw);
+  if (isVisible) rainFrame = requestAnimationFrame(draw);
 
   return () => {
-    cancelAnimationFrame(rainFrame);
-    window.removeEventListener("resize", resize);
+    if (rainFrame !== undefined) cancelAnimationFrame(rainFrame);
+    if (rainTimer !== undefined) clearTimeout(rainTimer);
+    if (resizeFrame !== undefined) cancelAnimationFrame(resizeFrame);
+    window.removeEventListener("resize", scheduleResize);
     document.removeEventListener("visibilitychange", visibilityChange);
   };
 };
@@ -228,27 +247,49 @@ onMounted(() => {
     now.value = timeFormatter.format();
     elapsed.value = Math.floor((Date.now() - startedAt) / 1000);
   };
-  updateTime();
-  clockTimer = setInterval(updateTime, 1000);
-  monitorTimer = setInterval(() => {
+  const updateMonitor = () => {
     METER_KEYS.forEach(key => {
-      const current = meterValue(key);
-      const next = nextMeterValue(current);
-      meterHistory.value[key] = [...meterHistory.value[key].slice(1), next];
+      const history = meterHistory.value[key];
+      const current = history.at(-1) ?? 0;
+      history.shift();
+      history.push(nextMeterValue(current));
     });
-  }, 420);
+  };
+  const startTimers = () => {
+    if (clockTimer !== undefined || monitorTimer !== undefined) return;
+    clockTimer = setInterval(updateTime, 1000);
+    monitorTimer = setInterval(updateMonitor, 420);
+  };
+  stopTimers = () => {
+    if (clockTimer) clearInterval(clockTimer);
+    if (monitorTimer) clearInterval(monitorTimer);
+    clockTimer = undefined;
+    monitorTimer = undefined;
+  };
+  visibilityChange = () => {
+    if (document.hidden) {
+      stopTimers?.();
+      return;
+    }
+    updateTime();
+    startTimers();
+  };
+
+  updateTime();
+  if (!document.hidden) startTimers();
   activity.value = Array.from({ length: ACTIVITY_CELL_COUNT }, () =>
     Math.random() > 0.42 ? 1 + Math.floor(Math.random() * 4) : 0
   );
   window.addEventListener("keydown", keydown);
+  document.addEventListener("visibilitychange", visibilityChange);
   stopCodeRain = startCodeRain();
 });
 
 onBeforeUnmount(() => {
-  if (clockTimer) clearInterval(clockTimer);
-  if (monitorTimer) clearInterval(monitorTimer);
+  stopTimers?.();
   stopCodeRain?.();
   window.removeEventListener("keydown", keydown);
+  if (visibilityChange) document.removeEventListener("visibilitychange", visibilityChange);
 });
 </script>
 
@@ -262,18 +303,11 @@ onBeforeUnmount(() => {
         <span class="dot dot--red" />
         <span class="dot dot--yellow" />
         <span class="dot dot--green" />
-        <span class="tk-terminal-title">timebyte@wkdev ~ zsh</span>
+        <span class="tk-terminal-title">TimeByte@wkdev ~ zsh</span>
         <span class="tk-terminal-record">● REC 60fps</span>
       </div>
       <div class="tk-terminal-intro">
-        <pre class="tk-terminal-ascii" aria-hidden="true">
-      ______ _               _____        __
-       |_   _ (_)_ __ ___  ___| __ ) _   _| |_ ___
-         | | | | '_ ` _ \/ _ \   _ \| | | | __/ _ \
-         | | | | | | | | |  __/ |_) | |_| | ||  __/
-         |_| |_|_| |_| |_|\___|____/ \__, |\__\___|
-                                    |___/
-        </pre>
+        <pre class="tk-terminal-ascii" aria-hidden="true">{{ asciiLogo }}</pre>
         <p v-for="line in bootLines" :key="line" class="boot-line">
           [
           <span class="green">ok</span>
@@ -284,7 +318,9 @@ onBeforeUnmount(() => {
           <span class="cyan">~</span>
           whoami
         </p>
-        <p class="result terminal-glow">timebyte — 技术探索与分享的个人空间</p>
+        <p class="result terminal-glow">
+          <span class="tk-terminal-typewriter">TimeByte — 技术探索与分享的个人空间</span>
+        </p>
         <p>
           <span class="green">➜</span>
           <span class="cyan">~</span>
@@ -390,34 +426,13 @@ onBeforeUnmount(() => {
     </section>
 
     <p class="tk-terminal-action">
-      <button type="button" @click="openSearch">
+      <span class="tk-terminal-action__hint">
         按
         <kbd>~</kbd>
         或
         <kbd>⌘K</kbd>
         打开命令面板
-      </button>
+      </span>
     </p>
-
-    <div
-      v-if="commandOpen"
-      class="tk-terminal-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-label="命令面板"
-      @click.self="commandOpen = false"
-    >
-      <div>
-        <button class="dialog-close" type="button" aria-label="关闭" @click="commandOpen = false">×</button>
-        <p>
-          <span class="green">➜</span>
-          command palette
-        </p>
-        <input autofocus placeholder="输入要前往的页面…" />
-        <a :href="withBase('/archives')">归档</a>
-        <a :href="withBase('/categories')">分类</a>
-        <a :href="withBase('/tags')">标签</a>
-      </div>
-    </div>
   </main>
 </template>
