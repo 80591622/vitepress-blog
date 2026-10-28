@@ -15,6 +15,8 @@ export const javaSidebarSection: DefaultTheme.SidebarItem[] = [
           { text: "Java 基础语法", link: "/workspace/Java/base/basic-syntax" },
           { text: "Java 运算符与循环", link: "/workspace/Java/base/operators-and-loops" },
           { text: "Java 数据存储容器", link: "/workspace/Java/base/data-containers" },
+          { text: "Java 面向对象基础", link: "/workspace/Java/base/object-oriented-basics" },
+          { text: "Java 面向对象高级", link: "/workspace/Java/base/object-oriented-advanced" },
         ],
       },
       {
