@@ -17,6 +17,7 @@ export const javaSidebarSection: DefaultTheme.SidebarItem[] = [
           { text: "Java 数据存储容器", link: "/workspace/Java/base/data-containers" },
           { text: "Java 面向对象基础", link: "/workspace/Java/base/object-oriented-basics" },
           { text: "Java 面向对象高级", link: "/workspace/Java/base/object-oriented-advanced" },
+          { text: "Java String 方法", link: "/workspace/Java/base/common-api" },
         ],
       },
       {
