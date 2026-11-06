@@ -7,7 +7,7 @@ categories:
 tags:
   - java
   - 面向对象
-lastUpdated: "2026-11-06T01:27:14.665Z"
+lastUpdated: "2026-11-06T05:39:17.931Z"
 ---
 
 # Java 面向对象高级
@@ -1374,75 +1374,117 @@ public class Test {
 
 ## Object、equals 与 hashCode
 
-没有显式指定父类的普通类默认继承 `Object`。常用方法包括 `toString()`、`equals(Object)` 和 `hashCode()`。
+![Object 的 equals 方法](/img/java-object-equals-method.png)
 
-对于引用类型，`==` 判断两个引用是否指向同一个对象。`Object.equals` 默认也按对象身份比较；如果需要按业务字段判断相等，要重写它。没有重写 `equals` 的类，即使两个独立对象的字段值完全相同，调用 `equals` 仍会得到 `false`。
+- == 号可以比较基本数据类型，也可以比较引用数据类型
+  - 基本类型：比较数据值
+  - 引用类型：比较地址值
+- equals 方法用于比较引用数据类型
+  - 此方法来自于 Object 类，默认比较对象地址值
+  - 如果不希望比较地址值，可重写该方法，自定义比较规则
 
 ```java
-String first = new String("Java");
-String second = new String("Java");
+    @Override
+    public boolean equals(Object o) {
+        // this: stu1
+        // o : stu2
+        if (this == o) {
+            // 如果两个对象的地址相同, 代表是同一块内存空间, 里面的内容肯定相同.
+            return true;
+        }
 
-System.out.println(first == second);      // false
-System.out.println(first.equals(second)); // true
+        // 代码如果可以执行到这里, 说明stu1肯定不是null值
+        // stu1不是null, stu2为null, 直接返回false
+        // 比较两个对象的字节码, 如果字节码不相同, 代表类型不一致, 返回false
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        // 向下转型, 调用子类特有的属性
+        Student student = (Student) o;
+
+        // 比较两个对象的属性值
+        return this.age == student.age && Objects.equals(this.name, student.name);
+    }
 ```
 
-`String` 已经实现了内容比较。引用可能为 `null` 时，可以使用 `java.util.Objects.equals(first, second)`。
-
-重写 `equals` 时应同时重写 `hashCode`：两个对象只要 `equals` 为 `true`，哈希值就必须相同；哈希值相同则不一定相等。`HashSet` 去重、`HashMap` 查找 key 都依赖这个约定。对象进入哈希容器后，参与这两个方法计算的字段应保持稳定，否则可能出现元素明明存在却查不到的情况。
-
-`toString()` 用于提供对象的文本表示，打印日志时经常用到。默认结果通常是类名加 `@` 和哈希码的十六进制表示，不应当把它当成对象的内存地址。
-
-### 示例：按用户编号比较对象
-
 ```java
-// 文件：ObjectDemo.java
-import java.util.Objects;
+public class ObjectMethodDemo {
+    /*
+        == 号
+            1. 基本数据类型: 比较数据值
+            2. 引用数据类型: 比较地址值
 
-public class ObjectDemo {
+        Object类中equals方法默认也是比较地址值
+            public boolean equals(Object obj) {
+                return (this == obj);
+            }
+        结论: 推荐重写equals方法, 自己定制比较规则.
+     */
     public static void main(String[] args) {
-        UserId first = new UserId("U001");
-        UserId second = new UserId("U001");
-        System.out.println(first); // UserId{id='U001'}：调用重写后的 toString。
-        System.out.println(first == second);             // false：两个独立对象。
-        System.out.println(first.equals(second));        // true：编号相同。
-        System.out.println(Objects.equals(first, null)); // false：安全处理 null。
-        System.out.println(Objects.isNull(null));         // true
-    }
-}
+        Student stu1 = new Student("张三", 23);
+        Student stu2 = new Student("张三", 23);
 
-// 不可继承、编号不可修改，比较规则和哈希值保持稳定。
-final class UserId {
-    private final String id;
-
-    public UserId(String id) {
-        this.id = Objects.requireNonNull(id, "用户编号不能为空");
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true; // 同一个对象，直接相等。
-        }
-        if (!(other instanceof UserId)) {
-            return false; // 同时排除 null 和其他类型。
-        }
-        UserId that = (UserId) other;
-        return id.equals(that.id); // 这个类型约定：编号一致即相等。
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode(); // 和 equals 使用同一份编号数据。
-    }
-
-    @Override
-    public String toString() {
-        return "UserId{id='" + id + "'}";
+        System.out.println(stu1.equals(stu2));
+        System.out.println(stu1.equals(new Random()));
     }
 }
 ```
 
-`Object` 是类继承体系的根，`Objects` 是 `java.util` 中的工具类。`Objects.equals(a, b)` 会处理空值，再委托给对象自己的 `equals`，不会自动推断哪些业务字段应该参与比较。课件中的 `Objects.isNull(obj)` 也可以直接写为 `obj == null`。
+### Objects 常见方法
+
+![Objects 常见方法与 equals 源码分析](/img/java-objects-common-methods.png)
+
+stu1.equals(stu2) 对比 Objects.equals(stu1, stu2)
+
+| 写法                         | 空指针风险             | 底层逻辑                                      | 适用场景                                        |
+| ---------------------------- | ---------------------- | --------------------------------------------- | ----------------------------------------------- |
+| `stu1.equals(stu2)`          | `stu1` 为 `null` → NPE | 直接调用 `stu1` 的 `equals`                   | 你确定 `stu1` 一定不为空的时候                  |
+| `Objects.equals(stu1, stu2)` | 不会空指针             | 先判断 `a == b`，`a` 非空才调用 `a.equals(b)` | 业务里不确定对象是否为 `null`，绝大多数业务首选 |
+
+```java
+public class ObjectsDemo {
+    /*
+        public static boolean isNull(Object obj) : 判断变量是否为 null
+        public static boolean equals(Object a, Object b): 比较两个对象是否相同
+                        - 底层依赖于我们自己重写的equals方法.
+                        - 会帮我们进行非空判断.
+
+        a 记录的是 s1对象
+        b 记录的是 s2对象
+
+        a 为 null        --> a != null --> false
+                                            && 的特点, 左边为false, 右边不执行了.
+                                            a 就不会调用equals方法了, 就避免了空指针异常.
+        a 不为 null      --> a != null --> true
+                                            && 的特点, 左边为true, 右边继续执行.
+                                            a 就会调用equals方法, 和b进行比较了
+
+        public static boolean equals(Object a, Object b) {
+            return (a == b) || (a != null && a.equals(b));
+        }
+
+        public static boolean equals(Object a, Object b) {
+            if(a == b){
+                return true;
+            }
+
+            if(a != null){
+                return a.equals(b);
+            }else{
+                return false;
+            }
+        }
+     */
+    public static void main(String[] args) {
+        Student s1 = null;
+        Student s2 = new Student("张三", 23);
+
+        System.out.println(Objects.equals(s1, s2));
+    }
+}
+
+```
 
 ## 代码块与初始化顺序
 
@@ -1454,6 +1496,8 @@ final class UserId {
 | 同步代码块                 | `synchronized (锁对象) { ... }` | 执行时获取相应对象的锁，用于协调线程访问       |
 
 局部代码块结束表示块内变量不再可见，不保证对象立即释放，也不应把它当成手动管理内存的方式。同步代码块涉及线程和锁，这里先识别语法。
+
+![Java 局部代码块、构造代码块与静态代码块](/img/java-code-blocks-summary.png)
 
 ### 示例：先初始化类，再初始化对象
 
@@ -1518,6 +1562,8 @@ class ChildInit extends ParentInit {
 构造方法通过 `this(...)` 调用本类其他构造方法时，实例字段初始化和实例块不会因此重复执行。复杂业务初始化通常更适合放进有名称的方法或构造方法，便于读出意图。
 
 ## 包与导入
+
+![Java 包与导入](/img/java-package-import-summary.png)
 
 包用于组织类型并参与访问控制，包名通常全部小写。源码目录一般按包名分层，例如 `com.example.model` 对应 `com/example/model`。
 
@@ -1593,53 +1639,158 @@ class Outer {
 
 ## 匿名内部类与 Lambda
 
+![Lambda 表达式与函数式接口](/img/java-lambda-functional-interface.png)
+
 匿名内部类在表达式中同时完成类型定义和实例创建，适合只使用一次的实现：
 
+1. Lambda 可以理解为匿名内部类的简化语法；
+2. 但是编译底层不一样：
+3. 匿名内部类编译后会生成独立的 `.class` 字节码文件；
+   Lambda 表达式编译后**不会生成单独的 class 文件**，底层依靠 `invokedynamic` 指令实现
+
+### 传统写法
+
 ```java
-Runnable task = new Runnable() {
-    @Override
-    public void run() {
-        System.out.println("处理任务");
+public class InnerDemo4 {
+    /*
+        问题: 调用方法时, 方法的形参是接口, 我们该传入的是什么?
+        回答: 需要传入接口的实现类对象.
+
+        复盘: 调用这个方法
+                1. 编写实现类, 实现接口
+                2. 重写方法
+                3. 创建实现类对象, 将对象作为参数传入.
+     */
+    public static void main(String[] args) {
+        useInter(new InterImpl());
     }
-};
-task.run(); // 这里只是普通方法调用，不会启动新线程。
+
+    public static void useInter(Inter i) {      // Inter i = new InterImpl();
+        i.show();
+
+    }
+}
+
+interface Inter {
+    void show();
+}
+
+class InterImpl implements Inter {
+
+    @Override
+    public void show() {
+        System.out.println("实现类重写后的show方法...");
+    }
+}
+```
+
+### 匿名内部类写法
+
+```java
+public class AnonymityDemo {
+    /*
+        匿名内部类: 本质上来说是一种特殊的局部内部类.
+
+        使用前提: 需要存在一个类, 或者是接口
+
+                new 类名(){}  -->  继承这个类
+                new 接口(){}  -->  实现这个接口
+
+        匿名内部类的使用场景: 常用于方法的参数传递.
+     */
+    public static void main(String[] args) {
+        // 匿名内部类对象
+        new Fu(){
+            @Override
+            public void method() {
+                System.out.println("匿名内部类, 重写后的method方法.");
+            }
+        }.method();
+
+        // 1. 实现接口  2. 重写方法  3. 创建实现类对象
+        new Inter(){
+            @Override
+            public void show() {
+                System.out.println("匿名内部类, 重写后的show方法.");
+            }
+        }.show();
+
+        useInter(new Inter() {
+            @Override
+            public void show() {
+                System.out.println("show...");
+            }
+        });
+    }
+
+    /*
+        Inter i = new Inter() {
+            @Override
+            public void show() {
+                System.out.println("show....");
+            }
+        };
+
+        Inter i = Inter接口的实现类对象.
+     */
+    public static void useInter(Inter i){
+        i.show();
+    }
+}
+
+class Fu {
+    public void method() {
+        System.out.println("Fu...method...");
+    }
+}
+
+interface Inter {
+    void show();
+}
+
 ```
 
 `new 接口名() { ... }` 创建的是实现接口的匿名类对象，接口本身仍不能直接实例化。匿名内部类也可以继承普通类或抽象类；没有类名，不能声明普通的具名构造方法。
 
-### 函数式接口
+### Lambda表达式
 
 Java 8 引入 Lambda，用于给函数式接口提供实现。函数式接口只有一个抽象方法的功能约定，可以同时有默认方法、静态方法等。与 `Object` 公共实例方法对应的声明不计入这个抽象方法数量。
 
 `@FunctionalInterface` 不是使用 Lambda 的必要条件，但可以让编译器检查接口是否符合要求。
 
 ```java
-// 文件：LambdaDemo.java
-public class LambdaDemo {
+public class LambdaTest {
     public static void main(String[] args) {
-        // 完整写法：参数列表、箭头、方法体；结果类型由接口约束。
-        Calculator full = (int left, int right) -> {
-            return left + right;
+        useStringHandler(new StringHandler() {
+            @Override
+            public void printMessage(String msg) {
+                System.out.println("匿名内部类打印的:" + msg);
+            }
+        });
+
+        useStringHandler(msg ->
+            System.out.println("Lambda表达式打印的:" + msg)
+        );
+    }
+
+    /*
+        StringHandler stringHandler = new StringHandler() {
+            @Override
+            public void printMessage(String msg) {
+                System.out.println("匿名内部类打印的:" + msg);
+            }
         };
 
-        // 单个表达式可直接作为返回结果，省略类型、大括号和 return。
-        Calculator simple = (left, right) -> left + right;
-        System.out.println(full.calculate(2, 3));   // 5
-        System.out.println(simple.calculate(4, 6)); // 10
-
-        // 没有参数保留 ()；Runnable.run 没有返回值。
-        Runnable task = () -> System.out.println("处理任务");
-        task.run(); // 处理任务
-
-        // 只有一个参数，省略参数类型时也可省略括号。
-        java.util.function.Consumer<String> printer = name -> System.out.println(name);
-        printer.accept("小林"); // 小林
+        stringHandler.printMessage("itheima");
+     */
+    public static void useStringHandler(StringHandler stringHandler) {
+        stringHandler.printMessage("itheima");
     }
 }
 
 @FunctionalInterface
-interface Calculator {
-    int calculate(int left, int right);
+interface StringHandler {
+    void printMessage(String msg);
 }
 ```
 
