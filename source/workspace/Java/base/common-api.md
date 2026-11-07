@@ -1,328 +1,467 @@
 ---
-date: 2026-11-06T14:04:02.000Z
+date: 2026-11-07T13:39:41.000Z
 title: Java 常用API
 categories:
   - Java
 tags:
   - java
-lastUpdated: "2026-11-06T08:00:08.702Z"
+lastUpdated: "2026-11-07T14:09:27.219Z"
 ---
 
-# Java String方法
+# Java 常用API
 
-## String 类的特点
+## StringBuilder、StringBuffer、StringJoiner
 
-1. Java 程序中所有双引号字符串，都是 String 类的对象
-2. 字符串在创建之后，其内容不可更改
-3. 字符串虽然不可改变，但是可以被共享
+这三个类都可以帮助我们拼接字符串：
+
+- `StringBuilder`：适合多次追加、修改字符串。
+- `StringBuffer`：用法与 `StringBuilder` 类似，单个方法有同步保护。
+- `StringJoiner`：适合用分隔符连接多个字符串，例如 `张三, 李四, 王五`。
+
+### StringBuilder
+
+`String` 的内容不可变；`StringBuilder` 的内容可以修改。循环中需要多次拼接时，可以先使用 `StringBuilder`，完成后再调用 `toString()` 得到字符串。
+
+![StringBuilder 常用方法](/img/java-stringbuilder-methods.png)
 
 ```java
-
-public class StringDemo1 {
+public class StringBuilderDemo1 {
     /*
-        String类的特点:
-            1. Java程序中的所有字符串文字（例如"abc" ）都是String类的对象
-            2. String是不可改变的, 它们的值在创建后无法更改
-                    - 想要更改, 需要使用新的对象进行替换.
-            3. String虽然不可改变, 但是可以被共享操作.
-
-                    字符串常量池(StringTable): 当我们使用双引号创建字符串对象的时候.
-                                                会检查该数据在常量池中是否存在
-                                                不存在: 创建新的
-                                                存在: 不会创建新的对象, 复用已有的.
-     */
+        StringBuilder 知识点：
+        1. new StringBuilder()：创建空容器。
+        2. append(内容)：在末尾追加内容，返回当前对象，可以连续调用。
+        3. length()：获取当前内容长度。
+        4. reverse()：反转当前内容。
+        5. toString()：转换为 String。
+    */
     public static void main(String[] args) {
-        String s1 = "abc";
-        String s2 = "abc";
+        StringBuilder sb = new StringBuilder();
 
-        System.out.println(s1 == s2);
+        // 连续追加内容，append 返回的仍然是 sb。
+        sb.append("Java").append(" API");
+        System.out.println(sb);          // Java API
+        System.out.println(sb.length()); // 8
+
+        sb.reverse();
+        System.out.println(sb);          // IPA avaJ
+
+        String result = sb.toString();
+        System.out.println(result);      // IPA avaJ
     }
 }
 ```
 
-### 常见类构造方法
+也可以使用 `new StringBuilder("Java")` 创建带初始内容的容器。`insert(位置, 内容)` 可以插入内容，`delete(开始, 结束)` 可以删除内容；删除范围包含开始位置，不包含结束位置。
 
-| 构造方法                         | 说明                             |
-| -------------------------------- | -------------------------------- |
-| `public String()`                | 创建空白字符串，不含任何内容     |
-| `public String(String original)` | 根据传入的字符串，创建字符串对象 |
-| `public String(char[] chs)`      | 根据字符数组，创建字符串对象     |
+#### 小案例：循环拼接数字
+
+下面分别用 `String` 和 `StringBuilder` 拼接数字。程序只输出结果长度和耗时，避免打印大量内容影响计时。
 
 ```java
-
-public class StringDemo2 {
+public class StringBuilderDemo2 {
     /*
-        String类的构造方法:
-            public String() : 创建空白字符串，不含任何内容
-            public String(char[] chs) : 根据字符数组，创建字符串对象
-            public String(String original) : 根据传入的字符串，创建字符串对象
-
-            问题: 两种创建字符串对象的方式, 有什么区别?
-            回答:
-                    1. 双引号直接创建: 数据在常量池中存储
-                    2. 构造方法创建: 会在堆内存开辟独立的内存空间.
-     */
+        多次拼接时：
+        1. String 内容不可变，循环中的 += 会不断产生新的字符串。
+        2. StringBuilder 可以反复向同一个容器追加内容。
+        3. 耗时受设备、JVM 和运行环境影响，每次结果都可能不同。
+    */
     public static void main(String[] args) {
-        // 创建空白字符串，不含任何内容
-        String s1 = new String();
-        System.out.println(s1);
+        long start = System.currentTimeMillis();
+        String text = "";
+        for (int i = 1; i <= 10000; i++) {
+            text += i;
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("String 长度：" + text.length());
+        System.out.println("String 耗时：" + (end - start) + " 毫秒");
 
-        // 根据字符数组，创建字符串对象
-        char[] chs = {'a', 'b', 'c'};
-        String s2 = new String(chs);
-        System.out.println(s2);
-
-        // 根据传入的字符串，创建字符串对象
-        String s3 = new String("abc");
-        System.out.println(s3);
-
-        String s4 = "abc";
+        start = System.currentTimeMillis();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= 10000; i++) {
+            sb.append(i);
+        }
+        String result = sb.toString();
+        end = System.currentTimeMillis();
+        System.out.println("StringBuilder 长度：" + result.length());
+        System.out.println("StringBuilder 耗时：" + (end - start) + " 毫秒");
     }
 }
 ```
 
-## String 方法
+这个例子用于观察循环拼接的写法，计时结果只能作粗略参考。普通的少量拼接直接使用 `+` 即可。
 
-以下实例方法通过 `null` 引用调用时会抛出 `NullPointerException`；需要时先判断引用是否为 `null`。
+### StringBuffer
 
-### equals
-
-`boolean equals(Object anObject)` 比较字符串内容，完全相同返回 `true`，否则返回 `false`。
+`StringBuffer` 也是可修改的字符串容器，用法与 `StringBuilder` 类似。它的单个方法有同步保护；普通的单线程拼接通常使用 `StringBuilder`。
 
 ```java
-String s1 = "abc";
-String s2 = new String("abc");
-System.out.println(s1 == s2);      // false：比较引用
-System.out.println(s1.equals(s2)); // true：比较内容
-```
-
-### equalsIgnoreCase
-
-`boolean equalsIgnoreCase(String anotherString)` 忽略大小写比较字符串内容。
-
-```java
-System.out.println("abc".equalsIgnoreCase("ABC")); // true
-```
-
-### charAt
-
-`char charAt(int index)` 根据索引获取字符，索引从 `0` 开始。
-
-```java
-System.out.println("Java".charAt(1)); // a
-```
-
-### toCharArray
-
-`char[] toCharArray()` 将字符串转换为字符数组。
-
-```java
-char[] chars = "Java".toCharArray(); // ['J', 'a', 'v', 'a']
-```
-
-### length
-
-`int length()` 返回字符串长度，常用于控制遍历次数。
-
-```java
-System.out.println("Java".length()); // 4
-```
-
-结合 `toCharArray()`、`charAt()` 和 `length()` 遍历字符串：
-
-```java
-public static void main(String[] args) {
-
-        String s = "itheima";
-
-        // 将字符串转换为字符数组
-        char[] charArray = s.toCharArray();
-
-        for (int i = 0; i < charArray.length; i++) {
-            System.out.println(charArray[i]);
-        }
-
-        System.out.println("---------------------------------");
-
-        // 根据索引找字符
-        for (int i = 0; i < s.length(); i++) {
-            // i = 0 1 2 3 4 5 6
-            char c = s.charAt(i);
-            System.out.println(c);
-        }
-    }
-```
-
-### substring
-
-| 方法                                             | 说明                       |
-| ------------------------------------------------ | -------------------------- |
-| `String substring(int beginIndex)`               | 从指定索引截取到字符串末尾 |
-| `String substring(int beginIndex, int endIndex)` | 截取指定索引范围内的内容   |
-
-截取范围是**包头不包尾**：包含 `beginIndex`，不包含 `endIndex`。
-
-```java
-String text = "Java";
-System.out.println(text.substring(2));    // va
-System.out.println(text.substring(0, 2)); // Ja
-```
-
-### replace
-
-`String replace(CharSequence target, CharSequence replacement)` 按字面内容替换，并返回替换后的字符串。原字符串不会改变，需要使用返回值。
-
-```java
-String text = "TMD";
-String result = text.replace("TMD", "***");
-System.out.println(result); // ***
-System.out.println(text);   // TMD
-```
-
-### split
-
-`String[] split(String regex)` 按传入的正则表达式切割字符串，并返回字符串数组。
-
-```java
-String text = "Java,Python,Go";
-String[] languages = text.split(","); // ["Java", "Python", "Go"]
-```
-
-按加号切割并遍历结果：
-
-```java
+public class StringBufferDemo1 {
+    /*
+        StringBuffer 知识点：
+        1. append() 追加内容，reverse() 反转内容。
+        2. toString() 将结果转换为 String。
+        3. 单个方法有同步保护；多个步骤组合时仍可能需要额外同步。
+    */
     public static void main(String[] args) {
-        String s = "192+168+10+20";
+        StringBuffer buffer = new StringBuffer("Java");
+        buffer.append(" API");
 
-        String[] arr = s.split("\\+");
-
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
-        }
-
+        System.out.println(buffer);            // Java API
+        System.out.println(buffer.toString()); // Java API
     }
+}
 ```
 
-切割规则是正则表达式。遇到 `.`、`|` 等有特殊含义的字符，需要转义；例如按点切割可写成 `text.split("\\.")`。默认情况下，结果末尾的空字符串会被丢弃。
+### StringJoiner
 
-### isEmpty
-
-`boolean isEmpty()` 在字符串长度为 `0` 时返回 `true`。
+`StringJoiner` 适合把多个字符串按指定符号连接起来。它位于 `java.util` 包，Java 8 起可以使用。
 
 ```java
-System.out.println("".isEmpty());   // true
-System.out.println("  ".isEmpty()); // false
+import java.util.StringJoiner;
+
+public class StringJoinerDemo1 {
+    /*
+        StringJoiner 知识点：
+        1. 第一个参数是分隔符，第二个和第三个参数是前缀、后缀。
+        2. add() 添加内容，toString() 得到拼接后的字符串。
+        3. 只需要分隔符时，可以写 new StringJoiner(", ")。
+    */
+    public static void main(String[] args) {
+        StringJoiner names = new StringJoiner(", ", "[", "]");
+        names.add("张三");
+        names.add("李四");
+        names.add("王五");
+
+        String result = names.toString();
+        System.out.println(result); // [张三, 李四, 王五]
+    }
+}
 ```
 
-### isBlank
+如果已经有一组字符串，只需要用分隔符连接，也可以直接使用 `String.join(", ", "张三", "李四")`。
 
-`boolean isBlank()` 在字符串为空或只包含空白字符时返回 `true`，Java 11 起可用。
+## Math 常用方法
+
+`Math` 位于 `java.lang` 包，无须导包。它提供的常用方法都是静态方法，可以直接通过 `Math.方法名()` 调用。
 
 ```java
-System.out.println("  ".isBlank()); // true（Java 11+）
+public class MathDemo {
+    public static void main(String[] args) {
+        // abs：绝对值。
+        System.out.println(Math.abs(-10)); // 10
+
+        // max、min：取两个数中的较大值、较小值。
+        System.out.println(Math.max(10, 20)); // 20
+        System.out.println(Math.min(10, 20)); // 10
+
+        // ceil：向上取整；floor：向下取整，返回值都是 double。
+        System.out.println(Math.ceil(3.2));   // 4.0
+        System.out.println(Math.floor(3.8));  // 3.0
+        System.out.println(Math.floor(-3.2)); // -4.0，向更小的整数取整
+
+        // round：四舍五入；double 参数返回 long，float 参数返回 int。
+        System.out.println(Math.round(3.5));   // 4
+        System.out.println(Math.round(-3.5));  // -3
+
+        // pow：计算次方；sqrt：计算平方根，返回值都是 double。
+        System.out.println(Math.pow(2, 3)); // 8.0，即 2 的 3 次方
+        System.out.println(Math.sqrt(25));  // 5.0
+
+        // random：返回大于等于 0.0、小于 1.0 的随机小数。
+        double value = Math.random();
+        System.out.println(value);
+
+        // 生成 1 到 10 的随机整数，包含 1 和 10。
+        int number = (int) (Math.random() * 10) + 1;
+        System.out.println(number);
+    }
+}
 ```
 
-### contains
+`Math.round` 在恰好位于两个整数中间时取较大的整数，所以 `-3.5` 的结果是 `-3`。`Math.abs(Integer.MIN_VALUE)` 的结果仍为负数，因为对应的正数超出了 `int` 范围；处理可能溢出的数值时要注意类型范围。
 
-`boolean contains(CharSequence s)` 判断是否包含指定内容。
+## Runtime
+
+- Runtime 代表电脑中运行的环境
+
+- Runtime 是一个单例类
+
+| 方法名                                | 说明                                       |
+| ------------------------------------- | ------------------------------------------ |
+| `public static Runtime getRuntime()`  | 返回与当前 Java 应用程序关联的运行时对象   |
+| `public void exit(int status)`        | 终止当前运行的 Java 虚拟机                 |
+| `public int availableProcessors()`    | 返回 Java 虚拟机可用的处理器数量           |
+| `public long totalMemory()`           | 返回 Java 虚拟机中的内存总量，单位为字节   |
+| `public long freeMemory()`            | 返回 Java 虚拟机中的可用内存量，单位为字节 |
+| `public Process exec(String command)` | 执行命令启动程序，并返回代表该进程的对象   |
 
 ```java
-System.out.println("hello".contains("ell")); // true
+public class RuntimeTest {
+    public static void main(String[] args) throws Exception {
+        // 1、public static Runtime getRuntime() 返回与当前Java应用程序关联的运行时对象。
+        Runtime jre = Runtime.getRuntime();
+
+        // 2、public void exit(int status) 终止当前运行的虚拟机,该参数用作状态代码；按照惯例，非零状态代码表示异常终止。
+        // jre.exit(0);
+
+        // 3、public int availableProcessors(): 获取虚拟机能够使用的处理器数。
+        System.out.println("处理器数量: " + jre.availableProcessors());
+
+        // 4、public long totalMemory() 返回Java虚拟机中的内存总量。 字节数
+        System.out.println("Java虚拟机中的内存总量: " + jre.totalMemory() / 1024.0 / 1024.0 + "MB");
+
+        // 5、public long freeMemory() 返回Java虚拟机中的可用内存量
+        System.out.println("Java虚拟机中的可用内存量: " + jre.freeMemory() / 1024.0 / 1024.0 + "MB");
+
+        // 6、public Process exec(String command): 执行命令,启动程序
+        // jre.exec("notepad.exe"); // 打开记事本示例，windows
+    }
+}
 ```
 
-### startsWith
+## System
 
-`boolean startsWith(String prefix)` 判断是否以指定内容开头。
+System 代表程序所在的系统，也是一个工具类。
+
+1. `public static void exit(int status)`：终止当前运行的 Java 虚拟机。
+   - status = 0：正常退出
+   - status ≠ 0：异常退出
+2. `public static long currentTimeMillis()`：返回当前系统的时间毫秒值形式（从 1970-01-01 00:00:00 UTC 到现在的毫秒数）
+
+3. `public static void arraycopy(源数组,源起始索引,目标数组,目标起始索引,拷贝长度)`：数组拷贝，底层 native，速度很快
+
+4. `public static void gc()`：建议 JVM 执行垃圾回收（只是建议，不保证立刻回收）
 
 ```java
-System.out.println("banana".startsWith("ba")); // true
+public class SystemTest {
+    public static void main(String[] args) {
+        // 1. currentTimeMillis() 获取时间毫秒值
+        long millis = System.currentTimeMillis();
+        System.out.println("时间毫秒戳：" + millis);
+
+        // 2. arraycopy() 数组拷贝
+        int[] src = {10,20,30,40,50};
+        int[] dest = new int[5];
+        System.arraycopy(src, 0, dest, 0, 3);
+        System.out.println("拷贝后的数组：");
+        for (int num : dest) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        // 3. gc() 提醒垃圾回收
+        System.gc();
+
+        // 4. exit() 退出虚拟机，打开后后面代码不会执行
+        // System.exit(0);
+        System.out.println("程序正常执行结束");
+    }
+}
+
 ```
 
-### endsWith
+## BigDecimal
 
-`boolean endsWith(String suffix)` 判断是否以指定内容结尾。
+1. double、float 存在浮点精度丢失问题，金融计算必须用`BigDecimal`
+
+2. 推荐创建方式：`BigDecimal.valueOf(double值)`，不推荐直接 new BigDecimal (double)
+
+3. 常用运算：`add()`加法、`subtract()`减法、`multiply()`乘法、`divide()`除法
+
+4. 除法一定要指定保留位数 + 舍入模式，否则除不尽会直接报错
+
+5. `RoundingMode.HALF_UP`：四舍五入
 
 ```java
-System.out.println("a.txt".endsWith(".txt")); // true
+public class BigDecimalDemo {
+    public static void main(String[] args) {
+        // 目标：学会处理浮点型运算失真的问题
+        double a = 0.1;
+        double b = 0.2;
+        double c = a + b;
+        System.out.println(c); // 0.30000000000000004
+
+        // 1、把两个数据包装成BigDecimal对象
+        // a、public BigDecimal(String val)：这个接收字符串的构造器才可以处理失真问题
+        BigDecimal a1 = new BigDecimal(Double.toString(a));
+        BigDecimal b1 = new BigDecimal(Double.toString(b));
+
+        // b、阿里巴巴公司更推荐我们用valueOf方法包装浮点型数据成为BigDecimal对象
+        // 跟上面的做法本质是一样的
+        BigDecimal a11 = BigDecimal.valueOf(a);
+        BigDecimal b11 = BigDecimal.valueOf(b);
+
+        // 2、调用方法进行精度运算。
+        BigDecimal c11 = a11.add(b11);
+
+        // 3、BigDecimal是处理精度问题的手段，结果必须还是基本类型的。
+        double result = c11.doubleValue();
+        System.out.println(result);
+
+        System.out.println("----------------------------------------");
+
+        BigDecimal i = BigDecimal.valueOf(0.1);
+        BigDecimal j = BigDecimal.valueOf(0.3);
+        /**
+         * 参数一： 除数
+         * 参数二： 保留位数
+         * 参数三： 舍入模式
+         */
+        // public BigDecimal divide(BigDecimal divisor, int scale, RoundingMode roundingMode)
+        BigDecimal k = i.divide(j, 2, RoundingMode.HALF_UP);
+        System.out.println(k);
+    }
+}
 ```
 
-### indexOf
+## 日期、时间与时区
 
-`int indexOf(String str)` 返回指定内容第一次出现的索引，找不到返回 `-1`。
+Java 8 起，常用日期时间类型放在 `java.time` 包中。它们的对象不可变：调用 `plusDays()`、`minusHours()` 等方法会返回新对象，不会修改原值。
+
+业务中先区分日期、当地时间和具体时刻：
+
+- `LocalDate`：日期，例如生日、账单日期。
+- `LocalTime`：时间，例如每天的营业时间。
+- `LocalDateTime`：日期加时间，不包含时区，不能单独确定全球唯一时刻。
+- `Instant`：时间线上的具体时刻，适合记录事件发生时间。
+- `ZoneId`、`ZonedDateTime`：时区，以及带时区的日期时间。
+
+### 获取和创建日期时间
 
 ```java
-System.out.println("banana".indexOf("an")); // 1
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+
+public class DateTimeDemo1 {
+    public static void main(String[] args) {
+        // 按指定时区获取当前日期和时间，避免依赖服务器默认时区。
+        ZoneId zone = ZoneId.of("Asia/Shanghai");
+        LocalDate today = LocalDate.now(zone);
+        LocalTime now = LocalTime.now(zone);
+        LocalDateTime current = LocalDateTime.now(zone);
+        System.out.println(today);
+        System.out.println(now);
+        System.out.println(current);
+
+        // 创建指定日期和时间，月份从 1 开始。
+        LocalDate date = LocalDate.of(2026, 11, 7);
+        LocalTime time = LocalTime.of(9, 30);
+        LocalDateTime meeting = LocalDateTime.of(date, time);
+        System.out.println(meeting); // 2026-11-07T09:30
+
+        System.out.println(date.getYear());       // 2026
+        System.out.println(date.getMonthValue()); // 11
+        System.out.println(date.getDayOfMonth()); // 7
+    }
+}
 ```
 
-### lastIndexOf
+如果使用不带时区参数的 `now()`，获取结果会依赖运行环境的默认时区。同一项业务需要固定使用某个时区时，应明确传入对应的 `ZoneId`。
 
-`int lastIndexOf(String str)` 返回指定内容最后一次出现的索引，找不到返回 `-1`。
+### 日期与时间计算
 
 ```java
-System.out.println("banana".lastIndexOf("an")); // 3
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+public class DateTimeDemo2 {
+    public static void main(String[] args) {
+        LocalDate date = LocalDate.of(2026, 11, 7);
+        LocalDate nextWeek = date.plusDays(7);
+        LocalDate lastMonth = date.minusMonths(1);
+        System.out.println(date);      // 2026-11-07，原对象没有改变
+        System.out.println(nextWeek);  // 2026-11-14
+        System.out.println(lastMonth); // 2026-10-07
+
+        // 判断日期先后。
+        System.out.println(date.isBefore(nextWeek)); // true
+        System.out.println(date.isAfter(nextWeek));  // false
+        System.out.println(date.isEqual(nextWeek));  // false
+
+        // 计算两个日期之间相隔多少天。
+        System.out.println(ChronoUnit.DAYS.between(date, nextWeek)); // 7
+
+        // 计算两个日期时间之间经过的分钟数。
+        LocalDateTime start = LocalDateTime.of(2026, 11, 7, 9, 0);
+        LocalDateTime end = start.plusHours(2).plusMinutes(30);
+        System.out.println(Duration.between(start, end).toMinutes()); // 150
+    }
+}
 ```
 
-### trim
+`LocalDateTime` 没有时区，上面的 `Duration` 按这两个本地日期时间的差值计算。要计算跨时区或夏令时变化时实际经过的时间，应先确定时区，再基于 `Instant` 或带时区的时间计算。
 
-`String trim()` 去除首尾字符值不大于 `U+0020` 的字符，不改变原字符串。
+### 格式化与解析
 
 ```java
-System.out.println("  Java  ".trim()); // Java
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class DateTimeDemo3 {
+    public static void main(String[] args) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime time = LocalDateTime.of(2026, 11, 7, 9, 30, 5);
+
+        // 日期时间转字符串。
+        String text = time.format(formatter);
+        System.out.println(text); // 2026-11-07 09:30:05
+
+        // 字符串按同样的格式解析为日期时间。
+        LocalDateTime parsed = LocalDateTime.parse(text, formatter);
+        System.out.println(parsed); // 2026-11-07T09:30:05
+    }
+}
 ```
 
-### strip
+格式中的 `MM` 表示月份，`mm` 表示分钟，`HH` 表示 24 小时制。输入内容不符合格式时，解析会抛出 `DateTimeParseException`，业务中需要处理无效输入。`DateTimeFormatter` 是线程安全的，可以复用。
 
-`String strip()` 按 Unicode 空白字符规则去除首尾空白，Java 11 起可用。它能识别更多 Unicode 空白字符，但不包括所有看起来像空格的字符；字符串中间的空格不会被去除。
+### 时区与时刻转换
+
+同一个时刻在不同时区显示的本地时间可能不同。转换时先明确原始时间所在时区，再转换到目标时区。
 
 ```java
-System.out.println("  Java  ".strip()); // Java（Java 11+）
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+public class DateTimeDemo4 {
+    public static void main(String[] args) {
+        ZoneId shanghai = ZoneId.of("Asia/Shanghai");
+        ZoneId utc = ZoneId.of("UTC");
+
+        // 这段本地时间原本没有时区，先按上海时间解释。
+        LocalDateTime local = LocalDateTime.of(2026, 11, 7, 9, 30);
+        ZonedDateTime shanghaiTime = local.atZone(shanghai);
+
+        // 转为 UTC，时刻相同，显示的本地时间不同。
+        ZonedDateTime utcTime = shanghaiTime.withZoneSameInstant(utc);
+        System.out.println(shanghaiTime); // 2026-11-07T09:30+08:00[Asia/Shanghai]
+        System.out.println(utcTime);      // 2026-11-07T01:30Z[UTC]
+
+        // Instant 表示同一个具体时刻，可以转换成 Unix 毫秒时间戳。
+        Instant instant = shanghaiTime.toInstant();
+        long timestamp = instant.toEpochMilli();
+        System.out.println(timestamp); // 1794015000000
+
+        // 从毫秒时间戳还原，再按上海时区显示。
+        ZonedDateTime restored = Instant.ofEpochMilli(timestamp).atZone(shanghai);
+        System.out.println(restored); // 2026-11-07T09:30+08:00[Asia/Shanghai]
+    }
+}
 ```
 
-### toLowerCase
+`withZoneSameInstant()` 保持时刻不变。`atZone()` 则是把没有时区的本地时间按指定时区解释，不能把它当作时区转换。遇到夏令时切换时，某些本地时间可能不存在或出现两次；Java 会按时区规则调整或选择偏移，预约、结算等业务应按实际规则处理。
 
-`String toLowerCase()` 转换为小写，返回新字符串。
+### 业务中如何选择
 
-```java
-System.out.println("Java".toLowerCase()); // java
-```
+- **生日、节假日、账单日期**：只关心日期，用 `LocalDate`。
+- **每天固定的营业时间**：只关心当地时分秒，用 `LocalTime`；实际执行时还需要日期和业务时区。
+- **订单创建时间、支付完成时间**：需要记录确定的时刻，可用 `Instant` 或保存 UTC 时间；展示时转换到用户或业务时区。
+- **预约时间**：明确当地日期、时间和时区，例如使用 `ZonedDateTime`；跨时区展示时保持同一个时刻。
 
-无参数版本使用当前默认语言环境。处理协议标识等与自然语言无关的内容时，可使用 `text.toLowerCase(Locale.ROOT)`，需要导入 `java.util.Locale`。
-
-### toUpperCase
-
-`String toUpperCase()` 转换为大写，返回新字符串。
-
-```java
-System.out.println("Java".toUpperCase()); // JAVA
-```
-
-无参数版本使用当前默认语言环境；处理与自然语言无关的内容时，可传入 `Locale.ROOT`。
-
-### join
-
-`static String join(CharSequence delimiter, CharSequence... elements)` 使用指定分隔符拼接多个字符串。
-
-```java
-System.out.println(String.join("-", "a", "b")); // a-b
-```
-
-### valueOf
-
-`static String valueOf(...)` 将基本类型或对象转换为字符串。
-
-```java
-System.out.println(String.valueOf(123)); // 123
-```
-
-`String.valueOf(Object)` 接收的对象为 `null` 时返回字符串 `"null"`。直接传入未指定类型的 `null` 会受重载解析影响，不能把 `String.valueOf(null)` 当作该用法。
-
-### replaceAll
-
-`String replaceAll(String regex, String replacement)` 按正则表达式匹配内容并返回替换结果。
-
-```java
-String text = "a1b2";
-System.out.println(text.replaceAll("\\d", "")); // ab
-```
-
-`replace()` 按字面内容替换，`replaceAll()` 的第一个参数是正则表达式；替换文本中的 `$` 和 `\` 也有特殊含义。
+数据库字段和序列化格式是否保留时区，取决于数据库类型、驱动和接口约定；存取时需要与系统的时区规则保持一致。
